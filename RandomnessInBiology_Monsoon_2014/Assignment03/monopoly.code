@@ -1,0 +1,115 @@
+import sys
+import os
+import numpy
+import random
+
+class Board():
+    """This class simulates the given Monopoly"""
+    def __init__(self):
+        self.tokenPos = 0
+        self.totalMoves = 0
+        self.history = []
+
+    def moveNext(self, m):
+        newPos = ( self.tokenPos + m ) % 40
+        #print("+ Moving to {}".format(newPos))
+        if newPos == 29:
+            #print("||| Jailed")
+            self.tokenPos = 9
+        else:
+            self.tokenPos = newPos 
+        self.history.append(self.tokenPos)
+
+    def rollDiceAndMove(self):
+        step = random.randint(2, 12)
+        #print("| Rolling dice: {}".format(step))
+        self.moveNext(step)
+
+class Markov():
+    """This class uses Markov matrix to answer the questions """
+    def __init__(self):
+        self.matrix = numpy.zeros(shape=(40,40))
+        self.markov = numpy.zeros(shape=(39,39))
+
+    def prob(self, roll):
+        """Probability of getting index when two dice are thrown."""
+        if roll == 0:
+            return 0.0
+        elif roll <= 7:
+            return (roll - 1) / 36.0
+        else:
+            return self.prob(14-roll)
+        
+    def getRow(self, index):
+        row = numpy.zeros(shape=40)
+        start = index
+        stop = index + 12
+        for i in range(stop - start + 1):
+            row[(start+i)%40] = self.prob(i)
+            # What if we land is jail from the start position.
+            if start + i == 29:
+                print("++ I can go to jail from here")
+                row[10] = row[29]
+                row[29] = 0.0
+        assert abs(sum(row) - 1.0) < 1e-10, "Prob sum is not 1.0, %s" % sum(row)
+        return row
+
+    def getEigens(self, matrix):
+        e, v = numpy.linalg.eig(matrix)
+        maxe = 0
+        index = 0
+        for i, a in enumerate(e):
+            if abs(a) > maxe:
+                maxe = a
+                index = i
+        return e[index], v[:,index]
+
+    def verify(self):
+        for row in self.markov:
+            assert abs(sum(row) - 1.0) < 1e-10, "Not a valid row."
+
+    def initMatrix(self):
+        for i in range(40):
+            self.matrix[i] = self.getRow(i)
+            if i == 29: 
+                # This is go to jail row.
+                print("++ Row 29 i.e. go to jail should not have any probs.")
+                self.matrix[i] = numpy.zeros(shape=40)
+        #self.matrix = self.matrix.transpose()
+        # Markovian matrix should not have row 29 and column 29.
+        a  = numpy.delete(self.matrix, 29, 0)
+        a = numpy.delete(a, 29, 1)
+        self.markov = a
+        self.verify()
+        numpy.savetxt('transition.out', self.matrix, delimiter=',', fmt='%1.2f')
+        numpy.savetxt('markov.out', self.markov, delimiter=',', fmt='%1.2f')
+
+    def run(self):
+        self.initMatrix()
+        e1, v1 = self.getEigens(self.markov)
+        pow = 50
+        print("Raising the power to %s" % pow)
+        b = numpy.linalg.matrix_power(self.markov, pow)
+        e2, v2 = self.getEigens(b)
+        print("Diff between max eigenvalues: {}".format(abs(e2) - abs(e1)))
+        print("Diff between eigenvectors: {}".format(e2 - e1))
+
+def play(step):
+    board = Board()
+    for s in range(1,step):
+        board.rollDiceAndMove()
+    return board.history
+
+def simulate():
+    import pylab
+    from collections import Counter
+    moves = play(50)
+    counter = Counter(moves)
+    print counter
+    pylab.bar(list(counter), counter.values())
+    pylab.show()
+    
+if __name__ == '__main__':
+    # simulate()
+    a = Markov()
+    a.run()

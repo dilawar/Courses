@@ -1,0 +1,125 @@
+\documentclass[]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+%\usepackage{circuitikz}
+\makeatletter
+\@ifpackageloaded{tex4ht}{
+    \def\pgfsysdriver{pgfsys-tex4ht.def}
+}
+\makeatother
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,backgrounds,positioning,matrix,decorations}
+
+\usepackage{siunitx}
+\usepackage{python}
+\usepackage{ifxetex,ifluatex}
+\usepackage{listings}
+\setlength{\parskip}{3mm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{definition}{Definition}
+\newtheorem{comment}{Comment}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{property}{Property}
+\newtheorem{problem}{Problem}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{script}{Script}
+
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Dilawar Singh},
+            pdftitle={Assignment 1},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\title{Assignment 1}
+\author{Dilawar Singh}
+\date{}
+
+\begin{document}
+\maketitle
+
+\newcommand{\mean}[1]{\left< #1 \right>}
+
+\section{Problem 1}\label{problem-1}
+
+The mean and variance of a random variable x are defined as
+$\mu = \mean{x}, \sigma_x^2 = \mean{x - \mean{x}} $ where the triangular
+brackets represent population averages. From these definitions, derive a
+formula for the variance purely in terms of the first two
+\textbf{moments} of the distribution:
+$\sigma_x^2 = f(\mean{x}, \mean{x^2}$.
+
+\subsection{Solution}\label{solution}
+
+\[ 
+\begin{aligned}
+\sigma_x^2 &= \mean{(x - \mean{x})^2}  \\
+    &= \mean{x^2 + \mean{x}^2 - 2 x \mean{x}}  \\
+    &= \mean{x^2} + \mean{\mean{x}^2} - \mean{2x\mean{x}} \\
+    &= \mean{x^2} + \mean{x}^2 - 2\mean{x}\mean{x} \\
+    &= \mean{x^2} + \mean{x}^2 - 2\mean{x}^2  \\
+    &= \mean{x^2} - \mean{x}^2 
+\end{aligned}
+\]
+
+\section{Problem 2}\label{problem-2}
+
+In class we discussed the 1-dimensional random walk with stepsize
+$\delta$ , timestep $\tau$, and equal probability of going left or
+right. After N steps, the chance of a net displacement $k\delta$ is
+given by the probability that the walker took k more steps to the right
+than to the left:
+
+\[N_{left}=(N-k)/2,N_{right}=(N+k)/2,N_{right}-N_{left}=k\]
+
+Using the binomial theorem, the chance of this happening is
+
+\[ p(x=k\delta)=\frac{N!}{\frac{N-k}{2}!\frac{N+k}{2}!}\frac{1}{2^N}\].
+
+By Stirling's approximation, $\ln(N!) \sim N\ln N-N$. Apply this, and
+Taylor expand upto square terms in $k/N$ (since we expect the maximum to
+be at $k = 0$, and $k/N << 1$), to derive the following approximate form
+for this distribution: \[ p(x = k \delta) \sim  e^{-\frac{k^2}{2N}} \]
+
+The normalized form of this is given in the Ramaswamy paper.
+
+\subsection{Solution}\label{solution-1}
+
+\end{document}

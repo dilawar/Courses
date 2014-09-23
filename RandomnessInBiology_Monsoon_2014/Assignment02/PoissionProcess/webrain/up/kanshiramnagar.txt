@@ -1,0 +1,29 @@
+                                                                  HYDROMET DIVISION, NEW DELHI
+                                                                INDIA METEOROLOGICAL DEPARTMENT
+                                                           DISTRICT RAINFALL (mm) FOR LAST FIVE YEARS
+
+
+District : KANSHIRAM NAGAR
+
+
+Note : (1) The District Rainfall in millimeters (R/F) shown below are the arithmatic averages of Rainfall of Stations under the District.
+       (2) % Dep. are the Departures of rainfall from the long period averages of rainfall for the District.
+       (3) Blank Spaces show non-availability of Data.
+
+===============================================================================================================================================================
+YEAR   JANUARY      FEBRUARY      MARCH        APRIL         MAY          JUNE         JULY        AUGUST     SEPTEMBER     OCTOBER      NOVEMBER     DECEMBER
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+       R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2009                                                                                                                                                      
+
+2010                             0.0  -100    0.0  -100    1.0   -92    0.0  -100  302.0    39  284.2    12  213.2    61    0.0  -100   17.1   677    4.0   -18
+
+2011   2.0   -88   17.3    82   21.5    89    1.0   -77   13.5     2  206.1   296  439.1    95  280.9     2  131.0   -13    0.0  -100    0.0  -100    0.0  -100
+
+2012  74.5   352    0.5   -95    0.0  -100    6.6    50    0.0  -100   15.0   -71  320.0    42  210.8   -23  114.0   -24    3.0   -94    0.0  -100    1.0   -82
+
+2013  35.0   112   46.0   384    0.0  -100    1.0   -77    0.0  -100  255.0   390  120.0   -47  332.0    21   41.5   -72   84.0    57    0.0  -100   13.0   132
+
+===============================================================================================================================================================

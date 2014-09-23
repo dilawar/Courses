@@ -1,0 +1,29 @@
+                                                                  HYDROMET DIVISION, NEW DELHI
+                                                                INDIA METEOROLOGICAL DEPARTMENT
+                                                           DISTRICT RAINFALL (mm) FOR LAST FIVE YEARS
+
+
+District : SANT KABIR NAGAR
+
+
+Note : (1) The District Rainfall in millimeters (R/F) shown below are the arithmatic averages of Rainfall of Stations under the District.
+       (2) % Dep. are the Departures of rainfall from the long period averages of rainfall for the District.
+       (3) Blank Spaces show non-availability of Data.
+
+===============================================================================================================================================================
+YEAR   JANUARY      FEBRUARY      MARCH        APRIL         MAY          JUNE         JULY        AUGUST     SEPTEMBER     OCTOBER      NOVEMBER     DECEMBER
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+       R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.    R/F %DEP.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2009                                                                                                                                                      
+
+2010                             0.0  -100    0.0  -100    0.0  -100   84.0   -40  104.0   -70  360.0    24  461.0   139   59.0    14    0.0  -100    0.0  -100
+
+2011   3.0   -75   29.0   121   20.0    90    0.0  -100   76.0   265   84.0   -40  199.0   -44  326.0     8  169.0   -13    0.0  -100    0.0  -100    0.0  -100
+
+2012  44.0   273   23.0    76   24.0   129    6.0    18    0.0  -100   43.0   -69  418.0    17  289.0    -4  294.0    52    0.0  -100    0.0  -100    0.0  -100
+
+2013   0.0  -100   29.0   121    0.0  -100   18.0   253    6.0   -71  460.0   229  129.0   -64  260.0   -13   70.0   -64  143.0   181    0.0  -100    0.0  -100
+
+===============================================================================================================================================================

@@ -1,0 +1,30 @@
+---
+title: Assignment 2
+author: Dilawar Singh
+---
+
+The National Election Watch reports that on average the winning candidate get
+45\% vote share in Lok Sabha election in 2014. I got curious to see if such a
+distribution can be __approximated__ but a Poisson process. In theory, I find
+not strong argument to suggest the this should be. However, I could not reject
+the hypothesis by using the Kolmogorov-Smirnov test.
+
+We collected the data from Election Commission of India website and used it data
+to answer the following question.
+
+__If a candidate get $x\%$ of votes, what is his or her chance of winning the
+election with y\% of votes.__ It turns out that it can be approximated with a
+Poission process.  We assume that chance of each candidate winning is equal
+which is definately not true in real world.
+
+# Plotting data 
+
+On x-axis we have percentage share of total votes casted in a constituenty,
+while on the y-axis we have no of winning candidates with that vote share. 
+
+![Winning election V/s Vote share; as a Poisson Process. On x-axis we have \% of
+vote share and on y is the computed probability of winning election with this
+vote share in LS-2014 elections. The blue dotted line is the best-fit which
+could not be rejected by Kolmogorov-Smirnov test. Its mean is 48.](./PoissionProcess/election_poisson.png)
+
+
