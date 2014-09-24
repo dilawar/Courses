@@ -1,3 +1,6 @@
 [submodule "ee688"]
 	path = SystemDesign_Monsoon_2011
 	url = git@github.com:dilawar/ee688
+[submodule "FoundationOfVLSICad_Autumn_2012"]
+	path = FoundationOfVLSICad_Autumn_2012
+	url = git@github.com:dilawar/ee677
