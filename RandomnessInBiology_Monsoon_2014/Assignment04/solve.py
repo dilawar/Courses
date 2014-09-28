@@ -38,16 +38,21 @@ class Brownian():
 
 def main():
     import pylab
-    velocities = []
-    for i in range(100):
-        a = Brownian(1e-2)
-        a.solve()
-        velocities.append(a.finalV)
-    #print velocities
-    #pylab.hist(velocities)
-    pylab.plot(a.time, a.pos)
-    pylab.show()
-
+    timesteps = [0.1, 0.01, 0.001]
+    initV = [0, 10]
+    for dt in timesteps:
+        for v in initV:
+            print("Solving for %s timestep and %s velocty" % (dt,v))
+            print("++ Generating 5 samples")
+            pylab.figure()
+            for i in range(5):
+                a = Brownian(dt, v)
+                a.solve()
+                pylab.plot(a.time, a.pos)
+            pylab.xlabel("Time: dt is %s" % dt)
+            pylab.ylabel("Position when init velocity is %s" % v)
+            print("++ Saving plot")
+            pylab.savefig("plot_{}dt_{}initv.png".format(dt, v))
 
 if __name__ == '__main__':
     main()
