@@ -14,7 +14,8 @@ class Brownian():
     def __init__(self, dt, initV = 0.0, runtime = 100.0):
         self.dt =  dt
         self.steps = int(runtime/dt)
-        self.time = numpy.array(self.steps)
+        self.time = numpy.zeros(self.steps+1)
+        self.pos = numpy.zeros(self.steps+1)
         self.a = 1.0 
         self.b = 1.0
         self.alpha = numpy.random.normal(0.0, 1.0, self.steps)
@@ -28,20 +29,23 @@ class Brownian():
     def solve(self):
         t = 0.0
         v = self.initV
-        for a in self.alpha:
+        for i, a in enumerate(self.alpha):
             t = t + self.dt
             v = self.computeV(v, a)
+            self.time[i+1] = t
+            self.pos[i+1] = self.pos[i] + v * self.dt
         self.finalV = v
 
 def main():
     import pylab
     velocities = []
     for i in range(100):
-        a = Brownian(1e-3)
+        a = Brownian(1e-2)
         a.solve()
         velocities.append(a.finalV)
-    print velocities
-    pylab.hist(velocities)
+    #print velocities
+    #pylab.hist(velocities)
+    pylab.plot(a.time, a.pos)
     pylab.show()
 
 
