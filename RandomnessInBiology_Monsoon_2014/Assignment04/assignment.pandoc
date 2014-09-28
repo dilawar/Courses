@@ -1,0 +1,12 @@
+---
+title:  Velocity of a Brownian particle
+author: Dilawar Singh
+date: \today
+---
+
+# 1.  Equation of velocity
+
+$$ 
+\Delta x = \frac{dx}{dt} \Delta t \\
+\Delta v = (-\Gamma v/m)\Delta t + \alpha \sqrt{2 \Gamma kT/m^2} \sqrt{\Delta t}
+$$
