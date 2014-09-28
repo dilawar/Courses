@@ -13,9 +13,11 @@ class Brownian():
 
     def __init__(self, dt, initV = 0.0, runtime = 100.0):
         self.dt =  dt
+        self.steps = int(runtime/dt)
+        self.time = numpy.array(self.steps)
         self.a = 1.0 
         self.b = 1.0
-        self.alpha = numpy.random.normal(0.0, 1.0, int(runtime/dt))
+        self.alpha = numpy.random.normal(0.0, 1.0, self.steps)
         self.initV = initV
         self.finalV = 0.0
 

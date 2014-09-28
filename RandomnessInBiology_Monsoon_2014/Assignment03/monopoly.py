@@ -123,13 +123,14 @@ def play(step):
 def simulate():
     import pylab
     from collections import Counter
-    moves = play(1000000)
+    moves = play(10000000)
     counter = Counter(moves)
     xvals = list(counter)
     yvals = [ float(x) / sum(counter.values()) for x in counter.values()]
     pylab.bar(xvals, yvals)
     pylab.xlabel("Played a million times")
-    pylab.savefig('monopoly.png')
+    #pylab.savefig('monopoly.png')
+    pylab.show()
     
 if __name__ == '__main__':
     if len(sys.argv) < 2:
