@@ -1,5 +1,6 @@
 import numpy
 import sys
+from collections import defaultdict
 
 class Brownian():
 
@@ -40,19 +41,31 @@ def main():
     import pylab
     timesteps = [0.1, 0.01, 0.001]
     initV = [0, 10]
+    # This is a dictionary with keys as (timestep,initV) and final velocity as
+    # values.
+    finalvecolicies = defaultdict(list)
+    total = 1000
     for dt in timesteps:
         for v in initV:
             print("Solving for %s timestep and %s velocty" % (dt,v))
-            print("++ Generating 5 samples")
+            print("++ Generating %s samples" % total)
             pylab.figure()
-            for i in range(5):
+            for i in range(total):
                 a = Brownian(dt, v)
                 a.solve()
+                finalvecolicies[(dt,v)].append(a.finalV)
                 pylab.plot(a.time, a.pos)
             pylab.xlabel("Time: dt is %s" % dt)
             pylab.ylabel("Position when init velocity is %s" % v)
             print("++ Saving plot")
             pylab.savefig("plot_{}dt_{}initv.png".format(dt, v))
+
+    with open("results_{}.txt".format(total), "w") as f:
+        f.write("samples,dt,initv,mean,variance\n")
+        for dt, v in finalvecolicies:
+            vs = finalvecolicies[(dt, v)]
+            f.write("%s,%s,%s,%s,%s"%(total,dt,v,numpy.mean(vs),numpy.std(vs)))
+        print("All done")
 
 if __name__ == '__main__':
     main()
