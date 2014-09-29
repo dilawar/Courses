@@ -64,7 +64,7 @@ def main():
         f.write("samples,dt,initv,mean,variance\n")
         for dt, v in finalvecolicies:
             vs = finalvecolicies[(dt, v)]
-            f.write("%s,%s,%s,%s,%s"%(total,dt,v,numpy.mean(vs),numpy.std(vs)))
+            f.write("%s,%s,%s,%s,%s\n"%(total,dt,v,numpy.mean(vs),numpy.std(vs)))
         print("All done")
 
 if __name__ == '__main__':
