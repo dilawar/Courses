@@ -37,7 +37,7 @@ class Brownian():
             self.pos[i+1] = self.pos[i] + v * self.dt
         self.finalV = v
 
-def main():
+def solve_problem1():
     import pylab
     timesteps = [0.1, 0.01, 0.001]
     initV = [0, 10]
@@ -61,11 +61,33 @@ def main():
             pylab.savefig("plot_{}dt_{}initv_{}.png".format(int(dt*1000), v, total))
 
     with open("results_{}.txt".format(total), "w") as f:
-        f.write("samples,dt,initv,mean,variance\n")
+        f.write("samples,dt,initv,mean,variance,rms\n")
         for dt, v in finalvecolicies:
             vs = finalvecolicies[(dt, v)]
-            f.write("%s,%s,%s,%s,%s\n"%(total,dt,v,numpy.mean(vs),numpy.std(vs)))
-        print("All done")
+            f.write("%s,%s,%s,%s,%s,%s\n"%(
+                total
+                ,dt
+                ,v
+                ,numpy.mean(vs)
+                ,numpy.std(vs)
+                ,numpy.sqrt(numpy.mean(numpy.square(vs))))
+                )
+        print("Problem 1 is solevd")
+
+def solve_problem2():
+    print("Solving problem 2")
+    for i in range(1000):
+        b = Brownian(0.001, 0)
+        b.solve()
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) < 2:
+        print("USAGE: {} 1|2".format(sys.argv[0]))
+        sys.exit()
+    if "1" == sys.argv[1]:
+        solve_problem1()
+    elif "2" == sys.argv[1]:
+        solve_problem2()
+    else:
+        print("USAGE: {} 1|2".format(sys.argv[0]))
+        sys.exit()
