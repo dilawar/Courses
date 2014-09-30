@@ -58,7 +58,7 @@ def main():
             pylab.xlabel("Time: dt is %s" % dt)
             pylab.ylabel("Position when init velocity is %s" % v)
             print("++ Saving plot")
-            pylab.savefig("plot_{}dt_{}initv.png".format(dt, v))
+            pylab.savefig("plot_{}dt_{}initv_{}.png".format(dt, v, total))
 
     with open("results_{}.txt".format(total), "w") as f:
         f.write("samples,dt,initv,mean,variance\n")

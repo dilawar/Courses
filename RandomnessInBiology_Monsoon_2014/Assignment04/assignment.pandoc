@@ -10,3 +10,7 @@ $$
 \Delta x = \frac{dx}{dt} \Delta t \\
 \Delta v = (-\Gamma v/m)\Delta t + \alpha \sqrt{2 \Gamma kT/m^2} \sqrt{\Delta t}
 $$
+
+We simulated this equation and calculated the trajectories of randm walk. For
+initial velocities 0 and 10, and step size of 0.1,0.01,0.001; we calculated 5
+trajectories for each case. Which are following.
