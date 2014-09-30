@@ -44,7 +44,7 @@ def main():
     # This is a dictionary with keys as (timestep,initV) and final velocity as
     # values.
     finalvecolicies = defaultdict(list)
-    total = 1000
+    total = 5
     for dt in timesteps:
         for v in initV:
             print("Solving for %s timestep and %s velocty" % (dt,v))
@@ -58,7 +58,7 @@ def main():
             pylab.xlabel("Time: dt is %s" % dt)
             pylab.ylabel("Position when init velocity is %s" % v)
             print("++ Saving plot")
-            pylab.savefig("plot_{}dt_{}initv_{}.png".format(dt, v, total))
+            pylab.savefig("plot_{}dt_{}initv_{}.png".format(int(dt*1000), v, total))
 
     with open("results_{}.txt".format(total), "w") as f:
         f.write("samples,dt,initv,mean,variance\n")

@@ -14,3 +14,45 @@ $$
 We simulated this equation and calculated the trajectories of randm walk. For
 initial velocities 0 and 10, and step size of 0.1,0.01,0.001; we calculated 5
 trajectories for each case. Which are following.
+
+![](plot_100dt_0initv_5.png)
+![](plot_100dt_10initv_5.png)
+![](plot_10dt_0initv_5.png)
+![](plot_10dt_10initv_5.png)
+![](plot_1dt_0initv_5.png)
+![](plot_1dt_10initv_5.png)
+
+The mean and variances for these cases does not seem to converge to any
+particular values.
+
+\begin{table}[h!]
+    \centering
+    \label{table:label}
+    \pgfplotstabletypeset[
+        col sep=comma
+        , string type
+        , columns={} 
+        , every head row/.style={after row=\hline}
+        , every last row/.style={after row=\hline}
+    ]{./results_5.txt}
+\end{table}
+
+However, when 1000 trajectories were generated for each of these cases, both
+mean and variances seem to be converging to some value.
+
+\begin{table}[h!]
+    \centering
+    \label{table:label}
+    \pgfplotstabletypeset[
+        col sep=comma
+        , string type
+        , columns={} 
+        , every head row/.style={after row=\hline}
+        , every last row/.style={after row=\hline}
+    ]{./results_1000.txt}
+\end{table}
+
+It would be interesting to see when and how fast mean and variance converges.
+
+# The bonus thingy
+
