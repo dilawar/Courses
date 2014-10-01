@@ -103,8 +103,8 @@ def solve_problem2():
     rmsXList = []
     simTimeList = []
     displacements = []
-    total = 10
-    repeat = 100
+    total = 100
+    repeat = 20
     for i in range(total):
         runtime = i+1 
         b = Brownian(0.01, 0, runtime = runtime)
