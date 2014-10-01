@@ -23,7 +23,8 @@ trajectories for each case. Which are following.
 ![](plot_1dt_10initv_5.png)
 
 The mean and variances for these cases does not seem to converge to any
-particular values.
+particular values. The RMS values of velocities is in the last column of the
+following table.
 
 \begin{table}[h!]
     \centering
@@ -55,4 +56,8 @@ mean and variances seem to be converging to some value.
 It would be interesting to see when and how fast mean and variance converges.
 
 # The bonus thingy
+
+The value of diffusion coefficient in this case is $\frac{\Gamma kT}{m^2}$ which
+is 1.0.
+
 

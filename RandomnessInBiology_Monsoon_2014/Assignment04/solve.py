@@ -7,7 +7,7 @@ class Brownian():
     """
     The equation is the following 
 
-    dv = (-v/a) dt + alpha * sqrt(2*b*dt)
+    dv = (-v/a) dt + alpha * sqrt(2*b/a*dt)
 
     alpha is distributed with mean 0 and variance 1.
     """
@@ -29,7 +29,7 @@ class Brownian():
         self.__init__(self.dt, self.initV, self.runtime)
 
     def computeV(self, v, alpha):
-        dv = (- v / self.a * self.dt) + (alpha * numpy.sqrt(2.0 * self.b * self.dt))
+        dv = (- (v / self.a) * self.dt) + (alpha * numpy.sqrt(2.0 * self.b / self.a * self.dt))
         return (v + dv)
 
     def solve(self):
@@ -37,24 +37,23 @@ class Brownian():
         v = self.initV
         for i, a in enumerate(self.alpha):
             t = t + self.dt
-            v = self.computeV(v, a)
+            vnew = self.computeV(v, a)
             self.time[i+1] = t
             self.dxs[i] = v * self.dt
             self.pos[i+1] = self.pos[i] + self.dxs[i]
+            v = vnew
         self.finalV = v
 
     def solveMany(self, times = 1):
         """Do the Brownian motion for n times and return the averages of values
         """
-        dxs = []
-        finalV = []
-        finalX = []
+        finalV = numpy.zeros(times)
+        finalX = numpy.zeros(times)
         for i in range(times):
             self.reset()
             self.solve()
-            dxs.append(self.dxs)
-            finalV.append(self.finalV)
-            finalX.append(self.pos[-1])
+            finalV[i] = self.finalV
+            finalX[i] = self.pos[-1]
         return finalX, finalV
 
 def getRMSDisplacement(pos):
@@ -104,13 +103,16 @@ def solve_problem2():
     rmsXList = []
     simTimeList = []
     displacements = []
-    for i in range(100):
+    total = 10
+    repeat = 100
+    for i in range(total):
         runtime = i+1 
         b = Brownian(0.01, 0, runtime = runtime)
-        finalX, finalV = b.solveMany(100)
-        finalX = numpy.sqrt(numpy.mean(numpy.square(finalX)))
-        displacements.append(finalX)
+        finalX, finalV = b.solveMany(repeat)
+        f = numpy.sqrt(numpy.mean(numpy.square(finalX)))
+        displacements.append(f)
     pylab.plot(displacements)
+    pylab.savefig("{}x{}.png".format(total, repeat))
     pylab.show()
 
 
