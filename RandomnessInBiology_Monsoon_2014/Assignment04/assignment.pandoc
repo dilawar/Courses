@@ -63,7 +63,7 @@ The value of diffusion coefficient in this case is $\frac{\Gamma kT}{m^2}$ which
 is 1.0. I am not getting it using the method described. The source code which I
 am using is attached below.
 
-![Diffusion constant i.e. slope of this curve is not 1.0](./100x100.png}
+![Diffusion constant i.e. slope of this curve is not 1.0](./100x100.png)
 
 \begin{tiny}
     \verbatiminput{./solve.py}
