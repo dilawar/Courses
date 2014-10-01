@@ -89,7 +89,7 @@ class Markov():
         e1, v1 = self.getEigens(self.markov)
         #print e1
         #print v1
-        pow = 1000000
+        pow = 50
         print("Raising the power to %s" % pow)
         b = numpy.linalg.matrix_power(self.markov, pow)
         numpy.savetxt('markov_%s.out' % pow, b, delimiter=',', fmt='%1.3f')
