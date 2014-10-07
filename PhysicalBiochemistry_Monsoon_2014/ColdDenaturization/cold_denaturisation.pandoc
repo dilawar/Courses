@@ -1,3 +1,9 @@
+---
+title: Cold Denaturation
+author: Neetu Saini \footnote{Typesetting by Dilawar Singh}
+header-includes: 
+    - \usepackage[margin=15mm]{geometry}
+---
 # Starting equations.
 
 \begin{subequations}
@@ -14,57 +20,59 @@
 We put equations \ref{eq:enthalpy} and \ref{eq:entropy} into equation
 \ref{eq:gibbs} and we get the following.
 
-\begin{eqnarray}
+\begin{align}
     \Delta G &= \Delta H^0 + \Delta C_P (T - T_0) - T \times \left(\Delta S^0 + \Delta C_P \ln{\frac{T}{T_0}}\right) \\
-     &= \left(\Delta H^0 - T\Delta S^0 \right) + \Delta C_P (T - T_0) - T
-    \Delta C_P \ln{\frac{T}{T_0}} \label{eq:gibbs1}
-\end{eqnarray}
+     &= \left(\Delta H^0 - T\Delta S^0 \right) + \Delta C_P (T - T_0) - T \Delta C_P \ln{\frac{T}{T_0}} \label{eq:gibbs1}
+\end{align}
 
-------------- 
+where $T_0$ is any reference temperature.
 
-# Simplification 
+# Equation \ref{eq:gibbs1} at $T_g$ and $T'_g$ 
 
-- At temperature $Tg$ and $T'_g$ equations \ref{eq:gibbs1} goes to 0
+__At temperature $Tg$ and $T'_g$ $\Delta G$ in equations \ref{eq:gibbs} goes to 0__
+\begin{subequations}
+    \label{eq:subequation}
+    \begin{align}
+        \Delta H(T_g) = T_g \Delta S(T_g) \label{eq:enthalpy0} \\
+        \Delta H(T'_g) = T'_g \Delta S(T'_g) \label{eq:enthalpy1} 
+    \end{align}
+\end{subequations}
 
-__Put $T_g$ and $T'_g$ as $T$ and $T_0$ in equation \ref{eq:gibbs1}__
+In equation \ref{eq:gibbs1}, we choose reference temperature are $T_g$ and
+compute $\Delta G$ at $T'_g$ which is 0.
+
+\begin{align}
+    0 = \Delta G(T'_g) &= \Delta H(T_g) - T'_g \Delta S(T_g) + \Delta C_P (T'_g -
+        T_g) - T'_g \Delta C_P \ln{\frac{T'_g}{T_g}}  \\
+        &= \Delta H(T_g) - T'_g \frac{\Delta H(T_g)}{T_g} + \Delta C_P (T'_g -
+        T_g) - T'_g \Delta C_P \ln{\frac{T'_g}{T_g}} && \mbox{substituting
+    \ref{eq:enthalpy0}}  \\
+    &= \Delta H(T_g) \left(1 - \frac{T'_g}{T_g} \right) + \Delta C_P (T'_g -
+        T_g) - T'_g \Delta C_P \ln{\frac{T'_g}{T_g}} \\
+    &= \Delta H(T_g) \left(\frac{T_g - T'_g}{T_g} \right) + \Delta C_P (T'_g -
+        T_g) - T'_g \Delta C_P \ln{\frac{T'_g}{T_g}} \\
+\end{align}
+
+$\implies$
+
+\begin{align}
+    - \frac{\Delta H(T_g)}{\Delta C_P} \left(\frac{T_g - T'_g}{T_g} \right) 
+    &= T'_g - T_g - T'_g \ln{\frac{T'_g}{T_g}} \\
+    &= T'_g - T_g + T'_g \ln{\frac{T_g}{T'_g}} \\
+    &= T'_g - T_g + T'_g \ln\left(1+{\frac{T_g - T'_g}{T'_g}}\right) && \mbox{$x = 1 + x - 1$} \\
+    &= T'_g - T_g + T'_g \left({\frac{T_g - T'_g}{T'_g}} - \frac{1}{2}\left(
+    \frac{T_g - T'_g}{T'_g} \right)^2 \right) && \mbox{$\ln(1+x) = x -
+\frac{x^2}{2} \ldots $} \\
+&= T'_g - T_g + T_g - T'_g - \frac{T'_g}{2} \left( \frac{T_g - T'_g}{T'_g}
+\right)^2  \\
+\implies  - \frac{\Delta H(T_g)}{\Delta C_P} \left(\frac{T_g - T'_g}{T_g} \right)
+    &= - \frac{T'_g}{2} \left( \frac{T_g - T'_g}{T'_g} \right)^2 \\
+ \frac{\Delta H(T_g)}{\Delta C_P} &=  \frac{T'_gT_g}{2} \left( \frac{T_g - T'_g}{T'_g} \right)^2 \\ 
+ \frac{2\Delta H(T_g)}{\Delta C_P} &=  T_g \frac{T_g - T'_g}{T'_g} \\ 
+\frac{2\Delta H(T_g)}{\Delta C_P} &=   \frac{T_g^2}{T'_g} - T_g \\ 
+\frac{2\Delta H(T_g)}{\Delta C_P} + T_g &=   \frac{T_g^2}{T'_g}  
+\end{align}
 
 \begin{equation}
-    \Delta_{T'_g}^{T_g} G = \left(\Delta_{T'_g}^{T_g}H - T_g
-    \Delta_{T'_g}^{T_g}S \right) +  \Delta_{T'_g}^{T_g}C_P (T_g - T'_g) - T_g
-    \Delta_{T'_g}^{T_g}C_P \ln{\frac{T_g}{T'_g}} = 0 \label{eq:gibbs2}
+    \boxed{T'_g = \frac{T_g^2}{\frac{2\Delta H(T_g)}{\Delta C_P} + T_g}}
 \end{equation}
-
-\begin{eqnarray}
-    \left(\Delta_{T'_g}^{T_g}H - T_g
-    \Delta_{T'_g}^{T_g}S \right) +  \Delta_{T'_g}^{T_g}C_P (T_g - T'_g) - T_g
-    \Delta_{T'_g}^{T_g}C_P \ln{\frac{T_g}{T'_g}} = 0 \\ 
-    \Delta_{T'_g}^{T_g} G +  \Delta_{T'_g}^{T_g}C_P (T_g - T'_g) - T_g
-    \Delta_{T'_g}^{T_g}C_P \ln{\frac{T_g}{T'_g}} = 0 
-\end{eqnarray}
-
-----------
-
-# Simplification
-
-\begin{eqnarray}
-    \Delta_{T'_g}^{T_g} G +  \Delta_{T'_g}^{T_g}C_P (T_g - T'_g) = T_g
-    \Delta_{T'_g}^{T_g}C_P \ln{\frac{T_g}{T'_g}}  \\
-    \frac{\Delta_{T'_g}^{T_g} G}{ \Delta_{T'_g}^{T_g}C_P}+ (T_g - T'_g) = T_g \ln{\frac{T_g}{T'_g}}  \\
-    \frac{\Delta_{T'_g}^{T_g} G}{ \Delta_{T'_g}^{T_g}C_P}+ T_g  = T'_g + T_g \ln{\frac{T_g}{T'_g}}  \label{eq:almost_done}
-\end{eqnarray}
-
-Let's simplify left-hand-side of equation \ref{eq:almost_done}.
-
---------------
-
-
-# Left-hand-side of equation \ref{eq:almost_done}
-
-\begin{eqnarray}
-    T'_g + T_g \ln{\frac{T_g}{T'_g}} 
-    &=  T'_g + T_g \ln\left(1 + \frac{T_g - T'_g}{T'_g}\right) \\
-    &=  T'_g + T_g \left[ \left( \frac{T_g - T'_g}{T'_g} \right) - \frac{1}{2}
-        {\left(\frac{T_g-T'_g}{T'_g}\right)}^2  \right] \\
-    &=  T'_g + T_g \left[ \left( \frac{T_g - T'_g}{T'_g} \right) - \frac{1}{2}
-        {\left(\frac{T_g-T'_g}{T'_g}\right)}^2  \right] \\
-\end{eqnarray}
