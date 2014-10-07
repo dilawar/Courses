@@ -1,9 +1,70 @@
----
-title: Cold denaturization of protein
-author: Dilawar Singh
-date: \today
-----
+# Starting equations.
+
+\begin{subequations}
+    \begin{align}
+        \Delta H &= \Delta H^0 + \Delta C_P (T - T_0) \label{eq:enthalpy} \\
+        \Delta S &= \Delta S^0 + \Delta C_P \ln{\frac{T}{T_0}} \label{eq:entropy}
+    \end{align}
+\end{subequations}
+
+\begin{equation}
+    \Delta G = \Delta H - T \Delta S \label{eq:gibbs}
+\end{equation}
+
+We put equations \ref{eq:enthalpy} and \ref{eq:entropy} into equation
+\ref{eq:gibbs} and we get the following.
+
+\begin{eqnarray}
+    \Delta G &= \Delta H^0 + \Delta C_P (T - T_0) - T \times \left(\Delta S^0 + \Delta C_P \ln{\frac{T}{T_0}}\right) \\
+     &= \left(\Delta H^0 - T\Delta S^0 \right) + \Delta C_P (T - T_0) - T
+    \Delta C_P \ln{\frac{T}{T_0}} \label{eq:gibbs1}
+\end{eqnarray}
+
+------------- 
+
+# Simplification 
+
+- At temperature $Tg$ and $T'_g$ equations \ref{eq:gibbs1} goes to 0
+
+__Put $T_g$ and $T'_g$ as $T$ and $T_0$ in equation \ref{eq:gibbs1}__
+
+\begin{equation}
+    \Delta_{T'_g}^{T_g} G = \left(\Delta_{T'_g}^{T_g}H - T_g
+    \Delta_{T'_g}^{T_g}S \right) +  \Delta_{T'_g}^{T_g}C_P (T_g - T'_g) - T_g
+    \Delta_{T'_g}^{T_g}C_P \ln{\frac{T_g}{T'_g}} = 0 \label{eq:gibbs2}
+\end{equation}
+
+\begin{eqnarray}
+    \left(\Delta_{T'_g}^{T_g}H - T_g
+    \Delta_{T'_g}^{T_g}S \right) +  \Delta_{T'_g}^{T_g}C_P (T_g - T'_g) - T_g
+    \Delta_{T'_g}^{T_g}C_P \ln{\frac{T_g}{T'_g}} = 0 \\ 
+    \Delta_{T'_g}^{T_g} G +  \Delta_{T'_g}^{T_g}C_P (T_g - T'_g) - T_g
+    \Delta_{T'_g}^{T_g}C_P \ln{\frac{T_g}{T'_g}} = 0 
+\end{eqnarray}
+
+----------
+
+# Simplification
+
+\begin{eqnarray}
+    \Delta_{T'_g}^{T_g} G +  \Delta_{T'_g}^{T_g}C_P (T_g - T'_g) = T_g
+    \Delta_{T'_g}^{T_g}C_P \ln{\frac{T_g}{T'_g}}  \\
+    \frac{\Delta_{T'_g}^{T_g} G}{ \Delta_{T'_g}^{T_g}C_P}+ (T_g - T'_g) = T_g \ln{\frac{T_g}{T'_g}}  \\
+    \frac{\Delta_{T'_g}^{T_g} G}{ \Delta_{T'_g}^{T_g}C_P}+ T_g  = T'_g + T_g \ln{\frac{T_g}{T'_g}}  \label{eq:almost_done}
+\end{eqnarray}
+
+Let's simplify left-hand-side of equation \ref{eq:almost_done}.
+
+--------------
 
 
+# Left-hand-side of equation \ref{eq:almost_done}
 
-
+\begin{eqnarray}
+    T'_g + T_g \ln{\frac{T_g}{T'_g}} 
+    &=  T'_g + T_g \ln\left(1 + \frac{T_g - T'_g}{T'_g}\right) \\
+    &=  T'_g + T_g \left[ \left( \frac{T_g - T'_g}{T'_g} \right) - \frac{1}{2}
+        {\left(\frac{T_g-T'_g}{T'_g}\right)}^2  \right] \\
+    &=  T'_g + T_g \left[ \left( \frac{T_g - T'_g}{T'_g} \right) - \frac{1}{2}
+        {\left(\frac{T_g-T'_g}{T'_g}\right)}^2  \right] \\
+\end{eqnarray}
