@@ -1,24 +1,155 @@
-\documentclass[]{beamer}
+\documentclass[]{article}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[utf8]{inputenc}
-\usetheme{Pittsburgh}
+\usepackage{lmodern}
+%\usepackage{circuitikz}
+\makeatletter
+\@ifpackageloaded{tex4ht}{
+    \def\pgfsysdriver{pgfsys-tex4ht.def}
+}
+\makeatother
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,backgrounds,positioning,matrix,decorations}
 
-\title{Cold miniaturisation of Proteins}
-\author{Dilawar Singh}
+\usepackage{siunitx}
+\usepackage{python}
+\usepackage{ifxetex,ifluatex}
+\usepackage{listings}
+\setlength{\parskip}{3mm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{definition}{Definition}
+\newtheorem{comment}{Comment}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{property}{Property}
+\newtheorem{problem}{Problem}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{script}{Script}
+
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Neetu Saini},
+            pdftitle={Cold Denaturation},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\title{Cold Denaturation}
+\author{Neetu Saini \footnote{Typesetting by Dilawar Singh}}
+\date{}
+\usepackage[margin=15mm]{geometry}
 
 \begin{document}
+\maketitle
 
-%% First frame
-\begin{frame}
-    \frametitle{Starting equations}
+\section{Starting equations.}\label{starting-equations.}
 
-    \begin{eqnarray}
-        \Delta H = \Delta H_0 + \Delta C_P (T-T_0) \\
-    \end{eqnarray}
+\begin{subequations}
+    \begin{align}
+        \Delta H &= \Delta H^0 + \Delta C_P (T - T_0) \label{eq:enthalpy} \\
+        \Delta S &= \Delta S^0 + \Delta C_P \ln{\frac{T}{T_0}} \label{eq:entropy}
+    \end{align}
+\end{subequations}
 
-\end{frame}
+\begin{equation}
+    \Delta G = \Delta H - T \Delta S \label{eq:gibbs}
+\end{equation}
 
+We put equations \ref{eq:enthalpy} and \ref{eq:entropy} into equation
+\ref{eq:gibbs} and we get the following.
 
-    
+\begin{align}
+    \Delta G &= \Delta H^0 + \Delta C_P (T - T_0) - T \times \left(\Delta S^0 + \Delta C_P \ln{\frac{T}{T_0}}\right) \\
+     &= \left(\Delta H^0 - T\Delta S^0 \right) + \Delta C_P (T - T_0) - T \Delta C_P \ln{\frac{T}{T_0}} \label{eq:gibbs1}
+\end{align}
+
+where $T_0$ is any reference temperature.
+
+\section{Equation \ref{eq:gibbs1} at $T_g$ and
+$T'_g$}\label{equation-at-tux5fg-and-tux5fg}
+
+\textbf{At temperature $Tg$ and $T'_g$ $\Delta G$ in equations
+\ref{eq:gibbs} goes to 0}
+
+\begin{subequations}
+    \label{eq:subequation}
+    \begin{align}
+        \Delta H(T_g) = T_g \Delta S(T_g) \label{eq:enthalpy0} \\
+        \Delta H(T'_g) = T'_g \Delta S(T'_g) \label{eq:enthalpy1} 
+    \end{align}
+\end{subequations}
+
+In equation \ref{eq:gibbs1}, we choose reference temperature are $T_g$
+and compute $\Delta G$ at $T'_g$ which is 0.
+
+\begin{align}
+    0 = \Delta G(T'_g) &= \Delta H(T_g) - T'_g \Delta S(T_g) + \Delta C_P (T'_g -
+        T_g) - T'_g \Delta C_P \ln{\frac{T'_g}{T_g}}  \\
+        &= \Delta H(T_g) - T'_g \frac{\Delta H(T_g)}{T_g} + \Delta C_P (T'_g -
+        T_g) - T'_g \Delta C_P \ln{\frac{T'_g}{T_g}} && \mbox{substituting
+    \ref{eq:enthalpy0}}  \\
+    &= \Delta H(T_g) \left(1 - \frac{T'_g}{T_g} \right) + \Delta C_P (T'_g -
+        T_g) - T'_g \Delta C_P \ln{\frac{T'_g}{T_g}} \\
+    &= \Delta H(T_g) \left(\frac{T_g - T'_g}{T_g} \right) + \Delta C_P (T'_g -
+        T_g) - T'_g \Delta C_P \ln{\frac{T'_g}{T_g}} \\
+\end{align}
+
+$\implies$
+
+\begin{align}
+    - \frac{\Delta H(T_g)}{\Delta C_P} \left(\frac{T_g - T'_g}{T_g} \right) 
+    &= T'_g - T_g - T'_g \ln{\frac{T'_g}{T_g}} \\
+    &= T'_g - T_g + T'_g \ln{\frac{T_g}{T'_g}} \\
+    &= T'_g - T_g + T'_g \ln\left(1+{\frac{T_g - T'_g}{T'_g}}\right) && \mbox{$x = 1 + x - 1$} \\
+    &= T'_g - T_g + T'_g \left({\frac{T_g - T'_g}{T'_g}} - \frac{1}{2}\left(
+    \frac{T_g - T'_g}{T'_g} \right)^2 \right) && \mbox{$\ln(1+x) = x -
+\frac{x^2}{2} \ldots $} \\
+&= T'_g - T_g + T_g - T'_g - \frac{T'_g}{2} \left( \frac{T_g - T'_g}{T'_g}
+\right)^2  \\
+\implies  - \frac{\Delta H(T_g)}{\Delta C_P} \left(\frac{T_g - T'_g}{T_g} \right)
+    &= - \frac{T'_g}{2} \left( \frac{T_g - T'_g}{T'_g} \right)^2 \\
+ \frac{\Delta H(T_g)}{\Delta C_P} &=  \frac{T'_gT_g}{2} \left( \frac{T_g - T'_g}{T'_g} \right)^2 \\ 
+ \frac{2\Delta H(T_g)}{\Delta C_P} &=  T_g \frac{T_g - T'_g}{T'_g} \\ 
+\frac{2\Delta H(T_g)}{\Delta C_P} &=   \frac{T_g^2}{T'_g} - T_g \\ 
+\frac{2\Delta H(T_g)}{\Delta C_P} + T_g &=   \frac{T_g^2}{T'_g}  
+\end{align}
+
+\begin{equation}
+    \boxed{T'_g = \frac{T_g^2}{\frac{2\Delta H(T_g)}{\Delta C_P} + T_g}}
+\end{equation}
+
 \end{document}
-
