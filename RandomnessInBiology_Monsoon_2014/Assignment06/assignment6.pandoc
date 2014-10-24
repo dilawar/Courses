@@ -1,0 +1,45 @@
+---
+title: Assignment 6
+author: Dilawar Singh
+---
+
+# One-step master equation in two-variables
+
+\begin{figure}[ht]
+\usetikzlibrary{arrows,automata}
+\begin{center}
+\begin{tikzpicture}[scale=1, node distance=3 cm]
+    \node[state] (n00) at (0,0) {\tiny i,j};
+    \node[state] (n0-1) [left of=n00] {\tiny i,j-1};
+    \node[state] (n01) [right of=n00] {\tiny i,j+1};
+
+    \node[state] (n10) [above of=n00] {\tiny i+1,j};
+    \node[state] (n1-1) [left of=n10] {\tiny i+1,j-1};
+    \node[state] (n11) [right of=n10] {\tiny i+1,j+1};
+
+    \node[state] (n-10) [below of=n00] {\tiny i-1,j};
+    \node[state] (n-1-1) [left of=n-10] {\tiny i-1,j-1};
+    \node[state] (n-11) [right of=n-10] {\tiny i-1,j+1};
+
+    \path[->] (n00) edge [bend left] node[above] {$a_i^j$} (n01) 
+        (n01) edge[bend left] node[below] {$b_i^{j+1}$} (n00)
+        (n00) edge[bend left] node[left] {} (n-10);
+        ;
+
+    \path[->] (n0-1) edge [bend left] node[above] {$c_i^{j-1}$} (n00) 
+        (n00) edge[bend left] node[below] {$b_i^{j}$} (n0-1)
+        ;
+    
+\end{tikzpicture}
+\end{center}
+\caption{Master equation}
+\label{fig:master_eq}
+\end{figure}
+
+\begin{align}
+ \frac{dp_i^j}{dt} = - (a_i^j+b_i^j+c_i^j+d_i^j)p_i^j +
+ a_{i-1}^jp_{i-1}^j+b_{i+1}^jp_{i+1}^j+c_i^{j-1}p_i^{j-1}+d_i^{j+1}p_i^{j+1} \\
+\end{align}
+
+
+
