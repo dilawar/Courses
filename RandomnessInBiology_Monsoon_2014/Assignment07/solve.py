@@ -18,23 +18,23 @@ import numpy
 
 class GeneticSwitch():
 
-    def __init__(self, k1k2=1e-4, step=1e-4):
+    def __init__(self, k1k2=1e-4, step=1e-4, stop=1.0):
         print("Creating genetic switch")
         self.v0 = 12.5
         self.v1 = 200
         self.gamma = 1
         self.k1k2 = k1k2
         self.dx = 0.0
-        self.dt = 1e-1
-        self.totalSteps = int(self.dt/step)
+        self.stop = stop
+        self.totalSteps = int(self.stop/step)
         self.alpha = numpy.random.normal(0, 1.0, self.totalSteps)
-        self.step = 0
+        self.step = step
         self.time = 0.0
         self.x = 0.0
 
     def weinerTerm(self,  k = 1.0):
         """A weiner term """
-        return self.alpha[self.step] * k * (self.time ** 0.5)
+        return self.step * self.alpha[self.step] * k * (self.time ** 0.5)
 
     def dxTerm(self, x, dt=1e-6):
         # Setup the derivative 
@@ -42,24 +42,22 @@ class GeneticSwitch():
         self.dx = dt * dx
         return self.dx
 
-    def solveLangevian(self, dt):
+    def solveLangevian(self):
         # Solving Langevian equations.
         output = numpy.zeros(self.totalSteps)
         for i, e in enumerate(range(self.totalSteps)):
             dx = self.dxTerm(self.x)
             weiner = self.weinerTerm(k = self.x)
-            #weiner = self.weinerTerm()
             self.x += (dx + weiner)
-            #self.x = dx
             output[i] = self.x
-            self.time += dt
+            self.time += self.step
             self.step += 1
         return output
 
 def main():
     import pylab
-    gs = GeneticSwitch(step=1e-5)
-    output = gs.solveLangevian(dt=1e-5)
+    gs = GeneticSwitch(step=1e-5, stop=1e-1)
+    output = gs.solveLangevian()
     pylab.plot(output)
     pylab.show()
 

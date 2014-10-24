@@ -3,4 +3,34 @@ title: Excercise 2.8
 author: Dilawar Singh
 ---
 
+Following data is given.
+
+\begin{table}[h!]
+    \centering
+    \label{table:label}
+    \pgfplotstabletypeset[
+        col sep=comma
+        , string type
+        , columns={} 
+        , every head row/.style={after row=\hline}
+        , every last row/.style={after row=\hline}
+    ]{data.csv}
+\end{table}
+
+
+# van't Hoff plot 
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=1]
+
+    \begin{axis}
+        \addplot table[col sep=comma] {data.csv};
+    \end{axis}
+    
+\end{tikzpicture}
+\end{center}
+\caption{}
+\label{fig:}
+\end{figure}
 
