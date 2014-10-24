@@ -26,20 +26,21 @@ class GeneticSwitch():
         self.k1k2 = k1k2
         self.dx = 0.0
         self.stop = stop
-        self.totalSteps = int(self.stop/step)
-        self.alpha = numpy.random.normal(0, 1.0, self.totalSteps)
         self.step = step
+        self.totalSteps = int(self.stop/self.step)
+        self.alpha = numpy.random.normal(0, 1.0, self.totalSteps)
         self.time = 0.0
+        self.currentStep = 0
         self.x = 0.0
 
     def weinerTerm(self,  k = 1.0):
         """A weiner term """
-        return self.step * self.alpha[self.step] * k * (self.time ** 0.5)
+        return self.step * self.alpha[self.currentStep] * k * (self.time ** 0.5)
 
     def dxTerm(self, x, dt=1e-6):
         # Setup the derivative 
         dx = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) - self.gamma * x
-        self.dx = dt * dx
+        self.dx = self.step * dx
         return self.dx
 
     def solveLangevian(self):
@@ -51,7 +52,7 @@ class GeneticSwitch():
             self.x += (dx + weiner)
             output[i] = self.x
             self.time += self.step
-            self.step += 1
+            self.currentStep += 1
         return output
 
 def main():
