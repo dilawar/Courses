@@ -15,10 +15,11 @@ __email__            = "dilawars@ncbs.res.in"
 __status__           = "Development"
 
 import numpy
+import sys
 
 class GeneticSwitch():
 
-    def __init__(self, k1k2=1e-4, step=1e-4, stop=1.0):
+    def __init__(self, k1k2=1e-4, step=1e-4, stop=1.0, init=0.0):
         print("Creating genetic switch")
         self.v0 = 12.5
         self.v1 = 200
@@ -31,21 +32,36 @@ class GeneticSwitch():
         self.alpha = numpy.random.normal(0, 1.0, self.totalSteps)
         self.time = 0.0
         self.currentStep = 0
-        self.x = 0.0
+        self.x = init
+        self.init = init
 
     def reinit(self):
-        self.x = 0.0
+        self.x = self.init
         self.time = 0.0
         self.currentStep = 0
         self.dx = 0.0
+        self.alpha = numpy.random.normal(0, 1.0, self.totalSteps)
 
-    def weinerTerm(self,  k = 1.0):
-        """A weiner term """
-        return self.alpha[self.currentStep] * k * (self.step ** 0.5)
+    def f(self, x):
+        result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) - self.gamma * x
+        return result
+
+    def g(self, x):
+        result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) + self.gamma * x
+        return (result**0.5)
+
+
+    def wienerTerm(self, x, dt = None):
+        """A wiener term """
+        if dt is not None:
+            result = dt * self.alpha[self.currentStep] * self.g(x)
+        else:
+            result = self.step * self.alpha[self.currentStep] * self.g(x)
+        return result
 
     def dxTerm(self, x, dt=None):
         # Setup the derivative 
-        dx = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) - self.gamma * x
+        dx = self.f(x)
         if dt is not None:
             dx = dt * dx
         else:
@@ -53,10 +69,10 @@ class GeneticSwitch():
         self.dx = dx
         return dx
 
-    def test(self, dx, weiner):
-        ratio = dx / weiner
+    def test(self, dx, wiener):
+        ratio = dx / wiener
         if ratio > 100:
-            print("[WARN] dx/weiner ratio is: %s" % ratio)
+            print("[WARN] dx/wiener ratio is: %s" % ratio)
 
     def solveLangevian(self, withWeiner=True):
         # Solving Langevian equations.
@@ -64,8 +80,8 @@ class GeneticSwitch():
         for i, e in enumerate(range(self.totalSteps)):
             dx = self.dxTerm(self.x)
             if withWeiner:
-                weiner = self.weinerTerm(k = 1)
-                self.x += (dx + weiner)
+                wiener = self.wienerTerm(self.x)
+                self.x += (dx + wiener)
             else:
                 self.x += dx
             output[i] = self.x
@@ -75,17 +91,38 @@ class GeneticSwitch():
 
 def main():
     import pylab
-    gs = GeneticSwitch(step=1e-3, stop=50)
-    output = gs.solveLangevian()
-    x = [ t * gs.step for t in range(len(output)) ]
-    pylab.plot(x, output)
-    gs.reinit()
+    gs = GeneticSwitch(k1k2=1e-6, step=1e-2, stop=100, init=0)
+
+    # Let's calculate n trajectories of solution,
+    n = 1
+    collectedOutput = numpy.array([])
+    cutoff = int(30.0 / gs.step)
+    print("[INFO] cutting-off at {}".format(cutoff))
+    for i in range(n):
+        output = gs.solveLangevian()
+        collectedOutput = numpy.append(collectedOutput, output[cutoff:])
+        x = [ t * gs.step for t in range(len(output)) ]
+        pylab.plot(x[cutoff:], output[cutoff:])
+        print("|- mean: {}, std: {}".format(numpy.mean(output), numpy.std(output)))
+        gs.reinit()
+
+    # Here calculate steady state solution.
     output = gs.solveLangevian(withWeiner = False)
-    pylab.plot(x, output)
+    pylab.plot(x[cutoff:], output[cutoff:])
     pylab.xlabel("time in sec")
     pylab.ylabel("x (protein number)")
+    pylab.savefig('langevin_trajectories_{}.png'.format(n))
+
+    pylab.figure()
+    histOut = [ int(x) for x in collectedOutput]
+    pylab.hist(histOut)
     pylab.show()
 
+
+    #hist, bins = numpy.histogram(collectedOutput) #, bins=20)
+    #pylab.figure()
+    #pylab.plot(hist)
+    #pylab.savefig('distibution_{}.png'.format(n))
 
 if __name__ == '__main__':
     main()
