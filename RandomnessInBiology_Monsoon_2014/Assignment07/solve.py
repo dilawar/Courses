@@ -70,7 +70,10 @@ def main():
     import pylab
     gs = GeneticSwitch(step=1e-2, stop=20)
     output = gs.solveLangevian()
-    pylab.plot(output)
+    x = [ t * gs.step for t in range(len(output)) ]
+    pylab.plot(x, output)
+    pylab.xlabel("time in sec")
+    pylab.ylabel("x (protein number)")
     pylab.show()
 
 
