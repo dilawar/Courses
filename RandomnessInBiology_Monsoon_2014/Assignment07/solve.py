@@ -37,11 +37,15 @@ class GeneticSwitch():
         """A weiner term """
         return self.alpha[self.currentStep] * k * (self.time ** 0.5)
 
-    def dxTerm(self, x, dt=1e-6):
+    def dxTerm(self, x, dt=None):
         # Setup the derivative 
         dx = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) - self.gamma * x
-        self.dx = self.step * dx
-        return self.dx
+        if dt is not None:
+            dx = dt * dx
+        else:
+            dx = self.step * dx
+        self.dx = dx
+        return dx
 
     def test(self, dx, weiner):
         ratio = dx / weiner
@@ -55,7 +59,8 @@ class GeneticSwitch():
             dx = self.dxTerm(self.x)
             weiner = self.weinerTerm(k = self.x)
             self.test(dx, weiner)
-            self.x += (dx + weiner)
+            #self.x += (dx + weiner)
+            self.x += dx
             output[i] = self.x
             self.time += self.step
             self.currentStep += 1
@@ -63,7 +68,7 @@ class GeneticSwitch():
 
 def main():
     import pylab
-    gs = GeneticSwitch(step=1e-5, stop=1e-1)
+    gs = GeneticSwitch(step=1e-2, stop=20)
     output = gs.solveLangevian()
     pylab.plot(output)
     pylab.show()
