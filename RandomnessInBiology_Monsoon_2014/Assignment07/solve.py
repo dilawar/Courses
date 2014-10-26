@@ -33,9 +33,15 @@ class GeneticSwitch():
         self.currentStep = 0
         self.x = 0.0
 
+    def reinit(self):
+        self.x = 0.0
+        self.time = 0.0
+        self.currentStep = 0
+        self.dx = 0.0
+
     def weinerTerm(self,  k = 1.0):
         """A weiner term """
-        return self.alpha[self.currentStep] * k * (self.time ** 0.5)
+        return self.alpha[self.currentStep] * k * (self.step ** 0.5)
 
     def dxTerm(self, x, dt=None):
         # Setup the derivative 
@@ -52,15 +58,16 @@ class GeneticSwitch():
         if ratio > 100:
             print("[WARN] dx/weiner ratio is: %s" % ratio)
 
-    def solveLangevian(self):
+    def solveLangevian(self, withWeiner=True):
         # Solving Langevian equations.
         output = numpy.zeros(self.totalSteps)
         for i, e in enumerate(range(self.totalSteps)):
             dx = self.dxTerm(self.x)
-            weiner = self.weinerTerm(k = self.x)
-            self.test(dx, weiner)
-            #self.x += (dx + weiner)
-            self.x += dx
+            if withWeiner:
+                weiner = self.weinerTerm(k = 1)
+                self.x += (dx + weiner)
+            else:
+                self.x += dx
             output[i] = self.x
             self.time += self.step
             self.currentStep += 1
@@ -68,9 +75,12 @@ class GeneticSwitch():
 
 def main():
     import pylab
-    gs = GeneticSwitch(step=1e-2, stop=20)
+    gs = GeneticSwitch(step=1e-3, stop=50)
     output = gs.solveLangevian()
     x = [ t * gs.step for t in range(len(output)) ]
+    pylab.plot(x, output)
+    gs.reinit()
+    output = gs.solveLangevian(withWeiner = False)
     pylab.plot(x, output)
     pylab.xlabel("time in sec")
     pylab.ylabel("x (protein number)")
