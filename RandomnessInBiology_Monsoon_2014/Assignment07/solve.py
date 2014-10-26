@@ -35,7 +35,7 @@ class GeneticSwitch():
 
     def weinerTerm(self,  k = 1.0):
         """A weiner term """
-        return self.step * self.alpha[self.currentStep] * k * (self.time ** 0.5)
+        return self.alpha[self.currentStep] * k * (self.time ** 0.5)
 
     def dxTerm(self, x, dt=1e-6):
         # Setup the derivative 
@@ -43,12 +43,18 @@ class GeneticSwitch():
         self.dx = self.step * dx
         return self.dx
 
+    def test(self, dx, weiner):
+        ratio = dx / weiner
+        if ratio > 100:
+            print("[WARN] dx/weiner ratio is: %s" % ratio)
+
     def solveLangevian(self):
         # Solving Langevian equations.
         output = numpy.zeros(self.totalSteps)
         for i, e in enumerate(range(self.totalSteps)):
             dx = self.dxTerm(self.x)
             weiner = self.weinerTerm(k = self.x)
+            self.test(dx, weiner)
             self.x += (dx + weiner)
             output[i] = self.x
             self.time += self.step
