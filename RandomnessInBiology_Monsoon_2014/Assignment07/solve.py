@@ -46,9 +46,9 @@ class GeneticSwitch():
         result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) - self.gamma * x
         return result
 
-    def g(self, x):
-        result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) + self.gamma * x
-        return (result**0.5)
+    def g(self, x, k = 1.0):
+        result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) # + self.gamma * x
+        return ((k*result)**0.5)
 
 
     def wienerTerm(self, x, dt = None):
@@ -91,7 +91,7 @@ class GeneticSwitch():
 
 def main():
     import pylab
-    gs = GeneticSwitch(k1k2=1e-6, step=1e-2, stop=100, init=0)
+    gs = GeneticSwitch(k1k2=1e-4, step=1e-2, stop=200, init=0)
 
     # Let's calculate n trajectories of solution,
     n = 1
