@@ -113,16 +113,16 @@ def main():
     pylab.ylabel("x (protein number)")
     pylab.savefig('langevin_trajectories_{}.png'.format(n))
 
-    pylab.figure()
-    histOut = [ int(x) for x in collectedOutput]
-    pylab.hist(histOut)
-    pylab.show()
-
-
-    #hist, bins = numpy.histogram(collectedOutput) #, bins=20)
     #pylab.figure()
-    #pylab.plot(hist)
-    #pylab.savefig('distibution_{}.png'.format(n))
+    #histOut = [ int(x) for x in collectedOutput]
+    #pylab.hist(histOut)
+    #pylab.show()
+
+    hist, bins = numpy.histogram(collectedOutput, bins=5)
+    pylab.figure()
+    pylab.bar(bins[:-1], hist, width=1)
+    pylab.savefig('distibution_{}.png'.format(n))
+    pylab.show()
 
 if __name__ == '__main__':
     main()
