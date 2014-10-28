@@ -30,10 +30,17 @@ following results.
 ![Langevian trajectory for $K_1K_2 = 1e-4$ and $k = 1$](./final_pics/langevin_trajectories_1e-4.png)
 ![Distribution of number of protein](./final_pics/distribution_1e-4.png)
 
+For $K_1K_2 = 1e-6$ we have the following result:
+
+![Langevian trajectory for $K_1K_2 = 1e-6$ and $k = 1$](./final_pics/langevin_trajectories_1e-6.png)
+![Distribution of number of protein](./final_pics/distribution_1e-6.png)
+
+
 Approximately, we get state A at 20, and state B at 125. With this information
 we simulate again for 1000 trajectories and compute when we reach to state B
-first time. We did not get same mean every time. Following values were obtained
-by repeated simulation:
+first time. We did not get same mean every time. Following values (in seconds)
+were obtained by repeated simulation (to save time we used step size of 0.1
+second).
 
     80.85,69.62,69.15,72.86,77.19,80.87
 
