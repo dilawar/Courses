@@ -36,6 +36,7 @@ class GeneticSwitch():
         self.stateBThreshold = 50.0
         self.stateBTimes = []
         self.initx = init
+        self.increasing = True
 
     def reinit(self):
         self.x = self.initx
@@ -43,13 +44,15 @@ class GeneticSwitch():
         self.currentStep = 0
         self.dx = 0.0
         self.alpha = numpy.random.normal(0, 1.0, self.totalStpng)
+        self.stateBTimes = []
 
     def f(self, x):
         result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0))) - self.gamma * x
         return result
 
-    def g(self, x, k = 1.0):
+    def g(self, x, k = 1):
         result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0)))  + self.gamma * x
+        #result = self.x 
         return k*result**0.5
 
 
@@ -69,34 +72,36 @@ class GeneticSwitch():
         else:
             dx = self.step * dx
         self.dx = dx
-        if self.x >= self.stateBThreshold:
-            self.stateBTimes.append(self.time)
         return dx
 
-    def solveLangevian(self, withWeiner=True):
+    def solveLangevian(self):
         # Solving Langevian equations.
         output = numpy.zeros(self.totalStpng)
         for i, e in enumerate(range(self.totalStpng)):
             dx = self.dxTerm(self.x)
-            if withWeiner:
-                wiener = self.wienerTerm(self.x)
-                self.x += (dx + wiener)
+            wiener = self.wienerTerm(self.x)
+            if dx + wiener < 0.0:
+                self.increasing  = False
             else:
-                self.x += dx
+                self.increasing = True
+            self.x += (dx + wiener)
             output[i] = self.x
+            if self.x >= self.stateBThreshold:
+                if self.increasing:
+                    self.stateBTimes.append(self.time)
             self.time += self.step
             self.currentStep += 1
         return output
 
 def main():
     import pylab
-    gs = GeneticSwitch(k1k2=1e-4, step=1e-1, stop=10000, init=0)
-
+    timeToGotoBFirstTime = []
+    gs = GeneticSwitch(k1k2=1e-4, step=0.1, stop=500, init=0)
     # Let's calculate n trajectories of solution,
-    n = 1
+    n = 1000
     collectedOutput = numpy.array([])
     cutoff = int(30.0 / gs.step)
-    cutoff = 0
+    #cutoff = 0
     print("[INFO] cutting-off at {}".format(cutoff))
     for i in range(n):
         output = gs.solveLangevian()
@@ -104,6 +109,7 @@ def main():
         x = [ t * gs.step for t in range(len(output)) ]
         pylab.plot(x[cutoff:], output[cutoff:])
         print("|- mean: {}, std: {}".format(numpy.mean(output), numpy.std(output)))
+        timeToGotoBFirstTime.append(gs.stateBTimes[0])
         gs.reinit()
 
     ## Here calculate steady state solution.
@@ -123,7 +129,7 @@ def main():
     pylab.bar(bins[:-1], hist, width=1)
     #pylab.hist(collectedOutput)
     pylab.savefig('distibution_{}.png'.format(gs.k1k2))
-    #print gs.stateBTimes
+    print numpy.mean(timeToGotoBFirstTime)
 
 if __name__ == '__main__':
     main()
