@@ -1,0 +1,19 @@
+---
+title: Assignment 7
+author: Dilawar Singh
+---
+
+## Genetic switch 
+
+Following differential equation describes a protein which activates its own
+protein.
+
+$$\frac{dx}{dt} = \frac{v_0 + v_1 K_1 K_2 x^2}{1 + K_1 K_2 x^2} - \gamma x$$
+
+For given values, the equation turns into:
+
+$$\frac{dx}{dt} = \frac{12.5 + 200 K_1K_2 x^2}{1 + K_1 K_2 x^2} -  x$$
+
+## Steady state solution without any noise.
+
+
