@@ -96,7 +96,7 @@ class GeneticSwitch():
 def main():
     import pylab
     timeToGotoBFirstTime = []
-    gs = GeneticSwitch(k1k2=1e-4, step=0.1, stop=500, init=0)
+    gs = GeneticSwitch(k1k2=1e-4, step=0.1, stop=600, init=0)
     # Let's calculate n trajectories of solution,
     n = 1000
     collectedOutput = numpy.array([])
