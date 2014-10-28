@@ -14,6 +14,16 @@ For given values, the equation turns into:
 
 $$\frac{dx}{dt} = \frac{12.5 + 200 K_1K_2 x^2}{1 + K_1 K_2 x^2} -  x$$
 
-## Steady state solution without any noise.
+## Langevian with noise
 
+At any time $t$ if amount of protein is $x$ then it is reasonable to assume that
+noise is proportional to $x$ multiplied by $\alpha$, a number drawn from a normal
+distribution with mean 0 and variance 1. 
 
+$$\frac{dx}{dt} = \frac{12.5 + 200 K_1K_2 x^2}{1 + K_1 K_2 x^2} -  x + k \alpha
+x$$
+
+For $k = 1$ and $k1k2 = 10^{-4}$, we simulated this equation and got the
+following results.
+
+![Langevian trajectory for $K_1K_2 = 1e-4$ and $k = 1$](./final_pics/langevin_trajectories_1e-4.png)
