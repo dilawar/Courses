@@ -96,9 +96,9 @@ class GeneticSwitch():
 def main():
     import pylab
     timeToGotoBFirstTime = []
-    gs = GeneticSwitch(k1k2=1e-4, step=0.1, stop=600, init=0)
+    gs = GeneticSwitch(k1k2=1e-6, step=0.1, stop=1000, init=0)
     # Let's calculate n trajectories of solution,
-    n = 1000
+    n = 1
     collectedOutput = numpy.array([])
     cutoff = int(30.0 / gs.step)
     #cutoff = 0
@@ -109,7 +109,8 @@ def main():
         x = [ t * gs.step for t in range(len(output)) ]
         pylab.plot(x[cutoff:], output[cutoff:])
         print("|- mean: {}, std: {}".format(numpy.mean(output), numpy.std(output)))
-        timeToGotoBFirstTime.append(gs.stateBTimes[0])
+        if len(gs.stateBTimes) > 0:
+            timeToGotoBFirstTime.append(gs.stateBTimes[0])
         gs.reinit()
 
     ## Here calculate steady state solution.
@@ -129,7 +130,7 @@ def main():
     pylab.bar(bins[:-1], hist, width=1)
     #pylab.hist(collectedOutput)
     pylab.savefig('distibution_{}.png'.format(gs.k1k2))
-    print numpy.mean(timeToGotoBFirstTime)
+    #print numpy.mean(timeToGotoBFirstTime)
 
 if __name__ == '__main__':
     main()
