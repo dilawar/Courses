@@ -52,7 +52,7 @@ class GeneticSwitch():
 
     def g(self, x, k = 1):
         result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0)))  + self.gamma * x
-        #result = self.x 
+        result = self.x 
         return k*result**0.5
 
 
@@ -96,13 +96,16 @@ class GeneticSwitch():
 def main():
     import pylab
     timeToGotoBFirstTime = []
-    gs = GeneticSwitch(k1k2=1e-6, step=0.1, stop=1000, init=0)
+    gs = GeneticSwitch(k1k2=1e-4, step=0.01, stop=1000, init=0)
+    
+    # Trajectory of protein when its # goes from 0 to steady state value is not
+    # so exciting, let's chop it off.
+    cutoff = int(30.0 / gs.step)
+    print("[INFO] cutting-off at {}".format(cutoff))
+
     # Let's calculate n trajectories of solution,
     n = 1
     collectedOutput = numpy.array([])
-    cutoff = int(30.0 / gs.step)
-    #cutoff = 0
-    print("[INFO] cutting-off at {}".format(cutoff))
     for i in range(n):
         output = gs.solveLangevian()
         collectedOutput = numpy.append(collectedOutput, output[cutoff:])
@@ -113,23 +116,22 @@ def main():
             timeToGotoBFirstTime.append(gs.stateBTimes[0])
         gs.reinit()
 
-    ## Here calculate steady state solution.
-    #output = gs.solveLangevian(withWeiner = False)
-    #pylab.plot(x[cutoff:], output[cutoff:])
     pylab.xlabel("time in sec")
     pylab.ylabel("x (protein number)")
-    pylab.savefig('langevin_trajectories_{}.png'.format(gs.k1k2))
-
-    #pylab.figure()
-    #histOut = [ int(x) for x in collectedOutput]
-    #pylab.hist(histOut)
-    #pylab.show()
+    pylab.title("#protein: Using Langevian for k1k2={}".format(gs.k1k2))
+    pylab.savefig('langevin_trajectories_{:.2e}.png'.format(gs.k1k2))
 
     pylab.figure()
     hist, bins = numpy.histogram(collectedOutput, bins=100)
-    pylab.bar(bins[:-1], hist, width=1)
-    #pylab.hist(collectedOutput)
-    pylab.savefig('distibution_{}.png'.format(gs.k1k2))
+    pylab.bar(bins[:-1], hist)
+    pylab.xlabel("#protein (x)")
+    pylab.ylabel("No of times x protein is seen")
+    pylab.title(
+            "Distribution of #protein for k1k2={}, simulation time={} sec".format(
+                gs.k1k2, gs.stop
+                )
+            )
+    pylab.savefig('distibution_{:.2e}.png'.format(gs.k1k2))
     #print numpy.mean(timeToGotoBFirstTime)
 
 if __name__ == '__main__':
