@@ -61,8 +61,8 @@ class GeneticSwitch():
         # start fetching the number from begining.
 
         alphaIndex = self.currentStep % len(self.alpha)
-        if dt is not None:
-            result = (self.dt**0.5) * self.alpha[alphaIndex] * self.g(x)
+        if dt:
+            result = (dt**0.5) * self.alpha[alphaIndex] * self.g(x)
         else:
             result = (self.step**0.5) * self.alpha[alphaIndex] * self.g(x)
         return result
@@ -118,15 +118,18 @@ class GeneticSwitch():
 
     def solveLangevianForFirstTransition(self, step, thresholdB, totalTimes = 100):
         j = 0
+        plt.figure()
         self.step = step
         self.stateBThreshold = thresholdB
         self.alpha = np.random.normal(0, 1.0,1e6)
         self.transitionTime = []
+        output = []
         while j < totalTimes:
             dx = self.dxTerm(self.x)
             wiener = self.wienerTerm(self.x)
             self.x += (dx + wiener)
             self.time += self.step
+            output.append(self.x)
             if self.x < self.stateAThreshold:
                 if self.whichState == 1:
                     print("|| %s Transition High -> Log" % self.time)
@@ -138,11 +141,15 @@ class GeneticSwitch():
                     self.transitionTime.append(self.time)
                     self.reinit()
                     j += 1
+                    plt.plot(output[-7000:], linewidth = 0.4 )
+                    output = []
                     continue
                 self.whichState = 1
             self.currentStep += 1
         print("Mean is : %s" % np.mean(self.transitionTime))
         print("Variation is: %s" % np.std(self.transitionTime))
+        plt.title("Plotting moments before first transitions")
+        plt.savefig("final_pics/trajectories_before_transitions.png")
 
 
     def run(self, step = 0.1, stop = 1000, ntimes = 1):
@@ -220,8 +227,8 @@ def main(problem = 1):
         gs.plotTrajectories(save = True)
         gs.plotHistogram( save = True)
     elif problem == 2:
-        gs.solveLangevianForFirstTransition(step = 0.01, totalTimes = 100, thresholdB = 125)
-        print("++ No problem 2")
+        print("Analyzing first time transition to state B")
+        gs.solveLangevianForFirstTransition(step = 0.01, totalTimes = 10, thresholdB = 125)
     elif problem == 3:
         gs.transitions(step = 0.01, noOfTransitions = 100, thresholdA = 20,
                 thresholdB = 125)
