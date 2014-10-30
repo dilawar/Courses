@@ -1,6 +1,8 @@
 import Data.Random.Normal
 import System.Random
 import Graphics.Gnuplot.Simple
+import Graphics.Rendering.Chart.Easy
+import Graphics.Rendering.Chart.Backend.Cairo
 
 alphas :: (Random a, Floating a) => IO [a]
 alphas = do
@@ -50,5 +52,8 @@ main = do
     let dt = 1e-2
     let steps = floor $ time / dt
     trajectories <- simulateNTimes 0.0 dt steps 1 []
-    plotLists [PNG "trajectories.png"] trajectories
+    {-plotLists [PNG "trajectories.png"] trajectories-}
+    toPlot def "trajectories.png" $ do
+        layout_title .= "Trajectories"
+        plot (line "am" trajectories!0)
     putStrLn "Done"
