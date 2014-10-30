@@ -1,7 +1,7 @@
 
 """solve.py: Soluting to homework 7.
 
-Last modified: Tue Oct 28, 2014  11:29PM
+Last modified: Thu Oct 30, 2014  04:19PM
 
 """
     
@@ -14,28 +14,24 @@ __maintainer__       = "Dilawar Singh"
 __email__            = "dilawars@ncbs.res.in"
 __status__           = "Development"
 
-import numpy
+import numpy as np
 import sys
 
 class GeneticSwitch():
 
-    def __init__(self, k1k2=1e-4, step=1e-4, stop=1.0, init=0.0):
-        print("+ Creating genetic switch")
-        self.v0 = 12.5
-        self.v1 = 200
-        self.gamma = 1
-        self.k1k2 = k1k2
+    def __init__(self, k1k2=1e-4, init=0.0):
+        self.v0, self.v1, self.gamma, self.k1k2 = 12.5, 200, 1, k1k2
         self.dx = 0.0
-        self.stop = stop
-        self.step = step
-        self.totalStpng = int(self.stop/self.step)
-        self.alpha = numpy.random.normal(0, 1.0, self.totalStpng)
         self.time = 0.0
         self.currentStep = 0
         self.x = init
+        self.initx = init
+        # These are computed trajectories.
+        self.trajectories = []
+        # Time when we read state B first time
+        self.timeToCrossStateBFirstTime = []
         self.stateBThreshold = 50.0
         self.stateBTimes = []
-        self.initx = init
         self.increasing = True
 
     def reinit(self):
@@ -43,7 +39,7 @@ class GeneticSwitch():
         self.time = 0.0
         self.currentStep = 0
         self.dx = 0.0
-        self.alpha = numpy.random.normal(0, 1.0, self.totalStpng)
+        self.alpha = np.random.normal(0, 1.0, self.totalSteps)
         self.stateBTimes = []
 
     def f(self, x):
@@ -51,10 +47,9 @@ class GeneticSwitch():
         return result
 
     def g(self, x, k = 1):
-        result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0)))  + self.gamma * x
+        #result = ((self.v0 + (self.v1 * self.k1k2 * (x**2.0))) / (1 + self.k1k2 * (x**2.0)))  + self.gamma * x
         result = self.x 
         return k*result**0.5
-
 
     def wienerTerm(self, x, dt = None):
         """A wiener term """
@@ -76,8 +71,8 @@ class GeneticSwitch():
 
     def solveLangevian(self):
         # Solving Langevian equations.
-        output = numpy.zeros(self.totalStpng)
-        for i, e in enumerate(range(self.totalStpng)):
+        output = np.zeros(self.totalSteps)
+        for i, e in enumerate(range(self.totalSteps)):
             dx = self.dxTerm(self.x)
             wiener = self.wienerTerm(self.x)
             if dx + wiener < 0.0:
@@ -93,46 +88,74 @@ class GeneticSwitch():
             self.currentStep += 1
         return output
 
+    def run(self, step = 0.1, stop = 1000, ntimes = 1):
+        self.step = step
+        self.stop = stop
+        self.totalSteps = int(self.stop/self.step)
+        self.alpha = np.random.normal(0, 1.0, self.totalSteps)
+        # Trajectory of protein when its # goes from 0 to steady state value is not
+        # so exciting, let's chop it off.
+        self.cutoff = int(30.0 / self.step)
+        print("[INFO] cutting-off at {}".format(self.cutoff))
+        print("|- Producing {} trajectories".format(ntimes))
+
+        # Let's calculate n trajectories of solution,
+        n = ntimes
+        for i in range(n):
+            output = self.solveLangevian()
+            self.trajectories.append(output[self.cutoff:])
+            print("|- mean: {}, std: {}".format(np.mean(output), np.std(output)))
+            if len(self.stateBTimes) > 0:
+                self.timeToCrossStateBFirstTime.append(self.stateBTimes[0])
+            self.reinit()
+        return self.trajectories
+
+    def plotTrajectories(self, nos = -1, save = True):
+        """Plot total number of trajectories """
+        import pylab
+        if nos == -1: nos = len(self.trajectories)
+        pylab.figure()
+        for trajectory in self.trajectories[:nos]:
+            x = [ (self.cutoff + i) * self.step for i in range(len(trajectory)) ]
+            pylab.plot(x, trajectory)
+        pylab.xlabel("Time in seconds")
+        pylab.ylabel("x (protein number)")
+        pylab.title("#protein: Using Langevian for k1k2={}, sim time = {}".format(
+            self.k1k2, self.stop)
+            )
+        if save:
+            pylab.savefig('langevin_trajectories_{:.2e}.png'.format(gs.k1k2))
+        else:
+            pylab.show()
+
+    def plotHistogram(self, save = False):
+        """Plot a histogram """
+        import pylab
+        pylab.figure()
+        collectedOutput = np.array([])
+        for trajectory in self.trajectories:
+            np.append(collectedOutput, trajectory)
+
+        hist, bins = np.histogram(collectedOutput, bins=100)
+        pylab.bar(bins[:-1], hist)
+        pylab.xlabel("#protein (x)")
+        pylab.ylabel("No of times x protein is seen")
+        pylab.title(
+                "Distribution of #protein for k1k2={}, simulation time={} sec".format(
+                    self.k1k2, self.stop
+                    )
+                )
+        if save:
+            pylab.savefig('distibution_{:.2e}.png'.format(self.k1k2))
+        else:
+            pylab.show()
+
 def main():
     import pylab
-    timeToGotoBFirstTime = []
-    gs = GeneticSwitch(k1k2=1e-4, step=0.01, stop=1000, init=0)
-    
-    # Trajectory of protein when its # goes from 0 to steady state value is not
-    # so exciting, let's chop it off.
-    cutoff = int(30.0 / gs.step)
-    print("[INFO] cutting-off at {}".format(cutoff))
-
-    # Let's calculate n trajectories of solution,
-    n = 1
-    collectedOutput = numpy.array([])
-    for i in range(n):
-        output = gs.solveLangevian()
-        collectedOutput = numpy.append(collectedOutput, output[cutoff:])
-        x = [ t * gs.step for t in range(len(output)) ]
-        pylab.plot(x[cutoff:], output[cutoff:])
-        print("|- mean: {}, std: {}".format(numpy.mean(output), numpy.std(output)))
-        if len(gs.stateBTimes) > 0:
-            timeToGotoBFirstTime.append(gs.stateBTimes[0])
-        gs.reinit()
-
-    pylab.xlabel("time in sec")
-    pylab.ylabel("x (protein number)")
-    pylab.title("#protein: Using Langevian for k1k2={}".format(gs.k1k2))
-    pylab.savefig('langevin_trajectories_{:.2e}.png'.format(gs.k1k2))
-
-    pylab.figure()
-    hist, bins = numpy.histogram(collectedOutput, bins=100)
-    pylab.bar(bins[:-1], hist)
-    pylab.xlabel("#protein (x)")
-    pylab.ylabel("No of times x protein is seen")
-    pylab.title(
-            "Distribution of #protein for k1k2={}, simulation time={} sec".format(
-                gs.k1k2, gs.stop
-                )
-            )
-    pylab.savefig('distibution_{:.2e}.png'.format(gs.k1k2))
-    #print numpy.mean(timeToGotoBFirstTime)
+    gs = GeneticSwitch(k1k2=1e-4, init=0)
+    gs.run(step = 0.001, stop = 1000, ntimes = 1)
+    gs.plotTrajectories(save = False)
+    #gs.plotHistogram()
 
 if __name__ == '__main__':
     main()

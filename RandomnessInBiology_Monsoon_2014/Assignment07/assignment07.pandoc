@@ -6,7 +6,7 @@ author: Dilawar Singh
 ## Genetic switch 
 
 Following differential equation describes a protein which activates its own
-protein.
+transcription.
 
 $$\frac{dx}{dt} = \frac{v_0 + v_1 K_1 K_2 x^2}{1 + K_1 K_2 x^2} - \gamma x$$
 
@@ -24,8 +24,12 @@ $$\frac{dx}{dt} = \frac{12.5 + 200 K_1K_2 x^2}{1 + K_1 K_2 x^2} -  x + k \alpha
 g(x)$$
 $$ g(x) = \sqrt{\frac{12.5 + 200 K_1K_2 x^2}{1 + K_1 K_2 x^2} +x} $$
 
+We can also assume that,
+
+$$ g(x) = x $$
+
 For $k = 1$ and $k1k2 = 10^{-4}$, we simulated this equation and got the
-following results.
+following result.
 
 ![Langevian trajectory for $K_1K_2 = 1e-4$ and $k = 1$](./final_pics/langevin_trajectories_1e-4.png)
 ![Distribution of number of protein](./final_pics/distribution_1e-4.png)
