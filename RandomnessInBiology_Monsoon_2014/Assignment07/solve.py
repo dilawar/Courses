@@ -36,6 +36,7 @@ class GeneticSwitch():
         self.stateBThreshold = 120.0
         self.stateBTimes = []
         self.whichState = 0
+        self.totalSteps = 1e6       # Default values.
 
     def reinit(self):
         self.x = self.initx
@@ -115,6 +116,35 @@ class GeneticSwitch():
             self.currentStep += 1
         f.close()
 
+    def solveLangevianForFirstTransition(self, step, thresholdB, totalTimes = 100):
+        j = 0
+        self.step = step
+        self.stateBThreshold = thresholdB
+        self.alpha = np.random.normal(0, 1.0,1e6)
+        self.transitionTime = []
+        while j < totalTimes:
+            dx = self.dxTerm(self.x)
+            wiener = self.wienerTerm(self.x)
+            self.x += (dx + wiener)
+            self.time += self.step
+            if self.x < self.stateAThreshold:
+                if self.whichState == 1:
+                    print("|| %s Transition High -> Log" % self.time)
+                    self.transitionTime.append(self.time)
+                self.whichState  = 0
+            elif self.x > self.stateBThreshold:
+                if self.whichState == 0:
+                    print("|| %s Transition Low -> High" % self.time)
+                    self.transitionTime.append(self.time)
+                    self.reinit()
+                    j += 1
+                    continue
+                self.whichState = 1
+            self.currentStep += 1
+        print("Mean is : %s" % np.mean(self.transitionTime))
+        print("Variation is: %s" % np.std(self.transitionTime))
+
+
     def run(self, step = 0.1, stop = 1000, ntimes = 1):
         self.step = step
         self.stop = stop
@@ -189,9 +219,12 @@ def main(problem = 1):
         gs.run(step = 0.01, stop = 10000, ntimes = 1)
         gs.plotTrajectories(save = True)
         gs.plotHistogram( save = True)
+    elif problem == 2:
+        gs.solveLangevianForFirstTransition(step = 0.01, totalTimes = 100, thresholdB = 125)
+        print("++ No problem 2")
     elif problem == 3:
         gs.transitions(step = 0.01, noOfTransitions = 100, thresholdA = 20,
                 thresholdB = 125)
 
 if __name__ == '__main__':
-    main(3)
+    main(2)
