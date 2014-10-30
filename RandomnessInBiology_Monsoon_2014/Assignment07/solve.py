@@ -16,6 +16,8 @@ __status__           = "Development"
 
 import numpy as np
 import sys
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 
 class GeneticSwitch():
 
@@ -112,50 +114,46 @@ class GeneticSwitch():
 
     def plotTrajectories(self, nos = -1, save = True):
         """Plot total number of trajectories """
-        import pylab
         if nos == -1: nos = len(self.trajectories)
-        pylab.figure()
+        plt.figure()
         for trajectory in self.trajectories[:nos]:
             x = [ (self.cutoff + i) * self.step for i in range(len(trajectory)) ]
-            pylab.plot(x, trajectory)
-        pylab.xlabel("Time in seconds")
-        pylab.ylabel("x (protein number)")
-        pylab.title("#protein: Using Langevian for k1k2={}, sim time = {}".format(
+            plt.plot(x, trajectory, linewidth=0.04)
+        plt.xlabel("Time in seconds")
+        plt.ylabel("x (protein number)")
+        plt.title("protein: Using Langevian for k1k2={}, sim time = {}".format(
             self.k1k2, self.stop)
             )
         if save:
-            pylab.savefig('langevin_trajectories_{:.2e}.png'.format(gs.k1k2))
+            plt.savefig('final_pics/langevin_trajectories_{:.0e}.png'.format(self.k1k2))
         else:
-            pylab.show()
+            plt.show()
 
     def plotHistogram(self, save = False):
         """Plot a histogram """
-        import pylab
-        pylab.figure()
+        plt.figure()
         collectedOutput = np.array([])
         for trajectory in self.trajectories:
-            np.append(collectedOutput, trajectory)
-
+            collectedOutput = np.append(collectedOutput, trajectory)
         hist, bins = np.histogram(collectedOutput, bins=100)
-        pylab.bar(bins[:-1], hist)
-        pylab.xlabel("#protein (x)")
-        pylab.ylabel("No of times x protein is seen")
-        pylab.title(
+        plt.bar(bins[:-1], hist)
+        plt.xlabel("#protein (x)")
+        plt.ylabel("No of times x protein is seen")
+        plt.title(
                 "Distribution of #protein for k1k2={}, simulation time={} sec".format(
                     self.k1k2, self.stop
                     )
                 )
         if save:
-            pylab.savefig('distibution_{:.2e}.png'.format(self.k1k2))
+            plt.savefig('final_pics/distribution_{:.0e}.png'.format(self.k1k2))
         else:
-            pylab.show()
+            plt.show()
 
 def main():
-    import pylab
     gs = GeneticSwitch(k1k2=1e-4, init=0)
-    gs.run(step = 0.001, stop = 1000, ntimes = 1)
-    gs.plotTrajectories(save = False)
-    #gs.plotHistogram()
+    gs.run(step = 0.01, stop = 10000, ntimes = 1)
+    gs.plotTrajectories(save = True)
+    gs.plotHistogram( save = True)
 
 if __name__ == '__main__':
     main()

@@ -31,13 +31,15 @@ $$ g(x) = x $$
 For $k = 1$ and $k1k2 = 10^{-4}$, we simulated this equation and got the
 following result.
 
-![Langevian trajectory for $K_1K_2 = 1e-4$ and $k = 1$](./final_pics/langevin_trajectories_1e-4.png)
-![Distribution of number of protein](./final_pics/distribution_1e-4.png)
+![Langevian trajectory for $K_1K_2 = 1.00e-4$ and $k =
+1$](./final_pics/langevin_trajectories_1e-04.png)
+![Distribution of number of protein](./final_pics/distribution_1e-04.png)
 
 For $K_1K_2 = 1e-6$ we have the following result:
 
-![Langevian trajectory for $K_1K_2 = 1e-6$ and $k = 1$](./final_pics/langevin_trajectories_1e-6.png)
-![Distribution of number of protein](./final_pics/distribution_1e-6.png)
+![Langevian trajectory for $K_1K_2 = 1.00e-6$ and $k =
+1$](./final_pics/langevin_trajectories_1e-06.png)
+![Distribution of number of protein](./final_pics/distribution_1e-06.png)
 
 # Crossing state B first time when $K_1K_2 = 1e-4$
 
