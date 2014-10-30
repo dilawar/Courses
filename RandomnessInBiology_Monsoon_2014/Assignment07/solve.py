@@ -1,7 +1,7 @@
 
 """solve.py: Soluting to homework 7.
 
-Last modified: Thu Oct 30, 2014  04:19PM
+Last modified: Thu Oct 30, 2014  07:27PM
 
 """
     
@@ -32,9 +32,10 @@ class GeneticSwitch():
         self.trajectories = []
         # Time when we read state B first time
         self.timeToCrossStateBFirstTime = []
-        self.stateBThreshold = 50.0
+        self.stateAThreshold = 20.0
+        self.stateBThreshold = 120.0
         self.stateBTimes = []
-        self.increasing = True
+        self.whichState = 0
 
     def reinit(self):
         self.x = self.initx
@@ -55,10 +56,14 @@ class GeneticSwitch():
 
     def wienerTerm(self, x, dt = None):
         """A wiener term """
+        # In some simulations, we might run out of random number. IN such case,
+        # start fetching the number from begining.
+
+        alphaIndex = self.currentStep % len(self.alpha)
         if dt is not None:
-            result = (self.dt**0.5) * self.alpha[self.currentStep] * self.g(x)
+            result = (self.dt**0.5) * self.alpha[alphaIndex] * self.g(x)
         else:
-            result = (self.step**0.5) * self.alpha[self.currentStep] * self.g(x)
+            result = (self.step**0.5) * self.alpha[alphaIndex] * self.g(x)
         return result
 
     def dxTerm(self, x, dt=None):
@@ -71,24 +76,44 @@ class GeneticSwitch():
         self.dx = dx
         return dx
 
-    def solveLangevian(self):
+    def solveLangevian(self, totalSteps = None):
         # Solving Langevian equations.
-        output = np.zeros(self.totalSteps)
-        for i, e in enumerate(range(self.totalSteps)):
+        if not totalSteps:
+            totalSteps = self.totalSteps
+        output = np.zeros(totalSteps)
+        for i, e in enumerate(range(totalSteps)):
             dx = self.dxTerm(self.x)
             wiener = self.wienerTerm(self.x)
-            if dx + wiener < 0.0:
-                self.increasing  = False
-            else:
-                self.increasing = True
             self.x += (dx + wiener)
             output[i] = self.x
-            if self.x >= self.stateBThreshold:
-                if self.increasing:
-                    self.stateBTimes.append(self.time)
             self.time += self.step
             self.currentStep += 1
         return output
+
+    def solveLangevianForTransitions(self, transitions):
+        """ Keep solving till we get enought transitions """
+        f = open("transition_time.txt", "a")
+        f.write("\n\n")
+        self.transitionTime = []
+        while len(self.transitionTime) < transitions:
+            dx = self.dxTerm(self.x)
+            wiener = self.wienerTerm(self.x)
+            self.x += (dx + wiener)
+            self.time += self.step
+            if self.x < self.stateAThreshold:
+                if self.whichState == 1:
+                    print("|| %s Transition High -> Log" % self.time)
+                    f.write("%s\n" % self.time)
+                    self.transitionTime.append(self.time)
+                self.whichState  = 0
+            elif self.x > self.stateBThreshold:
+                if self.whichState == 0:
+                    print("|| %s Transition Low -> High" % self.time)
+                    f.write("%s\n" % self.time)
+                    self.transitionTime.append(self.time)
+                self.whichState = 1
+            self.currentStep += 1
+        f.close()
 
     def run(self, step = 0.1, stop = 1000, ntimes = 1):
         self.step = step
@@ -149,11 +174,24 @@ class GeneticSwitch():
         else:
             plt.show()
 
-def main():
+    def transitions(self, step, noOfTransitions, thresholdA, thresholdB):
+        self.step = step
+        self.alpha = np.random.normal(0, 1.0,1e7)
+        self.stateAThreshold = thresholdA
+        self.stateBThreshold = thresholdB 
+        self.solveLangevianForTransitions(noOfTransitions)
+        print("Done")
+
+def main(problem = 1):
     gs = GeneticSwitch(k1k2=1e-4, init=0)
-    gs.run(step = 0.01, stop = 10000, ntimes = 1)
-    gs.plotTrajectories(save = True)
-    gs.plotHistogram( save = True)
+    print("++ Solving problem no {}".format(problem))
+    if problem == 1:
+        gs.run(step = 0.01, stop = 10000, ntimes = 1)
+        gs.plotTrajectories(save = True)
+        gs.plotHistogram( save = True)
+    elif problem == 3:
+        gs.transitions(step = 0.01, noOfTransitions = 100, thresholdA = 20,
+                thresholdB = 125)
 
 if __name__ == '__main__':
-    main()
+    main(3)
