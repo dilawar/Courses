@@ -16,7 +16,7 @@ alpha = normalIO
 weiner :: Float -> Float -> IO Float
 weiner x dt = do 
     a <- alpha 
-    return $ a * x * (dt ** 0.5)
+    return $  a * ((x * dt) ** 0.5)
 
 -- This is xterm, evaluated at x and dt
 xterm :: Float -> Float -> IO Float
@@ -46,7 +46,7 @@ simulateNTimes initX dt steps n trajectories = do
                 simulateNTimes initX dt steps (n-1) (trajectory:trajectories)
 
 main = do
-    let time = 100
+    let time = 10000
     let dt = 1e-2
     let steps = floor $ time / dt
     trajectories <- simulateNTimes 0.0 dt steps 1 []
