@@ -1,6 +1,5 @@
 import Data.Random.Normal
 import System.Random
-import Graphics.Gnuplot.Simple
 import Graphics.Rendering.Chart.Easy
 import Graphics.Rendering.Chart.Backend.Cairo
 
@@ -11,17 +10,17 @@ alphas = do
 
 -- A normal distribution. Draw a number from it.
 --alpha :: (Random a, Floating a) => IO a
-alpha :: IO Float
+alpha :: IO Double
 alpha = normalIO 
 
 -- This is a weiner terml; evaluated at x with given dt.
-weiner :: Float -> Float -> IO Float
+weiner :: Double -> Double -> IO Double
 weiner x dt = do 
     a <- alpha 
     return $  a * ((x * dt) ** 0.5)
 
 -- This is xterm, evaluated at x and dt
-xterm :: Float -> Float -> IO Float
+xterm :: Double -> Double -> IO Double
 xterm x dt = do 
     let num = (v0 + v1 * k1k2 * (x**2.0))
     let den = (1 + k1k2 * (x**2.0))
@@ -31,7 +30,7 @@ xterm x dt = do
     where 
         [v0, v1, k1k2, gamma] = [12.0, 200, 1e-4, 1.0]
 
-simulate:: Float -> Float -> Int -> [Float] -> IO [Float]
+simulate:: Double -> Double -> Int -> [Double] -> IO [Double]
 simulate x dt steps trajectory = do
     case steps of
         0 -> do 
@@ -40,7 +39,7 @@ simulate x dt steps trajectory = do
         _ -> do x1 <- xterm x dt
                 simulate x1 dt (steps-1) (x1:trajectory)
 
-simulateNTimes :: Float -> Float -> Int -> Int -> [[Float]] -> IO [[Float]]
+simulateNTimes :: Double -> Double -> Int -> Int -> [[Double]] -> IO [[Double]]
 simulateNTimes initX dt steps n trajectories = do 
     case n of
         0 -> return $ reverse trajectories
@@ -52,8 +51,8 @@ main = do
     let dt = 1e-2
     let steps = floor $ time / dt
     trajectories <- simulateNTimes 0.0 dt steps 1 []
-    {-plotLists [PNG "trajectories.png"] trajectories-}
-    toPlot def "trajectories.png" $ do
+    let dataToPlot = zip [1,2..steps] (head trajectories)
+    toFile def "trajectories.png" $ do
         layout_title .= "Trajectories"
-        plot (line "am" trajectories!0)
+        plot (line "am" $ [ dataToPlot ])
     putStrLn "Done"
