@@ -50,9 +50,9 @@ main = do
     let time = 10000
     let dt = 1e-2
     let steps = floor $ time / dt
-    trajectories <- simulateNTimes 0.0 dt steps 1 []
-    let dataToPlot = zip [1,2..steps] (head trajectories)
+    trajectories <- simulateNTimes 0.0 dt steps 2 []
+    let dataToPlot = map (\l -> zip [1,2..steps] l) trajectories
     toFile def "trajectories.png" $ do
         layout_title .= "Trajectories"
-        plot (line "am" $ [ dataToPlot ])
+        plot (line "trajectories" $  dataToPlot )
     putStrLn "Done"
