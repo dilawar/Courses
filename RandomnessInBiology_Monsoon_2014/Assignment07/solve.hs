@@ -56,6 +56,5 @@ main = do
     let dataToPlot = map (\l -> zip [1,2..steps] (toList l)) trajectories
     toFile def "trajectories.png" $ do
         layout_title .= "Trajectories"
-        mapM (\t -> plot (line "trajectories" [t]))  dataToPlot
-        putStrLn "Done plotting"
+        mapM_ (\t -> plot (line "trajectories" [t]))  dataToPlot
     putStrLn "Done"
