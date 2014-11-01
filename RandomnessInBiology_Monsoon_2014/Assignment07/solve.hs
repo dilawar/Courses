@@ -36,7 +36,7 @@ simulateNTimes initX dt steps n trajectories = do
                 simulateNTimes initX dt steps (n-1) (trajectory:trajectories)
 
 main = do
-    let (time,dt,ntimes,steps) = (10000,1e-2,2,floor $ time / dt)
+    let (time,dt,ntimes,steps) = (10000,1e-2, 10, floor $ time / dt)
     trajectories <- simulateNTimes 0.0 dt steps ntimes []
     let dataToPlot = map (\l -> zip [1,2..steps] (toList l)) trajectories
     putStrLn $ "Plotting trajectories"
