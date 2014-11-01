@@ -1,6 +1,5 @@
 import Data.Random.Normal
 import System.Random
-import qualified Data.Vector as V
 import Graphics.Rendering.Chart.Easy
 import Graphics.Rendering.Chart.Backend.Cairo
 import Data.Foldable (toList)
@@ -32,20 +31,20 @@ xterm x dt = do
     where 
         [v0, v1, k1k2, gamma] = [12.0, 200, 1e-4, 1.0]
 
-simulate:: Double -> Double -> Int -> V.Vector Double -> IO (V.Vector Double)
+simulate:: Double -> Double -> Int -> [Double] -> IO [Double]
 simulate x dt steps trajectory = do
     case steps of
         0 -> do 
             putStrLn $ "Done creating trajectory"
-            return $! trajectory
+            return $ reverse trajectory
         _ -> do x1 <- xterm x dt
-                simulate x1 dt (steps-1) (V.snoc trajectory x1)
+                simulate x1 dt (steps-1) (x1:trajectory)
 
-simulateNTimes :: Double -> Double -> Int -> Int -> [V.Vector Double] -> IO [V.Vector Double]
+simulateNTimes :: Double -> Double -> Int -> Int -> [[Double]] -> IO [[Double]]
 simulateNTimes initX dt steps n trajectories = do 
     case n of
         0 -> return $ reverse trajectories
-        _ -> do trajectory <- simulate initX dt steps V.empty
+        _ -> do trajectory <- simulate initX dt steps []
                 simulateNTimes initX dt steps (n-1) (trajectory:trajectories)
 
 main = do
