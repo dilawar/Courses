@@ -1,3 +1,5 @@
+{-# LANGUAGE BangPatterns #-}
+
 import Data.Random.Normal
 import System.Random
 import Graphics.Gnuplot.Simple
@@ -10,12 +12,22 @@ data Global = Global {
     , totalSteps :: Integer
 } deriving Show 
 
+-- Threshold for state A and B.
+data State = State { a :: Double, b :: Double }
+states = State 12.0 120.0
+
 global :: Global 
 global = Global 0.01 10000.0 (floor $ simTime global/stepSize global)
 
 -- A normal distribution. Draw a number from it by repeatedly calling it.
 alpha :: IO Double
 alpha = normalIO 
+
+-- Calculate mean and variance
+mean x = helper x 0 0 where 
+    helper [] m _ = m
+    helper (x:xs) m n = helper xs ((m*n+x)/(n+1)) (n+1)
+            
 
 -- This is a weiner term; evaluated at x with given dt.
 weiner :: Double -> Double -> IO Double
@@ -36,15 +48,21 @@ simulate x steps trajectory = do
         0 -> return $ reverse trajectory
         _ -> xterm x dt >>= \x1 -> simulate x1 (steps-1) (x1:trajectory)
 
+analyze trajectory = do
+    let crossing = takeWhile (< (b states)) trajectory
+    print crossing
+    putStrLn $ "Done analyzing"
+
 simulateNTimes :: Double  -> Int -> [[Double]] -> IO [[Double]]
 simulateNTimes initX n trajectories = do 
     let steps = totalSteps global
     case n of
         0 -> return $ reverse trajectories
         _ -> do 
-                trajectory <- simulate initX steps []
+                trajectory <- takeWhile (< 120.0) $ simulate initX steps []
                 putStrLn $ "Created one trajectory. Left: " ++ show (n-1)
                 simulateNTimes initX (n-1) (trajectory:trajectories)
 main = do
-    let (time,dt,ntimes,steps) = (10000,1e-2, 3, floor $ time / dt)
+    let ntimes = 1
     trajectories <- simulateNTimes 0.0 ntimes []
+    putStrLn $ "Done calculating trajectories"
