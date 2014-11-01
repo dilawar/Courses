@@ -223,7 +223,7 @@ def main(problem = 1):
     gs = GeneticSwitch(k1k2=1e-4, init=0)
     print("++ Solving problem no {}".format(problem))
     if problem == 1:
-        gs.run(step = 0.01, stop = 10000, ntimes = 1)
+        gs.run(step = 0.01, stop = 10000, ntimes = 3)
         gs.plotTrajectories(save = True)
         gs.plotHistogram( save = True)
     elif problem == 2:
@@ -234,4 +234,4 @@ def main(problem = 1):
                 thresholdB = 125)
 
 if __name__ == '__main__':
-    main(2)
+    main(1)

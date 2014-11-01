@@ -1,7 +1,6 @@
 import Data.Random.Normal
 import System.Random
-import Graphics.Rendering.Chart.Easy
-import Graphics.Rendering.Chart.Backend.Cairo
+import Graphics.Gnuplot.Simple
 import Data.Foldable (toList)
 
 -- A normal distribution. Draw a number from it by repeatedly calling it.
@@ -36,12 +35,9 @@ simulateNTimes initX dt steps n trajectories = do
                 simulateNTimes initX dt steps (n-1) (trajectory:trajectories)
 
 main = do
-    let (time,dt,ntimes,steps) = (10000,1e-2, 10, floor $ time / dt)
+    let (time,dt,ntimes,steps) = (10000,1e-2, 3, floor $ time / dt)
     trajectories <- simulateNTimes 0.0 dt steps ntimes []
     let dataToPlot = map (\l -> zip [1,2..steps] (toList l)) trajectories
     putStrLn $ "Plotting trajectories"
-    -- Use cairo to plot the data.
-    toFile def "trajectories.png" $ do
-        layout_title .= "Trajectories"
-        mapM_ (\(i,t) -> plot (line ("trajectory"++show i) [t])) (zip [1,2..ntimes] dataToPlot)
+    plotLists [PNG "trajectories.png"] dataToPlot
     putStrLn "Done plotting all"
