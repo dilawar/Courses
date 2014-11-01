@@ -1,0 +1,7 @@
+HASKELL VS PYTHON
+
+    3 trajectories for 10000 steps, with step size 0.01 second takes approx 70
+    second, and with python 19.20 seconds. 
+
+    Plotting with Haskell using `chart` library takes approx 40 seconds. Thats
+    pretty wild.
