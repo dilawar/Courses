@@ -8,12 +8,12 @@ import Data.Foldable (toList)
 alpha :: IO Double
 alpha = normalIO 
 
--- This is a weiner terml; evaluated at x with given dt.
+-- This is a weiner term; evaluated at x with given dt.
 weiner :: Double -> Double -> IO Double
 weiner x dt = do 
     alpha >>= \a -> return $  a * ((x * dt) ** 0.5)
 
--- This is xterm, evaluated at x and dt
+-- This is xterm, evaluated at x with step size dt
 xterm :: Double -> Double -> IO Double
 xterm x dt = do 
     let [v0, v1, k1k2, gamma] = [12.0, 200, 1e-4, 1.0]
