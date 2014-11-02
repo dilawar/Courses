@@ -17,16 +17,16 @@ data Event = Birth | Death deriving (Show, Eq)
 global = Global 0.4
 fI = fromIntegral
 
-f x = (12.0 + 200*1e-4*(fI x^2))/(1 + 200*(fI x^2)) * (1 / fI x)
-g x = 1.0 * fI x
+f x = ((12.0 + 200*1e-4*(fI x^2))/(1 + 200*1e-4*(fI x^2))) / fI x
+g x = 1.0 
 
 randomNums :: Int -> [Double]
 randomNums n = randoms  (mkStdGen n)
 
 birthRate :: Int -> Double
-birthRate x = (12.0 + 200*1e-4*(fI x^2))/(1 + 200*(fI x^2)) * (1 / fI x)
+birthRate x = f x
 deathRate :: Int -> Double
-deathRate x = 1e-6/fI x
+deathRate x = g x
 
 -- This function determines which events should occur
 -- First argument is no of moleculares, second one is a random no.
@@ -53,9 +53,11 @@ plot filename traj = do
         _ -> plotList [PNG filename] traj
 
 -- Run the equation with seed n. n controls the random numbers generated.
-run seed initX steps = plot "gillespie.png" $ reaction [initX] (take steps $ randomNums seed)
+run seed initX steps = reaction [initX] (take steps $ randomNums seed)
 
 main = do
-    run 0 100 1000
+    let traj = run 0 10000 100000
+    print traj
+    plot "gillespie.png" traj
     putStrLn $ "Done doing simulation you puny human."
 
