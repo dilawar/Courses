@@ -26,11 +26,12 @@ randomNums n = randoms  (mkStdGen n)
 birthRate :: Int -> Double
 birthRate x = (12.0 + 200*1e-4*(fI x^2))/(1 + 200*(fI x^2)) * (1 / fI x)
 deathRate :: Int -> Double
-deathRate x = 2/fI x
+deathRate x = 1e-6/fI x
 
 -- This function determines which events should occur
+-- First argument is no of moleculares, second one is a random no.
 birthOrDeath :: Int -> Double -> Event
-birthOrDeath x r | r < (f x)/(f x + g x)  = Death
+birthOrDeath x r | r < (f x)  = Death
                  | otherwise = Birth 
 
 event :: Int -> Event -> Int
@@ -53,4 +54,8 @@ plot filename traj = do
 
 -- Run the equation with seed n. n controls the random numbers generated.
 run seed initX steps = plot "gillespie.png" $ reaction [initX] (take steps $ randomNums seed)
+
+main = do
+    run 0 100 1000
+    putStrLn $ "Done doing simulation you puny human."
 
