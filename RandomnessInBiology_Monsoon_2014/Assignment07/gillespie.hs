@@ -5,6 +5,7 @@
 --  A -> A - 1, rate = kb
 
 import System.Random
+import Graphics.Gnuplot.Simple
 
 -- Global parameters.
 data Global = Global {
@@ -44,6 +45,12 @@ reaction n rands
     where 
           e = birthOrDeath (head rands)
 
+plot filename traj = do
+    putStrLn $ "Plotting file " ++ filename
+    case filename of 
+        "" -> plotList [] traj
+        _ -> plotList [PNG filename] traj
+
 -- Run the equation with seed n. n controls the random numbers generated.
-run seed initX steps = reaction [initX] (take steps $ randomNums seed)
+run seed initX steps = plot "gillespie.png" $ reaction [initX] (take steps $ randomNums seed)
 
