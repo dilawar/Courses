@@ -1,6 +1,8 @@
 ---
 title: Assignment 7
 author: Dilawar Singh
+header-includes:
+    - \usepackage{verbatim}
 ---
 
 ## Genetic switch 
@@ -53,4 +55,16 @@ second).
     std : 612
 
 
+# Gillespie simulation
 
+current status: Not working well.
+
+# Source code
+
+## Langevian simulation 
+
+\verbatiminput{./solve.hs}
+
+## Gillespie simulation
+
+\verbatiminput{./gillespie.hs}

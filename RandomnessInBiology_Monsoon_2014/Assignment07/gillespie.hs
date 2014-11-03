@@ -16,6 +16,9 @@ data Event = Birth | Death deriving (Show, Eq)
 global = Global 0.4
 fI = fromIntegral
 
+f x = (12.0 + 200*1e-4*(fI x^2))/(1 + 200*(fI x^2)) * (1 / fI x)
+g x = 1.0 * x
+
 randomNums :: Int -> [Double]
 randomNums n = randoms  (mkStdGen n)
 
@@ -23,6 +26,7 @@ birthRate :: Int -> Double
 birthRate x = (12.0 + 200*1e-4*(fI x^2))/(1 + 200*(fI x^2)) * (1 / fI x)
 deathRate :: Int -> Double
 deathRate x = 2/fI x
+
 -- This function determines which events should occur
 birthOrDeath :: Double -> Event
 birthOrDeath r | r < (threshold global) = Death
