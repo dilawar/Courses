@@ -59,7 +59,7 @@ simulateNTimes initX n trajectories = do
     case n of
         0 -> return $ reverse trajectories
         _ -> do 
-                trajectory <- takeWhile (< 120.0) $ simulate initX steps []
+                let trajectory = takeWhile (< 120.0) $ simulate initX steps []
                 putStrLn $ "Created one trajectory. Left: " ++ show (n-1)
                 simulateNTimes initX (n-1) (trajectory:trajectories)
 main = do
