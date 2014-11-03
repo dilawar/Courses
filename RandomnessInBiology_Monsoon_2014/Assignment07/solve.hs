@@ -48,6 +48,12 @@ simulate x steps trajectory = do
         0 -> return $ reverse trajectory
         _ -> xterm x dt >>= \x1 -> simulate x1 (steps-1) (x1:trajectory)
 
+plot trajectory filename = do
+    putStrLn $ "Plotting trajectory to " ++ filename
+    case filename of 
+        "" -> plotList [] trajectory 
+        _ -> plotList [EPS filename] trajectory
+
 analyze trajectory = do
     let crossing = takeWhile (< (b states)) trajectory
     print crossing
@@ -65,4 +71,5 @@ simulateNTimes initX n trajectories = do
 main = do
     let ntimes = 1
     trajectories <- simulateNTimes 0.0 ntimes []
+    mapM_ (\t -> plot t []) trajectories
     putStrLn $ "Done calculating trajectories"
