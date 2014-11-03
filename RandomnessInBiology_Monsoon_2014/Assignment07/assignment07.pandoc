@@ -3,6 +3,7 @@ title: Assignment 7
 author: Dilawar Singh
 header-includes:
     - \usepackage{verbatim}
+    - \usepackage[margin=10mm]{geometry}
 ---
 
 ## Genetic switch 
@@ -54,6 +55,15 @@ second).
     mean : 588
     std : 612
 
+# Trajectories before the transition
+
+The rate at which trajectories reaches the steady state is almost the same for
+almost all trajectories. They take different time to reach the steady state, to
+overcome this we have aligned all figures at the transition points.
+
+![Multiple trajectories just before
+crossing](./final_pics/trajectories_before_transitions.png)
+
 
 # Gillespie simulation
 
@@ -63,7 +73,7 @@ current status: Not working well.
 
 ## Langevian simulation 
 
-\verbatiminput{./solve.hs}
+\verbatiminput{./solve.py}
 
 ## Gillespie simulation
 

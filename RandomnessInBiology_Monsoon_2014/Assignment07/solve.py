@@ -234,4 +234,5 @@ def main(problem = 1):
                 thresholdB = 125)
 
 if __name__ == '__main__':
-    main(1)
+    import sys
+    main(int(sys.argv[1]))
