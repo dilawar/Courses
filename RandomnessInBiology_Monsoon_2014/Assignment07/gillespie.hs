@@ -18,7 +18,7 @@ global = Global 0.4
 fI = fromIntegral
 
 f x = (12.0 + 200*1e-4*(fI x^2))/(1 + 200*(fI x^2)) * (1 / fI x)
-g x = 1.0 * x
+g x = 1.0 * fI x
 
 randomNums :: Int -> [Double]
 randomNums n = randoms  (mkStdGen n)
@@ -29,9 +29,9 @@ deathRate :: Int -> Double
 deathRate x = 2/fI x
 
 -- This function determines which events should occur
-birthOrDeath :: Double -> Event
-birthOrDeath r | r < (threshold global) = Death
-               | otherwise = Birth 
+birthOrDeath :: Int -> Double -> Event
+birthOrDeath x r | r < (f x)/(f x + g x)  = Death
+                 | otherwise = Birth 
 
 event :: Int -> Event -> Int
 event n Birth = n + (floor $ (birthRate n) * fI n)
@@ -43,7 +43,7 @@ reaction n rands
     | head n <= 0 = reverse n
     | otherwise = reaction ((event (head n) e):n) (tail rands)
     where 
-          e = birthOrDeath (head rands)
+          e = birthOrDeath (head n) (head rands)
 
 plot filename traj = do
     putStrLn $ "Plotting file " ++ filename
