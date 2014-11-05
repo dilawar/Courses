@@ -17,7 +17,7 @@ data State = State { a :: Double, b :: Double }
 states = State 12.0 120.0
 
 global :: Global 
-global = Global 0.01 10000.0 (floor $ simTime global/stepSize global)
+global = Global 0.01 20000.0 (floor $ simTime global/stepSize global)
 
 -- A normal distribution. Draw a number from it by repeatedly calling it.
 alpha :: IO Double
@@ -52,7 +52,7 @@ plot trajectory filename = do
     putStrLn $ "Plotting trajectory to " ++ filename
     case filename of 
         "" -> plotList [] trajectory 
-        _ -> plotList [EPS filename] trajectory
+        _ -> plotList [PNG filename] trajectory
 
 analyze trajectory = do
     let crossing = takeWhile (< (b states)) trajectory
@@ -65,12 +65,13 @@ simulateNTimes initX n trajectories = do
     case n of
         0 -> return $ reverse trajectories
         _ -> do 
+                putStrLn $ "Chopping off trajectory to get first crossing"
                 traj <- simulate initX steps []
                 let trajectory = takeWhile (< 120.0) traj
                 putStrLn $ "Created one trajectory. Left: " ++ show (n-1)
                 simulateNTimes initX (n-1) (trajectory:trajectories)
 main = do
-    let ntimes = 1
+    let ntimes = 2
     trajectories <- simulateNTimes 0.0 ntimes []
-    mapM_ (\t -> plot t []) trajectories
+    mapM_ (\(i, t) -> plot t $ "trajectory_"++(show i)++".png") $ zip [1,2..] trajectories
     putStrLn $ "Done calculating trajectories"
