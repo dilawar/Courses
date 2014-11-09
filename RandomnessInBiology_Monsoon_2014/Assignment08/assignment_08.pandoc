@@ -1,0 +1,21 @@
+---
+title: Assignment 8
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+    - \DeclareMathOperator\erf{erf}
+---
+
+# 1
+
+\begin{align}
+\mathcal{P}(y,t) &= \frac{1}{2\pi \sigma^2} e^{-\frac{y^2}{2\sigma ^2}} \\
+\frac{1}{2} \int_0^t f_{R,0}(\tau)d\tau &= \mathcal{P}(y(t) > R) \\
+    &= \int_R^\infty \mathcal{P}(y,t) dy \\
+    &= \int_R^\infty \frac{1}{2\pi \sigma^2} e^{-\frac{y^2}{2\sigma ^2}} dy \\
+    &= 1 - \int_0^R \frac{1}{2\pi \sigma^2} e^{-\frac{y^2}{2\sigma ^2}} dy \\
+    &= 1 - \frac{1}{2} \erf\left(\frac{R}{\sqrt{2}\sigma}\right) \\
+\implies f_{R,0}(t) &= 2 \delta(t) - \frac{2}{\sqrt{\pi}} \exp\left(
+-\frac{R^2}{2\sigma^2}\right) 
+\end{align}
