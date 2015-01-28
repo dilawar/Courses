@@ -21,18 +21,20 @@ all computations are thoughts.
 For animals with linguistic capabilities, I'd suggest that main purpose of
 language is to compress lot of information. Some essential components of
 compressed information is retained as _meaning_ which is associated with a
-symbol and sequences of these symbols can be called language. Language can be
-used in two ways: 
+symbol. Language can be defined as a collection of sequences formed by these
+symbols and can be used in two ways: 
 
 - Decompress the symbols and extract information for self to understand one's
-  environment and perhaps self too. 
+  environment.
 
 - Send the symbols across for others to interpret (communication). 
     
-We only deal with the former in this essay because  in case of the later, the
-individual might use language for various other tasks for the purpose of
-obscuring the information such as confusing and tricking others for one's
-advantage, not always unknowingly.
+We restrict ourselves with the former because  in case of the later, the
+individual might use language for various other tasks -- obscuring the
+information such as confusing and tricking others for one's advantage, not
+always unknowingly. Such would not be an easy situation to analyze. When one is
+dealing with language to understand one's own environment, perhaps the task of
+analysis is much easier.
 
 Now we can go back to original question: __Does language influence thinking?__
 
@@ -46,13 +48,64 @@ some other language is going to be valued more. Perhaps it not hard to confuse
 the suitability of a language for a particular task with ability to think in
 that particular language.
 
-Designing an experiment to falsify hypothesis about language seems to be a
-challenging task. Not merely because the designer of experiment would himself
-has his own value system but also because one can only express the experiment in
-a language itself. But what can not be overcome can be bypassed. We can
-definitely compare and contrast a sophisticated language with the most primitive
-one.
+How to neutralize the social content or value system of observer? Designing an
+experiment to falsify this hypothesis about language seems to be a challenging
+task. Not merely because the designer of experiment himself has a value system
+to bias him but also because one can only express the experiment in a language
+itself. But what can not be overcome can be bypassed. We can definitely compare
+and contrast a complex and sophisticated language with the most primitive one.
 
-Honeybees seems to do as well as human (even perhaps better in some activities)
-as far as very basic life related functions are concerned. They can communicate
-the location of food accurately and do reproduction effectively.
+Honeybees seems to do  pretty well (even perhaps better in some activities) as
+far as very basic life related functions are concerned. They can communicate the
+location of food accurately and reproduction effectively without having to
+evolve a language as complex as ours. On the other hand, if they were to cheat
+each other of food and sex, they would need a more complex language which allows
+more compression of information, ambiguous association of meaning with symbols,
+in which producing confusion and trickery is easier. Some higher primates 
+have the faculty of building basic block of language -- suffixing and
+prefixing sounds to create compound sound. And they are known to use it for
+various purpose: to get head-start in competition as well as for cooperation.
+Yet they have not constructed a complex language, perhaps they are yet to
+realize that other do have thoughts and the best way to influence those is to
+use language. It is hard to see how languages makes us better or worse at
+thinking as such. And even if they do, it would be nearly impossible to quantify
+such difference.
+
+On the other hand, the idea that languages influence the way we think may be
+right if only we are willing to set the context. We need to ask on what kind of
+activity it impinges upon. Does Sankrit allows one to think in more modular way
+-- composition of bigger sentences from smaller sentences is easier? Or German
+allows us to think more structurally?
+
+We can compare Indian classical music with Western classical music. The former
+is hardly ever written  down, instructions are transmitted orally from teacher
+to pupil. The Western music is well written therefore also extremely structured.
+In Western classical music, it is extremely easy to put a band of musician
+together and play a piece of music. In Indian classical music, one can hardly
+imagine putting up a show as complex as opera. There is simply no way to
+synchronize artists. Having nice structure allows one to create, play and
+disseminate music easily. On the flip side, you will never hear an entirely
+different version of Mozart as often as you might hear a raga sung differently.
+One can enumerate advantages and disadvantages of both musical systems. But it
+does not address the question if Indian and Western musical languages have
+certain advantage when it comes to think about music as such. If a society put a
+high premium on team work then Western musical language is a winner, if a
+society value individual virtuosity more, then the advantage lies with Indian
+classical tradition.
+
+In nutshell, language is a social category, it is not a neurological category.
+It influences and get influenced by culture and traditions. And plays an
+important role in its own social context. It probably also modifies neuronal
+pathways, as any repeated activity would do. Some languages are perhaps better
+suited for expressing and accomplishing some tasks while others are good at
+others. To say more than that, one would need much more precise definitions of
+both thought and language.
+
+To end, a good analogy would be of computer languages. Most of them are known to
+be Turing complete i.e. any program written in one can be written in any other.
+They do not limit our capabilities of programming as such. Yet there are
+problems  which are are easy to program in one language are hard in other.
+Hardware are easy to control in imperative languages, while modularity is easy
+to achieve in functional framework. And choice depends on what you value more
+rather than the power they posses.
+
