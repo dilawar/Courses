@@ -1,0 +1,28 @@
+---
+title: Lecture notes 
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+1. Transportation inside the cell
+
+- Proteins move move inside the cell. Each type of protein usually sent to a
+  specific part of cell. They are synthesised in ribosomes (ER). __Is it like
+  sending ethernet packets?__
+
+- Vesicles are used to localize molecules. __read__
+
+2. __Even and odd numbers of C atoms in polypeptide chain in lipid bilayers.
+   Apparently this creates a huge difference for adaptability of cell to various
+   enviromental fluctuations.
+
+3. Effect of temperature on cell membrane: Insects cells membrane are pretty
+   good at adapting variation in temperature.
+
+    Micheal Edidin, Nature Reviews 2003, MCB
+
+4. Fact: Cell membrane : 10-20% protein. Vescicle membrane: ~50% protein.
+
+
