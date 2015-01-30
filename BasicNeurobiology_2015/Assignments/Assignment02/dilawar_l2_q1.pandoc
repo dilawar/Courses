@@ -1,0 +1,28 @@
+---
+title: Lecture 2, Question 1
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+> The axon from your spinal cord to your toe is about 1 metre long. Suppose it
+> had to conduct signals passively only. You give an input of 1000 V at one end.
+> At what distance from the input would the signal have gone down to 1 mV? In a
+> line, suggest what would actually happen to the axon if you treated it in this
+> way.  Cell properties are: diameter = 1 micron, $R_A$ = 1 ohm.metre, and $R_M$
+> = 1 ohm. $m^2$
+
+Axial resistance at distance $x$ $r_a(x)$ = $\frac{R_A x}{A}$ = $\frac{x}{\pi (0.5e-6)^2}$ 
+= $\frac{4x}{\pi} \times 10^{12} \Omega$.
+
+Membrane resistance at distance $x$ $r_m(x)$ = $\frac{R_M}{surfaceArea(x)}$ 
+= $\frac{1}{\pi \times 10^{-6} x} \Omega$ 
+
+From equivalent circuit of passive cable:
+
+$V(x) = \frac{V(0) \times r_m(x)}{r_a(x)} \implies 10^{-3} =
+\frac{10^{-3}}{4x^2} \implies 4x^2 = 1 \implies x = 0.5 $
+
+Signal is dropping way too fast (0.25 mV at the other end when 1000 V input is
+applied). It wont be able to transmit information to the other end.
