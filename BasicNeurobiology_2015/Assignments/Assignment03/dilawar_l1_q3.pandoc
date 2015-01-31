@@ -1,0 +1,24 @@
+---
+title: Lecture 2, Problem 3
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+> Suppose the axon in question 1 were myelinated, but still did not have any ion
+> channels. The myelin wraps around 100 times, increasing the resistance by 200
+> fold. What does it do to the capacitance? What happens to the membrane
+> time-constant? What happens to the membrane length constant?
+
+- If each wraps contribute a capacitance of $c_1$ and effectively we are adding
+  capacitance in series 100 times: effective capacitance $\frac{c_1}{100}$
+  moreover if capacitance of axon was $c$ to start with, new capacitance will be
+  lesser than both $c$ and $\frac{c_1}{100}$. Now the resistance has increased
+  by a factor of 200. The time constant which is a multiple of R and C, depends
+  on how much capacitance is reduced. If capacitance reduction is more than a
+  factor of 200, then time-constant will decrease by a factor of
+  $\frac{\frac{dC}{c}}{\frac{dR}{R}}$. 
+
+- Membrane length constant ($\lambda = \sqrt{\frac{d R_M}{R_A}}$) increases as
+  diameter $d$ increases. 
