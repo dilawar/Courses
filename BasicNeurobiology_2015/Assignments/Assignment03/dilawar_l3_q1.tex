@@ -1,0 +1,213 @@
+\documentclass[]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+%\usepackage{circuitikz}
+\makeatletter
+\@ifpackageloaded{tex4ht}{
+    \def\pgfsysdriver{pgfsys-tex4ht.def}
+}
+\makeatother
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,backgrounds,positioning,matrix,decorations}
+
+\usepackage{siunitx}
+\usepackage{python}
+\usepackage{ifxetex,ifluatex}
+\usepackage{listings}
+% \usepackage[xindy,acronym,nomain,toc]{glossaries}
+% \makeglossaries
+%\usepackage[xindy]{imakeidx}
+%\makeindex
+\setlength{\parskip}{3mm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{definition}{Definition}
+\newtheorem{comment}{Comment}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{property}{Property}
+\newtheorem{problem}{Problem}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{script}{Script}
+
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Dilawar Singh},
+            pdftitle={Lecture 3, Question 1},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{5}
+
+\title{Lecture 3, Question 1}
+\author{Dilawar Singh}
+\date{\today}
+\usepackage[margin=15mm]{geometry}
+\usepackage{pgfplots}
+\usepackage{circuitikz}
+
+\begin{document}
+\maketitle
+
+\begin{quote}
+Draw the following current-voltage curves:
+\end{quote}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  A resistor
+\item
+  A resistor in series with a battery of -80 mV
+\item
+  A resistor in series with a battery of -80 \textgreater{} mV, where
+  the resistance is infinity below -60 mV, is 2R from -60 to 0 mV, and
+  is R above 0 mV.\\
+\item
+  A potassium channel, assuming no inactivation. Assume that the K
+  channel is closed below -60 mV and has a reversal potential of -80 mV
+  and has an open conductance of R, for all potentials above 0 mV.
+\end{enumerate}
+\end{quote}
+
+\section{A resistor}\label{a-resistor}
+
+\begin{figure}[!ht]
+\begin{center}
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+        title={$V_R(t) = R * i_R(t)$}
+        , xlabel=$V_R(t)$
+        , ylabel=$i_R(t)$
+        , legend pos=north west
+        , domain=-1:1
+        , samples=10
+        , grid=major
+        ]
+    \addplot {x/10};
+    \addplot {x/1.0};
+    \addplot {x/0.1};
+    \legend{$R=10 \Omega$, $R=1 \Omega$, $R=0.1 \Omega$};
+    \end{axis}
+
+\end{tikzpicture}
+\end{center}
+\end{figure}
+
+\section{A resistor in series with a battery of -80
+mV}\label{a-resistor-in-series-with-a-battery-of--80-mv}
+
+\begin{circuitikz}[american voltages]
+\centering
+\draw (0, 0) to[R, l=$R$] (3,0) to[V, l=$-80 mV$] (6,0);
+\end{circuitikz}
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+        title={$V_R(t) = R * i_R(t) + 0.080 $}
+        , xlabel=$V_R(t)$
+        , ylabel=$i_R(t)$
+        , legend pos=north west
+        , domain=-0.1:0.1
+        , samples=10
+        , grid=major
+        ]
+    \addplot {(x+0.080)/10};
+    \addplot {(x+0.080)/0.5};
+    \legend{$R=10 \Omega$, $R=0.5 \Omega$};
+    \end{axis}
+\end{tikzpicture}
+
+\section{A resistor in series with a battery of -80 mV, where the
+resistance is\\ infinity below -60 mV, is 2R from -60 to 0 mV, and is R
+above 0
+mV}\label{a-resistor-in-series-with-a-battery-of--80-mv-where-the-resistance-is-infinity-below--60-mv-is-2r-from--60-to-0-mv-and-is-r-above-0-mv}
+
+\pgfmathdeclarefunction{Resistance}{2}{%
+    \pgfmathparse{%
+        (and(1, #2<-0.060)*10e50+and(#2>=-0.060,#2<0)*2*#1+and(1, #2>0)*#1) }
+}
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+        title={$V_R(t) = R(V_R) * i_R(t) - 0.080 $}
+        , xlabel=$V_R(t)$
+        , ylabel=$i_R(t)$
+        , legend pos=north west
+        , domain=-0.1:0.1
+        , samples=20
+        , grid=major
+        ]
+    \addplot {(x+0.080)/Resistance(10,x)};
+    \addplot {(x+0.080)/Resistance(0.5,x)};
+    \legend{$R=10 \Omega$, $R=0.5 \Omega$};
+    \end{axis}
+\end{tikzpicture}
+
+\section{A potassium channel}\label{a-potassium-channel}
+
+Assume no inactivation. Assume that the K channel is closed below -60 mV
+and has a reversal potential of -80 mV and has an open conductance of R,
+for all potentials above 0 mV.
+
+\pgfmathdeclarefunction{PotChan}{2}{%
+    \pgfmathparse{%
+        (and(1, #2<-0.060)*10e50+and(#2>=-0.060,#2<0)*20*#1+and(1, #2>0)*#1) }
+}
+
+No information is given what is the conductance of channel when membrane
+potential is between -60 mV and 0 mV. Assuming it is more than R, the
+curve is more or less likely to be the one just above.
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+        title={$V_R(t) = R(V_R) * i_R(t) - 0.080 $}
+        , xlabel=$V_R(t)$
+        , ylabel=$i_R(t)$
+        , legend pos=north west
+        , domain=-0.1:0.1
+        , samples=20
+        , grid=major
+        ]
+    \addplot {(x+0.080)/PotChan(10,x)};
+    \addplot {(x+0.080)/PotChan(0.5,x)};
+    \legend{$R=10 \Omega$, $R=0.5 \Omega$};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}
