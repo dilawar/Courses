@@ -1,0 +1,26 @@
+---
+title: Lecture 3, Question 2
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+> A potassium channel (non-inactivating) obeys the HH equations with a power of 4
+> for its gating variable n. At a potential of -40 mV, the conductance of the
+> channel is half its maximal conductance. What is the ratio of alpha/beta at
+> this potential?
+
+# HH equation for potassium channel 
+
+\begin{align}
+n_{\infty}(V) &= \left(\frac{g_{K_\infty}(V)}{\bar{g_K}}\right)^\frac{1}{4} \\
+              &= 0.5^{0.25} = 0.84089 
+\end{align}
+
+Parameter $n_{\infty}(V)$ and $\alpha(V)$ and $\beta(V)$ are related:
+
+$$n_{\infty} = \frac{\alpha}{\alpha + \beta} = 0.84089 \implies
+\frac{\alpha}{\beta}=5.28$$
+    
+
