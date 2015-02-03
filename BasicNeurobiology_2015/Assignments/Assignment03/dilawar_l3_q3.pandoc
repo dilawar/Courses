@@ -1,0 +1,26 @@
+---
+title: Lecture 3, Question 3
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+> A platypus neuron gets both excitatory and inhibitory input, via AMPAR and
+> GABAA receptors. These have a reversal potential of 0 and -70 mV respectively.
+> The cell has an Em of -65 and an Rm of 200 MegaOhm. The AMPA and GABA
+> receptors each have a Gmax of 10 nS. What is the highest potential that the
+> cell reaches? What will be its input resistance at the instant that all the
+> channels are open?
+
+Assuming that we mean "highest resting potential" by "resting potential", we
+write the Kirchoff current equation at the node.
+
+Conductance of membrane = $\frac{1}{200e6}$ = 5 nS.
+
+$$ V_m = \frac{-65 \times 5 + 0 \times 10 - 70 \times 10}{5 + 10 + 10} = -45 mV $$
+
+When all channels are open, the input resistance of cell is three resistances of
+200e6 $\Omega$, 100e6 $\Omega$, and 100e6 $\Omega$ in parallel i.e. 40e6
+$\Omega$.
+
