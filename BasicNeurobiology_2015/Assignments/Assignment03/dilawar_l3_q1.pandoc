@@ -70,7 +70,7 @@ header-includes:
 
 \pgfmathdeclarefunction{Resistance}{2}{%
     \pgfmathparse{%
-        (and(1, #2<-0.060)*10e50+and(#2>=-0.060,#1<0)*#1*2+and(1, #2>0)*#1) }
+        (and(1, #2<-0.060)*10e50+and(#2>=-0.060,#2<0)*2*#1+and(1, #2>0)*#1) }
 }
 
 \begin{tikzpicture}[scale=1]
@@ -78,13 +78,44 @@ header-includes:
         title={$V_R(t) = R(V_R) * i_R(t) - 0.080 $}
         , xlabel=$V_R(t)$
         , ylabel=$i_R(t)$
-        , legend pos=north east
-        , domain=-1:1
+        , legend pos=north west
+        , domain=-0.1:0.1
         , samples=20
         , grid=major
         ]
     \addplot {(x+0.080)/Resistance(10,x)};
     \addplot {(x+0.080)/Resistance(0.5,x)};
+    \legend{$R=10 \Omega$, $R=0.5 \Omega$};
+    \end{axis}
+\end{tikzpicture}
+
+# A potassium channel
+
+Assume no inactivation. Assume that the K channel is  closed below -60 mV and
+has a reversal potential of -80 mV and has an open  conductance of R, for all
+potentials above 0 mV.
+
+\pgfmathdeclarefunction{PotChan}{2}{%
+    \pgfmathparse{%
+        (and(1, #2<-0.060)*10e50+and(#2>=-0.060,#2<0)*20*#1+and(1, #2>0)*#1) }
+}
+
+No information is given what is the conductance of channel when membrane
+potential is between -60 mV and 0 mV. Assuming it is more than R, the curve is
+more or less likely to be the one just above.
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+        title={$V_R(t) = R(V_R) * i_R(t) - 0.080 $}
+        , xlabel=$V_R(t)$
+        , ylabel=$i_R(t)$
+        , legend pos=north west
+        , domain=-0.1:0.1
+        , samples=20
+        , grid=major
+        ]
+    \addplot {(x+0.080)/PotChan(10,x)};
+    \addplot {(x+0.080)/PotChan(0.5,x)};
     \legend{$R=10 \Omega$, $R=0.5 \Omega$};
     \end{axis}
 \end{tikzpicture}
