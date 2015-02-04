@@ -1,0 +1,20 @@
+digraph cellSecretion {
+
+    subgraph place {
+        graph [shape=circle,color=gray];
+        node [shape=circle,fixedsize=true,width=2];
+        "customer waiting";
+        cutting;
+        "idle barber";
+        "customer paying";
+    }
+
+    subgraph transitions {
+        node [shape=rect,height=0.2,width=2];
+        enter;
+        "start cutting";
+        "finish cutting";
+        exit;
+    }
+
+}
