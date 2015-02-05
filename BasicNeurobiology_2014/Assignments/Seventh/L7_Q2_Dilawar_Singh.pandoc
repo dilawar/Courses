@@ -1,0 +1,49 @@
+% Assignment 7, Problem 2
+% Dilawar Singh
+
+# Problem 
+You are interested in the input-output relationship of a particular graded
+chemical synapse. You would like to characterize how the voltage change in the
+postsynaptic cell depends upon the amount of depolarization in the presynaptic
+cell. Using intracellular electrodes, you depolarize the presynaptic cell by
+various voltage steps and record the postsynaptic EPSP (using TTX to block
+AP’s). You discover that there is a sigmoidal relationship between pre- and
+post-synaptic potential as shown in the figure. 
+
+a. Suggest two possible reasons for the plateau reached with increasing
+presynaptic depolarization.  
+
+b. Suggest an experiment that would allow you to determine which, if either, of
+your hypotheses is correct. 
+
+![Presynaptic membrane potential causes post-synaptic membrane potential](question2_sigmoid.png)
+
+# Answers
+
+The sigmoid curve has three regions: < 10 mV region where the relationship is
+rather linear; > -10 mV but < 10 mV where relationship is also "linear" but the
+slope is extremely steep, a small change in presynaptic voltage causes a great
+change in postsynaptic voltage; and > 10 mV where the relationship is linear but
+saturated, no amount of presynaptic voltage changes the postsynaptic voltage.
+
+We can conclude following.
+
+- In region < -10mV, a channel or group of channels are active with constant
+conductance.
+
+- At -10 mV, another channel or group of channels with much higher conductances
+opens and contribute to the postsynaptic potential.
+
+- After +10 mV, no new channels opens and old channels saturates.
+
+### a
+
+1. All active channels at +10mV reaches their maximum conductances. or,
+2. New channels opens just before +10mV and current flows in opposite directions
+in these new channels as compared to the previously opened one. The commulative
+effect on increase of EPSP become zero at 0mV.
+
+### b
+
+First we should check that new channels are being opened or not.
+

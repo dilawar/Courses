@@ -1,0 +1,180 @@
+\documentclass[]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%\usepackage{circuitikz}
+\makeatletter
+\@ifpackageloaded{tex4ht}{
+    \def\pgfsysdriver{pgfsys-tex4ht.def}
+}
+\makeatother
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{python}
+\usepackage{pgfplots}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{amsthm}
+\usepackage{listings}
+\setlength{\parskip}{3mm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{definition}{Definition}
+\newtheorem{comment}{Comment}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{property}{Property}
+\newtheorem{problem}{Problem}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{script}{Script}
+
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Dilawar Singh},
+            pdftitle={Problem 1},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\title{Problem 1}
+\author{Dilawar Singh}
+\date{A pandoc markdown version of this document is available
+\href{http://github.com/dilawar/courses/raw/master/NeuroCourse/Assignments/Second/Problem01/L2_Q1_DilawarSingh.pandoc}{here}}
+
+\begin{document}
+\maketitle
+
+\begin{problem}
+ The axon from your spinal cord to your toe is about 1 metre long. How fat
+ would it have to be to conduct stimuli, assuming that the potential at the
+ stimulus is 0 mV and the potential at the terminus is -38 mV. Cell properties
+ are: Resting potential = -60 mV, $R_A$ = 1 ohm metre, and $R_M$ = 1 ohm $m^2$
+
+ \footnote{Circuit drawn using pgf \pgfversion}
+
+\end{problem}
+
+Since we are dealing with the steady-state value at output, we need not
+consider the transient elements. The equivalent circuit of cell will be
+like a potential-divider. To make our life simpler, we raise the
+potential of every node by 60 mV. os
+
+\begin{figure}[h!]
+\usetikzlibrary{circuits.ee.IEC}
+\usetikzlibrary{shapes}
+\centering
+\begin{tikzpicture}[circuit ee IEC
+    , small circuit symbols
+    , set resistor graphic=var resistor IEC graphic
+    ]
+\node [cylinder
+    , cylinder uses custom fill
+    , minimum width=1.5cm, minimum height=12cm
+    , cylinder end fill=red!50, cylinder body fill=red!25] (c)  
+    at (6,0) {};
+
+    \node (a) at (c.west) [left] {A};
+    \node (b) at (c.east) [right] {B};
+    \draw[<->] (c.after bottom) -- (c.north) node[midway, above] {x};
+    \draw[<->] (c.north) -- +(1.5,0) node[midway, above] {dx};
+
+%% Draw axial resitors 
+\foreach \x in {0,1.5,...,10.5}
+{
+    \draw (\x,0) -- +(0.25,0) to[resistor={info={$dR$}}] (\x+1.25,0) -- +(0.25,0);
+    \draw (\x+1.5,0) to[resistor={info={$r_m$}}] (\x+1.5,-1.5) to[ground] +(0,-0.25);
+}
+\end{tikzpicture}
+
+\caption{\small Equivalent cable approximation of axon at steady state. To make
+    our analysis simpler, we raise the potential of every node by 60 mV.
+    Therefore, end A is at 60 mV and end B is at 22 mV. 
+}
+\end{figure}
+
+\subsection{Circuit analysis of this network at steady
+state}\label{circuit-analysis-of-this-network-at-steady-state}
+
+Network at steady state i.e.~node potential are changing in time. We can
+do nodal analysis now. Take any three consecutive nodes. For
+convenience, we chose following locations: $x-dx$, $x$, and $x+dx$. We
+get the following equations.
+
+\begin{align}
+\frac{V(x) - V(x-dx)}{dR} + \frac{V(x) - V(x+dx)}{dR} + \frac{V(x)}{r_m} &= 0
+\end{align}
+
+We also have following relations: $dR=\frac{R_A dx}{\pi r^2}$ where $r$
+is the radius of axon, also, $r_m =\frac{R_M}{2\pi r dx}$. After putting
+them all together, we get.
+
+\begin{align}
+\frac{V(x) - V(x-dx)}{\frac{R_A dx}{\pi r^2}} + \frac{V(x) - V(x+dx)}
+    {\frac{R_A dx}{\pi r^2}} + \frac{V(x)}{\frac{R_M}{2\pi r dx}} &= 0  \\
+\frac{\pi r^2}{R_A} \left( \frac{V(x) - V(x-dx)}{dx} +
+    \frac{V(x) - V(x+dx)}{dx} + \frac{V(x)}{\frac{R_Mr}{R_A 2dx}} \right) &= 0 \\ 
+\frac{1}{dx} \left( \frac{V(x) - V(x-dx)}{dx} + \frac{V(x) - V(x+dx)}{dx} \right)
+    &= - \frac{V(x)}{\frac{R_Mr}{2R_A}} 
+\end{align}
+
+Some more rearranging gives us the following/
+
+\begin{align}
+\frac{1}{dx} \left( 
+    \frac{V(x+dx) - V(x)}{dx} - \frac{V(x) - V(x-dx)}{dx} 
+\right) &=  \frac{V(x)}{\frac{R_Mr}{2R_A}} 
+\end{align}
+
+One left hand side, we have the definition of second derivative. Now we
+can claim that life is easy.
+
+\begin{eqnarray}
+    \label{eqn}
+    \frac{d^2V(x)}{dx^2} &= \frac{V(x)}{\frac{R_Mr}{2R_A}}
+\end{eqnarray}
+
+Let's put the values.
+
+\begin{eqnarray}
+    \frac{d^2V(x)}{dx^2} &= \frac{2}{r}  V(x)
+\end{eqnarray}
+
+\subsection{Solution}\label{solution}
+
+The above equation has a solution $V(x) = c \exp \sqrt{\frac{2}{r}}x$
+Now we solve it for given boundry conditions: $V(0) = 60$ and
+$V(1) = 22$. This gives us the following solution:
+$\frac{2}{r}=  [\ln \frac{22}{60}]^2 \implies r = 1.9868 m$. Such a
+thick axon!
+
+\end{document}

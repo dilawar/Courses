@@ -1,0 +1,42 @@
+﻿% Lecture 4, Problem 2
+% Dilawar Singh 
+% \today
+
+\begin{problem}
+
+Your patched neuron has a resting potential of -60 mV. Yet the ion gradients are
+equal to those in mammalian skeletal muscle. How do you think this could be?
+
+\end{problem}
+
+The value of resting potential in mammalian skeletal cell is about 
+-95 mV [Wiki](http://en.wikipedia.org/wiki/Resting_potential#Summary_of_resting_potential_values_in_different_types_of_cells).
+The evil looking equation in lecture 4 slides might be able to explain it.
+Qualitatively, it is due to complex permeability profile of ion channels in
+membrane. Even when the gradient are same in both cases, the different
+permeability of membrane to differnt ions will result in different resting
+potential.
+
+
+[This reference](http://ceaccp.oxfordjournals.org/content/6/1/1.full#T1) gives
+a useful information:
+
+\begin{quote}
+
+The resting membrane potential in skeletal muscle cells is similar to that in
+neurons, i.e. -70 to -90 mV. Unlike nerve cells, where the resting membrane
+potential is predominantly a result of K\textsuperscript{+} permeability,
+skeletal muscle cell resting membrane potential receives a significant
+contribution from Cl\textsuperscript{-} conductance. The importance of this
+Cl\textsuperscript{-} current became apparent when the excitability associated
+with myotonia congenita was found to be a result of chloride channel mutations.
+The physiological relevance of the Cl\textsuperscript{-} current stems from a
+need to maintain muscle activity during repeated stimulation. When muscle
+contracts, there is leakage of K\textsuperscript{+} from the cell. With repeated
+activity there is run-down of the K\textsuperscript{+} concentration gradient
+across the sarcolemma. Without the Cl\textsuperscript{-} current to maintain
+resting membrane potential, the muscle would not repolarize sufficiently to
+regenerate the active state of the channels responsible for generation of
+succeeding action potentials. 
+
+\end{quote}

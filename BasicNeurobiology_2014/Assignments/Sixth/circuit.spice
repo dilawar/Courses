@@ -1,0 +1,11 @@
+* This is solution to question 4. We construct a passive cable in soma and axon.
+.INCLUDE ./models/compartment.spice
+Xcomp1 in1 out1 p1 0 compartment
+* A current pulse
+Ia p1 GND pulse(0 1n 1n 1n 1n 20m 100m)
+
+.CONTROL
+TRAN 0.1m 1000m
+plot 0-v(out1)
+.ENDC
+

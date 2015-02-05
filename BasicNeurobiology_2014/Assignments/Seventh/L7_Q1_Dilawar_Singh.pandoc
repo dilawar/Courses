@@ -1,0 +1,178 @@
+% Assignment 7, Problem 1
+% Dilawar Singh
+
+\begin{problem}
+
+Cells A and B both form synapses onto cell C. Both A and B are cholinergic
+neurons. However, C expresses muscarinic receptors (which activate a potassium
+current) at its synapses with A and nicotinic receptors at its synapses with B.
+You voltage clamp C and stimulate A to fire single action potentials. You have
+blocked sodium channels in C intracellularly using QX314. Draw the response of
+C, with the correct kinetics, at these holding potentials: -80mV, -30mV, 0mV and
++30mV. Explain why you would expect these traces. Repeat the above when you
+stimulate B instead. Explain your answer. What will you see if you stimulate A
+and B simultaneously?
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[scale=1]
+    %% This is the nueronal circuit
+    \tikzset {
+        every neuron/.style={
+            circle
+            , draw
+            , minimum size = 1cm
+        }
+    }
+    \node[every neuron, fill=blue!10] (A) at (0, 0) {A};
+    \node[every neuron, fill=blue!10] (B) at (0, -4) {B};
+    \node[every neuron, fill=red!10] (C) at (4, -2) {C};
+
+    \draw[-|, thick, shorten >= 1pt] (A) -- 
+        node [very near end, above] {\tiny{mACh}} (C);
+    \draw[-|, thick, shorten >= 1pt] (B) -- 
+        node [very near end, below] {\tiny{nACh}} (C);
+
+\end{tikzpicture}
+\end{center}
+\caption{ Cell A and B making synapse on cell C. C is voltage-clamped.}
+\label{fig:}
+\end{figure}
+\end{problem}
+
+### Soultion 
+
+A cholinergic neuron has the following behaviour,
+
+- Acetylcholine gated channel at post-synaptic membrane allows both $Na^+$ and
+$K^+$ to pass through them. The reversal potential is $0V$. This is different
+from voltage-gated channels which usually allow only one ion to pass through.
+
+Sodium channels are blocked in C.
+
+When membrane potential of C is fixed at $-80mV$ and A fires a single pulse, we
+get one EPSC spike at C facilitated by $ACh$ and $mACh$ receptors. The reversal
+potential of $K^+$, at neuromuscular junction, is given to be -100 mV and of
+$Na^+$ is given to be $+55mV$ \footnote{The principles of neural science, fourth
+edition, box 11-1, pp 194}. Since $Na^+$-channels are blocked, the net current
+in C would be potassium current which would be driven by 10mV of potential
+difference. On top of it, since we have only muscarinic channels, the time
+course of potassium current is rather large. We can model it as a small outgoing
+current or as a reduction in membrane resistance. 
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[xlabel=$ms$, ylabel=$mV$
+       , xmax= 20
+       , legend entries = { A }
+        ]
+        \addplot[smooth] table [col sep=comma] {"typical_firing_of_a_neuron.csv"};
+    \end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}
+    \begin{axis}[xlabel=$ms$, ylabel=$nA$
+        , xmax=20
+        , ymax=2.0
+        , legend entries = { $-80mV$, $-30mV$, $0mV$, $+30mV$ }
+    ]
+
+    \addplot[smooth] table {
+        time voltage
+        0   0
+        2.9 0
+        8.0 0.05
+        9.0 0.055
+        10.0 0.05
+        15.0 0
+        16.0 0.0
+    };
+
+    \addplot [smooth, blue] table {
+        2.9 0.0 
+        7.0 0.3
+        9.0 0.33
+        11.0 0.3
+        15.1 0.0
+    };
+
+    \addplot [smooth, green] table {
+        2.9 0.0 
+        7.0 0.45
+        9.0 0.5
+        11.0 0.45
+        15.1 0.0
+    };
+
+    \addplot[smooth, gray] table {
+        2.9 0.0
+        7.0 0.6
+        9.0 0.66
+        11.0 0.6
+        15.0 0.0
+    };
+
+    \end{axis}
+\end{tikzpicture}
+\end{figure}
+
+## When we stimulate B only
+
+B has $nACh$ which opens ACh gate directly (ionotropic receptor). Its time
+course is much faster than previous case where we had metabotropic receptor.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[xlabel=$ms$, ylabel=$mV$
+       , xmax=6
+       , legend entries = { B }
+        ]
+        \addplot[smooth] table [col sep=comma] {"typical_firing_of_a_neuron.csv"};
+    \end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}
+    \begin{axis}[xlabel=$ms$, ylabel=$nA$
+        , xmax=6
+        , legend entries = { $-80mV$, $-30mV$, $0mV$, $+30mV$ }
+    ]
+
+    \addplot[smooth] table {
+        0   0
+        2.0 0
+        2.5 0.2
+        3.0 0.1
+        3.9 0.001
+        6.0 0.0
+    };
+
+    \addplot [smooth, blue] table {
+        2.0 0
+        2.5 1.2
+        3.0 0.5
+        3.9 0.001
+        6.0 0.0
+    };
+
+    \addplot [smooth, green] table {
+        2.0 0
+        2.5 1.8
+        3.2 0.6
+        4.2 0.001
+        6.0 0.0
+    };
+
+    \addplot[smooth, gray] table {
+        2.0 0
+        2.5 2.4
+        3.2 0.8
+        4.4 0.001
+        6.0 0.0
+    };
+
+    \end{axis}
+\end{tikzpicture}
+\end{figure}
+
+When both A and B fire, then we have superposition of both of these curves. We
+have assumed the sodium channels are blocked in all cases.

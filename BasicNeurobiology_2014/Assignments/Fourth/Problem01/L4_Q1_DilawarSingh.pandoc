@@ -1,0 +1,19 @@
+% Lecture 4, Problem 1
+% Dilawar Singh
+
+\begin{problem}
+
+A standard way to depolarize a patched neuron is to put KCl in the bath. Which
+ion do you think will have the biggest effect in this case? 
+    
+\end{problem}
+
+The membrane do have channels which allow both K\textsuperscript{+} and
+Cl\textsuperscript{-} to pass through it. Since calcium is not available to open
+gates responsible for cloride ions flow, I suspect the role of cloride to be
+extremely minimal, if any.  Only potassium ions go into the cell depolarising
+it.
+
+Since KCl and NaCl both are strong electrolytes, introducing KCl will not
+reducde dissociation of NaCl (common ion effect). Therefore, I dont see if there
+will be any further movements of Na ions after putting KCl in the bath.

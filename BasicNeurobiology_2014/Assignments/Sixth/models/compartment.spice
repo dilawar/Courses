@@ -1,0 +1,29 @@
+* A compartment model in spice
+* in1 and in2 are in-ports
+* out1 and out2 are out-ports
+* p is the place where we can apply a current pulse.
+
+* SPECIFIC TO THIS PROBLEM
+.SUBCKT compartment in out p bottom ra=2k rm=1G cm=3.14p Em=0.060
+* Following lines describe a simple compartment.
+Ra1 in p {ra/2} 
+Ra2 p out {ra/2}
+Cm p bottom {cm}
+Rm p b {rm}
+VEm b bottom dc {Em}
+* This is Na+ channel. Assuming the surface area of neuron to 10^-6 cm^2 and
+* taking the channel conductance to be 120mS cm^-2. The RNa is approximately 3
+* mega Ohm and reversal potential is +50 mV.
+*RNa p nna 3M
+*VNa nna bottom dc -0.050
+*** This is K+ channel. Conductance is 36mS cm^-2 and reversal potential is -70mV. 
+*RK p nk 100M
+*VK nk bottom dc 0.070
+*********************************************************************************
+* This is the conductance caused by syapse. We parametrize it using the variable
+* g_synapse. Since it work by acting on K+ ios, its reversal potential must be
+* equal to K+ channel.
+*Rsynapse out n_synapse {1/g_synapse}
+*Vsynapse n_synapse bottom dc 0.070
+** Cool, we are good to go. Let's end this model.
+.ENDS

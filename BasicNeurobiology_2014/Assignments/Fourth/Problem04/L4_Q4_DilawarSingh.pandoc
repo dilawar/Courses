@@ -1,0 +1,70 @@
+% Lecture 4, Question 4
+% Dilawar Singh
+% \today
+
+\begin{problem}
+
+How do you think the firing of a neuron would change if it had all its Na and K
+channels in the dendrites rather than on the soma and axon? Explain with
+drawings of firing traces, considering a) the effect when a current step is
+applied at the soma and b) considering the effect when synaptic input comes into
+the dendrites.
+
+\end{problem}
+
+Without the channels, we  get a passive compartment. If we are to model it using
+our compartment models then soma and axon are just passive cables. Let's assume
+that we have three sites in cell for recording: a site on axon, a site on
+dendrive, and a site on soma. We'll draw rough representative action potential
+for these sites in each case.
+
+## Applying a current to soma
+
+Since there are no channels in soma or axon, the current pulse will travel
+through it as if it is travelling down a passive cable. If we record at soma or
+axon, then we will get a smoothed out and delayed pulse. It will get interesting
+when pulse reaches the dendrite. It should look something like this. Black curve
+is the normal curve one would expect. Time 0 is when pulse applied as soma.
+Provided that the pulse remains strong enough to open the sodium channel.
+
+\begin{figure}[h!]
+    \begin{tikzpicture}
+        \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+            ]
+            \addplot[smooth] plot  file {hh.csv};
+            \addplot[smooth, color=blue] plot coordinates {
+            (0 , -60)
+            (5+0   , -60)
+            (5+0.2 , -60.3)
+            (5+0.3 , -60.5)
+            (5+0.5 , -60)
+            (5+0.8 , -40)
+            (5+1.2 , 0)
+            (5+1.5 , 16)
+            (5+1.9, 13)
+            (5+2.3, 5)
+            (4.3+3.5, -20)
+            (4+4.3, -45)
+            (4+5.5, -70)
+            (4+6.1, -68)
+            (4+7, -67.8)
+            };
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Applying a pulse at soma and recording at dendrite. The black curve
+    shows the usual response of soma with channel. The black curve is for
+    comparison.}
+\end{figure}
+
+## Synaptic input coming from dendrite.
+
+Not much changes even now (starting with compartment model). The dendrite will
+generate a curve as soon as pulse is applied (as shown with black curve in
+figure). When these pulses reaches the soma then an they should inject a current
+into a passive channel. Now if all dendrite potential are coming at the same
+time then we can assume some sublinear summation without time delay, if not then
+there will be passive propagation of each dendrite injection. The passive cable
+(which models soma and axon) will delay and smooth out the pulse. It will also
+be wider.

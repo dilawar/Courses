@@ -1,0 +1,11 @@
+* A compartment model in spice
+* in1 and in2 are in-ports
+* out1 and out2 are out-ports
+* p is the place where we can apply a current pulse.
+.SUBCKT compartment in out p bottom ra=2k rm=3.14G cm=3.14p Em=0.060
+Ra1 in p {ra/2} 
+Ra2 p out {ra/2}
+Cm p bottom {cm}
+Rm p b {rm}
+VEm b bottom dc {Em}
+.ENDS

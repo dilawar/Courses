@@ -1,0 +1,29 @@
+% Problem 3
+% Dilawar Singh
+% Sun Feb  9
+
+\begin{problem}
+
+   A hippopotamus steps on a frog oocyte, converting it from a 1-mm diameter
+   sphere to a 33.3-micron thick disk. Miraculously the membrane adjusts so it
+   doesn't burst. By what factor do Rm (ohms) and Cm (Farads) scale,
+   respectively? Ignore the rim of the disk, assume that the total volume
+   remains the same.  
+   
+\end{problem}
+
+Let the radius of disk is $r$ and thickness is $t$. Since volume remains the
+same after the evil hippo steps on the spherical oocyte, following is
+immediate:
+
+$$ r^2 \frac{100}{3} \times 10^{-6} = \frac{4}{24} \times 10^{-9} \implies 
+r = 22.5 \;\text{mm} $$
+
+Value of $R_m$ should scale inversely as surface area scales i.e. $\frac{2\pi r
+t}{4 \pi r^2} = 1.5$ . It scale by a factor of $\frac{2}{3}$.
+
+Value of $C_m$ depends on how much of surface is between extracellular and
+intracellular environent. Therefore it should also scale with surface area. In
+case of disk it is $2 \pi r^2$ (ignoring the rim). And in case of sphere it is
+$4 \pi R^2$. It is proportional to this surface. The scaling factor is
+$\frac{r^2}{2R^2} = 10^3$. The $C_m$ scales by a factor of 1000.

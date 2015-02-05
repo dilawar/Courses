@@ -1,0 +1,107 @@
+% Lecture 4, Problem 5
+% Dilawar Singh
+% \today
+
+\begin{problem}
+
+ You have two cells, each with the usual Na, K channels plus Ca channels and Kca
+ (Calcium-dependent K channels). One cell fires in bursts. The other fires in an
+ accommodating manner, that is fast at the beginning of a current pulse, but
+ slow towards the end. Draw calcium levels in the two cases to explain how this
+ happens.
+    
+\end{problem}
+
+When $Ca^+$ comes into the cell, they open fast $CaK$ channels. They depolarize
+the cell quicker.
+
+# One cell fires in burst 
+
+If a long enough pulse is applied and the cell fires in burst mode where each
+burst is equidistance then it means that once the cell has gone down to (usually
+below of) its resting potential; there is a fixed mechanism, independent of
+concentration of calcium inside, which pull the potential of membrane up to
+threshold voltage.  Therefore the channels responsible to make the membrane more
+positive are are largely independent of calcium inflow. I am not sure if such
+channel do exists which deporalize the cell independent of $[Ca^+]$ inside.
+
+Another reason I could think of that it might happen that as soon as Calcium
+enters at each burst, it is consumed (by some mechanism) such that its
+concentration remains more or less constant inside the cell. In this cell, if
+such is the case, we must have Ca-pumps and Ca-diffusion happening at fast rate
+of at least faster than the rate of Ca-ions influx. In this case, The conc of
+Ca-ions would remain largely constant.
+
+Calciusm levels in this case would be 
+
+\begin{tikzpicture}[scale=0.05]
+    \def\s{10}
+    \foreach \x in {0,1,2,3,4,5,6,7} {
+        \draw[color=blue] plot[smooth]
+        coordinates {
+        (\s*\x+0   , -60)
+        (\s*\x+0.2 , -60.3)
+        (\s*\x+0.3 , -60.5)
+        (\s*\x+0.5 , -60)
+        (\s*\x+0.8 , -40)
+        (\s*\x+1.2 , 0)
+        (\s*\x+1.5 , 26)
+        (\s*\x+1.9, 23)
+        (\s*\x+2.3, 10)
+        (\s*\x+2.7, 0)
+        (\s*\x+3.1, -10)
+        (\s*\x+3.5, -20)
+        (\s*\x+4.3, -45)
+        (\s*\x+5.5, -70)
+        (\s*\x+\s, -60)
+        };
+        \draw[color=red] plot[smooth]
+        coordinates {
+         (\s*\x+0, \x+0)
+         (\s*\x+1,\x+10)
+         (\s*\x+10, \x+0)
+         };
+    };
+\end{tikzpicture}
+
+## When firing becomes sparse
+
+In this case, when $Ca^+$ comes in, it does not go away by pumping or other
+cellular mechanism. It remains there and keeps the $KCa$ channel open i.e. once
+the cell has hit lower than threshold potential during depolarization, cells
+takes longer to reach resting potential again.
+
+
+\begin{tikzpicture}[scale=0.05]
+    \def\s{10}
+    \foreach \x \y in {0/2,2/5,5/10,10/15} 
+    {
+        \draw[color=blue] plot[smooth]
+        coordinates {
+        (\s*\x+0   , -60)
+        (\s*\x+0.2 , -60.3)
+        (\s*\x+0.3 , -60.5)
+        (\s*\x+0.5 , -60)
+        (\s*\x+0.8 , -40)
+        (\s*\x+1.2 , 0)
+        (\s*\x+1.5 , 26)
+        (\s*\x+1.9, 23)
+        (\s*\x+2.3, 10)
+        (\s*\x+2.7, 0)
+        (\s*\x+3.1, -10)
+        (\s*\x+4.3, -45)
+        (\s*\x+5.5, -70)
+        (\s*\x+6.5, -67)
+        (\s*\x+10.5, -65)
+        (\s*\y, -60)
+        };
+        \draw[color=red] plot[smooth]
+        coordinates {
+         (\s*\x, 2*\x)
+         (\s*\x+\s*1, 2*\y-3)
+         (\s*\y, 2*\y)
+         };
+    };
+\end{tikzpicture}
+
+

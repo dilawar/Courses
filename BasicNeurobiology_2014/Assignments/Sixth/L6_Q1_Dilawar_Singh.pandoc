@@ -1,0 +1,259 @@
+% Vatasala's module: Assignment
+% Dilawar Singh
+% \today
+
+\begin{problem}
+
+You are recording from a small circuit consisting of an endogenous burster A and
+a follower neuron B. B has Hodgkin-Huxley type sodium channels and delayed
+rectifier potassium channels. You know that A makes a fast inhibitory synapse on
+B mediated by a GABA-like receptor, passing Potassium ($K^+$ ) ions, with a
+conductance of 25nS. You have worked out modulatory cocktails with which you can
+change the strength of this synapse from 0nS to 100nS. (40 points)
+
+1. Assume B’s resting potential is -65mV. Draw the voltage response of B at 0nS,
+25nS and 100nS. Explain your drawing.
+
+2. What would your traces look like if the synapse were mediated by Chloride
+(Cl-) channels instead of potassium?
+
+3. Now draw the firing behavior of B if B had a large $I_h$ conductance. What
+happens to the relationship between A and B’s firing at 0, 25 and 100nS
+respectively? Explain your answer.
+
+4. Now, add an inhibitory feedback synapse from B to A to the situation above.
+What do you expect will happen to the frequency of A’s oscillations when the
+strength of the A to B synapse changes from 0, 25 and 100nS? Why?
+
+\end{problem}
+
+
+### Solution 
+
+We can reduce the neuron A to a current pulse source and model the neuron B
+using compartment witch each conductance is contributing a conductance with a
+reversal potential.
+
+1. When the inhibitory synapse on B create a K+ channel with conductance of 0mS,
+it acts like a open-resistor and have no effect whatsoever on the firing of B.
+In other words, the cell B will fire usually without showing any effect of
+inhibiting synapse. We can plot a reference firing pattern here to compater
+others.
+
+\begin{tikzpicture}
+    \begin{axis}[xlabel=$ms$, ylabel=$mV$]
+    \foreach \x in {0, 20, 40, 60}
+    {
+        \addplot[smooth] coordinates {
+            (\x+0,    -65  )
+            (\x+0.2,  -65.3)
+            (\x+0.3,  -65.5)
+            (\x+0.5,  -65)
+            (\x+0.8,  -40)
+            (\x+1.2,  0)
+            (\x+1.5,  26)
+            (\x+1.9,  20)
+            (\x+2.3,  0)
+            (\x+2.7,  -20)
+            (\x+3.1,  -40)
+            (\x+3.5,  -60)
+            (\x+4.0,  -80)
+            (\x+5.0,  -79)
+            (\x+6.0,  -78)
+            (\x+8.0, -65)
+            (\x+20.0, -65)
+        };
+    }
+    \end{axis}
+\end{tikzpicture}
+
+2. Now there is $K^+$ channel which is GABA-activated. $K^+$ flows out, making
+cell more negative. There is competing $Na^+$ inflows which tries to make cell
+more positive. If the cell depolarises upto a certain voltage, it fires. The
+conductance of $K^+$ channel is $25nS$. All we can say that it slows down the
+depolarization of cell, and cell may or may not fire. In any case, following is
+a possibility.
+
+
+\begin{tikzpicture}
+    \begin{axis}[ ]
+    \foreach \x in {0, 20, 40, 60}
+    {
+        \addplot[smooth] coordinates {
+            (\x+0,    -65  )
+            (\x+0.2,  -65.3)
+            (\x+0.3,  -65.5)
+            (\x+0.5,  -65)
+            (\x+0.8,  -40)
+            (\x+1.2,  0)
+            (\x+1.5,  26)
+            (\x+1.9,  20)
+            (\x+2.3,  0)
+            (\x+2.7,  -20)
+            (\x+3.1,  -40)
+            (\x+3.5,  -60)
+            (\x+4.0,  -80)
+            (\x+5.0,  -79)
+            (\x+6.0,  -78)
+            (\x+8.0, -65)
+            (\x+20.0, -65)
+        };
+        \addplot[smooth, blue] coordinates {
+            (\x+0, -65)
+            (\x+0.2, -65.3)
+            (\x+0.3, -65.5)
+            (\x+0.5, -65)
+            (\x+1.0, -40)
+            (\x+1.8, 0)
+            (\x+2.3, 20)
+            (\x+2.6, 0)
+            (\x+3.1, -40)
+            (\x+3.4, -60)
+            (\x+5.0, -75)
+            (\x+6.0, -78)
+            (\x+7.0, -70)
+            (\x+20.0, -65)
+        };
+    }
+    \end{axis}
+\end{tikzpicture}
+
+3. When conductance of channel is 100nS, we can make a wild guess. The rate of
+$k^+$ is so high that incoming $Na^+$ fails to deporalize the cell.
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+    \foreach \x in {0, 20, 40, 60}
+    {
+        \addplot[smooth] coordinates {
+            (\x+0,    -65  )
+            (\x+0.2,  -65.3)
+            (\x+0.3,  -65.5)
+            (\x+0.5,  -65)
+            (\x+0.8,  -40)
+            (\x+1.2,  0)
+            (\x+1.5,  26)
+            (\x+1.9,  20)
+            (\x+2.3,  0)
+            (\x+2.7,  -20)
+            (\x+3.1,  -40)
+            (\x+3.5,  -60)
+            (\x+4.0,  -80)
+            (\x+5.0,  -79)
+            (\x+6.0,  -78)
+            (\x+8.0, -65)
+            (\x+20.0, -65)
+        };
+        \addplot[smooth, blue] coordinates {
+            (\x+0, -65)
+            (\x+0.2, -65.3)
+            (\x+0.3, -65.5)
+            (\x+0.5, -65)
+            (\x+3.1, -40)
+            (\x+3.4, -60)
+            (\x+5.0, -75)
+            (\x+6.0, -78)
+            (\x+7.0, -70)
+            (\x+20.0, -65)
+        };
+    } 
+    \end{axis}
+\end{tikzpicture}
+
+## 2. If synapse were mediated by $Cl^-$ channel
+
+$CL^-$ tends to flow in and their conductivity is same in this problem. The
+curves should look the same except that cell will be pushed towards reversal
+potential of $Cl^-$ which is equal to the resting potental of cell.
+
+## 3. With $I_h$
+
+The current $I_h$ causes the membrane to start depolarising when it is
+hyper-polarised.  The depolarization of membrane by current $I_h$ opens other
+channels. This all can lead to a hyperpolarization $\rightarrow$ depolarization
+cycle and neuron starts bursting. After certain no of bursts, some other slow
+processes takes over and neuron stops bursting and goes back to resting state. I
+am not sure if $I_h$ declines to 0 when neuron stops bursting or some other
+equal but competing current cancels its effect.
+
+A rough firing pattern might look like the following when synapse has 0mS
+conductance.
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+    \foreach \x in {0, 20, 40, 60}
+    {
+        \addplot[smooth] coordinates {
+            (\x+0,    -65  )
+            (\x+0.2,  -65.3)
+            (\x+0.3,  -65.5)
+            (\x+0.5,  -65)
+            (\x+0.8,  -40)
+            (\x+1.2,  0)
+            (\x+1.5,  26)
+            (\x+1.9,  20)
+            (\x+2.3,  0)
+            (\x+2.7,  -20)
+            (\x+3.1,  -40)
+            (\x+3.5,  -60)
+            (\x+4.0,  -80)
+            (\x+5.0,  -79)
+            (\x+6.0,  -78)
+            (\x+8.0, -65)
+            (\x+20.0, -65)
+        };
+        \foreach \y in {0,5,10}
+        {
+            \addplot[smooth, blue] coordinates {
+                (\x+\y+1.2, -65)
+                (\x+\y+1.5, 0)
+                (\x+\y+1.7, 15)
+                (\x+\y+1.9, -65)
+                (\x+\y+2.1, -68)
+                (\x+\y+2.4, -65)
+                (\x+20.0, -65)
+            };
+        }
+    } 
+    \end{axis}
+\end{tikzpicture}
+
+With 25 and 100 nS conductance, we have $K^+$ ions going out at certain rate.
+The situation is different from problem 1 in one important aspcet that $I_h$ is
+competing with inhibiting synapse. Cell B might be able to produce burts in
+this case even when cell A could not depolarize the cell B as strongly as it has
+to in problem 1 for cell B to fire tonically. 
+
+Next is the height of bursts, it will definately be less than or equal to the
+the case when B is firing tonically but without knowning the exact value of
+$I_h$ conductance, it hard to be categorical. If $I_h$ is "quite" large than
+inhibiting synapse conductance, then B should be able to fire at its heart
+desire even when there is relatively (problem 1) small EPSC from A.
+
+
+### 4. B also make an inhibiting synapse on A
+
+- *0nS*. The synapse has no inhibiting effect what-so-ever. Cell A is bursting,
+cell B will also fire for each ESPC it recieves from A. Both cell fires
+repeatedly. Cell B, if it contains large $I_h$ conductance will also burst on
+its own and its own frequency, irrespective of frequency of ESPC from A. ESPC
+from A will only trigger the B.
+
+- *25nS*. some effect. Hard to say, let's take the second limiting case when
+inhibiting synapse is strong enough.
+
+- *100nS. Cell A bursts, some of its burst are good enough to bring $I_h$ into
+picture in cell B. Cell B also bursts because of $I_h$ which in turn try to
+inhibit A. If A does not have $I_h$, it may become silent and there will nothing
+to trigger B in next cycle. The network will become silent. In case A also have
+$I_h$ then situation can be quite complicated given the relative strength of
+inhibiting synapse and $I_h$. If $I_h$ is way to large then inhibition will
+have not much effect of firing of both A and B despite of having inhibitory
+synapse from each other. If $I_h$ is rather competetive then one might see B
+stops firing when A is firing, and A stops firing when B is firing.

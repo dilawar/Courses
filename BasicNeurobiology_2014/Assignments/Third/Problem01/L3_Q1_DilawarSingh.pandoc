@@ -1,0 +1,250 @@
+% Lecture 3, Problem1
+% Dilawar Singh
+
+\begin{problem}
+
+    You have a series of mutants in the squid channels. Draw the expected change
+    in the action potential as a result of these mutants: 
+
+    \begin{itemize}
+        \item Sodium channel inactivates with a 10ms time-course rather than
+            about 1ms.
+        \item Potassium channel has half the conductance 
+        \item Potassium channel opens in half the time
+        \item Sodium channel opens at a 10-mV higher potential 
+        \item Potassium channel also conducts 20\% as much sodium as potassium
+    \end{itemize}
+\end{problem}
+
+\footnote{Everything drawn is coded in \pgfversion}
+
+<!--
+I am approaching this problem from circuit point of view. First, I'll construct
+a model of squid channel as an electrical circuit. Then I'll incorporate these
+given mutants into my model. I'll simulate my model using a open source circuit
+simulator `ngspice`.
+
+
+## Squid channel as a electrical circuit.
+
+\begin{figure}[h!]
+\usetikzlibrary{circuits.ee.IEC}
+\usetikzlibrary{shapes}
+\centering
+\begin{tikzpicture}[circuit ee IEC
+    , small circuit symbols
+    , set resistor graphic=var resistor IEC graphic
+    ]
+
+
+\end{tikzpicture}
+\caption{\small Circuit equivalent of squid axon with channels}
+\label{circuit:squid}
+\end{figure}
+
+-->
+
+The usual action potential curve of squid channel.
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+        \addplot[smooth] plot  file {hh.csv};
+    \end{axis}
+\end{tikzpicture}
+
+
+## Sodium channel inactivates with a 10ms time-course rather than about 1ms
+
+This will cause more Na\textsuperscript{+} ions to flow in thereby rising the
+peak value of Vm. It should look like following.
+
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+        \addplot[smooth] plot  file {hh.csv};
+        \addplot[smooth, color=blue] plot coordinates {
+            (0   , -60)
+            (0.2 , -60.3)
+            (0.3 , -60.5)
+            (0.5 , -60)
+            (0.8 , -40)
+            (1.2 , 0)
+            (1.5 , 26)
+            (2.0, 60)
+            (2.5, 75)
+            (3.0, 60)
+            (5, -10)
+            (8, -60)
+            (9, -80)
+            (10, -76)
+        };
+    \end{axis}
+\end{tikzpicture}
+
+## Potassium channel has half the conductance
+
+This means rate of K\textsuperscript{+} ions leaving will be halves and
+therefore the hyperpolarization will be slower. 
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+        \addplot[smooth] plot  file {hh.csv};
+        \addplot[smooth, color=blue] plot coordinates {
+            (0   , -60)
+            (0.2 , -60.3)
+            (0.3 , -60.5)
+            (0.5 , -60)
+            (0.8 , -40)
+            (1.2 , 0)
+            (1.5 , 26)
+            (1.9, 23)
+            (2.3, 10)
+            (2.7, 0)
+            (3.1, -10)
+            (3.5, -20)
+            (4.3, -45)
+            (5.5, -80)
+            (6.1, -78)
+            (7, -77.8)
+        };
+    \end{axis}
+\end{tikzpicture}
+
+## Potassium channel opens in half the time
+
+Depolarization will start rather fast. This will look something like this.
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+        \addplot[smooth] plot  file {hh.csv};
+        \addplot[smooth, color=blue] plot coordinates {
+            (0   , -60)
+            (0.2 , -60.3)
+            (0.3 , -60.5)
+            (0.5 , -60)
+            (0.8 , -40)
+            (1.2 , 0)
+            (1.3, 10)
+            (1.7, 0)
+            (2.3, -50)
+            (2.6, -75)
+            (2.9, -80)
+            (3.0, -79)
+            (5.0, -77)
+        };
+    \end{axis}
+\end{tikzpicture}
+
+## Sodium channel opens at a 10-mV higher potential 
+
+The shape should not change, it only says that now we'll require a 10mV stronger
+pulse to generate the same action potential.
+
+
+## Potassium channel also conducts 20\% as much sodium as potassium
+
+If the sodium also goes outside with potassium through potassium channel then
+the hyperpolarization will happen quickly. 
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+        \addplot[smooth] plot  file {hh.csv};
+        \addplot[smooth, color=blue] plot coordinates {
+            (0   , -60)
+            (0.2 , -60.3)
+            (0.3 , -60.5)
+            (0.5 , -60)
+            (0.8 , -40)
+            (1.2 , 0)
+            (1.5 , 26)
+            (1.9, 23)
+            (2.3, 10)
+            (2.7, 0)
+            (3.1, -10)
+            (3.5, -20)
+            (4.3, -45)
+            (5.5, -80)
+            (6.1, -78)
+            (7, -77.8)
+        };
+    \end{axis}
+\end{tikzpicture}
+
+## Potassium channel opens in half the time
+
+Depolarization will start rather earlier. This will look something like this.
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+        \addplot[smooth] plot  file {hh.csv};
+        \addplot[smooth, color=blue] plot coordinates {
+            (0   , -60)
+            (0.2 , -60.3)
+            (0.3 , -60.5)
+            (0.5 , -60)
+            (0.8 , -40)
+            (1.2 , 0)
+            (1.3, 10)
+            (1.7, 0)
+            (2.3, -50)
+            (2.6, -75)
+            (2.9, -80)
+            (3.0, -79)
+            (5.0, -77)
+        };
+    \end{axis}
+\end{tikzpicture}
+
+## Sodium channel opens at a 10-mV higher potential 
+
+Shape will not change. We'll only need a 10mV stronger stimulus to generate the
+action potential.
+
+## Potassium channel also conducts 20\% as much sodium as potassium
+
+Ooo. This will make Na ions go out with potassium, 20\% faster depolarization.
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+        \addplot[smooth] plot  file {hh.csv};
+        \addplot[smooth, color=blue] plot coordinates {
+            (0   , -60)
+            (0.2 , -60.3)
+            (0.3 , -60.5)
+            (0.5 , -60)
+            (0.8 , -40)
+            (1.2 , 0)
+            (1.3, 10)
+            (1.5, 26)
+            (1.7+0.3, 0)
+            (2.3+0.3, -50)
+            (2.6+0.3, -75)
+            (2.9+0.3, -80)
+            (3.0+0.3, -79)
+            (5.0+0.3, -77)
+        };
+    \end{axis}
+\end{tikzpicture}
+
+

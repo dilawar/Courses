@@ -1,0 +1,43 @@
+% Lecture 4, Problem 3
+% Dilawar Singh
+% \today
+
+
+\begin{problem}
+
+How much KCl should you add to raise the reversal potential for potassium from
+-91 to -40 mV? Use the mammalian skeletal muscle ion gradients, as before.
+    
+\end{problem}
+
+I am using values given in [this table](http://ceaccp.oxfordjournals.org/content/6/1/1/T1.expansion.html)
+
+
+Ion     Plasma (mM)     Cytoplasm(mM)     EX (mV)
+---     ----------      -------------   -------
+Na+     145             12               +67
+K+      4               140              -95
+Cl-     115             4                -90
+
+
+At room temperature, the reversal potential of K is -91 mV. Lets assume that
+inside the cell $[K^+]$ is $x$. Using the function ` getOutConc` in cython file
+gives cytoplasm concentration $4.047$ at room temperature (298 K). This is very
+close to what is given in above table. Now lets assume that we add a certain amount
+of KCL which causes production of more K\textsuperscript{+} in plasma, which in
+turn causes reversal potential to change from -91 mV to -40 mV. 
+
+\begin{align}
+    \label{}
+    \frac{-91}{-40} &= \frac{\ln \frac{4}{140}}{\ln \frac{4}{k_2}} \\
+    \ln \frac{4}{k_2} &= \pgfmathsetmacro{\result}{ln(4/140)/(91/40)}\result
+    \implies k_2 = \pgfmathparse{4/ exp(\result)} \pgfmathresult
+\end{align}
+
+Therefore we need to add $19.089 - 4 = 15.089$ mM of potassium ions to the
+extracellular environment which implies we need equal moles of KCl to add. This
+is $\pgfmathparse{15.089 * 0.001 * 74.55} \pgfmathresult $ gm of KCl.
+
+You can find calculation done in markdown version of this document
+[here](http://github.com/dilawar/courses/raw/master/NeuroCourse/Assignments/Fourth/Problem03).
+Also a cython script is same folder to do some calculation. 

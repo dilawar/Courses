@@ -1,0 +1,66 @@
+% Lecture 5, Question 3
+% Dilawar Singh
+% \today 
+
+## Some types of connections in neurons
+
+My algorithm for choosing the following was based on the idea to look for a
+interesting (unusual) synapse in all major ares of neuronal activity e.g.
+vision, brain, hearing, touch, etc. It turned out that all of these areas have
+synapses which are common to other areas. This approached failed miserably in
+finding unusual type of connection. Nonetheless, as far as writing a answer to
+this problem, I could find some quite interesting one.
+
+### Ribbon Synapse: the unusually fast chemical synapse
+*Usual connection type but slightly different structure of synapse*
+
+_Found in  retinal photoreceptor cells, vestibular organ receptors, cochlear
+hair cells and retinal bipolar cells._
+
+This type of sysnapse are often compared to *conveyor belt*
+[See](http://www.sciencedirect.com/science/article/pii/S089662730300062X) on which
+neurotranmitters move. This picture is a easy visualization of how a synapse is
+able to release a large amount of neurotranmitters into synaptic cleft but
+there seems to be serious objection to this picture (ibid).
+
+A neuron can encodes the information by changing the rate of action potential
+(which is few tens of mV per ms); this encoding is not enough for visual system
+which is faster and very complex [Ribbon synapse of
+retina](http://link.springer.com/article/10.1007/s00441-006-0234-0) and required
+high information exchange rate. The article suggests that such large information
+exchange can happen if neuron encodes the neurotranmitter release. 
+
+The presynaptic neuron can release hundreds of vescicles per second at their
+ribbon synapse and the behaviour of ribbon synapse changes according to the
+input they recieve: they adjust the release of glutamate to changing inputs. The
+overall mechanism of such a performace seems to elusive. The current hypothesis
+of $[Ca^+]$ depedent exocytoses is used to explain the mechanism. It is useful
+to remember the ribbn are part of pre-synaptic terminal. They contain two types
+of vescicles: one which is easily released and other which is not; both of them
+may be chemically same. The easeness with which vescicles are released perhaps
+depends on their distance from pre-synaptic membrane. 
+
+## Gap junction: the fast electrical connection
+_membrane to membrane connection_
+
+When two cells comes very close (approx 3-5 nm) to each other, gap-junction can
+occurs. Gap juctions are like a pipe going from one membrane to other. They
+allow ions (and even simple molecules) to pass through them according to the
+potential gradient across the gap. They are fast: usually takes 0.1 - 0.3 ms to
+do what they do compared to few tens of ms in many types of chemical synapses.
+The travelling of ions can be both bi-directional (a simple conductance) and
+uni-directional (a ideal diode connected with a conductance). Historically, they
+were st
+
+## Granule and Mitral cell in Olfactory bulb
+_Dendrite to dendrite connection_
+
+In olfactory bulb, Granule and Mitral cells dendrites makes a reciprocal
+connection i.e. both can release neurotranmitter into each other through same
+connection. Whenever Granule cell excites the Mitral cell, it inhibit the
+Granule cell.  These type of connections are believed to play a major role in
+the process of olfactory information.
+
+## 
+_Isaacson, J.S. and Strowbridge, B.W. (1998) Olfactory reciprocal synapses:
+dendritic signaling in the CNS. Neuron 20:749-761_

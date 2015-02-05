@@ -1,0 +1,57 @@
+% Lecture 3, Problem 2
+% Dilawar Singh
+
+\begin{problem}
+
+   A hippopotamus neuron gets both excitatory and inhibitory input, via AMPAR
+   and GABAA receptors. These have a reversal potential of 0 and -70 mV
+   respectively. The cell has an $E_m$ of -60 and an $R_m$ of $100 M\Omega$. The AMPA
+   and GABA receptors each have a $G_{max}$ of 20 nS. What is the highest potential
+   that the cell reaches? What will be its input resistance at the instant that
+   all the channels are open? 
+
+\end{problem}
+
+When all channels are open we have three resistances in parallel: $100 M\Omega$,
+$R_m$ of cell; $50 M\Omega$, resistance offered by AMPA receptors; $50 M\Omega$,
+resistance offered by GABA receptors. The effective input resistance $r$ seen
+from outside the cell is then, 
+
+$$ \frac{1}{r} = \frac{1}{100} + \frac{1}{50} + \frac{1}{50} = \frac{1}{20}
+\implies r = 20 M\Omega $$
+
+The potential of cell can be calculated by solving the following circuit.
+
+\begin{figure}[h!]
+\usetikzlibrary{circuits.ee.IEC}
+\usetikzlibrary{shapes}
+\centering
+\begin{tikzpicture}[circuit ee IEC
+    , small circuit symbols
+    , set resistor graphic=var resistor IEC graphic
+    ]
+
+    \draw (0,0) to[resistor={ohm=100M}] (0,-2) 
+    to[voltage source={direction info={<-,volt=60m}}] (0, -4)
+    ;
+    \draw (2,0) to[resistor={ohm=20M}] (2,-2)
+    to[voltage source={direction info={<-,volt=70m}}] (2, -4)
+    to[ground] (2, -4.5)
+    ;
+    \draw (4,0) to[resistor={ohm=20M}] (4,-2)
+    to[voltage source={direction info={<-,volt=0m}}] (4, -4)
+    ;
+
+    \draw (0,0) -- (4,0);
+    \draw (0,-4) -- (4,-4);
+
+\end{tikzpicture}
+\caption{\small caption}
+\label{circuit:label}
+\end{figure}
+
+We write the node equations. Assume that cell reaches the potential $-V$.
+
+$$ \frac{V - 60}{100} + \frac{V-70}{20} + \frac{V-0}{20} = 0$$
+
+This gives $V = \frac{410}{9} = 45.56\;mV$.

@@ -1,0 +1,76 @@
+% Lecture 5, Problem 1
+% Dilawar Singh
+% \today 
+
+#### Problem statement 
+Design a circuit that adds 2 inputs, A and B, using neurons. In each case the
+inputs are individual action potentials (all or none) on A and B. Do this three
+ways: 
+
+- Using digital logic operations so that you have two outputs: sum and carry.  
+- Using entirely analog logic, so that the output is something like the firing
+rate or number of action potentials 
+- Using analog-to-digital logic, so that the computations are analog but the
+output is a sum and a carry.
+
+## Using digital logic
+
+The actional potential can be treated as a square pulse: resting potential
+representing 0 and anything above +10 mV (or many be +0 mV) as 1. We can start
+with following truth table. The output 'S' is sum and 'C' is carry.
+    
+    A    B   S   C
+   ---  --- --- ---
+    0    0   0   0
+    0    1   1   0
+    1    0   1   0
+    1    1   0   1 
+
+#### Logic of S and C
+
+We can represent this circuit in standard _sum of product_ terms. Just select
+those minterms which make the outout of S, 1. Sum $S = A'B + AB' = A \oplus B$
+which is XOR gate with A and B at its input.  The carry $C = AB$ which is
+essentially and AND gate connected to A and B.
+
+The circuit is following.
+
+\usetikzlibrary{circuits.logic.US}
+\begin{tikzpicture}[circuit logic US]
+    \matrix[column sep=2cm]
+    {
+        & \node[xor gate] (x1) {}; & \\
+        \node (a) {A}; &        &  \node (s) {S};  \\
+        \node (b) {B}; &      \node[and gate] (a1) {};   & \node (c) {C}; \\
+    };
+    \draw (a.east) -- ++(right:3mm) |- (x1.input 1);
+    \draw (b.east) -- ++(right:5mm) |- (x1.input 2);
+    \draw (b.east) -- ++(right:7mm) |- (a1.input 2);
+    \draw (a.east) -- ++(right:9mm) |- (a1.input 1);
+
+    \draw (x1.output) -- ++(right:3mm) |- (s);
+    \draw (a1.output) -- ++(right:3mm) |- (c);
+
+\end{tikzpicture}
+
+## Using analog circuit
+
+We want to count! One popular form of counting is by addition when if each
+addition is equal to other additions. We assume that each synaptic input carries
+equal amount of change (area under the current curve). Let's say I want to
+design a circuit which gives an output when 10 pulse have arrived. If a pulse
+carries $x$ amount of charge then we use a big enough capacitor to store this
+charge. Let's assume the capacity of this capacitor $c$; this will cause
+$\frac{x}{x}$ voltage across the capacitor. We need to design a ``comparator''
+which generates output pulse whenever input to it is greater than this voltage
+value. Once the voltage across the capacitor has reached this value, we need to
+reset it. A circuit is given in lecture slide. 
+
+## Using analog and digital
+
+This is now easy. On each input line, we put our analog circuit which generates
+a pulse when $n$ pulse have arrived on it. We we recieve 10 pulses on each line
+at the same time, the digital ciruits add them up accordin to the given truth
+table. Much depends on where we draw the line to distinguish 0 and 1. This
+arrangement can also be seen as _synchronizer_. One can split many hair in this
+scheme.
