@@ -1,0 +1,39 @@
+This paper establishes that:
+
+1. TANGO1 \footnote{A trans-membrane protein with SH3 like domain at its
+   $N$-terminus and a proline rich domain at its $C$-terminus} localises at ER
+   exit site and acts as cargo receptor for specific collagen protein, collagen
+   VII. Though TANGO1 is also known to export different cargo in absence of
+   collagen-VII which share little or no common sequence with collagen-VII.
+
+2. Unlike most cargo-receptors, TANGO1 does not load itself into vesicle with
+   cargo but remains localised at ER exit site.  A mechanism for such cargo
+   loading is presented where collagen stick to lumen side of TANGO1 i.e.
+   $N$-terminus and then get pushed into vesicle by mechanical bending of
+   terminus. Once fully loaded, cargo detaches from $N$-terminus and vesicle
+   buds off.
+
+To establish the topology of TANGO1, plasma membrane and intracellular membrane
+was made permeable in two steps. At each step, cell was treated with specific
+chemical such that fluorescence microscopy can detect the end of protein at both
+side of intracellular membrane.  TANGO1 contains an SH3-like domain in lumen of
+the ER and a PRD facing the cytoplasm.
+
+Various mutants of TANGO1 were inserted into cell. It was found that it's
+Proline-Rich Domain (PRD) is essential for localising TANGO1 at ER exit site
+because mutants without PRD did not localize. In vitro studies concludes that 
+SH3-like domain of TANGO1 (in lumen) is required for collagen-VII binding.
+
+To establish that TANGO1 is needed for collagen-VII secretion, first the
+possibility that 'TANGO1 transcriptionally regulates collagen-VII synthesis' was
+ruled out. Furthermore, when TANGO1 was knocked out of the cell (in the presence
+of ascorbic acid), secretion of trimeric collagen-VII was reduced by > 50%. In
+another cell without collagen-VII, total protein secretion was unaffected by
+TANGO1 knockout.
+
+In an in-vitro COPII budding assay, TANGO1 was not found in COPII vesicles
+establishing that TANGO1 does load itself with collagen-VII into vesicles.
+
+This study, along with few others, suggests that cargo exit from ER can also be
+receptor mediated. The general mechanism of cargo export considered to be bulk
+flow.
