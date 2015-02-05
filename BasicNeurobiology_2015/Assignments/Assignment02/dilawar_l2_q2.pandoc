@@ -1,0 +1,17 @@
+---
+title: Lecture 1, Problem 2
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+> I apply a square wave current of baseline 0 pA and max10 pA, to a spherical
+> cell with a capacitance of 0.01 F/ m2 and diameter 10 microns, and resting
+> potential = -60 mV, RA = 1 ohm.metre, and RM = 1 ohm. m^2 . Draw the waveform
+> of the output for 2 full cycles of the stimulus, for a frequency of 10 Hz, 100
+> Hz, and 1000 Hz respectively. Your graph should be labelled with voltage and
+> time axes.  I don’t need a word explanation, but you can put in your
+> calculation if you like. Doesn’t have to be hugely precise, factor of 2 in the
+> peak height is fine.  The graph shape matters too. I suggest you draw in
+> pencil, and scan it in so you can upload as a pdf.

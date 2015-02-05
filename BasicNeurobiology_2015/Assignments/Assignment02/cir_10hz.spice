@@ -1,0 +1,12 @@
+* When 10Hx stimulus is given to circuit.
+rm b c 3.16G
+vm c 0 dc 0.060
+cm b 0 3.1416p
+i1 b 0 pulse(0p 10p 0 0.1n 0.1n 0.05 0.1) 
+
+.CONTROL
+set hcopypscolor=1
+tran 10m 0.2
+hardcopy plot_10hz.ps v(b)
+.ENDC
+
