@@ -1,0 +1,43 @@
+**************** uncommented deck **************
+
+     1       1  * with 1000 hz pulse
+     2       3  rm b c 3.16g
+     3       4  vm c 0 dc 0.060
+     4       5  cm b 0 3.1416p
+     5       6  i1 b 0 pulse(0p 10p 0 0.1n 0.1n 0.0005 0.001)
+    14      14  rm b c 3.16g
+    15      15  vm c 0 dc 0.060
+    16      16  cm b 0 3.1416p
+    17      17  i1 b 0 pulse(0p 10p 0 0.1n 0.1n 0.005 0.01)
+    26      25  rm b c 3.16g
+    27      26  vm c 0 dc 0.060
+    28      27  cm b 0 3.1416p
+    29      28  i1 b 0 pulse(0p 10p 0 0.1n 0.1n 0.05 0.1)
+    38      35  rm b c 3.16g
+    39      36  vm c 0 dc 0.060
+    40      37  cm b 0 3.1416p
+    41      38  i1 b 0 pulse(0p 10p 0 0.1m 0.1m 0.05 0.1)
+
+****************** complete deck ***************
+
+     1       1  * with 1000 hz pulse
+     0       2  *global gnd
+     2       3  rm b c 3.16g
+     3       4  vm c 0 dc 0.060
+     4       5  cm b 0 3.1416p
+     5       6  i1 b 0 pulse(0p 10p 0 0.1n 0.1n 0.0005 0.001)
+    13      13  * with 100 hz pulse
+    14      14  rm b c 3.16g
+    15      15  vm c 0 dc 0.060
+    16      16  cm b 0 3.1416p
+    17      17  i1 b 0 pulse(0p 10p 0 0.1n 0.1n 0.005 0.01)
+    25      24  * when 10hx stimulus is given to circuit.
+    26      25  rm b c 3.16g
+    27      26  vm c 0 dc 0.060
+    28      27  cm b 0 3.1416p
+    29      28  i1 b 0 pulse(0p 10p 0 0.1n 0.1n 0.05 0.1)
+    37      34  * only a small resistor
+    38      35  rm b c 3.16g
+    39      36  vm c 0 dc 0.060
+    40      37  cm b 0 3.1416p
+    41      38  i1 b 0 pulse(0p 10p 0 0.1m 0.1m 0.05 0.1)
