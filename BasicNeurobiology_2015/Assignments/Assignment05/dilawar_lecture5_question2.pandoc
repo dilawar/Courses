@@ -1,0 +1,54 @@
+---
+title: Lecture 5, Question 2
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+> You have two cells, each with the usual Na, K channels plus Ca channels and Kca
+> (Calcium-dependent K channels). One cell fires in bursts. The other fires in an
+> accommodating manner, that is fast at the beginning of a current pulse, but slow
+> towards the end. Draw calcium levels in the two cases to explain how this
+> happens.
+
+In both cells, roughly equal amount of Calcium should come it at each action
+potential. Since both cells have different firing pattern, $K_{Ca}$ channels
+must be different in both cells.
+
+In accomodating cells, at each action potential if $x$ amount of Ca enters the
+cell, less than $x$ amount of Ca goes out the cell before next stimulus
+arrives, i.e. we add some Ca into cell at each action potential. This
+accumulating Ca opens up $K_{Ca}$ delaying the onset of next action potential.
+This situation is shown in figure \ref{fig:1}.
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xlabel=$ms$
+            , ylabel=$mV$
+        ]
+        \addplot[smooth, color=blue] plot coordinates {
+            (0   , -60)
+            (0.2 , -60.3)
+            (0.3 , -60.5)
+            (0.5 , -60)
+            (0.8 , -40)
+            (1.2 , 0)
+            (1.5 , 26)
+            (1.9, 23)
+            (2.3, 10)
+            (2.7, 0)
+            (3.1, -10)
+            (3.5, -20)
+            (4.3, -45)
+            (5.5, -80)
+            (6.1, -78)
+            (7, -77.8)
+        };
+    \end{axis}
+\end{tikzpicture}
+
+
+In non-accommodating cells, if $x$ Ca enters the cell when it fires the action
+potential, it goes out quickly enough. In short, Ca levels remains fixed at
+certain level in cell. A typical case is shown in figure \ref{fig:2}.
