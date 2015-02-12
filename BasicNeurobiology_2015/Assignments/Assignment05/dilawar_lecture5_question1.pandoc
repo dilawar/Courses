@@ -1,0 +1,48 @@
+---
+title: Lecture 5, Question 1
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage{circuitikz}
+---
+
+> I change the extracellular solution on a squid axon so it has 50 mM K+ ions.  
+> 
+> a) What is the new reversal potential of the K channel?  
+> 
+> b) Assume that the previous resting potential of -65 mV was due to a leak at
+> zero mV through Rm, in parallel with the previous reversal potential of the K
+> channel of about -75 mV.  What is the ratio of Rm to the resting conductance of
+> the K channel?  
+> c) What is the new resting potential (Vm) of the cell, assuming
+> that the conductance of the K channel and Rm are still in the same ratio?
+
+__Solution a__
+
+Nernst equation at 25 deg C.
+
+$$ E = \frac{59.3}{z} \log{\frac{[out]}{[in]}} mV $$
+
+Which gives us:
+
+$$ 59.3 \times \log{\frac{50}{400}} = -54.54 mV $$
+
+__Solution b__
+
+Effective circuit diagram in this case looks like the following. There is loop
+current $i$ which causes voltage drop in $R_K$ to bring the membrane potential
+down to $-65 mV$. We write the node-equations.
+
+\begin{circuitikz}
+\centering
+\draw (0,0) to [R=$R_m$] (0, -3);
+\draw (0,-3) to[short,*-*] (3, -3) to [battery1=$E_K$] (3, -2) to[R=$R_K$] (3, 0)
+to[short,*-*] (0,0);
+\node[scale=3] (a) at (1.5, -1.5) {$\circlearrowleft$} node[] at (1.5,-1.5) {$i$};
+    
+\end{circuitikz}
+
+$$ (-65 + 75) g_K = - i $$
+$$ -65 g_m =  i $$
+
+Therefore, $10 g_K = 65 g_m \implies \frac{g_K}{g_m} = \frac{R_m}{R_K} = 6.5$.
