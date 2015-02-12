@@ -46,3 +46,10 @@ $$ (-65 + 75) g_K = - i $$
 $$ -65 g_m =  i $$
 
 Therefore, $10 g_K = 65 g_m \implies \frac{g_K}{g_m} = \frac{R_m}{R_K} = 6.5$.
+
+__Solution c__
+
+Putting new value of $E_K$ in our equation, we get
+
+$$ \frac{V_m + 54.5}{R_K} + \frac{V_m}{R_m} = 0$$
+$$ V_m = -54.54 \frac{R_m}{R_m + R_K} = -47.27 mV $$
