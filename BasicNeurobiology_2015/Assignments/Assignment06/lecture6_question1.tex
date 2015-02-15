@@ -1,0 +1,120 @@
+\documentclass[]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+%\usepackage{circuitikz}
+\makeatletter
+\@ifpackageloaded{tex4ht}{
+    \def\pgfsysdriver{pgfsys-tex4ht.def}
+}
+\makeatother
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,backgrounds,positioning,matrix,decorations}
+
+\usepackage{siunitx}
+\usepackage{python}
+\usepackage{ifxetex,ifluatex}
+\usepackage{listings}
+% \usepackage[xindy,acronym,nomain,toc]{glossaries}
+% \makeglossaries
+%\usepackage[xindy]{imakeidx}
+%\makeindex
+\setlength{\parskip}{3mm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{definition}{Definition}
+\newtheorem{comment}{Comment}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{property}{Property}
+\newtheorem{problem}{Problem}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{script}{Script}
+
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Dilawar Singh},
+            pdftitle={Lecture 6, Question 1},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{5}
+
+\title{Lecture 6, Question 1}
+\author{Dilawar Singh}
+\date{\today}
+\usepackage[margin=15mm]{geometry}
+\usepackage{graphviz}
+
+\begin{document}
+\maketitle
+
+\begin{quote}
+Design a simple neural network that would tell you if you would prefer
+tea, coffee, or milkshake. Think about internal inputs to the network
+(hunger, sleepiness), about external inputs (cost, attractiveness, time)
+and anything else. Suggest weights that could succeed at this.
+\end{quote}
+
+All inputs are discretized and normalized {[}0, 1.0{]}. For
+\emph{day\_time} 0 means morning and 1.0 means sleeping time, hunger
+level 0 is not hungry and 1 means maximum possible hunger, and same for
+sleepiness. Typical weights betweem 0 and 100 are put on edges.
+
+External inputs cost, time, and energy are vector of length equal to the
+number of input. They put equal weights on all output. No hidden layer
+is used in this network.
+
+At each output, value is linear sum of weights multiplied by input
+value. In the end, output with highest value is chosen e.g.~for input
+value leepiness = 0.8, hunger = 0.3, cost = \{0.1, 0.11, 0.3\}, time=
+\{0.1,0.2,0.3\}, energy = \{0.1, 0.1, 0.3\}, we have milkshake = 22,
+coffee = 85, and tea = 46 suggesting to have coffee.
+
+\digraph[scale=0.5]{hnn}{
+
+    hunger -> milkshake [label = "90"];
+    hunger -> {tea, coffee} [label="10"];
+
+    sleepiness -> tea [label=60];
+    sleepiness -> coffee [label=100];
+    sleepiness -> milkshake [label="-50"];
+
+    cost -> {coffee, milkshake, tea } [label=-10];
+    time -> {coffee, milkshake, tea} [label=-30];
+    energy -> {coffee, milkshake, tea} [label=50];
+}
+
+\end{document}
