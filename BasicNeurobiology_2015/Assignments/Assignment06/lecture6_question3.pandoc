@@ -1,0 +1,23 @@
+---
+title: Lecture 6, Question 3
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+> I want to compute the logic of crossing a road using a single neuron. As one
+> inhibitory input it has the red pedestrian light. However, you have learnt that
+> buses often ignore the signals, so it also has the visual input of a bus which
+> could be approaching or moving away, mapped as a series of photoreceptors
+> connecting somehow to the neuron. Draw and explain how this neuron fires only
+> when it is safe to cross.
+
+The logic of crossing the road should be following:
+
+if *red light is on* and *bus is moving away* then *cross the road*.
+
+Essentially we want to form an AND gate which is TRUE when both conditions are
+TRUE.
+
+![Schematic](./l6q3.png)
