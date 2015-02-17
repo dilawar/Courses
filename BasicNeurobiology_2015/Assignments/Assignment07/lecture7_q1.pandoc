@@ -85,3 +85,26 @@ the same time to make it fire. Node $a$ and $b$ are input to circuit.}
 
 **Solution b**
 
+Assuming that neuron is capable of firing in burst mode which is a linear
+function of applied pulse amplitude, designing sum function is trivial. 
+
+\begin{figure}[ht!]
+\begin{center}
+\begin{tikzpicture}[scale=1]
+
+\node[circle,draw] (soma1) at (0,0) {$f_{firing}=g(a+b)$};
+\node[] (a) at (-3,1) {$a$};
+\node[] (b) at (-3,-1) {$b$};
+
+\path[-*] (a) edge (soma1);
+\path[-*] (b) edge (soma1);
+    
+\end{tikzpicture}
+\end{center}
+\caption{This neural circuit will act as adder as long as $g$ is linear and $a$
+and $b$ remains in range of $V_m$.}
+\label{fig:}
+\end{figure}
+
+
+*Solution c**
