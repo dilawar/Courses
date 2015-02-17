@@ -1,0 +1,22 @@
+---
+title: Lecture 7, Question 2
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+> How would you design a network to detect an object approaching you? Note that
+> visual input would get larger and larger for such an object. Hint: Use delays.
+
+__Solution__
+
+As an object is approaching us, its outline will get bigger. In other words,
+surface area projected by the object onto the sensor surface will get larger.
+This per seconds increase in lateral direction is a proxy of its speed towards
+the sensor and will be significantly sensitive at small distances.
+
+In other words, we need a sensor which can detect the rate of change of spread
+of an image. This can be achieved by constructing an array of photoreceptors.
+Then we count the rate at which new photoreceptors are turning on. This rate is
+will be a reasonable proxy for incoming speed at small distances.
