@@ -5,6 +5,7 @@ date : \today
 header-includes:
     - \usepackage[margin=15mm]{geometry}
     - \usetikzlibrary{arrows}
+    - \usepackage{dot2texi}
 ---
 
 > Design a circuit that adds 2 inputs, A and B, using neuronal computations you’ve
@@ -107,4 +108,27 @@ and $b$ remains in range of $V_m$.}
 \end{figure}
 
 
-*Solution c**
+**Solution c**
+
+For achieving addition, we assume that the conductivity of an ion channel
+changes the firing frequency linearly. Now we need a chemical reaction which
+changes the conductance of ionic channel linearly with input.
+
+\begin{dot2tex}[scale=0.5]
+
+graph chemical {
+    rank=LR;
+
+    synaptic_in_a[label="Synaptic input, a"];
+    synaptic_in_b[label="Synaptic input, b"];
+
+    sigma[label="$\Sigma$"];
+
+    synaptic_in_a -> new_gm_a;
+    synaptic_in_b -> new_gm_b;
+
+    new_gm_a -> sigma;
+    new_gm_b -> sigma;
+}
+\end{dot2tex}
+
