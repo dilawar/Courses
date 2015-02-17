@@ -1,0 +1,87 @@
+---
+title: Lecture 7, Question 1
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+    - \usetikzlibrary{arrows}
+---
+
+> Design a circuit that adds 2 inputs, A and B, using neuronal computations you’ve
+> seen in these lectures. Do this three ways: 
+
+> a. Using digital logic operations implemented in neurons so that you have two
+> binary outputs: sum and carry.  
+> b.  Using entirely analog logic, so that the output is something like the
+> firing rate or number of action potentials 
+> c.  Using chemical reactions triggered by synaptic input, which lead to
+> modulation of an ion channel, which leads to changes in firing rates.
+
+**Solution a**
+
+\begin{figure}[ht!]
+\begin{center}
+\begin{tikzpicture}[scale=1]
+
+    \node[circle,draw] (soma1) at (3,0) {$1$};
+    \node[] (input12) at (1, 0.5) {};
+    \node[] (input11) at (1, -0.5) {};
+    \node[] (output) at (4,0) {$a \oplus b$};
+
+    \node[circle, draw] (soma2) at (0,1) {$1$};
+    \node[] (input2) at (-2,1) {};
+
+    \node[circle, draw] (soma3) at (0, -1) {$1$};
+    \node[] (input3) at (-2,-1) {};
+
+    \path[-] (input11) edge  (soma1) ;
+    \path[-] (soma1) edge (output) ;
+    \path[-] (input12) edge  (soma1) ;
+    \path[-] (input2) edge (soma2);
+    \path[-] (input3) edge (soma3);
+
+    \path[-*] (soma2) edge (input12);
+    \path[-*] (soma3) edge (input11);
+
+    \node[] (a) at (-1,0) {$a$};
+    \node[] (b) at (-1.5,0) {$b$};
+
+    \draw[-*] (a) -- ++(0,1.0);
+    \draw[-|] (a) -- ++(0,-1.0);
+
+    \draw[-|] (b) -- ++(0,1.0);
+    \draw[-*] (b) -- ++(0,-1.0);
+    
+\end{tikzpicture}
+
+\begin{tikzpicture}
+
+    \node[circle,draw] (soma1) at (3,0) {$2$};
+    \node[] (input12) at (1, 0.5) {};
+    \node[] (input11) at (1, -0.5) {};
+    \node[] (output) at (4,0) {$a \and b$};
+
+    \path[-] (input11) edge  (soma1) ;
+    \path[-] (soma1) edge (output) ;
+    \path[-] (input12) edge  (soma1) ;
+
+    \node[] (a) at (-1,0) {$a$};
+    \node[] (b) at (-1.5,0) {$b$};
+
+    \path[-*] (a) edge (input11);
+    \path[-*] (b) edge (input12);
+    
+\end{tikzpicture}
+
+\end{center} 
+
+\caption{A full adder using neurons. The number in circles represent the
+threshold of firing e.g. 2 means this neurons requires two incoming spikes at
+the same time to make it fire. Node $a$ and $b$ are input to circuit.}
+
+\label{fig:} 
+
+\end{figure}
+
+**Solution b**
+
