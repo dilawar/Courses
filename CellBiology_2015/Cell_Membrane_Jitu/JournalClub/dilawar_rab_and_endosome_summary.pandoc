@@ -1,0 +1,55 @@
+---
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+# Rab conversion as a mechanism of progression from early to late endosomes
+
+This paper establishes the role of Rabs (Rab5/Rab7) in early and late endosomes.
+It is established that 'early endosome' turns into 'late endosome' by converting
+Rab5 to Rab7. 
+
+Using fast live-cell imaging, they were able to take 8 to 10 snapshots of cell
+in 1 seconds. Using GFPs, they were able to monitor the concentration of Rabs as
+the endosomes moves from cell periphery to cell-center, or early endosome state
+to potentially late endosome state.
+
+Rab5 domain is found on all early endosome which is permanently maintained over
+long period of time. As the ensembles of endosomes move towards cell-center,
+early endosomes get larger by fusing into each other. Fission of endosomes also
+occurs but rarely (how much?). Most of the trajectories (~70 \%) of endosomes
+were terminated by __homotypic fusion__.  When fusion occurs, some Rab5 is lost
+from the endosome (~40-80 secs) thereby the fluorescence observed just after
+fusion did not increase in step-wise manner (should have increased by
+$2^{\frac{1}{3}}$ theoretically).
+
+The dynamics of Rab5  on endosome and movement of endosome is stochastic. The
+ensemble of endosome (early endosome network), however, show many definitive
+properties:
+
+1. _Early endosome network:_ Endosomes move towards cell-center and
+   progressively gets larger by fusing other endosomes.  Thereby increasing the
+   endosome size and amount of cargo in it. The surface density of Rab5
+   increases as endosome increases in size. Since endosome -- those who don't
+   reach late endosome state -- (bigger and richer in Rab5) degrades near to
+   cell-center, a lot of Rab5 is released and taken back up to near cell
+   surface.
+
+2. When an endosome looses Rab5 and gains Rabs7 (conversion of Rab5 to Rab7), it
+   progresses into 'late endosome' state, ultimately fusing into lysosome, thus
+   degrading all cargoes. Rab7 is taken up to the site where 'early endosome'
+   starts transforming into 'late endosome'.
+
+## Molecular mechanism of Rab conversion
+
+It looks extremely complicated.
+
+## Facts and Numbers from paper
+
+1. Half life of Rab5-positive early endosome : _2 min_
+2. 2 fusion of endosomes per minute.
+3. Minimum of 630 (+/- 150) molecules of GFP-Rab5 are required for reliable
+   tracking. Most of the endosomes had approximately 2-3 thousands, bigger one
+   have more than 20 thousands.
