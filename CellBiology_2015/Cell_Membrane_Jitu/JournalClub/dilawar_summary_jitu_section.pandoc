@@ -44,7 +44,10 @@ properties:
 
 ## Molecular mechanism of Rab conversion
 
-It looks extremely complicated.
+The conversion of Rab5 to Rab7 at the interface between early and late endosome
+is regulated by class C VPC/HOPS complex and the coupling between Rab5 and
+activation and Rab7 is found to be similar to yeast secretory pathways. I could
+not follow the rest.
 
 ## Facts and Numbers from paper
 
@@ -79,11 +82,13 @@ antigens (mosaicism) which ruled out mechanism 1 and 2. The timescale of
 surface is a NOT a rigid but fluid enough to allow fast diffusion of surface
 antigens.
 
-Due to technical reasons,a single cell could not be traced during mosaicing or
-intermixing of antigens. 90\% of cells were found to be gone through the
-intermixing after 40 minutes. During this time, the effect of inhibitors were
-also studied to reject the hypothesis mechanisms. 
+Due to technical reasons,a single cell could not be traced during mosaic
+formation or intermixing of antigens. 90\% of cells were found to be gone
+through the intermixing after 40 minutes. During this time, the effect of
+inhibitors were also studied to reject the hypothesis mechanisms. 
 
+In their experiment, mouse and human antigens did not spread at the same rate;
+human-cell antigens were slower to spread.
 
 
 
