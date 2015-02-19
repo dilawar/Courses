@@ -1,4 +1,5 @@
 ---
+title: Summary of papers - Cell Membrane
 author: Dilawar Singh
 date : \today 
 header-includes:
@@ -42,14 +43,14 @@ properties:
    degrading all cargoes. Rab7 is taken up to the site where 'early endosome'
    starts transforming into 'late endosome'.
 
-## Molecular mechanism of Rab conversion
+**Molecular mechanism of Rab conversion**
 
 The conversion of Rab5 to Rab7 at the interface between early and late endosome
 is regulated by class C VPC/HOPS complex and the coupling between Rab5 and
 activation and Rab7 is found to be similar to yeast secretory pathways. I could
 not follow the rest.
 
-## Facts and Numbers from paper
+**Facts and Numbers from paper**
 
 1. Half life of Rab5-positive early endosome : _2 min_
 2. 2 fusion of endosomes per minute.
@@ -89,6 +90,4 @@ inhibitors were also studied to reject the hypothesis mechanisms.
 
 In their experiment, mouse and human antigens did not spread at the same rate;
 human-cell antigens were slower to spread.
-
-
 
