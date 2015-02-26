@@ -1,0 +1,58 @@
+---
+title: Lecture 8
+author: Dilawar Singh
+date : \today 
+header-includes:
+---
+
+# Introduction
+
+In the picture shown below where the contrast of wheel is such that the wheels
+are just visible, following can be observed:
+
+![Bicycle wheels](./canvas.png)
+
+1. When a person gazes steadily at at $+$ sign in figure, and when outer
+   edge of both wheels flickers for few seconds (10 sec) at low frequency (5
+   Hz), the wheels disappears.
+
+2. The wheel reappears after few seconds after 1. Also if a person suddenly
+   looks to the right (what about left? __same with gazing at left as well__)
+   once the wheel disappears, the wheels are back again. 
+
+# Hypothesis
+
+The high contrast during the flicker phase shifts the contrast transfer function
+(locally!) to the right (larger value of threshold).
+
+# Testing
+
+The applet [available
+here](http://www.michaelbach.de/ot/lum-contourAdapt/index.html) is enough for
+doing few tests. 
+
+- Setting the contrast of wheel to large values (30\% of max), and flicker
+  frequency to 5 Hz does not cause wheel to disappear. Increasing frequency to
+  10 Hz, causes the wheel to disappear. At highest possible contrast and at
+  highest possible flicker frequency (60 Hz) in applet, one can notice a partial
+  disappearance of wheels. At mid-contrast and 60Hz, frequency, the wheel again
+  disappears. 
+- The reappearance of wheels seems to be take same amount of time (1 to 2
+  seconds). 
+- Works for a single wheel as well, and also when one eye is closed, strongly
+  suggesting `early-vision` phenomenon; but the author suggest that this
+  probably happens in primary visual cortex given the time constant is of range
+  some seconds. One can hypothesized that flicker causes the
+  photoreceptor/network of photoreceptors to raise their threshold of contrast
+  detection. Once the outer edge of the wheel could not be distinguished from
+  the background, inner area of wheel also disappears. This can be tested by
+  reducing the flickering edge width but the applet does not have any provision
+  for this.
+- What happens when wheels are rectangular. Do we loose only wheel when we see
+  top-bottom or sideways as well. If there is direction selectivity, there will
+  be strong evidence of visual cortex to be involved. There is no way to test
+  this either in the applet. I cut a rectangular sheet of paper and put it on
+  one wheel in two orientation: a) hide the sideways of flickering, and b) hides
+  the top-bottom flickers. There was some noticeable difference at high
+  frequencies: when only sideways flicker wheel does not disappear but when
+  top-bottom flickers.
