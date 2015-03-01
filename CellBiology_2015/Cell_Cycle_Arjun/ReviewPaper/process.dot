@@ -20,10 +20,12 @@ digraph myG {
 
     subgraph molecule {
         graph [color=gray];
-        node [shape=egg,fixedsize=true,width=2];
+        node [shape=egg,fixedsize=false];
 
-        cdk1_cyclinB1;
+        cdk1_cyclinB1_nucleas;
+        cdk1_cyclinB1_cyto;
 
+        cdk1_cyclinB1; 
     }
 
     subgraph reaction {
@@ -36,26 +38,33 @@ digraph myG {
         protein_phospho [label="Protein Phosphorylation"];
     }
 
-    subgraph cluster_transistions {
+    subgraph cluster_cell_transitions {
 
         node[color=red];
-
         G2 -> mitosis -> M;
     }
 
+    subgraph cluster_mpf_transition {
+        style=filled;
+        color=lightgrey;
+        label="Cdk1-cyclin B1";
 
-    // Molecules here.
+        cdk1_cyclinB1_nucleas[label="Cdk1-cyclin B1 (Nucleas)"];
+        cdk1_cyclinB1_cyto[label="Cdk1-cyclin B1 (cytoplasm)",shape=none];
 
-    cdk1_cyclinB1[label="Cdk1 Cyclin B1", xlabel="MPF", type="enzyme protein complex"];
-    
+        cdk1_cyclinB1[shape=none,width=0,height=0,label=""];
+
+
+    }
 
     // process here.
 
-    cdk1_cyclinB1 -> protein_phospho;
-    cdk1_cyclinB1 -> translocator;
+    cdk1_cyclinB1_cyto -> protein_phospho;
+    cdk1_cyclinB1_cyto -> translocator;
+    translocator -> cdk1_cyclinB1_nucleas;
 
     protein_phospho -> mitosis [label="Many required proteins", arrowhead="dot"];
-    translocator -> mitosis[label="To nucleus",arrowhead="dot"];
+    cdk1_cyclinB1_nucleas -> mitosis[label="To nucleus",arrowhead="dot"];
 
 }
     
