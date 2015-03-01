@@ -47,6 +47,7 @@ digraph myG {
     subgraph cluster_mpf_transition {
         style=filled;
         color=lightgrey;
+        shape="egg";
         label="Cdk1-cyclin B1";
 
         cdk1_cyclinB1_nucleas[label="Cdk1-cyclin B1 (Nucleas)"];
@@ -65,6 +66,9 @@ digraph myG {
 
     protein_phospho -> mitosis [label="Many required proteins", arrowhead="dot"];
     cdk1_cyclinB1_nucleas -> mitosis[label="To nucleus",arrowhead="dot"];
+
+    protein_phospho -> translocator [arrowhead=dot];
+    translocator -> protein_phospho [arrowhead="dot"];
 
 }
     
