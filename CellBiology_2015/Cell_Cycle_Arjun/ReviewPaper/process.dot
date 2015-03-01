@@ -1,0 +1,7 @@
+digraph process {
+
+    cdk1-cyclinB1[label="Cdk1-Cyclin B1", image="shapes/protein.gif"];
+
+    mpf[label="MPF", type="cyclin-cdk complex", image="shapes/kinase-protein-complex.git"];
+
+    
