@@ -1,7 +1,61 @@
-digraph process {
+/*
+(c) 2015, Dilawar Singh <dilawars@ncbs.res.in>
 
-    cdk1-cyclinB1[label="Cdk1-Cyclin B1", image="shapes/protein.gif"];
+This graphviz file is a attemp to visualize cell-cycle. It is inspired by
+Petri-nets representation of chemical reactions.
 
-    mpf[label="MPF", type="cyclin-cdk complex", image="shapes/kinase-protein-complex.git"];
 
+*/
+
+digraph myG {
+
+    subgraph state {
+        graph [color=gray];
+        node [shape=Mcircle,fixedsize=true,width=0.5];
+
+        // Cell states during cell division.
+        G2;
+        M;
+    }
+
+    subgraph molecule {
+        graph [color=gray];
+        node [shape=egg,fixedsize=true,width=2];
+
+        cdk1_cyclinB1;
+
+    }
+
+    subgraph reaction {
+        node [shape=rect,height=0.2,width=2,color=blue];
+
+        mitosis [label="Mitosis"];
+
+        translocator [label="Translocator"];
+
+        protein_phospho [label="Protein Phosphorylation"];
+    }
+
+    subgraph cluster_transistions {
+
+        node[color=red];
+
+        G2 -> mitosis -> M;
+    }
+
+
+    // Molecules here.
+
+    cdk1_cyclinB1[label="Cdk1 Cyclin B1", xlabel="MPF", type="enzyme protein complex"];
+    
+
+    // process here.
+
+    cdk1_cyclinB1 -> protein_phospho;
+    cdk1_cyclinB1 -> translocator;
+
+    protein_phospho -> mitosis [label="Many required proteins", arrowhead="dot"];
+    translocator -> mitosis[label="To nucleus",arrowhead="dot"];
+
+}
     
