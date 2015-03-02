@@ -4,7 +4,6 @@
 This graphviz file is a attemp to visualize cell-cycle. It is inspired by
 Petri-nets representation of chemical reactions.
 
-
 */
 
 digraph myG {
@@ -25,6 +24,8 @@ digraph myG {
         cdk1_cyclinB1_nucleas;
         cdk1_cyclinB1_cyto;
 
+        cdk1_cyclinB1_phospho [label="Cdk1-cyclin B1 (active)"];
+
         cdk1_cyclinB1; 
     }
 
@@ -36,6 +37,9 @@ digraph myG {
         translocator [label="Translocator"];
 
         protein_phospho [label="Protein Phosphorylation"];
+
+        nuc_export [label="Nuclear Export"];
+
     }
 
     subgraph cluster_cell_transitions {
@@ -50,8 +54,11 @@ digraph myG {
         shape="egg";
         label="Cdk1-cyclin B1";
 
-        cdk1_cyclinB1_nucleas[label="Cdk1-cyclin B1 (Nucleas)"];
-        cdk1_cyclinB1_cyto[label="Cdk1-cyclin B1 (cytoplasm)",shape=none];
+        cdk1_cyclinB1_nucleas[label="Cdk1-cyclin B1 (Nucleus)"];
+
+        // A HeLa cell posseses approx 1.6 million cdk1_cyclinB1_nucleas.
+        cdk1_cyclinB1_cyto[label="Cdk1-cyclin B1 (cytoplasm)",shape=none,
+        init_conc="1.6e6" ];
 
         cdk1_cyclinB1[shape=none,width=0,height=0,label=""];
 
@@ -65,10 +72,20 @@ digraph myG {
     translocator -> cdk1_cyclinB1_nucleas;
 
     protein_phospho -> mitosis [label="Many required proteins", arrowhead="dot"];
-    cdk1_cyclinB1_nucleas -> mitosis[label="To nucleus",arrowhead="dot"];
+    cdk1_cyclinB1_nucleas -> mitosis[arrowhead="dot"];
 
     protein_phospho -> translocator [arrowhead=dot];
     translocator -> protein_phospho [arrowhead="dot"];
+
+    protein_phospho -> cdk1_cyclinB1_phospho;
+
+    // And the nuclear export dumps the cdk1-cyclin-B1 back to cytosol.
+    cdk1_cyclinB1_nucleas -> nuc_export;
+    nuc_export -> cdk1_cyclinB1_cyto;
+
+
+    // DETAILS GOES HERE.
+
 
 }
     
