@@ -9,15 +9,15 @@ header-includes:
 
 # Life without a wall or division machine in Bacillus subtilis
 
-L-forms strains of a bacteria do not have cell-walls, though they have an
-envelop which is rigid enough to give a spherical shape. This paper describes 'a
-controllable system for generating L-forms' in _Bacillus subtilis_. 
+L-forms strains do not have cell-walls, though they have an envelop which is
+rigid enough to give them a shape. This paper describes 'a controllable system
+for generating L-forms' in _Bacillus subtilis_. 
 
 The classical method of generating L-form involves suppressing __murE__ operon.
 But cells generated using this method do not proliferate and soon starts
-developing cell-walls. Author introduced a second copy of __xylR__ repressor
-gene and selected L2-forms with high concentration of penicillin-G. This allowed
-some colonies of L2 to flourish which were seen to be proliferate indefinitely.
+developing cell-walls. In this paper, authors  introduce a second copy of
+__xylR__ repressor gene and select L2-forms with high concentration of
+penicillin-G. This  allowed some l2-forms colonies to proliferate indefinitely.
 L-forms in these colonies were almost same as made by classical methods.
 
 L-forms generated using their method were due to point mutation in __ipsA__
@@ -30,14 +30,14 @@ How these forms divide without a cell wall? When FtsZ was depleted from L-form,
 the growth rate was unaffected, and the strain could divide indefinitely. Even
 residual amount of FtsZ is not needed for L2-forms to divide. 
 
-__Extrusions__ of transient blunts forms appears and then re-tracts on the
-cell-surface. Finally a pseudopodium like protrusion will emerge and elongated
-over a period of time (approx 70 min). This protrusion then __resolved__ into
-more-or-less 5 round cell bodies (__resolution__). Though extrusion is often
-slow, resolution can be rapid (less than minute). In large L2 forms (3.5-6 um
-diameter), some cells went into a period of growth as a uniform sphere for
-10-270 minutes. Then multiple small transient bulges occurred on cell-surface
-and _resolved_ into progeny. Progeny found to be viable.
+__Extrusions__ of transient blunt forms appear and retracts back on various
+location on cell surface. Finally a pseudopodium like protrusion will emerge and
+elongated over a period of time (approx 70 min). This protrusion then
+__resolved__ into more-or-less 5 round cell bodies (__resolution__). Though
+extrusion is often slow, resolution can be rapid (less than minute). In large L2
+forms (3.5-6 um diameter), some cells went into a period of growth as a uniform
+sphere for 10-270 minutes. Then multiple small transient bulges occurred on
+cell-surface and _resolved_ into progeny.  Progeny found to be viable.
 
 Such a mechanism may have been utilised by the early life form to proliferate.
 
