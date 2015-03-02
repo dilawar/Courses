@@ -1,0 +1,55 @@
+---
+title: Reviews of papers
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[tikz]{dot2texi}
+    - \usetikzlibrary{arrows,shapes}
+---
+
+# Spatial Positive Feedback at the Onset of Mitosis
+
+The transition of cell from interphase to Mitosis 'is a temporally abrupt,
+all-or-none in character, and irreverible.' However, the molecular mechanisms
+playing parts in this transition are reversible mechanism with continuously
+graded time-course. This paper presents a models with experimental evidences how
+a switch-like, irreversible process of transition from interphase to Mitosis can
+be achieved by a network of graded, reversible signal molecules.
+
+A gross architectural overview of cell transition from interphase to Mitosis is
+shown below in fig \ref{fig:mechanism}. The feedback exists between the
+mechanism controlling _translocation_ of Cdk1-cyclin B1, and phoshorylation of
+it. Moreover since transportation mechanism is involved in this feedback, and
+both feedback edges reinforce each other, the feedback is classified as "spatial
+positive".
+
+\begin{figure}[ht!]
+\begin{center}
+\begin{dot2tex}[dot,autosize]
+\input{./ReviewPaper/gross_architecture.dot} 
+\end{dot2tex}
+\end{center}
+\caption{A Petri-net inspired diagram of cell transition (shown in boxed
+subgraph) and molecular processes involved.}
+\label{fig:mechanism}
+\end{figure}
+
+
+To test their hypothesis that this feedback (shown in fig \ref{fig:mechanism}),
+which regulates Cdk1-cyclin B1 localization, 'contribute to all-or-none
+character of mitosis, to the temporal abruptness of mitotic entry, and to the
+irreversibility of this cell cycle transition', author performs experiments to
+conclude the following:
+
+1. To confirm the presence of feedback, they dynamically control the spatial
+   distribution of Cdk1-cyclin B1. Cdk1-cyclin B1 presents in nucleus promotes
+   further translocation of Cdk1-cyclin B1 to nucleus, and triggers mitosis.
+
+2. Phosphorylation of Cdk1-cyclin B1 happens at multiple site which enables
+   Cdk1-cyclin B1 to bind to mitotic chromose. The rate of phosphorylation is
+   higher in nucleus than in cytoplasm which produces a gradient favorable for
+   nuclear translocation.
+
+## Experiments and methods
+
+
