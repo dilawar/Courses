@@ -13,6 +13,14 @@ GTP and GDP bound form mediated by RCC1 and RanGAP, thus forming an
 intracellular gradient of Ran-GTP. This paper 'visualizes' this gradient in
 interface and mitotic Xenopus egg extracts.
 
+- Two probes were designed to produce FRET in the presence of Ran-GDP and
+  free importin $\beta$-cargoes as a proxy for Ran-GTP.
+
+- It is shown that mitotic chromosomes are surrounded by a Ran-GTP gradient
+  (which is detected using the probe for importin beta-cargo.
+
+- Any distorting caused to spindle morphology usually caused Ran-GTP gradient to
+  be lost.
 
 [1]  The RanGTP gradient - a GPS for the mitotic spindle. _Kalab P1, Heald R_.
 J. Cell. Sci. 
