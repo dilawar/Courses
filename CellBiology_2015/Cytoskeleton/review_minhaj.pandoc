@@ -1,0 +1,21 @@
+---
+title: Review 
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+# Visualization of Ran-GTP Gradient in Interface and Mitotic _Xenopus_ Egg Extracts
+
+Ran-GTP plays very important roles in 'nuclear import and export, mitotic
+spindle assembly, and nuclear envelop formation' [1]. Ran switches between its
+GTP and GDP bound form mediated by RCC1 and RanGAP, thus forming an
+intracellular gradient of Ran-GTP. This paper 'visualizes' this gradient in
+interface and mitotic Xenopus egg extracts.
+
+
+
+
+[1]  The RanGTP gradient - a GPS for the mitotic spindle. _Kalab P1, Heald R_.
+J. Cell. Sci. 
