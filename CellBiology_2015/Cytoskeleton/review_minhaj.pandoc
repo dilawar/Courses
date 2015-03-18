@@ -9,8 +9,23 @@ header-includes:
 
 # Branching Microtubule Nucleation in _Xenopus_ Egg Extracts Mediated by Augmin and TPX2
 
-This paper demonstrate in Xenopus egg extract that microtubules which are
-commonly nucleated at centrosome can also be nucleated from the sides of
-existing existing microtubules.
+Using Xenopus egg extract and total internal reflection fluorescent microscopy,
+this paper demonstrates that microtubules which are commonly nucleated at
+centrosome can also branch out and  nucleated from the sides of existing
+microtubules.
 
+- GFP-EB1 was used to track the growing plus-end of microtubule, and was
+  visualized near glass surface using total internal reflection fluorescence
+  (TIRF) microscopy.
 
+- Ran-GTP dramatically enhances the nucleation (Adding recombinant RanQ69L to
+  the extract system).
+
+- TPX2 further stimulated the branching, thought TPX2 alone can promote
+  microtubule branching. 
+
+- Branching 
+
+Some numbers:
+
+1. The velocity of plus-end growth 13.4 um +/- 1.3 um/min.
