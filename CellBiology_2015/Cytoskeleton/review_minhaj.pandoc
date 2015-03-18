@@ -3,7 +3,6 @@ title: Review
 author: Dilawar Singh
 date : \today 
 header-includes:
-    - \usepackage[margin=15mm]{geometry}
 ---
 
 # Visualization of Ran-GTP Gradient in Interface and Mitotic _Xenopus_ Egg Extracts
@@ -13,8 +12,6 @@ spindle assembly, and nuclear envelop formation' [1]. Ran switches between its
 GTP and GDP bound form mediated by RCC1 and RanGAP, thus forming an
 intracellular gradient of Ran-GTP. This paper 'visualizes' this gradient in
 interface and mitotic Xenopus egg extracts.
-
-
 
 
 [1]  The RanGTP gradient - a GPS for the mitotic spindle. _Kalab P1, Heald R_.
@@ -41,7 +38,17 @@ microtubules.
   could be of different species), branching can still occur in the presence of
   RanGTP and TPX2.
 
-- 
+- The kinetics of nucleation is shown below: 
+
+![Kinetics of branching nucleation](./kinetics.png). 
+
+Also the angle between new branches and old branch is very small, <30 degree in
+89 \% cases. In less than 8\% cases, branching angle is more than 90 degree.
+
+- Further it was found that $\gamma$-TB is required for virtually all nucleation
+  activity in the presence of RanGTP and TPX2. Also role of augmin was found to
+  be essential for branching nucleation mechanism. Since yeast lacks augmin, it
+  is suggested that they use some other mechanism for branching nucleation.
 
 Some numbers:
 
