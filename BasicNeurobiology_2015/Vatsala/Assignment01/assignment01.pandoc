@@ -123,11 +123,30 @@ represents are connections hypothesised in this problem.}
 **Solution**
 
 # Problem 2
-Anandamide is called the ‘brain’s marijuana’. It is a neuromodulator that is an
+_Anandamide is called the ‘brain’s marijuana’. It is a neuromodulator that is an
 endogenous ligand for cannabinoid receptors in the brain. Find any paper on
-anandamide (relevant to its neural function) and summarize it in one page.
-Answer these questions in your summary: 
+anandamide (relevant to its neural function) and summarize it in one page._
 
-- Why did you choose this paper?  
-- What did we learn new from it?  
-- What are the future directions for this work?
+Paper: **Inhibition by anandamide of gap junctions and intercellular calcium
+signalling in striatal astrocytes** by Venance et. al., _Nautre 376, 590-594_
+
+_Answer these questions in your summary:_
+
+_1. Why did you choose this paper?_
+
+This paper describes a mechanism by which anandamide can act as a
+neuromodulator.
+
+_2. What did we learn new from it?_
+
+It was interesting to know that gap-junctions can also be inhibited strongly
+(and 'gap-junctions mediated propagation of calcium signalling' in studies cells
+i.e. striatal astrocytes).
+
+Gap junctions in other astrocytes were only partly effected by anandamide.
+
+_3. What are the future directions for this work?_
+
+- How does excitability of cells changes in network with changes in anandamide release?
+- Can other ap-junctions be inhibited by anandamide or closely related molecule.
+  This would provide a great tool to study role of gap-junctions in networks.
