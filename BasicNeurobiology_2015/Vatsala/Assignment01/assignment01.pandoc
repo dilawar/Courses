@@ -1,0 +1,133 @@
+---
+title: Assignment 1
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage{dot2texi}
+    - \usetikzlibrary{arrows}
+    - \usetikzlibrary{circuits.ee.IEC}
+---
+
+
+# Problem 1
+_In the Clione, we saw that stimulation of ICN inhibits swimming. Assume that the
+ICN is a neuromodulatory neuron releasing a substance X directly onto swim CPG
+neurons group 7 and group 8.  Propose a cellular biophysical explanation (i.e.
+channels and currents) for how ICN inhibits activity in 7 and 8._
+
+Substance X can inhibit activity in 7 and 8 in following ways:
+
+- By inhibiting both 7 and 8. X can act as neurotransmitter antagonist in
+  neurons 7 and 8, blocking post-synaptic channels.
+- By inhibiting either 7 or 8; the other neuron may still fire but CPG won't
+  work. Mechanism same as above. The lecture slides shows that ICN inhibits 7.
+- Or by removing post-inhibitory rebound from 7 and/or 8. The mutual inhibition
+  wont work now and no rhythmic activity in CPG. Again cholinergic or glutamate
+  antagonists can be used. 
+
+**How will you test if your explanation is correct?**
+
+Since we know what kind of neurotransmitters are found in 7 and 8, we inject
+known antagonists and monitor the effect.
+
+**What does tail stimulation do to ICN1 activity?**
+
+It inhibits the ICN1 activity.
+
+**Suppose this action were mediated by CPB1, and draw a simple circuit including ICN1, CPB1, 7, 8 and 12 interneurons.**
+
+\begin{dot2tex}[dot]
+digraph G{
+
+    graph[rankdir=LR];
+
+    subgraph cluster_cpg {
+        in7;
+        in8;
+    };
+
+    icn1[label="ICN1"];
+    cpb1[label="CPB1"];
+
+    in7[label="7-IN"];
+    in8[label="8-IN"];
+    in12[label="12-IN"];
+
+    in7 -> in8 [arrowhead="dot"];
+    in12 -> in8 [arrowhead="dot"];
+
+    in8 -> in7 [arrowhead="dot"];
+    in8 -> in12 [arrowhead="inv"];
+
+    icn1 -> in7 [arrowhead="dot"];
+    cpb1 -> icn1 [arrowhead="dot"];
+
+}
+
+\end{dot2tex}
+
+
+**Draw all known connections and color the connections that you speculate will
+  exist. Give reasons why.**
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[every node/.style={font=\tiny,draw,circle
+    ,minimum size=1cm
+    , node distance=2cm }
+    , circuit ee IEC
+    , set resistor graphic=var resistor IEC graphic
+    ]
+
+    \node[] (dmn) at (0,0) {${MN}_D$};
+    \node[above of=dmn] (7in) {$7IN$};
+
+    \node[right of=7in] (8in) {$8IN$};
+    \node[above of=8in] (12in) {$12IN$};
+    \node[below of=8in] (vmn) {$MN_V$};
+
+    \node[left of=7in] (icn1) {$ICN1$};
+    \node[above of=icn1] (cpb1) {$CPB1$};
+
+    \draw[-*,red] (icn1) to[] (7in);
+    \draw[-*,red] (cpb1) to[] (icn1);
+
+    \draw[-*] (7in)  edge[bend right] (8in);
+
+    \draw[-triangle 45 reversed] (7in) edge[bend right] (dmn);
+
+    \draw[-*] (8in)  edge[bend right] (7in) 
+                     edge[bend right] (12in);
+
+    \draw[-triangle 45 reversed] (12in) -| (7in);
+    
+    \draw[-triangle 45 reversed] (12in) edge[bend right] (8in);
+
+    \draw[-triangle 45 reversed] (8in) edge[bend right] (vmn);
+
+    \draw[decoration=zigzag,decorate] (8in) to[] (vmn);
+    \draw[decoration=zigzag,decorate] (7in) to[] (dmn);
+
+\end{tikzpicture}
+\end{center}
+
+\caption{Not all neurons are placed in proper dorsal or ventral side. Gap
+junctions among the same type of interneurons are not shown. Red edges
+represents are connections hypothesised in this problem.}
+
+\label{fig:}
+\end{figure}
+
+
+**Solution**
+
+# Problem 2
+Anandamide is called the ‘brain’s marijuana’. It is a neuromodulator that is an
+endogenous ligand for cannabinoid receptors in the brain. Find any paper on
+anandamide (relevant to its neural function) and summarize it in one page.
+Answer these questions in your summary: 
+
+- Why did you choose this paper?  
+- What did we learn new from it?  
+- What are the future directions for this work?
