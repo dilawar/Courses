@@ -1,0 +1,33 @@
+digraph G{
+
+    graph[rankdir=LR];
+
+    subgraph cluster_dorsal {
+        in7[label="7-IN"];
+        d_mn[label="D-MN"];
+        
+        in7 -> d_mn[dir="none"];
+    };
+
+    subgraph cluster_ventral {
+        in8[label="8-IN"];
+        in12[label="12-IN"];
+        v_mn[label="V-MN"];
+    };
+
+    icn1[label="ICN1"];
+    cpb1[label="CPB1"];
+
+
+    in7 -> in8 [arrowhead="dot"];
+    in12 -> in8 [arrowhead="dot"];
+
+    in8 -> in7 [arrowhead="dot"];
+    in8 -> in12 [arrowhead="inv"];
+
+    icn1 -> in7 [arrowhead="dot"];
+    cpb1 -> icn1 [arrowhead="dot"];
+
+
+}
+
