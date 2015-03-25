@@ -134,19 +134,27 @@ _Answer these questions in your summary:_
 
 _1. Why did you choose this paper?_
 
-This paper describes a mechanism by which anandamide can act as a
-neuromodulator.
+This paper describes an instance where a anandamide  act as a neuromodulator.
+Also it is the first time, I came across a modulator for gap-junctions.
+
+Glutamate is released in the studied system which causes waves of calcium to
+flow through gap-junctions. This can activate neurons which are far away - a
+mechanism for intracellular communication. This communication is blocked by
+anadamide either by regulating gap-junction permeability.
 
 _2. What did we learn new from it?_
 
 It was interesting to know that gap-junctions can also be inhibited strongly
 (and 'gap-junctions mediated propagation of calcium signalling' in studies cells
-i.e. striatal astrocytes).
-
-Gap junctions in other astrocytes were only partly effected by anandamide.
+i.e. striatal astrocytes). Moreover, non only anandamide inhibition effect could
+not be mimicked by structural analogues and agonists, anandamide could only
+mildly inhibit gap-junction in astrocytes collected from other brain areas.
 
 _3. What are the future directions for this work?_
 
-- How does excitability of cells changes in network with changes in anandamide release?
+- How does excitability of cells changes in network with changes in anandamide
+  release?
+- Since anadamide works so selectively, it might have a very specialized
+  receptor.
 - Can other ap-junctions be inhibited by anandamide or closely related molecule.
   This would provide a great tool to study role of gap-junctions in networks.
