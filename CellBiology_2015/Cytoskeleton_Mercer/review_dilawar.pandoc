@@ -10,29 +10,35 @@ header-includes:
 
 This paper establishes presence of actin based transportation in addition to
 previously known microtubule based transportation of granules in melanophores.
-Microtubule based transportation or motility is directed since microtubules are
-oriented from center to cell periphery to a large extent. However, the random
-distribution of granules in cytoplasm of melanophores could not be explained if
-we only have this center to surface transportation mechanism. 
+Microtubule based transportation or motility is directed towards or away from
+the cell surface since microtubules are oriented from center to cell periphery
+to a large extent and granules moves along on microtubules on both the
+direction. However, the random distribution of granules in cytoplasm and between
+the empty area of microtubules could not be explained if we only have this
+"to-and-fro" movement of granules.
 
 Authors labelled the microtubules with fluroscently tagged tubulin; thus
 visualising microtubules in cytoplasm. Granules were tracked and it was
 observed that not only they walk "to-and-fro" on microtubules but also in
-random directions. 
+random directions (shuttling motion).
 
-After removing microtubules, granules were aggregated in cytoplasm by adreneline
-which dispersed into cytoplasm (Shuttling motion which looks like Brownian
-motion) with a speed of 0.07 +- 0.05 um/sec which is indistinguishable from
-speed of granules on microtubules 0.05 +- 0.04 um/sec. When ATP was removed from
-melanophore, the motion stopped and granules did not disperse.
+Granules were aggregated in cytoplasm by adreneline and microtubules were
+removed.  Granules dispersed into cytoplasm (Shuttling motion which looks like
+Brownian motion) with a speed of 0.07 +- 0.05 um/sec which is indistinguishable
+from speed of granules on microtubules 0.05 +- 0.04 um/sec. When ATP was removed
+from melanophore, the motion stopped and granules did not disperse suggesting
+shuttling motion to be an active process rather than a passive diffusion
+process.
 
-Further authors tested if this shuttling motion is dependant on actin. When
-actin was depolymerised to a large extent in the absence of microtubules, the
+Further, authors tested if shuttling motion is dependant on actin. When actin
+was depolymerised to a large extent in the absence of microtubules, the
 shuttling motion were inhibited dramatically. And when actin was depolymerised
 in the presence of microtubules, almost all granules dispersed to the surface of
 melanophore and no random distribution of granules was observed in cytoplasm.
 
-It is suggested that microtubules are responsible for long-distance and directed
-transportation of granules but actin are needed for random and short-distance
-motility in melanophore. Authors could not established whether actin was
-tethered in cytopalsm or not.
+Authors suggests that microtubules are responsible for long-distance and
+directed transportation of granules but actin is needed for random and
+short-distance motility in melanophore. Authors could not established whether
+actin was tethered in cytopalsm or not.
+
+
