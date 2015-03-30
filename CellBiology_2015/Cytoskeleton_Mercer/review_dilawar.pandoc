@@ -46,9 +46,26 @@ actin was tethered in cytopalsm or not.
 Microtubule-based motors drive long-range transport whereas actin-based motors
 have been proposed to function predominantly in cargo-tethering. Tethering and
 transportation are opposing activities and how these are integrated on cargoes
-that both type of motors is not well-studied. This paper establishes that cargo
-motility is reduced near the cell periphery (more actin for tethering?). 
+that both type of motors is not well-studied. This paper establishes that
+myosin-V (which is mostly active at periphery because of abundance of actin) can
+also cause directed movement of cargoes at small ranges (~ 1 um) over long
+period of time (~1000 sec). Also this directional movement by myosoin-V is halted
+for long time periods (tens of seconds). 
+    
+Author uses an assay in which they can control the  attachment of  myosin-V
+motor and kinesin motors to cargo. They can also impair the movement of myosin-V
+motors. 
 
+When authors attached myosin-V to  the cargoes in cell periphery which were
+carried by kinesin-2 motors, cargo movement was inhibited. This is due to
+because myosin-V pulls the cargoes on the randomly oriented actin. Near cell
+periphery when kinesin-2 was removed and only myosin-V was left alone to act
+over cargo, it was noticed using image analysis that over the long period of
+time, mysoin-V attached cargoes moves in certain direction. Though many episodes
+in this directed movement are close to diffusion (random process without a
+direction).
+
+The path of cargoes were visualised by adding a GFP and RFP to motors.
 
 ## Numbers
 - Most of actin is 1um - 10 um. A few fraction is between 10um - 20um.
