@@ -40,3 +40,38 @@ When we stimulate B, then we
 
 1. http://www.ncbi.nlm.nih.gov/books/NBK28014/
 2. https://en.wikipedia.org/wiki/File:Inward-rectification.png
+
+# Problem 2
+
+> You are interested in the input-output relationship of a particular graded
+> chemical synapse. You would like to characterize how the voltage change in the
+> postsynaptic cell depends upon the amount of depolarization in the presynaptic
+> cell. Using intracellular electrodes, you depolarize the presynaptic cell by
+> various voltage steps and record the postsynaptic EPSP (using TTX to block
+> AP’s). You discover that there is a sigmoidal relationship between pre- and
+> post-synaptic potential as shown in the figure.  Suggest two possible reasons
+> for the plateau reached with increasing presynaptic depolarization.  Suggest
+> an experiment that would allow you to determine which, if either, of your
+> hypotheses is correct. 
+
+Sigmoidal relations hints a "co-operativity" between two processes modifying the
+same variable. Also sharp transitions in sigmoidal curve, which are present
+here, can also be approximated by a step function (all or none phenomenon).
+Based on these two fact, I put forward two hypothesis:
+
+1. Since the number of receptors on the post-synaptic sites have a upper bound,
+   pre-synaptic input can not cause the graded potential to go up all the time.
+   It has to saturate. At lower depolarization, around a specific value --
+   threshold, the post-synaptic vesicles contains enough to cause open most of
+   the receptors. A sharp transition is expected near this point.
+
+2. Ligands from vesicles do not directly binds to receptor but uses some
+   secondary pathways such a G-protein coupled ones which opens the channel. The
+   vesicle release is linear function of depolarisation. The secondary pathways
+   shows the co-operativity.
+
+To test these two hypotheses, once can look at time courses of channel opening
+and compare with previous results. G-coupled receptor dynamics tends to be
+slower. In any case, one has to come up with a test which proves the
+high-transition in the middle. Unless vesicles release can be controlled very
+precisely (which is the input in this case), I don't see how it can be tested. 

@@ -22,7 +22,7 @@ def main():
     channel(-30e-3)
     channel(0e-3)
     channel(30e-3)
-    pylab.title("Invard rectifying K-current")
+    pylab.title("Inward rectifying K-current")
     pylab.savefig("inward_rectifying.png")
 
 
