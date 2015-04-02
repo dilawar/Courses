@@ -63,15 +63,22 @@ Based on these two fact, I put forward two hypothesis:
    pre-synaptic input can not cause the graded potential to go up all the time.
    It has to saturate. At lower depolarization, around a specific value --
    threshold, the post-synaptic vesicles contains enough to cause open most of
-   the receptors. A sharp transition is expected near this point.
+   the receptors. A sharp transition is expected near this point. The plateau is
+   formed because excess release of vesicles have negligible effect on opening
+   of more channels. Most of them are already opened. 
 
-2. Ligands from vesicles do not directly binds to receptor but uses some
-   secondary pathways such a G-protein coupled ones which opens the channel. The
-   vesicle release is linear function of depolarisation. The secondary pathways
-   shows the co-operativity.
+2. Another way to reach the plateau is that synapse have maximum rate at which
+   it can release vesicles and further depolarization do not cause more
+   vesicles release. Even though there are many more receptors which can be
+   open. Input saturates therefore output reaches the plateau.
 
-To test these two hypotheses, once can look at time courses of channel opening
-and compare with previous results. G-coupled receptor dynamics tends to be
-slower. In any case, one has to come up with a test which proves the
-high-transition in the middle. Unless vesicles release can be controlled very
-precisely (which is the input in this case), I don't see how it can be tested. 
+To test these two hypotheses, one records from a single channel and estimate the
+number of channels at post-synaptic sites. While recording one make sure that
+enough ligands are available. This will give us the rate of opening of channel
+(or probability of a channel to be in open state). One can compute how many
+channels have to be open to produce the open EPSP. If all channels are required
+to produce observed EPSP, one concludes that plateau was reached because all
+channels were opened. Otherwise, input vesicles capacity was limited which
+caused the plateau. Once we reject one thesis using this, one can find evidence
+in support of other hypothesis by mutating channels and using fluroscence
+methods to visualize the distribution of channels.
