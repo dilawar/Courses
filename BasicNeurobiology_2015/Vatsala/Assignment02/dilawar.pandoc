@@ -1,0 +1,53 @@
+---
+title: Assignment 2
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+    - \usepackage{pgfplots}
+    - \usetikzlibrary{positioning,graphs,graphs.standard}
+    - \usepgfplotslibrary{patchplots}
+---
+
+# Problem 1 
+
+> Cells A and B both form synapses onto cell C. Both A and B are cholinergic
+> neurons. However, C expresses muscarinic receptors (which activate a potassium
+> current) at its synapses with A and nicotinic receptors at its synapses with B.
+> You voltage clamp C and stimulate A to fire single action potentials. You have
+> blocked sodium channels in C intracellularly using QX314. Draw the response of
+> C, with the correct kinetics, at these holding potentials: -80mV, -30mV, 0mV and
+> +30mV. Explain why you would expect these traces. Repeat the above when you
+> stimulate B instead. Explain your answer. What will you see if you stimulate A
+> and B simultaneously?
+
+\tikz \graph [nodes={circle,draw},edge quotes=near end] {
+    a ->c;
+    b -> c;
+};
+
+
+Since sodium channels in cell C are blocked, we'll not measure $I_{Na}$ through
+channels in C. Muscarin receptor activates inwardly rectifying $K^+$ current
+which, unlike ordinary potassium channel, depolarise cells. The time course of
+these channels are of the order of 100 to 500 m-sec. The reversible potential
+being 0 mV, a representative time course of the response of C is drawn below:
+
+\begin{tikzpicture}[scale=1
+    , every node/.style={}
+    ]
+    \begin{axis}[ ylabel=nA]
+        \foreach \t in {-80, -30, 0}
+        {
+            \addplot [domain=0:0.15] {-(-\t+abs(-\t))/20 - exp(-x/10e-3)};
+        }
+    \end{axis}
+    
+\end{tikzpicture}    
+
+
+
+# References
+
+1. http://www.ncbi.nlm.nih.gov/books/NBK28014/
+2. https://en.wikipedia.org/wiki/File:Inward-rectification.png
