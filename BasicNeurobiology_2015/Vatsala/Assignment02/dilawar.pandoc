@@ -33,20 +33,9 @@ which, unlike ordinary potassium channel, depolarise cells. The time course of
 these channels are of the order of 100 to 500 m-sec. The reversible potential
 being 0 mV, a representative time course of the response of C is drawn below:
 
-\begin{tikzpicture}[scale=1
-    , every node/.style={}
-    ]
-    \begin{axis}[ ylabel=nA]
-        \foreach \t in {-80, -30, 0}
-        {
-            \addplot [domain=0:0.15] {-(-\t+abs(-\t))/20 - exp(-x/10e-3)};
-        }
-    \end{axis}
-    
-\end{tikzpicture}    
+![Inward rectifying current](./inward_rectifying.png)
 
-
-
+When we stimulate B, then we 
 # References
 
 1. http://www.ncbi.nlm.nih.gov/books/NBK28014/
