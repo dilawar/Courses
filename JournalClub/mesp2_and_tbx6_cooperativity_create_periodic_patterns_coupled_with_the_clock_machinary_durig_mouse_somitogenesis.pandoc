@@ -1,0 +1,35 @@
+---
+title: Notes
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+# Summary
+
+1. Temporal periodicity -> Spatial Periodicity 
+
+# In the paper
+
+- Periodic waves of notch activity (temporal periodicity) is linked to Mesp2
+  transcription activity. 
+- Mesp2 transcription at different location is defined by Tbx6 => Temporal
+  periodicity should be translating into spatial periodicity of Tbx6.
+- Mesp2 transcription and Tbx6 protein are co-located but once translated, Mesp2
+  protein leads to the supression of Tbx6 protein. Mechanism: Rapid degradation
+  mediated by the ubiquitin-proteasome pathway.
+- 
+
+# Keywords
+
+- __Mesp2__ This gene encodes a member of the bHLH family of transcription factors
+and plays a key role in defining the rostrocaudal patterning of somites via
+interactions with multiple Notch signaling pathways. This gene is expressed in
+the anterior presomitic mesoderm and is downregulated immediately after the
+formation of segmented somites. This gene also plays a role in the formation of
+epithelial somitic mesoderm and cardiac mesoderm
+
+- __Tbx6__: T-box genes encode transcription factors involved in the regulation of
+developmental processes. Knockout studies in mice indicate that this gene is
+important for specification of paraxial mesoderm structures.
