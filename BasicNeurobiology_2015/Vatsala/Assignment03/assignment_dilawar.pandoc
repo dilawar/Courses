@@ -1,0 +1,29 @@
+---
+title: Assignment 3
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+# Problem 1
+
+>What will be the effect of blocking contra-lateral inhibition on the hind limb
+>motor pattern? Draw a normal motor pattern and compare this with the pattern
+>seen after blocking contralateral inhibition. 
+
+
+
+# Problem 2
+
+>You have expressed channel rhodopsin in V3 interneurons. Assume that during an
+>ongoing walking motor pattern V3s are silent. You then illuminate with blue
+>light. What will happen to the motor pattern? Draw the motor patterns before,
+>during and after the light stimulus.
+
+# Problem 3
+
+>You are writing a research grant on Huntington’s disease. Choose any model
+>system. Explain why. Your experiments must involve assaying of electrical
+>activity. You choose the method. Write a one page proposal (Aim, Methods,
+>Interpretation).
