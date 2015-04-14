@@ -1,0 +1,16 @@
+---
+title: Review of papers
+author: Dilawar Singh
+date : \today 
+header-includes:
+---
+
+# Talin Binding to Integrin $\beta$ Tails: A Final Common step in Integrin Activation
+
+This paper identifies Talin protein (a cytoskeletal protein) which binds to
+integrin $\beta$ cytoplasmic domains and activates it. 
+
+Knocking down talin expression using si-RNA (upto 70\% knock-down in 72 hours)
+showed reduced integrin activation which is measured by measuring the binding of
+the $\alpha IIB\beta 3$ monolocal antibody PAC-1. Integrin can also be activated
+by some other antibody acting on extra-cellular domain.
