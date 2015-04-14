@@ -8,9 +8,25 @@ header-includes:
 # Talin Binding to Integrin $\beta$ Tails: A Final Common step in Integrin Activation
 
 This paper identifies Talin protein (a cytoskeletal protein) which binds to
-integrin $\beta$ cytoplasmic domains and activates it. 
+integrin $\beta$ cytoplasmic domains which activates it. 
 
 Knocking down talin expression using si-RNA (upto 70\% knock-down in 72 hours)
 showed reduced integrin activation which is measured by measuring the binding of
 the $\alpha IIB\beta 3$ monolocal antibody PAC-1. Integrin can also be activated
-by some other antibody acting on extra-cellular domain.
+by some other antibody acting on extra-cellular domain. Talin knock-down did not
+reduce surface expression of integrin.
+
+- Using mutants of cytoplasmic tail, it is concluded that talin knowdown only
+  effect energy-dependant integrin activation, energy-independant activation is
+  does not depends on talin.
+
+- I did not follow figure 3.
+
+- When talin binding to cytoplasmic tail was disrupted by replacing $Tyr^{747}$
+  with Ala, no process could activate the integrin activation. It establishes
+  that talin binding is the last-step in the molecular pathway of integrin
+  activation. 
+
+- Paper suggests that talin may effect the membrane proximal regions of integrin
+  $\beta$ tail. After deletion of membrane proximal region, integrin are known
+  to remain activated in the absence of talin or metabolic energy.
