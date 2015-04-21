@@ -1,0 +1,31 @@
+---
+title: Summary
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+# Membrane Tension Maintains Cell Polarity by Confining Signals to the \
+Leading Edge during Neutrophil Migration
+
+Cell needs to move in a certain direction for migration. This is achieved by
+establishing a single zone of actin assembly ('leading egde') which is thought
+to inhibit the formation of other leading edges. This inhibition of other edges
+thought to be achieved by long-range inhibition based on diffusion.
+
+In this paper, author tests this theory and find is inadequate. They prepare a
+cell-assay in which the leading edge is connected to the rest of the cell by a
+very thin and long junction. Diffusion-mechanism based models predict (based on
+simulation) that on removing the thin-long tube which connects the leading edge
+to cell body, the cell body should not reanimate and form another leading edge.
+The authors observe otherwise.
+
+Authors propose a model in which long-range inhibition is caused by, perhaps
+along with a diffusion component, tension in plasma membrane. Once a 'leading
+edge' is formed, the tension caused by it inhibits the formation of other
+leading edges.  This can explain the observed behaviour of cell with respect to
+'leading edge'. Authors also suggest that tension sensing by cell can be done by
+tension-gated ion channels, or properties of actin nucleation machinery.
+
+# 
