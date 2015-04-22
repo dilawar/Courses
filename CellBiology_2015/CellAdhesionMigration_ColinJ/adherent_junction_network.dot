@@ -1,0 +1,82 @@
+digraph aj {
+
+    subgraph place {
+        node[shape=rect]
+        aj2paj [ label="lAJ to pAJ"];
+        paj2aj [ label="pAJ to lAJ"];
+        alpha_e_catenin__eplin[label="cat+EPLIN"];
+        alpha_e_catenin__vinculin[label="cat+vinculin"];
+        laser_ablation_actin [label="Actin ablation"];
+        // Other force
+        rock_dep_contraction[label="ROCK dependant\n contraction"];
+        aj_degradation[label="AJ degradation"];
+
+    }
+
+    subgraph molecule {
+        node[shape=circle]
+        alpha_e_catenin[label="Alpha-E\ncatenin"];
+        eplin[label="EPLIN"];
+        vinculin[label="vinculin"];
+        myosinii[label="myosin II"];
+    }
+
+    subgraph cluster_junction {
+        node[shape=hexagon];
+        aj [label="lAJ", color=red];
+        paj [label="pAJ",color=green];
+        aj_null [label="0"];
+        aj_degradation;
+        paj2aj;
+        aj2paj;
+        
+        aj -> aj_degradation -> aj_null;
+
+    }
+
+    subgraph cluster_process {
+        alpha_e_catenin;
+        eplin;
+        vinculin;
+        alpha_e_catenin__vinculin;
+        alpha_e_catenin__eplin;
+
+        vinculin -> alpha_e_catenin__vinculin;
+        alpha_e_catenin -> alpha_e_catenin__vinculin;
+
+        eplin -> alpha_e_catenin__eplin;
+        alpha_e_catenin -> alpha_e_catenin__eplin;
+
+    }
+
+    // Cluster together the force involved.
+    subgraph cluster_forces {
+        tension_iaj [label="Tension in lAJ"];
+        actin_force_periphery [label="Actin-Force"];
+        laser_ablation_actin;
+        tension_iaj;
+        rock_dep_contraction;
+
+        myosinii -> tension_iaj;
+    };
+
+
+    // Process
+    aj -> aj2paj -> paj;
+
+    // laser ablation of actin
+
+
+    alpha_e_catenin__eplin -> aj2paj [arrowhead=none];
+    alpha_e_catenin__vinculin -> aj2paj [arrowhead=none];
+
+    paj -> paj2aj -> aj;
+
+    actin_force_periphery -> paj2aj[arrowhead=tee];
+    laser_ablation_actin -> actin_force_periphery [arrowhead=tee];
+
+    // ROCK
+    rock_dep_contraction -> tension_iaj;
+    tension_iaj -> aj_degradation [arrowhead=tee];
+
+}
