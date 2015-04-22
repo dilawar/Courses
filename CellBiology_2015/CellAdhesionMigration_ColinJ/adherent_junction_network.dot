@@ -1,21 +1,9 @@
 digraph aj {
 
-    subgraph place {
-        node[shape=rect]
-        aj2paj [ label="lAJ to pAJ"];
-        paj2aj [ label="pAJ to lAJ"];
-        laser_ablation_actin [label="Actin ablation"];
-        // Other force
-        rock_dep_contraction[label="ROCK dependant\n contraction"];
-        aj_degradation[label="AJ degradation"];
-        eplin_sol[label="EPLIN\nSolubility"];
-        binding_cat_eplin[label="binding\nCatenin,EPLIN"];
-        binding_cat_vinculin[label="binding\nCatenin,vinculin"];
-    }
-
     subgraph molecule {
         node[shape=circle]
         alpha_e_catenin[label="Alpha-E\ncatenin"];
+        alpha_e_catenin_stretched[label="Alpha-E catenin\nstretched form"];
         eplin[label="EPLIN"];
         vinculin[label="vinculin"];
         myosinii[label="myosin II"];
@@ -27,6 +15,18 @@ digraph aj {
         alpha_e_catenin__vinculin[label="cat+vinculin"];
     }
 
+    subgraph place {
+        node[shape=rect]
+        aj2paj [ label="lAJ to pAJ"];
+        paj2aj [ label="pAJ to lAJ"];
+        laser_ablation_actin [label="Actin ablation"];
+        rock_dep_contraction[label="ROCK dependant\n contraction"];
+        aj_degradation[label="AJ degradation"];
+        eplin_sol[label="EPLIN\nSolubility"];
+        binding_cat_eplin[label="binding\nCatenin,EPLIN"];
+        binding_cat_vinculin[label="binding\nCatenin,vinculin"];
+        conformation_catenin[label="Conformation\nChange"];
+    }
 
     subgraph cluster_junction {
         node[shape=hexagon];
@@ -88,8 +88,15 @@ digraph aj {
     // actin
     actin_force_periphery -> paj2aj[arrowhead=tee];
     laser_ablation_actin -> actin_peri [arrowhead=tee];
-    actin_peri -> something;
-    something -> aj2paj [arrowhead=tee];
+
+    // actin also causes conformation in catenin
+    alpha_e_catenin -> conformation_catenin;
+    conformation_catenin -> alpha_e_catenin_stretched;
+
+
+    // This is core of the paper
+    actin_peri -> processX;
+    processX -> aj2paj [arrowhead=tee];
 
     // ROCK
     rock_dep_contraction -> tension_iaj;
