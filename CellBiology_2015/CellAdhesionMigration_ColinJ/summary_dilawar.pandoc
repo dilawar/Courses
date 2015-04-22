@@ -28,4 +28,9 @@ leading edges.  This can explain the observed behaviour of cell with respect to
 'leading edge'. Authors also suggest that tension sensing by cell can be done by
 tension-gated ion channels, or properties of actin nucleation machinery.
 
-# 
+# Mechanosensitive adherens junction ...
+
+The paper is overwhelming for me. Nonetheless, I was however able to create
+network.
+
+![Network](./adherent_junction_network.png)
