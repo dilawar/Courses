@@ -4,13 +4,13 @@ digraph aj {
         node[shape=rect]
         aj2paj [ label="lAJ to pAJ"];
         paj2aj [ label="pAJ to lAJ"];
-        alpha_e_catenin__eplin[label="cat+EPLIN"];
-        alpha_e_catenin__vinculin[label="cat+vinculin"];
         laser_ablation_actin [label="Actin ablation"];
         // Other force
         rock_dep_contraction[label="ROCK dependant\n contraction"];
         aj_degradation[label="AJ degradation"];
-
+        eplin_sol[label="EPLIN\nSolubility"];
+        binding_cat_eplin[label="binding\nCatenin,EPLIN"];
+        binding_cat_vinculin[label="binding\nCatenin,vinculin"];
     }
 
     subgraph molecule {
@@ -19,7 +19,14 @@ digraph aj {
         eplin[label="EPLIN"];
         vinculin[label="vinculin"];
         myosinii[label="myosin II"];
+        e_cadherin[label="E Cadherin"];
+        rock[label="ROCK"];
+        rock_inhibitor[label="ROCK\nInhibitor"];
+        actin_peri [label="Actin"];
+        alpha_e_catenin__eplin[label="cat+EPLIN"];
+        alpha_e_catenin__vinculin[label="cat+vinculin"];
     }
+
 
     subgraph cluster_junction {
         node[shape=hexagon];
@@ -29,36 +36,42 @@ digraph aj {
         aj_degradation;
         paj2aj;
         aj2paj;
-        
         aj -> aj_degradation -> aj_null;
-
     }
 
-    subgraph cluster_process {
-        alpha_e_catenin;
-        eplin;
-        vinculin;
+    subgraph clster_process {
+        //alpha_e_catenin;
+        //eplin;
+        //vinculin;
         alpha_e_catenin__vinculin;
         alpha_e_catenin__eplin;
-
-        vinculin -> alpha_e_catenin__vinculin;
-        alpha_e_catenin -> alpha_e_catenin__vinculin;
-
-        eplin -> alpha_e_catenin__eplin;
-        alpha_e_catenin -> alpha_e_catenin__eplin;
-
     }
 
+    // Binding 
+    vinculin -> binding_cat_vinculin;
+    eplin -> binding_cat_vinculin;
+    binding_cat_vinculin -> alpha_e_catenin__vinculin;
+
+    alpha_e_catenin -> binding_cat_eplin;
+    eplin -> binding_cat_eplin;
+    binding_cat_eplin -> alpha_e_catenin__eplin;
+
+    rock_inhibitor -> eplin_sol;
+    eplin_sol -> eplin[arrowhead=tee];
+
     // Cluster together the force involved.
-    subgraph cluster_forces {
+    subgraph clster_forces {
         tension_iaj [label="Tension in lAJ"];
         actin_force_periphery [label="Actin-Force"];
         laser_ablation_actin;
         tension_iaj;
         rock_dep_contraction;
-
-        myosinii -> tension_iaj;
     };
+
+    actin_peri -> actin_force_periphery;
+    myosinii -> tension_iaj;
+    rock -> rock_dep_contraction;
+    rock_inhibitor -> rock[arrowhead=tee];
 
 
     // Process
@@ -72,11 +85,18 @@ digraph aj {
 
     paj -> paj2aj -> aj;
 
+    // actin
     actin_force_periphery -> paj2aj[arrowhead=tee];
-    laser_ablation_actin -> actin_force_periphery [arrowhead=tee];
+    laser_ablation_actin -> actin_peri [arrowhead=tee];
+    actin_peri -> something;
+    something -> aj2paj [arrowhead=tee];
 
     // ROCK
     rock_dep_contraction -> tension_iaj;
     tension_iaj -> aj_degradation [arrowhead=tee];
+
+    // upregulation of EPLIN by external tension
+    tension_iaj -> eplin;
+    tension_iaj -> e_cadherin;
 
 }
