@@ -1,0 +1,60 @@
+---
+title: Summary of course
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+# Establishing cellular compartments 
+
+Mukund Thattai
+
+- Argued that things in biology make sense in their particular context. And it
+  is important to keep track of context. 
+
+- Compartmentalization of cell. Nice lecture in previous year course.
+
+
+# Cell Membrane and Endocytosis
+
+Jitu Mayor
+
+- His lab research and some other works talks about recent advances in our
+  understanding of cell-membrane. 
+- Role of membrane in endocytosis (entry of micormolecules) and exocytosis. 
+- Membrane trafficking, membrane sorting, signaling, cell migration.
+
+%%  From the review 
+%%# Chronology of cell-membrane
+%% \scalebox{1}{
+%% \begin{tabular}{r |@{\foo} l}
+%% 
+%% 1880 & Lord Rayleigh, Agnes Pockets and many others begin to investigate the
+%% spreading of oil on water \\
+%% 1899 & Overton describes a lipid barrier between the cukaryotic cell cytoplasm
+%% and the outside world. \\
+%% 1917 & Langlulr publishes a model of how oil molecules are oreinted at the
+%% water/air interface, which is based on the experiments of Agnes Pockels. \\
+%% 1925 & 
+%% \end{tabular}
+%% }
+
+## Lipid raft
+
+-  We're not very clear as to what exactly cholesterol does the membrane, and I
+   think the whole field of membrane rafts is really a search to understand what
+   types of roles cholesterol, and what functions cholesterol, might play in
+   cell membranes.
+
+- Membrane is more than "fuild mosaic" [Singer and Nicholson, Science, 1972]. 
+
+## Few facts
+
+- One  third of our genome code for protein found in membrane, and many other
+  proteins are found at the both sides of membrane. Many functions of our cell
+  are membrane orgranized. (Kai Simons).
+
+- Problem of analyzing diversity 
+
+1. Lipids on the frontier: http://www.nature.com/nrm/journal/v4/n5/abs/nrm1102.html
