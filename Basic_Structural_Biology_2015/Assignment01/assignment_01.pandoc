@@ -1,0 +1,26 @@
+---
+title: Comparision of three databases
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+Three databases __Uniprot__, __String__, and __Gene Ontology__ are compared in
+this exercise.
+
+These databases are listed below with official summary descriptions.
+
+- Uniprot: *comprehensive, high-quality and freely accessible resource of
+  protein sequence and functional information*
+- String: *a database of known and predicted protein interactions*
+- Gene Ontology: *consistent descriptions of gene products across databases*
+
+# Comparisions
+
+Attributes       Uniprot      String     Gene Ontology
+-----------    ----------    -------    ---------------
+Web Interface     Y             Y            Y
+
+--------------------------------------------------------
+Table: A comparision of four major databases on various paramters
