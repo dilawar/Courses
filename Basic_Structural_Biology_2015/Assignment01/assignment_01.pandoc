@@ -9,7 +9,9 @@ header-includes:
 Three databases __Uniprot__, __String__, and __Gene Ontology__ are compared in
 this exercise.
 
-These databases are listed below with official summary descriptions.
+# About 
+
+Short summary of databases from their websites.
 
 - Uniprot: *comprehensive, high-quality and freely accessible resource of
   protein sequence and functional information*
@@ -18,9 +20,26 @@ These databases are listed below with official summary descriptions.
 
 # Comparisions
 
-Attributes       Uniprot      String     Gene Ontology
------------    ----------    -------    ---------------
-Web Interface     Y             Y            Y
+\begin{table}[h]
+\centering
+\begin{tabular}{r l l l}
+Attributes         & Uniprot & String & Gene Ontology \\
+\hline
+License            & Creative commons & Creative commons  &  Creative commons  \\
+No of entries      & 549008  & NA & NA  \\
+Ease of use        & Web/FTP & Web/SQL & Web/SQL \\
+Validation         & & & XML Schema based. Good.  \\
+Offline            & HTTP/FTP & HTTP/FTP & HTTP/FTP  \\
+Data Visualization & Great, Flash &  Text & Good,XML Schema \\
+Peer Reviewed      & Yes   & Yes & Yes \\
+Integration        & BLAST &  & \\
+Allow downloading for offline use & Yes & Yes & Yes \\
+\hline
+\end{tabular}
+\caption{A comparision of four major databases on various paramters}
+\end{table}
 
---------------------------------------------------------
-Table: A comparision of four major databases on various paramters
+## Terms
+
+- CC = Creative Commons License. One of the most liberal.
+- SQL = Structured Query Language, common database framework.
