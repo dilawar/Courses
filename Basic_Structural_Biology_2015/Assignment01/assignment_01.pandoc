@@ -1,0 +1,45 @@
+---
+title: Comparision of three databases
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+---
+
+Three databases __Uniprot__, __String__, and __Gene Ontology__ are compared in
+this exercise.
+
+# About 
+
+Short summary of databases from their websites.
+
+- Uniprot: *comprehensive, high-quality and freely accessible resource of
+  protein sequence and functional information*
+- String: *a database of known and predicted protein interactions*
+- Gene Ontology: *consistent descriptions of gene products across databases*
+
+# Comparisions
+
+\begin{table}[h]
+\centering
+\begin{tabular}{r l l l}
+Attributes         & Uniprot & String & Gene Ontology \\
+\hline
+License            & Creative commons & Creative commons  &  Creative commons  \\
+No of entries      & 549008  & NA & NA  \\
+Ease of use        & Web/FTP & Web/SQL & Web/SQL \\
+Validation         & & & XML Schema based. Good.  \\
+Offline            & HTTP/FTP & HTTP/FTP & HTTP/FTP  \\
+Data Visualization & Great, Flash &  Text & Good,XML Schema \\
+Peer Reviewed      & Yes   & Yes & Yes \\
+Integration        & BLAST &  & \\
+Allow downloading for offline use & Yes & Yes & Yes \\
+\hline
+\end{tabular}
+\caption{A comparision of four major databases on various paramters}
+\end{table}
+
+## Terms
+
+- CC = Creative Commons License. One of the most liberal.
+- SQL = Structured Query Language, common database framework.
