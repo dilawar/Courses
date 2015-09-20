@@ -1,10 +1,10 @@
 -- Problem 1 in Haskell
 import Data.List
+import Text.PrettyPrint
 
 -- These are useless for now.
 data Horse int = Horse { id :: Int } deriving Show
 horses = map (\x -> Horse x ) $ [ 1.. 8 ]
-
 
 partitionxy n = map (\x -> (x, n-x)) $ [1..n-1]
 -- partitionxyz n = map (\x -> map (\y -> (x, fst y, snd y)) $ (partitionxy (n-x))) [1..n-1]
@@ -32,11 +32,12 @@ all_dists = subsets3 probs where probs = map (\x -> 1/2**x) [1..8]
 
 -- Return all possible sets (x, y, z: x + y + z = n) which also satisfy
 -- valid_partitions function.
-all_partitions n = map (\x -> (x, valid_partitions n x)) all_dists
+all_partitions n = filter (not . null . snd) $ map (\x -> (x, valid_partitions n x)) all_dists
 
 draw [] = ""
-draw (x:xs) | (length $ snd x) == 0 = draw xs
-            | otherwise = print_row x ++ "\n" ++ draw xs
-print_row row = show row
+draw (x:xs) = draw_line x ++ "\n" ++ draw xs
+draw_line (x, y) = show x ++ "=" ++ foldr (\x y -> show x ++ "," ++ y) "" y
 
-parta = putStrLn $ draw $ all_partitions 8
+parta = all_partitions 8
+answera = putStrLn $ "probabilities=partitions\n" ++ draw parta
+
