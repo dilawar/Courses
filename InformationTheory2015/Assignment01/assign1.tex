@@ -107,14 +107,39 @@ Now we get the following coding scheme:
     \hline
 \end{tabular}
 
+\section{Coin weighing}
+
+Suppose one has n coins, among which there may or may not be one counterfeit
+coin. If there is a counterfiet coin, it may be either heavier or lighter than
+the other coins. The coins are to be weighed by a balance.
+
+\begin{enumerate}
+    \item Find an upper bound on the number of coins n so that k weighings will find the
+counterfiet coin (if any) and correctly declare it to be heavier or lighter.
+    \item Suppose you have k = 3 weighings and 12 coins. How many coins must you weigh
+against each other in the first round?
+    \item (Optional, and hard) Find the full strategy for the 12 coin case.
+\end{enumerate}
+
+\subsection{Part 1}
+
+If each weighing gives us 0 or 1 when both side are equal or not, k such
+weighing will give us a string of 0 and 1 of length k. This can encode total
+$2^k$ states. Moreover if there is an equal probability of $\frac{1}{2}$ that
+counterfeit is either heavier or lighter, we need one bit to encode this as well
+therefor then we can only encode $\frac{2^k}{2}$ states (or coins)
+deterministically.
+
+When there is one counterfeit coin, the probability that there is one
+counterfeit coin among n coins is $\frac{1}{n}$. Furthermore, the probability
+that the counterfeit coin is heavier or lighter is $\frac{1}{2}$. In other
+words, we have two possible counterfeit each with probability $\frac{1}{8}$.
+
 
 \begin{appendices}
     \section{Haskell listing}
     \label{listing:a}
-
-    \lstinputlisting[language=Haskell
-    ,basicstyle=\scriptsize\ttfamily]{./assign1.hs}
-
+    \lstinputlisting[language=Haskell ,basicstyle=\scriptsize\ttfamily]{./problem1.hs}
 \end{appendices}
 
 \end{document}          
