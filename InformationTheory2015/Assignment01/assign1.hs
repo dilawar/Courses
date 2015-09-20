@@ -1,8 +1,10 @@
 -- Problem 1 in Haskell
+import Data.List
 
+-- These are useless for now.
 data Horse int = Horse { id :: Int } deriving Show
-
 horses = map (\x -> Horse x ) $ [ 1.. 8 ]
+
 
 partitionxy n = map (\x -> (x, n-x)) $ [1..n-1]
 -- partitionxyz n = map (\x -> map (\y -> (x, fst y, snd y)) $ (partitionxy (n-x))) [1..n-1]
@@ -16,7 +18,25 @@ prob_dist_valid (x, y, z) (px, py, pz)
     | x*px + y*py + z*pz == 1.0 = True
     | otherwise = False
 
-probs = map (\x -> 1/2**x) [1..8]
-prob_dists = [(1/2, 1/4, 1/8), (1/4, 1/8, 1/16), (1/8, 1/16, 1/32), (1/16, 1/32, 1/64)]
+-- Generate all subsets of cardinatlity 3 from a given list. (x, y, z) == (x, z,
+-- y) == (z, y, x) etc.
+subsets3 [] = []
+subsets3 (x:xs) = map (\y -> (x, fst y, snd y)) (subsets2 xs) ++ subsets3 xs
+subsets2 [] = []
+subsets2 (x:xs) = [ (x, y) | y <- xs ] ++ subsets2 xs
 
-all_partitions n = map (\x -> valid_partitions n x) prob_dists
+-- Use the above subset generating function to generate all possible probability
+-- distributions.
+all_dists = subsets3 probs where probs = map (\x -> 1/2**x) [1..8]
+
+
+-- Return all possible sets (x, y, z: x + y + z = n) which also satisfy
+-- valid_partitions function.
+all_partitions n = map (\x -> (x, valid_partitions n x)) all_dists
+
+draw [] = ""
+draw (x:xs) | (length $ snd x) == 0 = draw xs
+            | otherwise = print_row x ++ "\n" ++ draw xs
+print_row row = show row
+
+parta = putStrLn $ draw $ all_partitions 8
