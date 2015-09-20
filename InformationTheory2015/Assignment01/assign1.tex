@@ -1,15 +1,20 @@
-\documentclass[a4paper,10pt]{assignment}
+\documentclass[a4paper,10pt]{article}
+\usepackage[margin=20mm, right=30mm]{geometry}
+\usepackage{fancyhdr}
 \usepackage{pgf,tikz}
 \usepackage{amsmath}
+\usepackage{url}
 \usepackage{amssymb}
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
+\usepackage{listings}
 % Title Page
 \title{Assignment 1}
 \author{Dilawar Singh}
 \begin{document}
+\maketitle
 
 
-\problem{Coding}
+\section{Coding}
 
 Consider a horse race where the probabilities of winning are given by negative
 powers of 2 ($\frac{1}{2}, \frac{1}{32}$, etc.). Suppose the lowest possible
@@ -26,22 +31,49 @@ probability class $2^{-i}$.
         optimality.
 \end{enumerate}
 
-\solution
 
-\part 
+\subsection{Part 1}
+\label{sec:parta}
 
 Since lowest probability of any horse winning is $\frac{1}{2^m} \implies i \leq
 m$. Moreover, the probability of any horse winning a race must be 1 i.e. $
 \sum_{i=1}^{i \leq m} \frac{1}{2^i} n_i = 1 $
 
-\part
+\subsection{Part 2, 3}
 
-Let the horses are indexed $H_0, H_1, \ldots H_7$.
+Using the conditions described in section \ref{sec:parta}, we enumerated all
+possible partitions of 8 horses for any given probabilities of winning
+using listing \ref{listing:a}.
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{l l}
+    \hline
+    probabilities ($p_1,p_2,p_3$)& partitions ($n_1,n_2,n_3$) \\
+    \hline 
+    (0.5,0.125,6.25e-2) & (1,1,6), \\
+    (0.5,0.125,3.125e-2) & (1,3,4), \\
+    (0.25,0.125,6.25e-2) & (1,5,2),(2,2,4), \\
+    (0.25,0.125,3.125e-2) & (3,1,4), \\ 
+    (0.25,6.25e-2,3.125e-2) & (3,3,2), \\
+    \hline
+\end{tabular}
+\caption{For a given probability of winning of each category $p_i$, right column
+    shows all possible partition of 8 horses into these 3 categories e.g. first
+    row says if the probability of winning of 3 categories are 0.5, 0.125, and
+0.0625 then one can have 1, 1, 6 horses in these categories respectively.}
+\end{table}
 
 \begin{enumerate}
     \item $ \{ H_0 \}, \{ H_1, H_5, H_7 \}, \{ H_2, H_3, H_4, H_6 \} $
 \end{enumerate}
 
+\begin{appendix}
+\label{listing:a}
 
+\lstinputlisting[language=Haskell
+    ,basicstyle=\scriptsize\ttfamily]{./assign1.hs}
+
+\end{appendix}
 
 \end{document}          

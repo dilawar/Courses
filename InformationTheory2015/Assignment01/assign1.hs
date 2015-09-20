@@ -2,12 +2,8 @@
 import Data.List
 import Text.PrettyPrint
 
--- These are useless for now.
-data Horse int = Horse { id :: Int } deriving Show
-horses = map (\x -> Horse x ) $ [ 1.. 8 ]
 
 partitionxy n = map (\x -> (x, n-x)) $ [1..n-1]
--- partitionxyz n = map (\x -> map (\y -> (x, fst y, snd y)) $ (partitionxy (n-x))) [1..n-1]
 partitionxyz n = map (\x -> map (\y -> (fst x, fst y, snd y)) (partitionxy $ snd x)) $ (partitionxy n)
 
 -- For a given number n, return a list of partitions with element (x,y,z) such 
@@ -38,6 +34,27 @@ draw [] = ""
 draw (x:xs) = draw_line x ++ "\n" ++ draw xs
 draw_line (x, y) = show x ++ "=" ++ foldr (\x y -> show x ++ "," ++ y) "" y
 
-parta = all_partitions 8
-answera = putStrLn $ "probabilities=partitions\n" ++ draw parta
+-- Solution to part 2.
+part2 = all_partitions 8
+
+answer2 = do
+    let msg = "probabilities=partitions\n" ++ draw part2
+    writeFile "__answer_2__.txt" msg 
+    putStrLn "|- Done solving part 2"
+
+-- Solution to part 3.
+entropy (x, []) = []
+entropy (x, (y:ys)) = helper x y : entropy (x, ys) 
+
+helper (p1,p2,p3) (n1,n2,n3) = 
+    -(n1*p1*logBase 2 p1 + n2*p2*logBase 2 p2 + n3*p3*logBase 2 p3)
+
+answer3 = do
+    let sol = map (\x -> (fst x, snd x, entropy x)) part2
+    print sol
+    putStrLn "|- Done solving part 3"
+
+main = do
+    answer2 >> answer3
+    putStrLn "All done"
 
