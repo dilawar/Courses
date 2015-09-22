@@ -134,6 +134,17 @@ deterministically.
 6 coins against other 6 coins, but 3 weighing would not be enough for detecting
 the counterfeit.
 
+\subsection{Part 3}
+
+My algorithm (listing \ref{listing:b}) takes $2+x$ steps to figure out if a
+counterfeit is lighter of heavier in a given list of coins. It takes 1 step more
+than what information theory suggests to be minimal.
+
+The algorithm split the list of coin into two equal parts $(left, right)$, when
+no of coins are odd, one coin $x$ is removed and rest is split into $(left,
+right)$. If $(left == right)$ then $x$ is the answer, and one more comparison
+with any other coin would establish if the counterfeit is lighter of heavier.
+
 \begin{appendices}
     \section{Haskell listing}
     \label{listing:a}
