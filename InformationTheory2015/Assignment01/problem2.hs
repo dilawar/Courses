@@ -4,25 +4,50 @@ import Data.List
 
 data LeftSideOfBalance = Light | Equal | Heavy deriving (Eq, Show, Ord)
 
--- args: number of coins, counterfiet position and its weight
--- Create a list of coins.
+-- Generate the coins, put a light or heavy coin in a randomly generated
+-- location. The coins has equal probability of being light of heavy.
 generate_coins :: Int -> Int -> Float -> [Float]
 generate_coins ncoins pos w = helper ncoins pos w [] where 
     helper 0 pos w coins = coins
     helper n pos w coins 
         | n == pos = helper (n-1) pos w (w:coins)
         | otherwise = helper (n-1) pos w (1.0:coins)
---
--- This is our balance. We can only use this in our algorithm.
+
+-- This is our balance. If return Equal, Heavy or light if left side of the
+-- balance is equal to, heavier or lighter than right side of it.
 balance :: [Float] -> [Float] -> LeftSideOfBalance
 balance left right 
     | sum left == sum right = Equal
     | sum left > sum right = Heavy
     | otherwise = Light
 
-solve coins = first_partition (splitIntoTwo coins)
+-- This is the solve function,
+solve coins = find_coin $ first_partition (splitIntoTwo coins)
 
---first_partition :: (Maybe Float, ([Float], [Float])) -> [(a, b)]
+-- find_coin :: (LeftSideOfBalance, [Float]) -> Float
+find_coin (t, x) 
+    | t == Equal = x
+    | Light == t = find_light_coin $ splitIntoTwo x
+    | t == Heavy = find_heavy_coin $ splitIntoTwo x 
+
+find_light_coin (x, (left, right)) = case balance left right of 
+    Equal -> case x of 
+        Just y -> find_coin (Equal, [y])
+        Nothing -> find_coin (Equal, [])
+    Heavy -> find_light_coin $ splitIntoTwo right
+    Light -> find_light_coin $ splitIntoTwo left
+
+find_heavy_coin (x, (left, right)) = case balance left right of 
+    Equal -> case x of 
+        Just y -> find_coin (Equal, [y])
+        Nothing -> find_coin (Equal, [])
+    Heavy -> find_heavy_coin $ splitIntoTwo left
+    Light -> find_heavy_coin $ splitIntoTwo right
+
+-- This function established if the counterfiet is heavier or lighter for sure.
+-- It also return a reduced partition of coins where one can search for
+-- counterfiet. It does 3 balance operations. 
+first_partition :: (Maybe Float, ([Float], [Float])) -> (LeftSideOfBalance, [Float])
 first_partition (Just x, (left, right)) 
     | Equal == balance left right = (Equal, [x])
     | otherwise = first_step left right (balance left  right)
@@ -51,13 +76,6 @@ splitIntoTwo coins
 -- Split the given even coins into two. 
 splitIntoTwo' :: [Float] -> ([Float], [Float])
 splitIntoTwo' coins  = splitAt (div (length coins) 2) coins
-
-{-
-solve coins = filter_phony (splitIntoTwo coins) Equal
-
-filter_phony (Just x) left right prev = case (prev, balance' x left right) of
--}
-    
             
 -- Randomly generate n coins with one counterfiet.
 main = do
@@ -66,10 +84,5 @@ main = do
     let pos = (fst $ randomR (1, ncoins) g) :: Int
     let weight = (fst $ randomR (1.5, 0.5) g) :: Float
     let coins  = generate_coins ncoins pos weight
-    print $  coins
     print $ solve coins
-    {-
-    let ans = solve coins 
-    print ans
-    -}
     putStrLn "Done"
