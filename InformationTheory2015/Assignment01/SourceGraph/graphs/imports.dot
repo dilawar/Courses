@@ -1,0 +1,7 @@
+digraph "Import visualisation" {
+    node [margin="0.4,0.1"
+         ,style=filled];
+    1 [label=Main
+      ,fillcolor=gold
+      ,shape=tab];
+}

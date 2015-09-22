@@ -1,0 +1,28 @@
+digraph "Core of Main" {
+    node [margin="0.4,0.1"
+         ,style=filled];
+    5 [label=find_coin
+      ,shape=box
+      ,fillcolor=bisque
+      ,style="filled,bold"];
+    6 [label=find_heavy_coin
+      ,shape=box
+      ,fillcolor=bisque
+      ,style="filled,bold"];
+    7 [label=find_light_coin
+      ,shape=box
+      ,fillcolor=bisque
+      ,style="filled,bold"];
+    5 -> 6 [penwidth=1
+           ,color=orange];
+    5 -> 7 [penwidth=1
+           ,color=orange];
+    6 -> 5 [penwidth=1.6931471805599454
+           ,color=orange];
+    6 -> 6 [penwidth=1.6931471805599454
+           ,color=black];
+    7 -> 5 [penwidth=1.6931471805599454
+           ,color=orange];
+    7 -> 7 [penwidth=1.6931471805599454
+           ,color=black];
+}

@@ -1,0 +1,137 @@
+digraph "Levels within software" {
+    node [margin="0.4,0.1"
+         ,style=filled];
+    subgraph cluster_0 {
+        graph [label="Exported root entities"
+              ,style=filled
+              ,fillcolor=lavender];
+        11 [label="Main\nmain"
+           ,shape=box
+           ,fillcolor=gold
+           ,style="filled,solid"];
+    }
+    subgraph cluster_1 {
+        graph [label="Level = 1"
+              ,style=filled
+              ,fillcolor=lavender];
+        10 [label="Main\ngenerate_coins"
+           ,shape=box
+           ,fillcolor=cyan
+           ,style="filled,solid"];
+        13 [label="Main\nsolve"
+           ,shape=box
+           ,fillcolor=bisque
+           ,style="filled,solid"];
+    }
+    subgraph cluster_2 {
+        graph [label="Level = 2"
+              ,style=filled
+              ,fillcolor=lavender];
+        5 [label="Main\nfind_coin"
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,solid"];
+        8 [label="Main\nfirst_partition"
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,solid"];
+        14 [label="Main\nsplitIntoTwo"
+           ,shape=box
+           ,fillcolor=bisque
+           ,style="filled,solid"];
+    }
+    subgraph cluster_3 {
+        graph [label="Level = 3"
+              ,style=filled
+              ,fillcolor=lavender];
+        1 [label="Main\nData: LeftSideOfBalance"
+          ,shape=box3d
+          ,fillcolor=cyan
+          ,style="filled,solid"];
+        4 [label="Main\nbalance"
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,solid"];
+        6 [label="Main\nfind_heavy_coin"
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,solid"];
+        7 [label="Main\nfind_light_coin"
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,solid"];
+        9 [label="Main\nfirst_step"
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,solid"];
+        15 [label="Main\nsplitIntoTwo'"
+           ,shape=box
+           ,fillcolor=cyan
+           ,style="filled,solid"];
+    }
+    subgraph cluster_4 {
+        graph [label="Level = 4"
+              ,style=filled
+              ,fillcolor=lavender];
+        12 [label="Main\nnext_part_equal"
+           ,shape=box
+           ,fillcolor=bisque
+           ,style="filled,solid"];
+    }
+    4 -> 1 [penwidth=2.09861228866811
+           ,color=black];
+    5 -> 1 [penwidth=2.09861228866811
+           ,color=black];
+    5 -> 6 [penwidth=1
+           ,color=orange];
+    5 -> 7 [penwidth=1
+           ,color=orange];
+    5 -> 14 [penwidth=1.6931471805599454
+            ,color=black];
+    6 -> 1 [penwidth=2.6094379124341005
+           ,color=black];
+    6 -> 4 [penwidth=1,color=black];
+    6 -> 5 [penwidth=1.6931471805599454
+           ,color=orange];
+    6 -> 6 [penwidth=1.6931471805599454
+           ,color=black];
+    6 -> 14 [penwidth=1.6931471805599454
+            ,color=black];
+    7 -> 1 [penwidth=2.6094379124341005
+           ,color=black];
+    7 -> 4 [penwidth=1,color=black];
+    7 -> 5 [penwidth=1.6931471805599454
+           ,color=orange];
+    7 -> 7 [penwidth=1.6931471805599454
+           ,color=black];
+    7 -> 14 [penwidth=1.6931471805599454
+            ,color=black];
+    8 -> 1 [penwidth=2.386294361119891
+           ,color=black];
+    8 -> 4 [penwidth=2.386294361119891
+           ,color=black];
+    8 -> 9 [penwidth=1.6931471805599454
+           ,color=black];
+    9 -> 1 [penwidth=3.0794415416798357
+           ,color=black];
+    9 -> 12 [penwidth=1
+            ,color=black];
+    9 -> 14 [penwidth=1
+            ,color=black];
+    11 -> 10 [penwidth=1
+             ,color=black];
+    11 -> 13 [penwidth=1
+             ,color=black];
+    12 -> 1 [penwidth=2.386294361119891
+            ,color=black];
+    12 -> 4 [penwidth=2.6094379124341005
+            ,color=black];
+    13 -> 5 [penwidth=1
+            ,color=black];
+    13 -> 8 [penwidth=1
+            ,color=black];
+    13 -> 14 [penwidth=1
+             ,color=black];
+    14 -> 15 [penwidth=1.6931471805599454
+             ,color=chartreuse];
+}

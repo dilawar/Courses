@@ -1,0 +1,137 @@
+digraph "Levels within Main" {
+    node [margin="0.4,0.1"
+         ,style=filled];
+    subgraph cluster_0 {
+        graph [label="Exported root entities"
+              ,style=filled
+              ,fillcolor=lavender];
+        11 [label=main
+           ,shape=box
+           ,fillcolor=gold
+           ,style="filled,bold"];
+    }
+    subgraph cluster_1 {
+        graph [label="Level = 1"
+              ,style=filled
+              ,fillcolor=lavender];
+        10 [label=generate_coins
+           ,shape=box
+           ,fillcolor=cyan
+           ,style="filled,bold"];
+        13 [label=solve
+           ,shape=box
+           ,fillcolor=bisque
+           ,style="filled,bold"];
+    }
+    subgraph cluster_2 {
+        graph [label="Level = 2"
+              ,style=filled
+              ,fillcolor=lavender];
+        5 [label=find_coin
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,bold"];
+        8 [label=first_partition
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,bold"];
+        14 [label=splitIntoTwo
+           ,shape=box
+           ,fillcolor=bisque
+           ,style="filled,bold"];
+    }
+    subgraph cluster_3 {
+        graph [label="Level = 3"
+              ,style=filled
+              ,fillcolor=lavender];
+        1 [label="Data: LeftSideOfBalance"
+          ,shape=box3d
+          ,fillcolor=cyan
+          ,style="filled,bold"];
+        4 [label=balance
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,bold"];
+        6 [label=find_heavy_coin
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,bold"];
+        7 [label=find_light_coin
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,bold"];
+        9 [label=first_step
+          ,shape=box
+          ,fillcolor=bisque
+          ,style="filled,bold"];
+        15 [label="splitIntoTwo'"
+           ,shape=box
+           ,fillcolor=cyan
+           ,style="filled,bold"];
+    }
+    subgraph cluster_4 {
+        graph [label="Level = 4"
+              ,style=filled
+              ,fillcolor=lavender];
+        12 [label=next_part_equal
+           ,shape=box
+           ,fillcolor=bisque
+           ,style="filled,bold"];
+    }
+    4 -> 1 [penwidth=2.09861228866811
+           ,color=black];
+    5 -> 1 [penwidth=2.09861228866811
+           ,color=black];
+    5 -> 6 [penwidth=1
+           ,color=orange];
+    5 -> 7 [penwidth=1
+           ,color=orange];
+    5 -> 14 [penwidth=1.6931471805599454
+            ,color=black];
+    6 -> 1 [penwidth=2.6094379124341005
+           ,color=black];
+    6 -> 4 [penwidth=1,color=black];
+    6 -> 5 [penwidth=1.6931471805599454
+           ,color=orange];
+    6 -> 6 [penwidth=1.6931471805599454
+           ,color=black];
+    6 -> 14 [penwidth=1.6931471805599454
+            ,color=black];
+    7 -> 1 [penwidth=2.6094379124341005
+           ,color=black];
+    7 -> 4 [penwidth=1,color=black];
+    7 -> 5 [penwidth=1.6931471805599454
+           ,color=orange];
+    7 -> 7 [penwidth=1.6931471805599454
+           ,color=black];
+    7 -> 14 [penwidth=1.6931471805599454
+            ,color=black];
+    8 -> 1 [penwidth=2.386294361119891
+           ,color=black];
+    8 -> 4 [penwidth=2.386294361119891
+           ,color=black];
+    8 -> 9 [penwidth=1.6931471805599454
+           ,color=black];
+    9 -> 1 [penwidth=3.0794415416798357
+           ,color=black];
+    9 -> 12 [penwidth=1
+            ,color=black];
+    9 -> 14 [penwidth=1
+            ,color=black];
+    11 -> 10 [penwidth=1
+             ,color=black];
+    11 -> 13 [penwidth=1
+             ,color=black];
+    12 -> 1 [penwidth=2.386294361119891
+            ,color=black];
+    12 -> 4 [penwidth=2.6094379124341005
+            ,color=black];
+    13 -> 5 [penwidth=1
+            ,color=black];
+    13 -> 8 [penwidth=1
+            ,color=black];
+    13 -> 14 [penwidth=1
+             ,color=black];
+    14 -> 15 [penwidth=1.6931471805599454
+             ,color=chartreuse];
+}
