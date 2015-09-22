@@ -65,6 +65,8 @@ first_step left right l_state = case (l_state, next_part_equal $ splitIntoTwo le
 next_part_equal (Just x, (left, right)) = case balance left right of 
     Equal -> Equal == balance [x] [head left]
     otherwise -> Equal == balance left right
+next_part_equal (Nothing, (left, right)) = case balance left right of 
+    _ -> Equal == balance left right
 
 -- Split the coins into two part. If odd, return the first coin along with split
 -- of rest of coins. If even, just split into two parts.
@@ -79,7 +81,7 @@ splitIntoTwo' coins  = splitAt (div (length coins) 2) coins
             
 -- Randomly generate n coins with one counterfiet.
 main = do
-    let ncoins = 7
+    let ncoins = 1000
     g <- getStdGen
     let pos = (fst $ randomR (1, ncoins) g) :: Int
     let weight = (fst $ randomR (1.5, 0.5) g) :: Float
