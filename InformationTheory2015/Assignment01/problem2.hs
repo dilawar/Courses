@@ -46,7 +46,7 @@ find_heavy_coin (x, (left, right)) = case balance left right of
 
 -- This function established if the counterfiet is heavier or lighter for sure.
 -- It also return a reduced partition of coins where one can search for
--- counterfiet. It does 3 balance operations. 
+-- counterfiet. It takes 2 balance operation to figure this out.
 first_partition :: (Maybe Float, ([Float], [Float])) -> (LeftSideOfBalance, [Float])
 first_partition (Just x, (left, right)) 
     | Equal == balance left right = (Equal, [x])
