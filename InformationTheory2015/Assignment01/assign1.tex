@@ -4,6 +4,7 @@
 \usepackage{pgf,tikz}
 \usepackage{amsmath}
 \usepackage{url}
+\usepackage{dot2texi}
 \usepackage[]{appendix}
 \usepackage{amssymb}
 \usepackage[]{algorithm2e}
@@ -140,15 +141,22 @@ My algorithm (listing \ref{listing:b}) takes $2+x$ steps to figure out if a
 counterfeit is lighter of heavier in a given list of coins. It takes 1 step more
 than what information theory suggests to be minimal.
 
-The algorithm split the list of coin into two equal parts $(left, right)$, when
-no of coins are odd, one coin $x$ is removed and rest is split into $(left,
-right)$. If $(left == right)$ then $x$ is the answer, and one more comparison
-with any other coin would establish if the counterfeit is lighter of heavier.
+The first step which consume two weighing operation does two things: figure out
+if the counterfeit is lighter of heavier, and reduce the number of coins to
+search to half. The list is further analyzed by recursive function
+\texttt{find\_coin} which branches into \texttt{find\_lighter\_coin} or
+\texttt{find\_heavier\_coin} depending on previous computation. Overall the
+program has the following callgraph.
 
 \begin{appendices}
-    \section{Haskell listing}
+    \section{Haskell listing for probablem 1}
     \label{listing:a}
     \lstinputlisting[language=Haskell ,basicstyle=\scriptsize\ttfamily]{./problem1.hs}
+
+    \section{Haskell listing for problem 2}
+    \label{listing:b}
+    \lstinputlisting[language=Haskell, basicstyle=\scriptsize\ttfamily
+        {./problem2.hs}
 \end{appendices}
 
 \end{document}          
