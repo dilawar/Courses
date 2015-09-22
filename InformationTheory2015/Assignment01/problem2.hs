@@ -81,7 +81,7 @@ splitIntoTwo' coins  = splitAt (div (length coins) 2) coins
             
 -- Randomly generate n coins with one counterfiet.
 main = do
-    let ncoins = 1000
+    let ncoins = 2^15
     g <- getStdGen
     let pos = (fst $ randomR (1, ncoins) g) :: Int
     let weight = (fst $ randomR (1.5, 0.5) g) :: Float
