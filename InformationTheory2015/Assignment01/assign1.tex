@@ -1,10 +1,9 @@
 \documentclass[a4paper,10pt]{article}
-\usepackage[margin=20mm, right=30mm]{geometry}
+\usepackage{dot2texi}
 \usepackage{fancyhdr}
 \usepackage{pgf,tikz}
 \usepackage{amsmath}
 \usepackage{url}
-\usepackage{dot2texi}
 \usepackage[]{appendix}
 \usepackage{amssymb}
 \usepackage[]{algorithm2e}
@@ -15,7 +14,6 @@
 \author{Dilawar Singh}
 \begin{document}
 \maketitle
-
 
 \section{Coding}
 
@@ -132,8 +130,9 @@ therefor then we can only encode $\frac{2^k}{2}$ states (or coins)
 deterministically.
 
 \subsection{Part 2}
-6 coins against other 6 coins, but 3 weighing would not be enough for detecting
-the counterfeit.
+
+6 coins against other 6 coins or one can also partition into 3 set of 4 coins
+each. In any case, 3 weighing would not be enough for detecting the counterfeit.
 
 \subsection{Part 3}
 
@@ -141,21 +140,38 @@ My algorithm (listing \ref{listing:b}) takes $2+x$ steps to figure out if a
 counterfeit is lighter of heavier in a given list of coins. It takes 1 step more
 than what information theory suggests to be minimal.
 
-The first step which consume two weighing operation does two things: figure out
-if the counterfeit is lighter of heavier, and reduce the number of coins to
-search to half. The list is further analyzed by recursive function
-\texttt{find\_coin} which branches into \texttt{find\_lighter\_coin} or
+The first step \texttt{first\_partition} does two weighing operations
+to do   two things: figure out if the counterfeit is lighter of heavier, and reduce
+the number of coins to search to half. The list is further analyzed by recursive
+function \texttt{find\_coin} which branches into \texttt{find\_lighter\_coin} or
 \texttt{find\_heavier\_coin} depending on previous computation. Overall the
 program has the following callgraph.
 
+\begin{figure}[ht!]
+\begin{center}
+    \includegraphics[width=1\textwidth]{./code_cluster.eps}
+\end{center}
+
+\caption{Call-graph of listing \ref{listing:b}. The core functions are
+    \texttt{find\_light\_coin} and \texttt{find\_heavy\_coin} which searches for
+    light of heavy counterfeit coin. Function \texttt{first\_partition}
+    establishes if counterfeit is heavy of light in two comparisons; and reduces
+    the number of coins to half for further processing. Overall this algorithm
+    takes $2+log_2 n$ call of \texttt{balance} function for $n$ coins.  This is
+    1 more call to \texttt{balance} than what information theory suggest to be
+minimal possible number.}
+
+\label{fig:}
+\end{figure}
+
 \begin{appendices}
-    \section{Haskell listing for probablem 1}
+    \section{Haskell listing for problem 1}
     \label{listing:a}
     \lstinputlisting[language=Haskell ,basicstyle=\scriptsize\ttfamily]{./problem1.hs}
 
     \section{Haskell listing for problem 2}
     \label{listing:b}
-    \lstinputlisting[language=Haskell, basicstyle=\scriptsize\ttfamily
+    \lstinputlisting[language=Haskell, basicstyle=\scriptsize\ttfamily]
         {./problem2.hs}
 \end{appendices}
 
