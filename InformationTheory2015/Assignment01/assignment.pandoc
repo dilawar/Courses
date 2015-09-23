@@ -1,0 +1,162 @@
+---
+title: Assignment 1
+author: Dilawar Singh
+date : \today 
+header-includes:
+    - \usepackage[margin=15mm]{geometry}
+    - \usepackage{algorithm2e, appendix}
+---
+
+# Problem 1 
+
+Consider a horse race where the probabilities of winning are given by negative
+powers of 2 ($\frac{1}{2}, \frac{1}{32}$, etc.). Suppose the lowest possible
+probability for any horse is $2^{-m}$ , and that there are $n_i$ horses in each
+probability class $2^{-i}$.
+
+- What equation must the $n_i$ satisfy?  
+- Give 3 possible sets of $\{n_i\}$ for an 8 horse race (other than the uniform
+  case).
+- Using the entropy concept, calculate the expected codeword length for each
+  set.
+- For each set, present an efficient binary coding scheme that achieves
+  optimality.
+
+## Part 1
+
+Since lowest probability of any horse winning is $\frac{1}{2^m} \implies i \leq
+m$. Moreover, the probability of any horse winning a race must be 1 i.e. 
+$\sum_{i=1}^{i \leq m} \frac{1}{2^i} n_i = 1$
+
+## Part 2, 3
+
+Using the conditions described in section \ref{sec:parta}, we enumerated all
+possible partitions of 8 horses for any given probabilities of winning
+using listing \ref{listing:a}.
+
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{l l l}
+    \hline
+    probabilities ($p_1,p_2,p_3$)& partitions ($n_1,n_2,n_3$) & entropy \\
+    \hline 
+    (05,0.125,6.25e-2) & (1.0,1.0,6.0) & 2.375 \\
+    (0.5,0.125,3.125e-2) & (1.0,3.0,4.0) & 2.25 \\
+    (0.25,0.125,6.25e-2) & (1.0,5.0,2.0),(2.0,2.0,4.0) & 2.875,2.75 \\
+    (0.25,0.125,3.125e-2) & (3.0,1.0,4.0) & 2.5 \\
+    (0.25,6.25e-2,3.125e-2) & (3.0,3.0,2.0) & 2.5625 \\
+    \hline
+\end{tabular}
+\caption{For a given probability of winning of each category $p_i$, right column
+    shows all possible partition of 8 horses into these 3 categories e.g. first
+    row says if the probability of winning of 3 categories are 0.5, 0.125, and
+0.0625 then one can have 1, 1, 6 horses in these categories respectively.}
+\end{table}
+
+## Part 4
+
+To build an optimal code, we assume that optimality means least amount of
+transfer of symbols over channel. If each horse has same probability of winning
+then optimal coding scheme would be ${0, 1, 00, 01, 10, 11, 000, 001}$, with
+average code length of $\frac{1+1+2+2+2+2+3+3}{8} = 2$.
+
+We present the following algorithm to design a coding scheme and present a proof
+that this algorithm generates an optimal coding scheme.
+
+%% Here is algorithm
+\begin{algorithm}[H]
+    \KwData{$P = \{p(i): i \in H\}$ Probability of horse $i$ winning.}
+    \KwResult{$H$, Code for each horse}
+    $H \leftarrow sort(H)$ and $Q \leftarrow \{0,1,00,01,10,11,000,001,\ldots
+    \}$\;
+
+    \While{H is not empty}{
+        horse $\leftarrow$ pop(H) \;
+        $c \leftarrow pop(Q)$ \;
+        assign c to horse.
+    }
+\end{algorithm}
+
+Now we get the following coding scheme:
+
+\begin{tabular}{c c c c c}
+    \hline
+    Probabilities & Possible partition & Entropy & Possible Coding & Avg
+    code-len \\
+    \hline
+    1/2,1/8,1/16 & \{0\},\{1\},\{2,3,4,5,6,7\} & 2.375 &
+    \{0\},\{1\},\{00,01,10,11,000,001\} & 1 \\
+    1/2,1/8,1/32 & \{1\}, \{8,2,3\}, \{0,4,5,6,7\} & 2.25 &
+    \{0\},\{1,00,01\},\{10,11,000,001\} & 1 \\
+    1/4,1/8,1/32 & \{2,3,4\},\{0\},\{1,5,6,7\} & 2.5 & 
+    \{0,1,00\},\{11\},\{01,10,000,111 \} & 1\\
+    \hline
+\end{tabular}
+
+## Coin weighing
+
+Suppose one has n coins, among which there may or may not be one counterfeit
+coin. If there is a counterfiet coin, it may be either heavier or lighter than
+the other coins. The coins are to be weighed by a balance.
+
+- Find an upper bound on the number of coins n so that k weighings will find the
+counterfiet coin (if any) and correctly declare it to be heavier or lighter.
+- Suppose you have k = 3 weighings and 12 coins. How many coins must you weigh
+against each other in the first round?
+-  (Optional, and hard) Find the full strategy for the 12 coin case.
+
+## Part 1
+
+If each weighing gives us 0 or 1 when both side are equal or not, k such
+weighing will give us a string of 0 and 1 of length k. This can encode total
+$2^k$ states. Moreover if there is an equal probability of $\frac{1}{2}$ that
+counterfeit is either heavier or lighter, we need one bit to encode this as well
+therefor then we can only encode $\frac{2^k}{2}$ states (or coins)
+deterministically.
+
+## Part 2
+
+6 coins against other 6 coins or one can also partition into 3 set of 4 coins
+each. In any case, 3 weighing would not be enough for detecting the counterfeit.
+
+## Part 3
+
+My algorithm (listing \ref{listing:b}) takes $2+x$ steps to figure out if a
+counterfeit is lighter of heavier in a given list of coins. It takes 1 step more
+than what information theory suggests to be minimal.
+
+The first step \texttt{first\_partition} does two weighing operations
+to do   two things: figure out if the counterfeit is lighter of heavier, and reduce
+the number of coins to search to half. The list is further analyzed by recursive
+function \texttt{find\_coin} which branches into \texttt{find\_lighter\_coin} or
+\texttt{find\_heavier\_coin} depending on previous computation. Overall the
+program has the following callgraph.
+
+\begin{figure}[ht!]
+\begin{center}
+    \includegraphics[width=1\textwidth]{./code_cluster.eps}
+\end{center}
+
+\caption{Call-graph of listing \ref{listing:b}. The core functions are
+    \texttt{find\_light\_coin} and \texttt{find\_heavy\_coin} which searches for
+    light of heavy counterfeit coin. Function \texttt{first\_partition}
+    establishes if counterfeit is heavy of light in two comparisons; and reduces
+    the number of coins to half for further processing. Overall this algorithm
+    takes $2+log_2 n$ call of \texttt{balance} function for $n$ coins.  This is
+    1 more call to \texttt{balance} than what information theory suggest to be
+minimal possible number.}
+\label{fig:a}
+\end{figure}
+
+\begin{appendices}
+    \section{Haskell listing for problem 1}
+    \label{listing:a}
+    \lstinputlisting[language=Haskell ,basicstyle=\scriptsize\ttfamily]{./problem1.hs}
+
+    \section{Haskell listing for problem 2}
+    \label{listing:b}
+    \lstinputlisting[language=Haskell, basicstyle=\scriptsize\ttfamily]
+        {./problem2.hs}
+\end{appendices}
+
