@@ -1,0 +1,57 @@
+\documentclass[]{article}
+\usepackage{mathtools,amsmath,amssymb,amsthm,mathrsfs}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{listings}
+\title{Assignment 2}
+\author{Dilawar Singh}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\paragraph{Problem 1}
+
+Given a joint distribution, calculate various quantities:
+
+\begin{tabular}[c]{l|c c}
+\(y/x\) & 0 & 1 \\
+\hline
+0 & 1/4 & 1/4 \\
+1 & 0 & 1/2 \\
+\hline
+\end{tabular}
+
+\begin{enumerate}
+\item H(X,Y)
+\item H(X)
+\item H(Y)
+\item H(X\textbar{}Y)
+\item H(Y\textbar{}X)
+\item H(X) + H(Y) - H(X,Y)
+\item H(X) - H(X\textbar{}Y)
+\item H(Y) - H(Y\textbar{}X)
+\item I(X;Y)
+\end{enumerate}
+
+\paragraph*{Solution}
+
+Attached Haskell script computes these quantities. These output is below:
+
+\begin{lstlisting}
+H(X,Y) = 1.5 
+H(X) = 0.8112781
+H(Y) = 1.0
+H(X|Y) = 0.5
+H(Y|X) = 0.68872184
+H(X) + H(Y) - H(X,Y) = 0.3112781
+H(X) - H(X|Y) = 0.3112781
+H(Y) - H(Y|X) = 0.31127816
+I(X;Y) = H(X) - H(X,Y) = 0.3112781
+Solved all
+\end{lstlisting}
+
+The script is following.
+\lstinputlisting[language=Haskell,basicstyle=\tiny]{./problem1.hs}
+
+\end{document}
