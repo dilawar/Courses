@@ -1,5 +1,4 @@
-import Data.Matrix 
-import Test.QuickCheck
+import Data.List
 
 -- Solution to problem 2
 
@@ -8,19 +7,13 @@ import Test.QuickCheck
 data Balance = L | B | H deriving (Show,Eq,Ord)
 
 -- no of coins
-ncoins = 4
+ncoins = 12
 
 -- Potential outcome states. (2n+1)
 states = 2*ncoins + 1
 
 p x | x > 0 = 1/(fromIntegral x)
     | otherwise = error "Need a non-zero positive number"
-
-{-
-balance n  = newstates n ++ states where 
-    states = map (\x -> p rest_coins)[0..(ncoins-1)]
-    rest_coins = ncoins - (2 * n)
--}
 
 entropy :: [Double] -> Double
 entropy [] = 0.0
@@ -47,20 +40,28 @@ prop_balance_sum_to_one =
 xs = [ L, B, H]
 
 -- The probabilities of outcome. (worst case?)
-probs_x = [ 1/3, 1/3, 1/3 ]
+probs_x = [ 1/2, 1/4, 1/2 ]
 
---xys :: Int -> [[Double]] --[Double]
-xys n = -- foldr (++) [] 
-    [map (\a -> a * (p $ length xs)) $ balance n x | x <- xs]
+-- For given n coins, compute the outcome of balance for all possible xs i.e. L,
+-- B, and H. Compute the new probabilities and return them.
+xys :: Int -> [[Double]]
+xys n = [balance n x | x <- xs]
 
-{-
+-- hxy is the entropy of xys with given probabilities of xs in probs_x.
+hy_given_x n = 
+    sum $ map (\(x,y) -> x*y) $ zip (map entropy $ xys n) (probs_x)
+
 hx = entropy probs_x
-hy n = sum $ map (\(x,y) -> y * (entropy $ balance n x)) (zip [L, B, H] probs_x)
-hxy n = entropy $ xys n
+hy n = entropy $ map (\x -> x/3) ys where
+    ys = foldr sum_two [] $ xys n
 
-mutual_info n = (hx + hy n) - (hxy n)
+sum_two x [] = x
+sum_two [] y = y
+sum_two (x:xs) (y:ys) = (x+y) : sum_two xs ys
+
+mutual_info n = hy n - hy_given_x n
 
 main = do
-    putStrLn "All done"
-
--}
+    let ans = map mutual_info [1..6]
+    print ans
+    putStrLn "Done"
