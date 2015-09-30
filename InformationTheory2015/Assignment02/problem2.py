@@ -11,7 +11,7 @@ class JointDist():
 
     def __init__(self, ncoins):
         print("[INFO] Total coins: %s" % ncoins)
-        self.prob_x = [ 1/4.0, 1/4.0, 1/2.0 ]
+        self.prob_x = [ 1/2.0, 1/4.0, 1/4.0 ]
         self.states = 2*ncoins +1
         self.mat = np.zeros((self.states, 3), dtype=np.float)
         self.init_dist()
@@ -77,8 +77,10 @@ class JointDist():
 
 def main(ncoins):
     dist = JointDist(ncoins)
-    for j in range(1, 6):
-        dist.balance(j)
+    for j in range(0, 6):
+        print("Weigh %s coin on both side" % (j+1))
+        print dist.mat
+        dist.balance(j+1)
         i = dist.mutual_info()
         print("Mutual info: %s" % i)
 

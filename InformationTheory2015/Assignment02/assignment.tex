@@ -66,4 +66,17 @@ correct joint distribution in each case. Calculate the mutual information
 I(X;Y). This tells you how many bits of information your measurement provides.
 What is the most informative measurement?
 
+\paragraph{Solution}
+
+The script attached in appendix sets up the distribution and compute mutual
+information. I am not getting any improvement in mutual information when
+probability of getting L, B or R is equal. The mutual information increases
+linearly with no of coins selected for first weighing; therefore suggesting that
+one should weigh largest number of coins (i.e. 6) in first comparison.
+
+All cases are enumerated below.
+
+\lstinputlisting[]{./output.dat}
+
+\lstinputlisting[language=Haskell,basicstyle=\tiny]{./problem2.hs}
 \end{document}
