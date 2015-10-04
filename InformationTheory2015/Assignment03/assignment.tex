@@ -1,53 +1,93 @@
 \documentclass{article}
-\usepackage[margin=20mm]{geometry}
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
+\usepackage[left=35mm,margin=20mm]{geometry}
+\usepackage{ifthen,empheq}
+\date{\today}
 \usepackage{fancyhdr}
-\newlength\tindent
-\setlength{\tindent}{\parindent}
-\setlength{\parindent}{0pt}
-\renewcommand{\indent}{\hspace*{\tindent}}
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{Assignment 3}
+\setlength{\headheight}{15pt}
+
+\lhead{Assignment 1}
 \chead{Dilawar Singh}
-\lhead{Information Theory}
-\rfoot{Page \thepage}
- 
+\rhead{\today}
+
+\lfoot{}\cfoot{\thepage}\rfoot{}
+\pagestyle{fancy}
+
+\ifx\pdfoutput\undefined                         %LaTeX
+  \RequirePackage[ps2pdf,bookmarks=true]{hyperref}
+  \hypersetup{ %
+    pdfauthor   = {\@author},
+    pdftitle    = {\@title},
+    pdfcreator  = {LaTeX with hyperref package},
+    pdfproducer = {dvips + ps2pdf}
+  }
+\else                                            %PDFLaTeX
+  \RequirePackage[pdftex,bookmarks=true]{hyperref}
+  \hypersetup{ %
+    pdfauthor   = {\@author},
+    pdftitle    = {\@title},
+    pdfcreator  = {LaTeX with hyperref package},
+    pdfproducer = {dvips + ps2pdf}
+  }
+\pdfadjustspacing=1
+\fi
+
+% Set up counters for problems and subsections
+
+\newcounter{ProblemNum}
+\newcounter{SubProblemNum}[ProblemNum]
+
+\renewcommand{\theProblemNum}{\arabic{ProblemNum}}
+\renewcommand{\theSubProblemNum}{\alph{SubProblemNum}}
+
+\newcommand*{\anyproblem}[1]{\newpage\subsection*{#1}}
+\newcommand*{\problem}[1]{\stepcounter{ProblemNum} %
+   \anyproblem{Problem \theProblemNum. \; #1}}
+\newcommand*{\soln}[1]{\subsubsection*{#1}}
+\newcommand*{\solution}{\soln{Solution}}
+\renewcommand*{\part}{\stepcounter{SubProblemNum} %
+  \soln{Part (\theSubProblemNum)}}
+
+\renewcommand{\theenumi}{(\alph{enumi})}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\roman{enumii}}
 \begin{document}
- 
-Being too stringent with the definition of typical sequences 
 
+\problem{Counting Typical Sequences}
 
-\paragraph{Problem 1} \footnote{This problem explains why we had to go through all those
-epsilons to get a good idea of what a typical sequence means.}
-
-Consider a DNA sequence of length 8 generated iid from the distribution 
+Being too stringent with the definition of typical sequences.  Consider a DNA
+sequence of length 8 generated iid from the distribution 
     
 $$ \wp(A, T, G, C) = (\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{8})$$
 
+\part  
 
-1. What is the single most probable sequence? What is its probability of
+What is the single most probable sequence? What is its probability of
 occurrence?
 
-\paragraph{Solution} The most probable sequence is $AAAAAAAA$ with probability
-of occurrence $\frac{1}{2^8}$.
+\solution 
+The most probable sequence is $AAAAAAAA$ with probability of occurrence
+$\frac{1}{2^8}$.
 
-2. How many stringently typical sequences are there (exact answer required)?  
-\paragraph{Solution} A (stringent) typical sequence $T_n$ is defined as
+\part 
+How many stringently typical sequences are there (exact answer required)?  
+\solution
+A (stringent) typical sequence $T_n$ is defined as
 $-\frac{1}{n} log_2 p(T_n) - H(X) = 0$ which implies that $p(T_n) = 2^{-nH(x)}$.
-Once can calculate that $H(X) = 1.75$ and $p(T_n) = 2^{-14}$. Since the
+One can calculate that $H(X) = 1.75$ and therefore $p(T_n) = 2^{-14}$. Since the
 probability distribution has elements which are negative power of 2, the total
-typical sequences are number of solutions to the equation $a + 2b + 3c + 3d =
-14$ where $a,b,c,d$ are positive integers. We can put further constrains 
+typical sequences are number of solutions to the equation $2^a + 2^b + 2^{3(c+d)} =
+2^{14}$ where $a,b,c,d$ are positive integers. We can put further constrains 
 $0 \ge a \le 14, 0 \ge b \le 7, 0 \ge c \le 4, 0 \ge d \le 4$. The snippet in
 appedix solves this problem. There are total 196 such sequences.
 
-3. What is the total probability of getting some stringently typical sequence?
-\paragraph{Solution} The probability of getting stringently typical sequence is
+\part
+What is the total probability of getting some stringently typical sequence?
+\solution 
+The probability of getting stringently typical sequence is
 $\frac{196}{4^8} = 0.00299$.
-
-4. Redo the whole calculation if the length is 16. What is the total probability
+p
+\part
+Redo the whole calculation if the length is 16. What is the total probability
 of getting a stringently typical sequence? Are we converging to 1?  
 
 
