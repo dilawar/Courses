@@ -28,17 +28,20 @@ dna_dist = replicateM n neucleotide_dist
 
 entropy :: P.T Double a -> Double
 entropy dist = sum $ map (\(a,x) -> - x * logBase 2 x) $ P.decons dist
-dna_endtropy = entropy dna_dist
+dna_entropy = entropy dna_dist
+
+prob_p :: Double
+prob_p = 1.0/2**(entropy neucleotide_dist * (fromIntegral n))
 
 -- Solve 1.2
-problem1_2' = length $ filter (\(a, p) -> p == (1/2^14)) $ P.decons dna_dist
+problem1c' = length $ filter (\(a, p) -> p == prob_p) $ P.decons dna_dist
 
 possible_nnuc = filter (\x -> sum x == n) [ 
     [a, t, c, g] | a <- [0..n], t <- [0..n-a], c <- [0..n-a-t], g <- [0..n-a-t-c] 
     ] 
 
--- There are total 2716 number of ways.
-problem1_2 = sum $ count_ways $ filter (\(a,p) -> p == 1/2^14) $ prob_of_n_nucs possible_nnuc
+-- How many ways to do it? There are total 2716 number of ways when n = 8.
+problem1c = sum $ count_ways $ filter (\(a,p) -> p == prob_p) $ prob_of_n_nucs possible_nnuc
 count_ways [] = []
 count_ways ((x,a):xs) = (div (fact $ sum x) (foldr (*) 1 $ map fact x)) : count_ways xs
 
@@ -46,5 +49,5 @@ prob_of_n_nucs [] = []
 prob_of_n_nucs x = map (\ns ->(ns,(1/2^ns!!0)*(1/4^ns!!1)*(1/8^ns!!2)*(1/8^ns!!3))) x
  
 main = do
-    let sol = problem1_2 
+    let a = problem1c 
     putStrLn "Done"
