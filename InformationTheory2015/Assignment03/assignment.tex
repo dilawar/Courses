@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage[margin=20mm]{geometry}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Assignment 3}
+\chead{Dilawar Singh}
+\lhead{Information Theory}
+\rfoot{Page \thepage}
+ 
+\begin{document}
+ 
+Being too stringent with the definition of typical sequences 
+
+\paragraph{Problem 1} \footnote{This problem explains why we had to go through all those
+epsilons to get a good idea of what a typical sequence means.}
+
+Consider a DNA sequence of length 8 generated iid from the distribution 
+    
+$$ \wp(A, T, G, C) = (\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{8})$$
+
+\begin{enumerate}
+    \item What is the single most probable sequence? What is its probability of
+        occurrence?
+        \paragraph{solution} The most probable sequence is $AAAAAAAA$ with
+        probability of occurrence $\frac{1}{2^8}$.
+
+    \item How many stringently typical sequences are there (exact answer
+        required)?  
+
+    \item. What is the total probability of getting some stringently typical
+        sequence?
+
+    \item Redo the whole calculation if the length is 16. What is the total
+        probability of getting a stringently typical sequence? Are we converging
+        to 1?  
+
+\end{enumerate}
+
+\paragraph{Entropy rate of a Markov process}
+
+The Morse code uses dots, dashes, and two types of spaces: letter and word
+spaces.  Spaces only occur as delimiters; that is, no space can follow another
+space. What is the entropy rate achievable under these constraints?  Hint: take
+a look at Shannon’s 1948 paper for a start, and Example 5.1.3 of C\&T, but use
+different notation. Write it out as a Markov process whose states are [.], [-],
+[L-space], [W-space]. Assume that all allowed outputs from any state are equally
+likely.  
+
+\paragraph{[Optional][C\&T 3.11] Read the C\&T section 4.3, Entropy Rate of a
+    Random Walk}  What is the entropy rate of rooks, kings, and bishops on a 3x3
+chessboard?  Remember there are 2 types of bishops.
+
+\end{document}
+
+
