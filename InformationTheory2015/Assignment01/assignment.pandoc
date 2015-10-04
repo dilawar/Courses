@@ -3,7 +3,7 @@ title: Assignment 1
 author: Dilawar Singh
 date : \today 
 header-includes:
-    - \usepackage[margin=15mm]{geometry}
+    - \usepackage[margin=20mm]{geometry}
     - \usepackage{algorithm2e, appendix}
 ---
 

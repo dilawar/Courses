@@ -19,6 +19,9 @@ dna_dist = replicateM 8 neucleotide_dist
 entropy :: P.T Double a -> Double
 entropy dist = sum $ map (\(a,x) -> - x * logBase 2 x) $ P.decons dist
 
+-- Solve 1.2
+problem1_2 = length $ filter (==14) [ a + b + c + d | a <- [1..14], b <- [0..7], c <- [0..4], d <- [0..4] ]
+
 main = do
-    print $ dna_dist
+    let sol = problem1_2 
     putStrLn "Done"

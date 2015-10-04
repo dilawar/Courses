@@ -1,9 +1,12 @@
 \documentclass{article}
+\usepackage[margin=20mm]{geometry}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
-\usepackage[margin=20mm]{geometry}
- 
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{Assignment 3}
@@ -15,6 +18,7 @@
  
 Being too stringent with the definition of typical sequences 
 
+
 \paragraph{Problem 1} \footnote{This problem explains why we had to go through all those
 epsilons to get a good idea of what a typical sequence means.}
 
@@ -22,23 +26,30 @@ Consider a DNA sequence of length 8 generated iid from the distribution
     
 $$ \wp(A, T, G, C) = (\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{8})$$
 
-\begin{enumerate}
-    \item What is the single most probable sequence? What is its probability of
-        occurrence?
-        \paragraph{solution} The most probable sequence is $AAAAAAAA$ with
-        probability of occurrence $\frac{1}{2^8}$.
 
-    \item How many stringently typical sequences are there (exact answer
-        required)?  
+1. What is the single most probable sequence? What is its probability of
+occurrence?
 
-    \item. What is the total probability of getting some stringently typical
-        sequence?
+\paragraph{Solution} The most probable sequence is $AAAAAAAA$ with probability
+of occurrence $\frac{1}{2^8}$.
 
-    \item Redo the whole calculation if the length is 16. What is the total
-        probability of getting a stringently typical sequence? Are we converging
-        to 1?  
+2. How many stringently typical sequences are there (exact answer required)?  
+\paragraph{Solution} A (stringent) typical sequence $T_n$ is defined as
+$-\frac{1}{n} log_2 p(T_n) - H(X) = 0$ which implies that $p(T_n) = 2^{-nH(x)}$.
+Once can calculate that $H(X) = 1.75$ and $p(T_n) = 2^{-14}$. Since the
+probability distribution has elements which are negative power of 2, the total
+typical sequences are number of solutions to the equation $a + 2b + 3c + 3d =
+14$ where $a,b,c,d$ are positive integers. We can put further constrains 
+$0 \ge a \le 14, 0 \ge b \le 7, 0 \ge c \le 4, 0 \ge d \le 4$. The snippet in
+appedix solves this problem. There are total 196 such sequences.
 
-\end{enumerate}
+3. What is the total probability of getting some stringently typical sequence?
+\paragraph{Solution} The probability of getting stringently typical sequence is
+$\frac{196}{4^8} = 0.00299$.
+
+4. Redo the whole calculation if the length is 16. What is the total probability
+of getting a stringently typical sequence? Are we converging to 1?  
+
 
 \paragraph{Entropy rate of a Markov process}
 
