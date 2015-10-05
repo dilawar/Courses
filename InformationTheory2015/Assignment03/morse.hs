@@ -1,7 +1,6 @@
 -- A problem based on morse code.
 
 import Data.Graph.Inductive 
-import Data.List
 import Control.Monad.Random
 
 data Symbol = DT | DS | LS | WS deriving (Show,Ord,Eq)
@@ -48,5 +47,4 @@ gen_sequence n = do
 
 main = do
     s <- gen_sequence 1000
-    print s
     putStrLn "All done"
