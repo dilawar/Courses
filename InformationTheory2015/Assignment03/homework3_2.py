@@ -2,8 +2,10 @@
 
 import random
 import math
+import matplotlib.pyplot as plt
+import pygraphviz as pvg
 
-symbols = [ ".", "-", "L", "W" ]
+state_ = pvg.AGraph("./state.dot", directed=True)
 
 def transmitter( prev = None ):
     """Transmit one of the symbols.
@@ -21,18 +23,24 @@ def entropy_seq( seq ):
     entropy = 0.0
     for s in symbols:
         p = seq.count(s) / float(len(seq))
+        if p == 0.0:
+            continue
         entropy += ( - p * math.log(p, 2))
     return entropy
 
+def random_step(
+
 def generate_seq( n ):
-    seq = [ random.choice(symbols) ]
-    for i in range(n-1):
-        seq.append(transmitter(seq[-1]))
-    return seq
+    # Select a random node from graph as starting point.
+    start = random.choice(state_.nodes())
+    seq = [ start ]
+    while len(seq) < n:
+        n = random_step(seq[-1])
+        print n
+        quit()
 
 def main():
-    morse_seq = generate_seq(100000)
-    print entropy_seq(morse_seq)
+    seq = generate_seq( n = 10 )
 
 if __name__ == '__main__':
     main()

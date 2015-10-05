@@ -1,0 +1,7 @@
+digraph state {
+    DOT -> {DOT, DASH, LSPACE, WSPACE} [ p = 0.25, label ="1/4" ];
+    DASH -> {DOT, DASH, LSPACE, WSPACE} [ p = 0.25, label = "1/4" ];
+    LSPACE -> {DOT, DASH} [ p = 0.5, label="1/2" ];
+    WSPACE -> {DOT, DASH} [ p = 0.5, label="1/2"];
+}
+    
