@@ -31,12 +31,12 @@ def entropy_rate(mat, probs):
 
 def main():
     total_weight = np.sum(state_mat)
-    print_mat(state_mat, "A")
+    print_mat(state_mat, "Initial distribution")
     n = 1
     while (state_mat**n !=  state_mat**(n+1)).all():
         n += 1
     new_mat = state_mat**n
-    print_mat(new_mat, "B")
+    print_mat(new_mat, "Steady state distribution")
     print("Entropy rate: %s" % entropy_rate(new_mat, [0.25,0.25,0.25,0.25]))
 
 if __name__ == '__main__':
