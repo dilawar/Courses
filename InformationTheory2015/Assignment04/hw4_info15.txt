@@ -1,0 +1,42 @@
+Information Theory [2015 Aug Term]
+Homework 4: Assigned Oct 12, due Oct 23.
+Decoding
+1. Consider the following set of codewords:
+(A,B,C,D,E,F,G,H) = (01, 11, 001, 0000, 0001, 1001, 1010, 1011).
+a. Is this an instantaneous (prefix) code?
+b. Verify that it satisfies the Kraft inequality
+c. Construct a string which has no meaning under this system
+Transmitting information across a channel
+2. [C&T 8.5] Consider the discrete memoryless channel 𝑌 = 𝑋 + 𝑍  (𝑚𝑜𝑑  11), where 𝑍
+is uniformly distributed on the alphabet {1, 2, 3}:
+𝑍=
+
+1
+2
+3
+,
+1/3 1/3 1/3
+
+and 𝑋 ∈ {0, 1, … , 10}. Assume that 𝑍 is independent of 𝑋.
+a. Find the capacity.
+b. What is the maximizing 𝑝∗ (𝑥)?
+3. [C&T 8.9] The Z channel has binary input and output alphabets and transition
+probabilities 𝑝(𝑦|𝑥) given by the following matrix:
+𝑄=
+
+1
+0
+1/2 1/2
+
+𝑥, 𝑦 ∈ {0, 1}.
+
+[Why is it called the Z-channel?]
+Find the capacity of the Z channel and the maximizing input probability distribution.
+4. [Optional][C&T 8.10] For the Z channel of the previous problem, assume that we
+choose a (2!" , 𝑛) code at random, where each codeword is a sequence of fair coin
+tosses. This will not achieve capacity. Find the maximum rate R such that the
+(!)
+probability of error 𝑃! , averaged over randomly generated codes, tends to zero as
+the block length n tends to infinity.
+
+
