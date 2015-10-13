@@ -97,6 +97,19 @@ True
 
 \part
 
+Any string which function {\tt decoder} can't decode would have no meaning. Here
+are some examples:
+
+\begin{verbatim}
+*Main> decode "101000101" 
+"GCA"
+*Main> decode "101000101111" 
+"GCAB*** Exception: No valid alphabet for "1"
+*Main> decode "1010001011110" 
+"GCAB*** Exception: No valid alphabet for "10"
+*Main> 
+\end{verbatim}
+
 \problem{}
 Consider the discrete memoryless channel Y = X + Z (mod 11), where Z
 is uniformly distributed on the alphabet {1, 2, 3}.
@@ -108,8 +121,10 @@ is uniformly distributed on the alphabet {1, 2, 3}.
 
 and $X \in \{0, 1, \ldots 10\}$ . Assume that Z is independent of X.
 
-a. Find the capacity.
-b. What is the maximizing p∗(x)?
+\begin{enumerate}
+    \item Find the capacity.
+    \item What is the maximizing $p^\star(x)$?
+\end{enumerate}
 
 \problem{}
 
