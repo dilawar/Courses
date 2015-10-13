@@ -66,6 +66,37 @@ Consider the following set of codewords:
         information across a channel.
 \end{enumerate}
 
+\solution
+
+\part 
+
+Yes. Function {\tt solvea} figures out if any code is a prefix of any other
+code. The answer is that there is no code which prefix of any other code. Some
+relevant snippet from the code is following.
+
+\begin{verbatim}
+*Main> alphabets 
+"ABCDEFGH"
+*Main> allcodes 
+["01","11","001","0000","0001","1001","1010","1011"]
+*Main> map isPrefixCode alphabets 
+[False,False,False,False,False,False,False,False]
+\end{verbatim}
+
+\part
+
+Function {\tt kraft } verifies that it is true. Following is the execution.
+
+\begin{verbatim}
+*Main> kraft_sum 
+0.9375
+*Main> kraft
+True
+*Main> 
+\end{verbatim}
+
+\part
+
 \problem{}
 Consider the discrete memoryless channel Y = X + Z (mod 11), where Z
 is uniformly distributed on the alphabet {1, 2, 3}.

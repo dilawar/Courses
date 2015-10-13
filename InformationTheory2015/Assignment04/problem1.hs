@@ -25,6 +25,9 @@ get_alpha c = case filter (\x -> code x == c) alphabets of
     (x:[]) -> x
     y -> error $ "No valid alphabet for " ++ show c
 
+get_code_string [] = []
+get_code_string (x:xs) = (code x) ++ get_code_string xs
+
 --------- Solve section a.  
 -- Check if a given sequence is prefix of second sequence
 isPrefix :: (Eq a) => [a] -> [a] -> Bool
@@ -36,6 +39,7 @@ isPrefix (x:xs) (y:ys)
 -- Given a character, check if its code is prefix of any other character's code.
 isPrefixCode :: Char -> Bool
 isPrefixCode x = and $ map (\y -> isPrefix (code x) y ) (delete (code x) allcodes)
+
 
 solvea = not . and $ map isPrefixCode alphabets
 
@@ -57,9 +61,13 @@ search c n codes = filter (\x -> x!!n == c) codes
 
 -- This function returns all possible codes available for given string. It
 -- should be used on input which increases 1 by 1.
+parse' m 
+    | head (parse m 0 allcodes) == m = Just m
+    | otherwise = Nothing
+         
+
 parse :: String -> Int -> [String] -> [String]
 parse [] n (x:[]) = [x]
-parse y n (x:[]) = error $ "No valid alphabet with code " ++ show y
 parse [] n codes = codes
 parse (c:cs) n codes = parse cs (n+1) (search c n codes)
 
@@ -68,6 +76,6 @@ parse (c:cs) n codes = parse cs (n+1) (search c n codes)
 decode msg = helper [head msg] (tail msg) where
     helper :: String -> String -> String
     helper m [] = [get_alpha m]
-    helper m (r:rs) = case ( parse m 0 allcodes ) of 
-        (c:[]) -> (get_alpha c) : helper [r] rs
-        otherwise -> helper (m++[r]) rs
+    helper m (r:rs) = case (parse' m) of 
+        (Just c) -> (get_alpha c) : helper [r] rs
+        Nothing -> helper (m++[r]) rs
