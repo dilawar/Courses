@@ -47,4 +47,5 @@ gen_sequence n = do
 
 main = do
     s <- gen_sequence 1000
+    print s
     putStrLn "All done"

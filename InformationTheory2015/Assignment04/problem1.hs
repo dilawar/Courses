@@ -2,6 +2,7 @@
 
 import qualified Data.Map as M
 import Data.List
+import Data.Tree
 
 alphabets :: [ Char ]
 alphabets = "ABCDEFGH"
@@ -18,6 +19,11 @@ code x = case x of
     otherwise -> "Unknown code"
 
 allcodes = map code alphabets
+
+get_alpha :: String -> Char
+get_alpha c = case filter (\x -> code x == c) alphabets of
+    (x:[]) -> x
+    y -> error $ "No valid alphabet for " ++ show c
 
 --------- Solve section a.  
 -- Check if a given sequence is prefix of second sequence
@@ -36,5 +42,32 @@ solvea = not . and $ map isPrefixCode alphabets
 -------- Section b
 
 depths = map (length . code ) alphabets
-kraft | sum $ map ( \x -> 1 / (2^x)) depths <= 1.0 = True
+kraft_sum = sum ( map (\x -> 1 / (2^x) ) depths)
+kraft :: Bool
+kraft | 1.0 >= kraft_sum  = True
       | otherwise = False
+
+-------- Section c
+
+-- Function parse takes the depth of code and letter, and return the possible
+-- character it migtht decode into
+
+search :: Char -> Int -> [ String ] -> [ String ]
+search c n codes = filter (\x -> x!!n == c) codes
+
+-- This function returns all possible codes available for given string. It
+-- should be used on input which increases 1 by 1.
+parse :: String -> Int -> [String] -> [String]
+parse [] n (x:[]) = [x]
+parse y n (x:[]) = error $ "No valid alphabet with code " ++ show y
+parse [] n codes = codes
+parse (c:cs) n codes = parse cs (n+1) (search c n codes)
+
+-- decode function. Given a string of messages, it decode them to a string of
+-- alphabets.
+decode msg = helper [head msg] (tail msg) where
+    helper :: String -> String -> String
+    helper m [] = [get_alpha m]
+    helper m (r:rs) = case ( parse m 0 allcodes ) of 
+        (c:[]) -> (get_alpha c) : helper [r] rs
+        otherwise -> helper (m++[r]) rs
