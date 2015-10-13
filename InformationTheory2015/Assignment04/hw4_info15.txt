@@ -1,12 +1,13 @@
-Information Theory [2015 Aug Term]
-Homework 4: Assigned Oct 12, due Oct 23.
 Decoding
+
 1. Consider the following set of codewords:
 (A,B,C,D,E,F,G,H) = (01, 11, 001, 0000, 0001, 1001, 1010, 1011).
+
 a. Is this an instantaneous (prefix) code?
 b. Verify that it satisfies the Kraft inequality
 c. Construct a string which has no meaning under this system
 Transmitting information across a channel
+
 2. [C&T 8.5] Consider the discrete memoryless channel 𝑌 = 𝑋 + 𝑍  (𝑚𝑜𝑑  11), where 𝑍
 is uniformly distributed on the alphabet {1, 2, 3}:
 𝑍=
