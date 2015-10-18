@@ -2,7 +2,6 @@ digraph channel {
     xA -> yA, yB [ prob = 0.5 ];
     xB -> yB, yC [ prob = 0.5 ];
     xC -> yC, yD [ prob = 0.5 ];
-    xC -> yC, yD [ prob = 0.5 ];
     xD -> yD, yE [ prob = 0.5 ];
     xE -> yE, yF [ prob = 0.5 ];
     xF -> yF, yG [ prob = 0.5 ];
@@ -25,6 +24,5 @@ digraph channel {
     xW -> yW, yY [ prob = 0.5 ];
     xX -> yX, yZ [ prob = 0.5 ];
     xY -> yY, yZ [ prob = 0.5 ];
-    xZ -> yZ, yZ [ prob = 0.5 ];
     xZ -> yZ, yA [ prob = 0.5 ];
 }
