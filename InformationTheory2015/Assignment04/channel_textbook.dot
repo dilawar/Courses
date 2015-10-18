@@ -13,16 +13,16 @@ digraph channel {
     xL -> yL, yM [ prob = 0.5 ];
     xM -> yM, yN [ prob = 0.5 ];
     xN -> yN, yO [ prob = 0.5 ];
-    xO -> yO, yQ [ prob = 0.5 ];
-    xP -> yP, yR [ prob = 0.5 ];
-    xQ -> yQ, yS [ prob = 0.5 ];
-    xR -> yR, yT [ prob = 0.5 ];
-    xS -> yS, yU [ prob = 0.5 ];
-    xT -> yT, yV [ prob = 0.5 ];
-    xU -> yU, yW [ prob = 0.5 ];
-    xV -> yV, yX [ prob = 0.5 ];
-    xW -> yW, yY [ prob = 0.5 ];
-    xX -> yX, yZ [ prob = 0.5 ];
+    xO -> yO, yP [ prob = 0.5 ];
+    xP -> yP, yQ [ prob = 0.5 ];
+    xQ -> yQ, yR [ prob = 0.5 ];
+    xR -> yR, yS [ prob = 0.5 ];
+    xS -> yS, yT [ prob = 0.5 ];
+    xT -> yT, yU [ prob = 0.5 ];
+    xU -> yU, yV [ prob = 0.5 ];
+    xV -> yV, yW [ prob = 0.5 ];
+    xW -> yW, yX [ prob = 0.5 ];
+    xX -> yX, yY [ prob = 0.5 ];
     xY -> yY, yZ [ prob = 0.5 ];
     xZ -> yZ, yA [ prob = 0.5 ];
 }
