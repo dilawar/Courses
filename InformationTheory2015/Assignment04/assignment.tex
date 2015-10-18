@@ -122,14 +122,26 @@ is uniformly distributed on the alphabet {1, 2, 3}, and $X \in \{0, 1, \ldots
 
 \solution
 
+\begin{figure}[ht!]
+\begin{center}
+    \includegraphics[width=1.0\textwidth]{channel.eps}
+\end{center}
+\caption{Channel with their input and output symbols.}
+\end{figure}
+
+
 \part During coding, any $x \in X$ goes to $x+1, x+2, x+3$ (mod 11) with
 probability 1/3. This channel is very similar to noisy typewriter channel. Two
 consider two possibilities, we can send either \{0, 3, 6, 9\} with a chance that
 $9 \rightarrow 1$ and $0 \rightarrow 1$. Or we can drop 0 or 9 from the set. In
 the former, we can send one of 4 symbols per transmission with a small
-probability of error (i.e. $9 \rightarrow 1$ and $0 \rightarrow 1$); in later we
+probability of error (i.e. $9 \rightarrow 1$ and $0 \rightarrow 1$); in later
+case, we
 can send one of the 3 symbols per transmission without any error but we will
-never send some symbols. None of these situations are desirable.
+never send some symbols. None of these situations are desirable but we now know
+the limit on channel capacity, between $log_2 4 = 2$ and $log_2 3 = 1.5849$. In
+fact the python simulator attached in appendix computes it to be approximately
+$1.78$.
 
 \footnote{Solve if one partition the scheme in a way that there is no
     collision}.
