@@ -18,6 +18,7 @@ import numpy as np
 import string
 import sys
 import math
+import pylab
 from collections import Counter
 
 def entropy(seq):
@@ -42,6 +43,7 @@ class Channel():
         self.G = nx.DiGraph(nx.read_dot(filename))
         self.inputAlphabets = set()
         self.outputAlphabets = set()
+        self.init()
 
     def init(self):
         print("[INFO] Initializing channel")
@@ -70,11 +72,19 @@ class Channel():
 
 def main():
     print("[INFO] Loading channel data from graphviz file")
-    ch = Channel( sys.argv[1] )
-    inputSymbols = [ 'x%s'%a for a in string.ascii_uppercase ]
-    inputSeq = np.random.choice(inputSymbols, 1000)
-    outputSeq = ch.simulate( inputSeq )
-    ixy = mutual_info(inputSeq, outputSeq)
+    xvec, yvec = [], []
+    runningMean, runningVar = 0.0, 0.0
+    for n in np.logspace(1, 5, 40):
+        print("Computing for sequence of length %s " % n)
+        ch = Channel( sys.argv[1] )
+        inputSeq = np.random.choice(list(ch.inputAlphabets), n)
+        outputSeq = ch.simulate( inputSeq )
+        ixy = mutual_info(inputSeq, outputSeq)
+        xvec.append(n); yvec.append(ixy)
+        print("|- Mutual info %s" % ixy)
+        print( abs(np.mean(yvec) - ixy), np.std(yvec))
+    pylab.semilogx(xvec, yvec)
+    pylab.savefig('mutual_info.png')
 
 if __name__ == '__main__':
     main()
