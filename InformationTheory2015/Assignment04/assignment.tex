@@ -156,6 +156,37 @@ better approximation of mutual information under given distribution of $X$.
 
 $ I(X; Y) = log_2 {2} + (1 - H(\frac{1}{9})) = 1 + 0.6477 = 1.6477 $
 
+The python listing in appendix, shows how mutual information converges to a
+value (approx 1.84) during simulation as we increases the size of input
+sequences.
+
+\begin{verbatim}
+Computing for sequence of length 49238.8263171 
+[INFO] Initializing channel
+[INFO] Total 11 input symbols, total 11 output symbol
+|- Mutual info 1.8428914487
+Computing for sequence of length 62355.0734127 
+[INFO] Initializing channel
+[INFO] Total 11 input symbols, total 11 output symbol
+|- Mutual info 1.84410956054
+Computing for sequence of length 78965.228685 
+[INFO] Initializing channel
+[INFO] Total 11 input symbols, total 11 output symbol
+|- Mutual info 1.84348815998
+Computing for sequence of length 100000.0 
+[INFO] Initializing channel
+[INFO] Total 11 input symbols, total 11 output symbol
+|- Mutual info 1.84570556055
+\end{verbatim}
+
+\begin{figure}[ht!]
+\begin{center}
+    \includegraphics[width=\textwidth]{./mutual_info_a.png}
+\end{center}
+\caption{Mutual information of channel with size of input sequences}
+\end{figure}
+
+
 \problem{}
 
 The Z channel has binary input and output alphabets and transition

@@ -57,7 +57,7 @@ class Channel():
         outEges = self.G.successors(inAlpha)
         output = []
         for out in outEges:
-             output.append((out, self.G[inAlpha][out]['prob']))
+             output.append((out, self.G[inAlpha][out].get('label')))
         return zip(*output)
 
     def simulate(self, inputs):
