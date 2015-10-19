@@ -9,8 +9,6 @@ type Symbol = Int
 -- Channel type.
 data Channel a = Channel { inSymbols :: [a]
     , outSymbols :: [a]
-    -- Given a (inSymbols, outSymbols) pair, what is the transition prob.
-    -- Ideally it should be one.
     , transitionProbs :: D.T Float (Symbol, Symbol)
 } deriving (Show, Eq)
 
@@ -35,29 +33,29 @@ possibleOutputs x = map (\(e, p) -> (snd e, p)) $ filter (\(e, p) -> fst e == x)
 
 -- Given a symbol, pick a one output symbol depending on the given
 -- probabilities.
-transition x = DR.run $ DR.pick $ D.fromFreqs $ possibleOutputs x
 
 --------------------------------------------------------------------------------
 -- Simulate channel
 --------------------------------------------------------------------------------
+transition x channel = DR.run $ DR.pick $ transitionProbs channel
 
 -- generate a input sequence of given length
-inputSeq 0 = return []
-inputSeq n = do 
-    xv <- inputSeq (n-1)
-    x <- DR.run $ DR.pick $ inputDist
+inputSeq 0 d = return []
+inputSeq n dist = do 
+    xv <- inputSeq (n-1) dist
+    x <- DR.run $ DR.pick $ dist
     return $! (x : xv)
 
-simulate [] = return []
-simulate (x:xs) = do
-    xv <- simulate xs
-    x <- transition x
+simulate [] channel = return []
+simulate (x:xs) channel = do
+    xv <- simulate xs channel
+    x <- transition x channel
     return $! (x:xv) 
 
 main = do
     {-solve1 >>= print .show -}
-    input <- inputSeq 1000
-    output <- simulate $ input
+    input <- inputSeq 10000 $ inputDist
+    output <- simulate input channel1
     let hx = entropy input
     let hy = entropy output
     let hxy = entropy (zip input output)
