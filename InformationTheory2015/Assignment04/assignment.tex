@@ -126,7 +126,7 @@ is uniformly distributed on the alphabet {1, 2, 3}, and $X \in \{0, 1, \ldots
 
 \begin{figure}[ht!]
 \begin{center}
-    \includegraphics[width=1.0\textwidth]{channel.eps}
+    \includegraphics[width=1.0\textwidth]{_images/channel.eps}
 \end{center}
 \caption{Channel with their input and output symbols.}
 \end{figure}
@@ -145,7 +145,7 @@ capacity, between $log_2 4 = 2$ and $log_2 3 = 1.5849$.
 This channel can be simplified to the following.
 \begin{figure}[ht!]
 \begin{center}
-    \includegraphics[width=0.4\textwidth]{channel_simple.eps}
+    \includegraphics[width=0.4\textwidth]{_images/channel_simple.eps}
 \end{center}
 \caption{}
 \end{figure}
@@ -158,7 +158,22 @@ $ I(X; Y) = log_2 {2} + (1 - H(\frac{1}{9})) = 1 + 0.6477 = 1.6477 $
 
 The python listing in appendix, shows how mutual information converges to a
 value (approx 1.84) during simulation as we increases the size of input
-sequences.
+sequences. This matches well with the derivation of maximum capacity of a binary
+asymmetric channel on Wikipedia i.e. $1 - 0.5 H(\frac{1}{9})$ when input follows
+a Bernoulli distribution.
+
+We can also derive the expression for maximum capacity.
+
+\begin{align}
+I(Y;X) &= H(Y) - H(Y|X) = H(Y) - H(X+Z|X) = H(Y) - H(Z|X) = H(Y) - H(X) \\
+    &= H(Y) - log_2 3 \\
+\max I(Y; X) &= \max H(Y) - log_2 3
+\end{align}
+
+Which is achieved when Y is uniformly distributed. The channel capacity in this
+case is $log 11 - log 3 = 1.8744$.
+
+
 
 \begin{verbatim}
 Computing for sequence of length 49238.8263171 
@@ -181,7 +196,7 @@ Computing for sequence of length 100000.0
 
 \begin{figure}[ht!]
 \begin{center}
-    \includegraphics[width=\textwidth]{./mutual_info_a.png}
+    \includegraphics[width=\textwidth]{./mutual_info.png}
 \end{center}
 \caption{Mutual information of channel with size of input sequences}
 \end{figure}
