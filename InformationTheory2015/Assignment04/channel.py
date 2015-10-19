@@ -74,17 +74,26 @@ def main():
     print("[INFO] Loading channel data from graphviz file")
     xvec, yvec = [], []
     runningMean, runningVar = 0.0, 0.0
-    for n in np.logspace(1, 5, 40):
+    inFile = sys.argv[1]
+    csvFile = "%s.csv" % inFile
+    f = open(csvFile, "w")
+    f.write("time,n,mutual information\n")
+    f.close()
+    for n in np.logspace(1, 4, 40):
         print("Computing for sequence of length %s " % n)
-        ch = Channel( sys.argv[1] )
+        ch = Channel( inFile )
+        t1 = time.time()
         inputSeq = np.random.choice(list(ch.inputAlphabets), n)
         outputSeq = ch.simulate( inputSeq )
         ixy = mutual_info(inputSeq, outputSeq)
+        t = time.time() - t1
         xvec.append(n); yvec.append(ixy)
-        print("|- Mutual info %s" % ixy)
+        print("|- Mutual info %s, time taken %s" % (ixy, t))
         print( abs(np.mean(yvec) - ixy), np.std(yvec))
+        with open(csvFile, "a") as f:
+            f.write("%s,%s,%s\n" % (t, n, ixy))
     pylab.semilogx(xvec, yvec)
-    pylab.savefig('mutual_info.png')
+    pylab.savefig('%s_mutual_info.png' % inFile)
 
 if __name__ == '__main__':
     main()

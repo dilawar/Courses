@@ -132,18 +132,17 @@ is uniformly distributed on the alphabet {1, 2, 3}, and $X \in \{0, 1, \ldots
 \end{figure}
 
 
-\part During coding, any $x \in X$ goes to $x+1, x+2, x+3$ (mod 11) with
-probability 1/3. This channel is very similar to noisy typewriter channel. Two
-consider two possibilities, we can send either \{0, 3, 6, 9\} with a chance that
-$9 \rightarrow 1$ and $0 \rightarrow 1$. Or we can drop 0 or 9 from the set. In
-the former, we can send one of 4 symbols per transmission with a small
-probability of error (i.e. $9 \rightarrow 1$ and $0 \rightarrow 1$); in later
-case, we can send one of the 3 symbols per transmission without any error but we
-will never send some symbols. None of these situations are desirable but we now
-know the limit on channel capacity, between $log_2 4 = 2$ and $log_2 3 =
-1.5849$. 
+\part During coding, all $x \in X$ goes to $x+1, x+2, x+3$ (mod 11) respectively
+with probability 1/3. We consider two possibilities, we can send either \{0, 3,
+6, 9\} with the possibility of  $9 \rightarrow 1$ and $0 \rightarrow 1$. Or we
+can drop 0 or 9 from the set. In the former, we can send one of 4 symbols per
+transmission with a small probability of error (i.e. $9 \rightarrow 1$ and $0
+\rightarrow 1$); in later case, we can send one of the 3 symbols per
+transmission without any error but we will never send some symbols. None of
+these situations are desirable. These argument  put some limit on channel
+capacity, between $log_2 4 = 2$ and $log_2 3 = 1.5849$. 
 
-The above channel can be simplified to the following.
+This channel can be simplified to the following.
 \begin{figure}[ht!]
 \begin{center}
     \includegraphics[width=0.4\textwidth]{channel_simple.eps}
@@ -151,8 +150,9 @@ The above channel can be simplified to the following.
 \caption{}
 \end{figure}
 
-We can approximate the binary asymmetric channel with the symmetric one to get a
-better approximation of mutual information under given distribution of $X$.
+Since we know the binary symmetric channel, we can further approximate the
+binary asymmetric channel with a symmetric one to get another approximation of
+mutual information under given distribution of $X$.
 
 $ I(X; Y) = log_2 {2} + (1 - H(\frac{1}{9})) = 1 + 0.6477 = 1.6477 $
 
