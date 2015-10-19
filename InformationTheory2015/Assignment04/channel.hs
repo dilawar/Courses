@@ -2,6 +2,7 @@ import Data.List
 import Data.Maybe
 import qualified Numeric.Probability.Distribution as D
 import qualified Numeric.Probability.Random as DR
+import Entropy
 
 type Symbol = Int
 
@@ -40,13 +41,23 @@ transition x = DR.run $ DR.pick $ D.fromFreqs $ possibleOutputs x
 -- Simulate channel
 --------------------------------------------------------------------------------
 
+-- generate a input sequence of given length
 inputSeq 0 = return []
 inputSeq n = do 
     xv <- inputSeq (n-1)
     x <- DR.run $ DR.pick $ inputDist
-    return $ (x : xv)
+    return $! (x : xv)
+
+simulate [] = return []
+simulate (x:xs) = do
+    xv <- simulate xs
+    x <- transition x
+    return $! (x:xv) 
 
 main = do
     {-solve1 >>= print .show -}
-    print $ channel1 
+    input <- inputSeq 100000
+    output <- simulate $ input
+    print $ entropy input
+    print $ entropy output
     putStrLn "Done"
