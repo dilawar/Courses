@@ -56,8 +56,10 @@ simulate (x:xs) = do
 
 main = do
     {-solve1 >>= print .show -}
-    input <- inputSeq 100000
+    input <- inputSeq 1000
     output <- simulate $ input
-    print $ entropy input
-    print $ entropy output
+    let hx = entropy input
+    let hy = entropy output
+    let hxy = entropy (zip input output)
+    print $ hx + hy - hxy
     putStrLn "Done"
