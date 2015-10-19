@@ -9,7 +9,7 @@ type Symbol = Int
 -- Channel type.
 data Channel a = Channel { inSymbols :: [a]
     , outSymbols :: [a]
-    , transitionProbs :: D.T Float (Symbol, Symbol)
+    , transitionProbs :: [(Symbol, D.T Float Symbol)]
 } deriving (Show, Eq)
 
 -------------------------------------------------------------------------------
@@ -19,26 +19,29 @@ inputSymbols = [0..10]
 inputDist :: D.T Float Symbol
 inputDist = D.uniform inputSymbols
 
+inputDist2 :: D.T Float Symbol
+inputDist2 = D.uniform [0..25]
+
 outputSymbols = [0..10]
-transitions = [ (x, y) | x <- inputSymbols, y <- map (\a -> mod a 11) [x+1..x+3] ]
-tranProbs = [ (a, 1/3) | a <- transitions ]
+transitions = map (\x -> (x, D.uniform $ output x)) inputSymbols
+    where output x = map (\y -> mod y 11) [(x+1)..(x+3)]
 
 -- Channel
 channel1 :: Channel Symbol
-channel1 = Channel inputSymbols outputSymbols (D.fromFreqs tranProbs)
+channel1 = Channel inputSymbols outputSymbols transitions
 
--- Given a symbol find the next possible symbols.
-possibleOutputs :: Symbol -> [(Symbol, Float)]
-possibleOutputs x = map (\(e, p) -> (snd e, p)) $ filter (\(e, p) -> fst e == x) tranProbs
-
--- Given a symbol, pick a one output symbol depending on the given
--- probabilities.
+channel_textbook :: Channel Symbol
+channel_textbook = Channel [0..25] [0..25] pbs where
+    pbs = map ( \x -> (x, D.uniform [mod x 26, mod (x+1) 26]) ) [0..25]
 
 --------------------------------------------------------------------------------
--- Simulate channel
+-- Functions on channel.
 --------------------------------------------------------------------------------
-transition x channel = DR.run $ DR.pick $ transitionProbs channel
-
+next x channel = do
+    let a = fromJust $ find (\(y, d) -> y == x) (transitionProbs channel)
+    n <- DR.run $ DR.pick $ snd a
+    return n
+        
 -- generate a input sequence of given length
 inputSeq 0 d = return []
 inputSeq n dist = do 
@@ -49,13 +52,22 @@ inputSeq n dist = do
 simulate [] channel = return []
 simulate (x:xs) channel = do
     xv <- simulate xs channel
-    x <- transition x channel
+    x <- next x channel
     return $! (x:xv) 
 
-main = do
+sim_channel1 n = do
     {-solve1 >>= print .show -}
-    input <- inputSeq 10000 $ inputDist
+    input <- inputSeq n $ inputDist
     output <- simulate input channel1
+    let hx = entropy input
+    let hy = entropy output
+    let hxy = entropy (zip input output)
+    print $ hx + hy - hxy
+    putStrLn "Done"
+
+sim_channel2 n = do
+    input <- inputSeq n $ inputDist2
+    output <- simulate input channel_textbook
     let hx = entropy input
     let hy = entropy output
     let hxy = entropy (zip input output)
