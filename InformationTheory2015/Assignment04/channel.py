@@ -19,6 +19,7 @@ import string
 import sys
 import math
 import pylab
+import time
 from collections import Counter
 
 def entropy(seq):
