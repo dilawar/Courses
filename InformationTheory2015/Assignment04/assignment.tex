@@ -214,7 +214,18 @@ probabilities $p(y|x)$ given by the following matrix: Q =
 
 $x, y \in \{0, 1\}$.
 
-[Why is it called the Z-channel?]
+[Why is it called the Z-channel?] . Because it looks like Z 
+
+\begin{tikzpicture}[scale=1, every node/.style={circle} ]
+    \node[] (a) at (0,0) {$x_1$};
+    \node[right of=a]  (b) {$y_1$};
+    \node[below of=a]  (c) {$x_2$};
+    \node[below of=b]  (d) {$y_2$};
+    \draw[->] (a) -- (b);
+    \draw[->] (a) -- (d);
+    \draw[->] (c) -- (d);
+\end{tikzpicture}    
+
 Find the capacity of the Z channel and the maximizing input probability distribution.
 
 \problem{}
