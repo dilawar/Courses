@@ -80,7 +80,7 @@ def main():
     f = open(csvFile, "w")
     f.write("time,n,mutual information\n")
     f.close()
-    for n in np.logspace(1, 4, 40):
+    for n in np.logspace(1, 5, 20):
         print("Computing for sequence of length %s " % n)
         ch = Channel( inFile )
         t1 = time.time()
