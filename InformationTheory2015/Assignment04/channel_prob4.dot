@@ -1,0 +1,5 @@
+digraph prob4 {
+    xA -> yA [ label = "1" ];
+    xB -> yB [ label = "0.5" ];
+    xB -> yA [ label = "0.5" ];
+}
