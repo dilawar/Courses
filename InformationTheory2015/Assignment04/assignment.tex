@@ -217,6 +217,7 @@ $x, y \in \{0, 1\}$.
 [Why is it called the Z-channel?] . Because it looks like Z 
 
 \begin{tikzpicture}[scale=1, every node/.style={circle} ]
+
     \node[] (a) at (0,0) {$x_1$};
     \node[right of=a]  (b) {$y_1$};
     \node[below of=a]  (c) {$x_2$};
@@ -224,9 +225,56 @@ $x, y \in \{0, 1\}$.
     \draw[->] (a) -- (b);
     \draw[->] (a) -- (d);
     \draw[->] (c) -- (d);
+
 \end{tikzpicture}    
 
-Find the capacity of the Z channel and the maximizing input probability distribution.
+Find the capacity of the Z channel and the maximizing input probability
+distribution.
+
+\solution
+
+The joint probability distribution of channel is below when $p(X=X_1) = \alpha$.
+
+\begin{tabular}{c | c c}
+    & $Y_1$ & $Y_2$ \\
+    \hline 
+    $X_1$ & $\alpha$ & 0 \\
+    $X_2$ & $(1-\alpha)/2$ & $(1-\alpha)/2$ \\
+    \hline
+\end{tabular}
+
+And, 
+
+\begin{align}
+I(Y;X) &= H(Y) - H(Y|X) \\
+    &= H\left(\frac{1-\alpha}{2}\right) - (1 - \alpha) \\
+\end{align}
+
+To find a maximum, we use elementary calculus with the variable substitution
+$\beta = 1 - \alpha$.
+
+\begin{align}
+    I(\beta) &= H(\beta/2) - \beta  \\
+    &= 1 - \frac{\beta \log(\beta)}{2} - \log(2 - \beta) +
+    \frac{\beta\log(2-\beta)}{2} - \beta \\
+\end{align}
+
+$I(\beta=0)$ and $I(\beta=1)$ is 0 while the function $I$ takes positive values
+for some $\beta \in (0, 1)$. Therefore it must have at least one maxima in
+interval $\beta \in (0, 1)$. To find it, we set the first derivative i.e.
+$\frac{dI}{d\beta} = 0$.
+
+\begin{align}
+    \frac{dI}{d\beta} &= 0 \\
+    \frac{-1}{2}\left( 1 + \log \beta \right) + \frac{1}{2-\beta} + \frac{1}{2}
+    \left( \frac{-\beta}{2-\beta} + \log (2 - \beta) \right) -1 &= 0 \\
+    \frac{1}{2} \log \frac{2-\beta}{\beta} &= 1 \\
+    \beta &= \frac{2}{5}
+\end{align}
+
+The value of $I(Y;X)$ at $\beta=\frac{2}{5}$ is $\log 5 - 2 = 0.3219$. Let's see
+what the simulator says:
+
 
 \problem{}
 
