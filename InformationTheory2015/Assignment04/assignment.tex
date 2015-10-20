@@ -7,6 +7,7 @@
 \usepackage{tikz}
 \usepackage{listings}
 \usetikzlibrary{calc,graphs,arrows}
+\usepackage{pgfplots}
 \setlength{\headheight}{15pt}
 
 \lhead{Assignment 1}
@@ -194,12 +195,22 @@ Computing for sequence of length 100000.0
 |- Mutual info 1.84570556055
 \end{verbatim}
 
-\begin{figure}[ht!]
-\begin{center}
-    \includegraphics[width=\textwidth]{./mutual_info.png}
-\end{center}
-\caption{Mutual information of channel with size of input sequences}
-\end{figure}
+\begin{tikzpicture}[scale=1
+    , every node/.style={} ]
+    \begin{semilogxaxis}[ xlabel=Length of input sequence, ylabel=I(Y;X) ]
+        \addplot table [x=n,y=mutual information,col sep=comma ] {channel.dot.csv};
+        \addlegendentry{Simulator}
+        \addplot expression[domain=1:100000,mark=none] { 1.8744 };
+        \addlegendentry{Theoretical}
+    \end{semilogxaxis}
+\end{tikzpicture}    
+
+%%\begin{figure}[ht!]
+%%\begin{center}
+%%    \includegraphics[width=\textwidth]{./mutual_info.png}
+%%\end{center}
+%%\caption{Mutual information of channel with size of input sequences}
+%%\end{figure}
 
 
 \problem{}
@@ -274,6 +285,16 @@ $\frac{dI}{d\beta} = 0$.
 
 The value of $I(Y;X)$ at $\beta=\frac{2}{5}$ is $\log 5 - 2 = 0.3219$. Let's see
 what the simulator says:
+
+\begin{tikzpicture}[scale=1
+    , every node/.style={} ]
+    \begin{semilogxaxis}[ xlabel=Length of input sequence, ylabel=I(Y;X) ]
+        \addplot table [x=n,y=mutual information,col sep=comma ] {channel_prob4.dot.csv};
+        \addlegendentry{Simualtor}
+        \addplot expression[domain=1:100000,mark=none] { 0.3219 };
+        \addlegendentry{Theoretical}
+    \end{semilogxaxis}
+\end{tikzpicture}    
 
 
 \problem{}
