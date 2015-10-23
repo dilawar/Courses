@@ -30,6 +30,14 @@ input_seq n = do
     vs <- input_seq (n-1)
     return (v:vs)
 
+-- Check if input i and output string o has error. Return the number of places
+-- where error has occured.
+check i o =  sum $ map is_error (zip i o) where 
+    is_error (x, y) 
+        | x == y = 0.0
+        | otherwise = 1.0
+
+-- Send a stream over channel. Get the output stream as well as the error rate.
 apply :: [Char] -> Channel -> IO [Char]
 apply [] chan = return []
 apply (i:is) channel = do
