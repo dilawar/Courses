@@ -46,12 +46,14 @@ apply (i:is) channel = do
     return (x:xv)
 
 simulate n l = do 
+    putStrLn $ "Simulating for code length " ++ show n ++ ", and times : " ++ show l
     input <- mapM (\x -> input_seq n) [1..l]
     output <- mapM (\x -> apply x channel) input
     let csvText = unlines $ map (\(x, y) -> show x ++ "," ++ show y) $ zip input output
     writeFile ("_data/output_"++show n++"_"++show l++".csv") csvText
-    putStrLn "Done writing data to a file"
+    putStrLn "|-- Done writing data to a file"
 
 main = do
-    simulate 3 100
+    let d = [ (x, y) | x <- [5,10..100], y <- [2..6] ]
+    mapM (\(x, y) -> simulate x (10^y)) d
     putStrLn "Done"
