@@ -45,6 +45,13 @@ apply (i:is) channel = do
     xv <- apply is channel
     return (x:xv)
 
+simulate n l = do 
+    input <- mapM (\x -> input_seq n) [1..l]
+    output <- mapM (\x -> apply x channel) input
+    let csvText = unlines $ map (\(x, y) -> show x ++ "," ++ show y) $ zip input output
+    writeFile ("_data/output_"++show n++"_"++show l++".csv") csvText
+    putStrLn "Done writing data to a file"
+
 main = do
-    {-solve4 >>= print -}
+    simulate 3 100
     putStrLn "Done"
