@@ -32,7 +32,7 @@ input_seq n = do
 
 -- Check if input i and output string o has error. Return the number of places
 -- where error has occured.
-check i o =  sum $ map is_error (zip i o) where 
+check i o =  foldl' (+) 0 $ map is_error (zip i o) where 
     is_error (x, y) 
         | x == y = 0.0
         | otherwise = 1.0
