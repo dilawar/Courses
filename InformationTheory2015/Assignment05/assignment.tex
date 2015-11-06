@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage[left=35mm,margin=20mm]{geometry}
+\usepackage{ifthen,empheq}
+\date{\today}
+\usepackage{fancyhdr}
+\usepackage[]{dot2texi}
+\setlength{\headheight}{15pt}
+
+\lhead{Assignment 1}
+\chead{Dilawar Singh}
+\rhead{\today}
+
+\lfoot{}\cfoot{\thepage}\rfoot{}
+\pagestyle{fancy}
+
+\ifx\pdfoutput\undefined                         %LaTeX
+  \RequirePackage[ps2pdf,bookmarks=true]{hyperref}
+  \hypersetup{ %
+    pdfauthor   = {\@author},
+    pdftitle    = {\@title},
+    pdfcreator  = {LaTeX with hyperref package},
+    pdfproducer = {dvips + ps2pdf}
+  }
+\else                                            %PDFLaTeX
+  \RequirePackage[pdftex,bookmarks=true]{hyperref}
+  \hypersetup{ %
+    pdfauthor   = {\@author},
+    pdftitle    = {\@title},
+    pdfcreator  = {LaTeX with hyperref package},
+    pdfproducer = {dvips + ps2pdf}
+  }
+\pdfadjustspacing=1
+\fi
+
+% Set up counters for problems and subsections
+
+\newcounter{ProblemNum}
+\newcounter{SubProblemNum}[ProblemNum]
+
+\renewcommand{\theProblemNum}{\arabic{ProblemNum}}
+\renewcommand{\theSubProblemNum}{\alph{SubProblemNum}}
+
+\newcommand*{\anyproblem}[1]{\newpage\subsection*{#1}}
+\newcommand*{\problem}[1]{\stepcounter{ProblemNum} %
+   \anyproblem{Problem \theProblemNum. \; #1}}
+\newcommand*{\soln}[1]{\subsubsection*{#1}}
+\newcommand*{\solution}{\soln{Solution}}
+\renewcommand*{\part}{\stepcounter{SubProblemNum} %
+  \soln{Part (\theSubProblemNum)}}
+
+\renewcommand{\theenumi}{(\alph{enumi})}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\roman{enumii}}
+\begin{document}
+
+\problem{Rate distortion}
+
+1. [C\&T 13.2] Rate distortion function with infinite distortion. Find the rate distortion
+!
+function R D = min I(X; X) for X  ~  Bernoulli  ( ! ) and distortion
+0, x = x
+d x, x = 1, x = 1, x = 0
+∞, x = 0, x = 1
+
+Hint: Remember, you can never allow the infinite distortion option to occur! This
+reduces the set of allowed joint distributions. There is a relatively short way to answer
+this question without doing any minimization.
+
+\solution
+
+\end{document}
