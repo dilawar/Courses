@@ -1,0 +1,17 @@
+1. Large deviation theory. We roll a fair six-sided die 𝑛 times, where 𝑛 is large. What is
+the probability that the number of 2s is at least double the number of 1s in the
+resulting string? Of strings which satisfy this condition, what proportion of values
+will be 1s?
+We can split this calculation into the following parts:
+a. What is the constraint equation for the set 𝐸 of types (or empirical distributions)
+𝑃! ! which satisfy the required condition?
+b. Let 𝑄 be the uniform distribution. Show that the member 𝑃∗ of 𝐸 which minimizes
+the relative entropy 𝐷(𝑃∗ ||𝑄) is the maximum entropy distribution subject to the
+constraints from (a).
+c. Find the distribution 𝑃∗ . E.g. let the proportion of 1s be an unknown 𝑥. Use some
+intuition to set the rest of the distribution. Then use calculus to minimize. You can
+find the answer analytically.
+d. What is the probability that the outcome of 𝑛 die rolls belongs to 𝑃∗ (and therefore,
+to 𝐸 to first order in the exponent)?
+e. (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
+
