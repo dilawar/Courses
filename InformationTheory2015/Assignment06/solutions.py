@@ -11,7 +11,7 @@ def twos_are_twice_of_ones(n):
         return True
     return False
 
-def main():
+def simulate():
     found = False
     i = 0
     while(not found):
@@ -20,5 +20,15 @@ def main():
             found = True
             print("Found after %s attempts" % i)
 
+def main():
+    length = 10
+    alphas = range(1, 7)
+    print alphas
+
+def distribute(n, p):
+    # Distribute n different elements in p places.
+
+
+
 if __name__ == '__main__':
-    main()
+    test()
