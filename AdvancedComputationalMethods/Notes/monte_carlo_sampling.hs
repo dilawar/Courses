@@ -7,8 +7,9 @@ import qualified System.Random.MWC as R
 import Data.Vector.Unboxed as U
 
 -- Very first thing we need is a random number generator (uniform distribution).
+-- NOTE, it does not pick 0.0 
 random_floats :: Int -> IO (U.Vector Float)
-random_floats n = R.create >>= \gen -> R.uniformVector gen n 
+random_floats n = R.createSystemRandom >>= \gen -> R.uniformVector gen n 
 
 -- To scale the random floats in (0, 1.0) to (min, max)
 -- y = (max - min) x + min 
@@ -17,12 +18,22 @@ scale_samples (min, max) vs = U.map (\v -> (max - min) * v + min ) vs
 
 -- Sample a given space for n points.
 sampled_space :: [( Float, Float)] -> Int -> IO [ U.Vector Float ]
-sampled_space axes n = 
-    random_floats n >>= \vv -> return $ Prelude.map (\x -> scale_samples x vv ) axes 
-    
+sampled_space [] n = return []
+sampled_space (ax:axes) n = do
+    vv <- random_floats n
+    let v = scale_samples ax vv 
+    vs <- sampled_space axes n
+    return $! v:vs
+
+-- Function to evaluate. It should acccept right number of arguments.
+func x y | x ** 2 + y ** 2 <= 1 = True
+         | otherwise = False
+
+monte_carlo_sampling f points = U.filter f points
 
 main = do
-    vs <- sampled_space [ (1,3), (-1,1) ] 100
+    vs <- sampled_space [ (-1,1), (-1,1) ] 10
     print vs
+    {-print $ monte_carlo_sampling func vs-}
     putStrLn $ "Done"
 
