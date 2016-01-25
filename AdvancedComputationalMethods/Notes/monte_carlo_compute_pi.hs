@@ -4,9 +4,11 @@
  -}
 
 import qualified System.Random.MWC as R
-import Data.Vector as U hiding ((++))
+import Data.Vector.Unboxed as U hiding ((++), mapM)
 import Data.Function 
+import qualified Data.List as L
 import Numeric.LinearAlgebra.Data as LAD
+import Graphics.Gnuplot.Simple
 
 divide :: Int -> Int -> Float
 divide = (/) `on` fromIntegral
@@ -49,19 +51,22 @@ monte_carlo_integration f points =
 
 -- Compute pi using the monte_carlo_integration on a circle. Generate data to
 -- plot the box plots.
-monte_carlo_pi sample_points = do 
-    vs <- sampled_space [ (-1,1), (-1,1) ] sample_points
+monte_carlo_pi sample_size = do 
+    vs <- sampled_space [ (-1,1), (-1,1) ] sample_size
     let points = transpose vs
     let pi = 4.0 * monte_carlo_integration func points
-    return pi
+    return (sample_size, pi)
 
 monte_carlo_pi_n_times n sample_points = do
     let nn = floor sample_points
     pis <- replicateM n $ monte_carlo_pi nn
     putStrLn $ "For sample size " ++ (show nn) ++ ": " ++ show pis
+    return pis
 
 main = do
-    let space = Prelude.map (10**) [1.0,2.0..10.0]
-    Prelude.mapM (\x -> monte_carlo_pi_n_times 10 x) space
+    let space = Prelude.map (10**) [1.0,2.0..4.0]
+    mat <- mapM (\x -> monte_carlo_pi_n_times 10 x) space
+    --print $ L.transpose (Prelude.map U.toList mat)
+    plotLists [] (Prelude.map U.toList mat)
     putStrLn $ "Done"
 
