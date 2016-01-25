@@ -4,7 +4,12 @@
  -}
 
 import qualified System.Random.MWC as R
-import Data.Vector.Unboxed as U
+import Data.Vector as U hiding ((++))
+import Data.Function 
+import Numeric.LinearAlgebra.Data as LAD
+
+divide :: Int -> Int -> Float
+divide = (/) `on` fromIntegral
 
 -- Very first thing we need is a random number generator (uniform distribution).
 -- NOTE, it does not pick 0.0 
@@ -30,18 +35,33 @@ func (x:y:[])
     | x ** 2 + y ** 2 <= 1 = True
     | otherwise = False
 
-monte_carlo_sampling f vecs = Prelude.filter func points  where
-    points = get_points 0 (U.length $ Prelude.head vecs)  
-    -- This is equivalent to transposing a matrix.
+-- This is equivalent to transposing a matrix.
+transpose vecs = get_points 0 (U.length $ Prelude.head vecs) where 
     get_points i len | i < len = column i : get_points (i+1) len
                      | otherwise = []
     column i = Prelude.map (\x -> x U.! i) vecs
 
+-- These two function computes the fraction of points satisfying the function. 
+monte_carlo_sampling f points = Prelude.filter func points 
+--monte_carlo_integration :: (Ord b, Floating b) => a -> [[ b ]] -> Float
+monte_carlo_integration f points = 
+    divide (Prelude.length (monte_carlo_sampling f points)) (Prelude.length points)
+
+-- Compute pi using the monte_carlo_integration on a circle. Generate data to
+-- plot the box plots.
+monte_carlo_pi sample_points = do 
+    vs <- sampled_space [ (-1,1), (-1,1) ] sample_points
+    let points = transpose vs
+    let pi = 4.0 * monte_carlo_integration func points
+    return pi
+
+monte_carlo_pi_n_times n sample_points = do
+    let nn = floor sample_points
+    pis <- replicateM n $ monte_carlo_pi nn
+    putStrLn $ "For sample size " ++ (show nn) ++ ": " ++ show pis
+
 main = do
-    vs <- sampled_space [ (-1,1), (-1,1) ] 10
-    print $ vs
-    let p = monte_carlo_sampling func vs
-    print $ p
-    {-print $ monte_carlo_sampling func vs-}
+    let space = Prelude.map (10**) [1.0,2.0..10.0]
+    Prelude.mapM (\x -> monte_carlo_pi_n_times 10 x) space
     putStrLn $ "Done"
 
