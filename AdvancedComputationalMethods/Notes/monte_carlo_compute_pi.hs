@@ -7,24 +7,28 @@ import qualified System.Random.MWC as R
 import Data.Vector.Unboxed as U hiding ((++), mapM)
 import Data.Function 
 import qualified Data.List as L
-import Numeric.LinearAlgebra.Data as LAD
-import Graphics.Gnuplot.Simple
+import Statistics.Sample
+import Data.CSV.Conduit
+import System.IO
+import Data.Double.Conversion.ByteString
 
-divide :: Int -> Int -> Float
+divide :: Int -> Int -> Double
 divide = (/) `on` fromIntegral
+
+encodeDoubles x = L.map toShortest x
 
 -- Very first thing we need is a random number generator (uniform distribution).
 -- NOTE, it does not pick 0.0 
-random_floats :: Int -> IO (U.Vector Float)
+--random_floats :: Int -> IO (U.Vector )
 random_floats n = R.createSystemRandom >>= \gen -> R.uniformVector gen n 
 
 -- To scale the random floats in (0, 1.0) to (min, max)
 -- y = (max - min) x + min 
-scale_samples :: (Float, Float) -> U.Vector Float -> U.Vector Float
+scale_samples :: (Double, Double) -> U.Vector Double -> U.Vector Double
 scale_samples (min, max) vs = U.map (\v -> (max - min) * v + min ) vs
 
 -- Sample a given space for n points.
-sampled_space :: [( Float, Float)] -> Int -> IO [ U.Vector Float ]
+sampled_space :: [( Double, Double)] -> Int -> IO [ U.Vector Double ]
 sampled_space [] n = return []
 sampled_space (ax:axes) n = do
     vv <- random_floats n 
@@ -45,7 +49,7 @@ transpose vecs = get_points 0 (U.length $ Prelude.head vecs) where
 
 -- These two function computes the fraction of points satisfying the function. 
 monte_carlo_sampling f points = Prelude.filter func points 
---monte_carlo_integration :: (Ord b, Floating b) => a -> [[ b ]] -> Float
+--monte_carlo_integration :: (Ord b, Doubleing b) => a -> [[ b ]] -> Double
 monte_carlo_integration f points = 
     divide (Prelude.length (monte_carlo_sampling f points)) (Prelude.length points)
 
@@ -55,7 +59,7 @@ monte_carlo_pi sample_size = do
     vs <- sampled_space [ (-1,1), (-1,1) ] sample_size
     let points = transpose vs
     let pi = 4.0 * monte_carlo_integration func points
-    return (sample_size, pi)
+    return pi
 
 monte_carlo_pi_n_times n sample_points = do
     let nn = floor sample_points
@@ -63,14 +67,13 @@ monte_carlo_pi_n_times n sample_points = do
     putStrLn $ "For sample size " ++ (show nn) ++ ": " ++ show pis
     return pis
 
-main = do
-    let space = Prelude.map (10**) [1.0,2.0..4.0]
-    mat <- mapM (\x -> monte_carlo_pi_n_times 10 x) space
-    --print $ L.transpose (Prelude.map U.toList mat)
-    let mystyle = defaultStyle { lineSpec = CustomStyle [ LineTitle "" ] }
-    plotListsStyle [ 
-        Title "Monte Carlo"
-        , Custom "logscale x 10" [] 
-        ] (Prelude.map (\x -> (mystyle , U.toList x)) mat)
-    putStrLn $ "Done"
+csv_data xs = L.transpose $ L.map encodeDoubles xs
 
+main = do
+    let space = Prelude.map (10**) [1.0,1.5..2.0] :: [Double]
+    mat <- mapM (\x -> monte_carlo_pi_n_times 10 x) space
+    let (means, vars) = L.unzip $ Prelude.map meanVariance mat
+    let csvdata = csv_data [ space, means, vars ]
+    let outfile = "data.csv" :: String
+    writeCSVFile (CSVSettings ',' Nothing) outfile WriteMode csvdata
+    putStrLn $ "Done writing data to " ++ outfile
