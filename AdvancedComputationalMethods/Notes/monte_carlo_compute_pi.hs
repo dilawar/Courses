@@ -67,6 +67,10 @@ main = do
     let space = Prelude.map (10**) [1.0,2.0..4.0]
     mat <- mapM (\x -> monte_carlo_pi_n_times 10 x) space
     --print $ L.transpose (Prelude.map U.toList mat)
-    plotLists [] (Prelude.map U.toList mat)
+    let mystyle = defaultStyle { lineSpec = CustomStyle [ LineTitle "" ] }
+    plotListsStyle [ 
+        Title "Monte Carlo"
+        , Custom "logscale x 10" [] 
+        ] (Prelude.map (\x -> (mystyle , U.toList x)) mat)
     putStrLn $ "Done"
 
