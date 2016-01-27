@@ -69,9 +69,9 @@ monte_carlo_hypersphere_vol sample_size ndims = do
     let vol = (2.0 ^ ndims) * monte_carlo_integration func points
     return vol
 
-monte_carlo_hypersphere_vols :: Int -> a -> Int -> IO (Vector Double)
-monte_carlo_hypersphere_vols nn sample_points ndims = do
-    vols <- replicateM nn $ monte_carlo_hypersphere_vol nn  ndims
+monte_carlo_hypersphere_vols :: Int -> Int -> Int -> IO (Vector Double)
+monte_carlo_hypersphere_vols nn sample_size ndims = do
+    vols <- replicateM nn $ monte_carlo_hypersphere_vol sample_size ndims
     return vols
 
 compute_pi :: Int -> Int -> Int -> IO (Vector Double)
@@ -85,12 +85,13 @@ csv_data xs = L.transpose $ L.map encodeDoubles xs
 
 generate_mean_vars :: [Int] -> Int -> Int -> IO ([Double], [Double])
 generate_mean_vars space repeat ndims = do 
+    print $ space
     mat <- mapM (\x -> compute_pi repeat x ndims) space
     let (means, vars) = L.unzip $ Prelude.map meanVariance mat
     return $ (means, vars)
 
 exp_variance_vs_ndims ndims = do 
-    let space = L.map (\x -> floor $ 10.0**x) [1.0,1.05 .. 5.0]
+    let space = L.map (\x -> floor $ 10.0**x) [1.0,1.2 .. 5.0]
     (means, vars) <- generate_mean_vars space 30 ndims
     let csvdata = csv_data [ Prelude.map fromIntegral space, means, vars ]
     let outfile = "_data/data_" ++ show ndims ++ ".csv" :: String
