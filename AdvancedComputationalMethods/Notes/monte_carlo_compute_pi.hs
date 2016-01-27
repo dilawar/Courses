@@ -19,7 +19,6 @@ divide = (/) `on` fromIntegral
 
 -- number of dimensions
 dims ndims  = L.map (\x -> (-1.0, 1.0) ) [1,2..ndims]
-
 gamma_factor ndims = gamma ((divide ndims 2) + 1)
 
 volume2pi :: Double -> Int -> Double
@@ -91,8 +90,8 @@ generate_mean_vars space repeat ndims = do
     return $ (means, vars)
 
 exp_variance_vs_ndims ndims = do 
-    let space = L.map (\x -> floor $ 10.0**x) [1.0,1.05 .. 4.0]
-    (means, vars) <- generate_mean_vars space 40 ndims
+    let space = L.map (\x -> floor $ 10.0**x) [1.0,1.05 .. 5.0]
+    (means, vars) <- generate_mean_vars space 30 ndims
     let csvdata = csv_data [ Prelude.map fromIntegral space, means, vars ]
     let outfile = "_data/data_" ++ show ndims ++ ".csv" :: String
     writeCSVFile (CSVSettings ',' Nothing) outfile WriteMode csvdata
