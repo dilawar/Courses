@@ -11,15 +11,24 @@ import Statistics.Sample
 import Data.CSV.Conduit
 import System.IO
 import Data.Double.Conversion.ByteString
+import Math.Gamma
 
 divide :: Int -> Int -> Double
 divide = (/) `on` fromIntegral
 
+-- number of dimensions
+dims ndims  = L.map (\x -> (-1.0, 1.0) ) [1,2..ndims]
+
+gamma_factor ndims = gamma ((divide ndims 2) + 1)
+
+volume2pi :: Double -> Int -> Double
+volume2pi vol ndims  = ( vol * gamma_factor ndims ) ** (divide 2 ndims )
+
+-- Before we can write to CSV file.
 encodeDoubles x = L.map toShortest x
 
 -- Very first thing we need is a random number generator (uniform distribution).
--- NOTE, it does not pick 0.0 
---random_floats :: Int -> IO (U.Vector )
+-- WARN: , it does not pick 0.0 
 random_floats n = R.createSystemRandom >>= \gen -> R.uniformVector gen n 
 
 -- To scale the random floats in (0, 1.0) to (min, max)
@@ -28,17 +37,15 @@ scale_samples :: (Double, Double) -> U.Vector Double -> U.Vector Double
 scale_samples (min, max) vs = U.map (\v -> (max - min) * v + min ) vs
 
 -- Sample a given space for n points.
-sampled_space :: [( Double, Double)] -> Int -> IO [ U.Vector Double ]
-sampled_space [] n = return []
-sampled_space (ax:axes) n = do
-    vv <- random_floats n 
-    let v = scale_samples ax vv 
-    vs <- sampled_space axes n
-    return $! v:vs
+sampled_space :: Int -> Int -> IO [ U.Vector Double ]
+sampled_space n ndims = do 
+    vecs <- Prelude.mapM (\x -> random_floats n) $ dims ndims 
+    let scaledVecs = L.map (\x -> scale_samples (-1.0, 1.0) x) vecs
+    return scaledVecs
 
 -- Function to evaluate. It should acccept right number of arguments.
-func (x:y:[]) 
-    | x ** 2 + y ** 2 <= 1 = True
+func xs
+    | L.sum (L.map (**2.0) xs) <= 1.0 = True
     | otherwise = False
 
 -- This is equivalent to transposing a matrix.
@@ -48,32 +55,53 @@ transpose vecs = get_points 0 (U.length $ Prelude.head vecs) where
     column i = Prelude.map (\x -> x U.! i) vecs
 
 -- These two function computes the fraction of points satisfying the function. 
-monte_carlo_sampling f points = Prelude.filter func points 
---monte_carlo_integration :: (Ord b, Doubleing b) => a -> [[ b ]] -> Double
+monte_carlo_sampling f points = Prelude.filter f points 
+
 monte_carlo_integration f points = 
     divide (Prelude.length (monte_carlo_sampling f points)) (Prelude.length points)
 
 -- Compute pi using the monte_carlo_integration on a circle. Generate data to
 -- plot the box plots.
-monte_carlo_pi sample_size = do 
-    vs <- sampled_space [ (-1,1), (-1,1) ] sample_size
+monte_carlo_hypersphere_vol :: Int -> Int -> IO Double
+monte_carlo_hypersphere_vol sample_size ndims = do 
+    vs <- sampled_space sample_size ndims
     let points = transpose vs
-    let pi = 4.0 * monte_carlo_integration func points
-    return pi
+    let vol = (2.0 ^ ndims) * monte_carlo_integration func points
+    return vol
 
-monte_carlo_pi_n_times n sample_points = do
+monte_carlo_hypersphere_vols :: (Num a, RealFrac a ) => Int -> a -> Int -> IO (Vector Double)
+monte_carlo_hypersphere_vols n sample_points ndims = do
     let nn = floor sample_points
-    pis <- replicateM n $ monte_carlo_pi nn
-    putStrLn $ "For sample size " ++ (show nn) ++ ": " ++ show pis
-    return pis
+    vols <- replicateM n $ monte_carlo_hypersphere_vol nn  ndims
+    return vols
+
+compute_pi :: Int -> Double -> Int -> IO (Vector Double)
+compute_pi n sample_points ndims = do 
+    vols <- monte_carlo_hypersphere_vols n sample_points ndims
+    let pis = U.map (\x -> volume2pi x ndims) vols 
+    putStrLn $ "Computed pis: " ++ show pis
+    return $ pis
 
 csv_data xs = L.transpose $ L.map encodeDoubles xs
 
-main = do
-    let space = Prelude.map (10**) [1.0,1.5..2.0] :: [Double]
-    mat <- mapM (\x -> monte_carlo_pi_n_times 10 x) space
+generate_mean_vars :: [Double] -> Int -> Int -> IO ([Double], [Double])
+generate_mean_vars space repeat ndims = do 
+    mat <- mapM (\x -> compute_pi repeat x ndims) space
     let (means, vars) = L.unzip $ Prelude.map meanVariance mat
     let csvdata = csv_data [ space, means, vars ]
     let outfile = "data.csv" :: String
     writeCSVFile (CSVSettings ',' Nothing) outfile WriteMode csvdata
     putStrLn $ "Done writing data to " ++ outfile
+    return $ (means, vars)
+
+exp_variance_vs_ndims ndims = do 
+    let space = Prelude.map (10**) [2.0,2.2 .. 4.0 ]
+    (means, vars ) <- generate_mean_vars space ndims 20
+    putStrLn "Done"
+
+main = do
+    let space = Prelude.map (10**) [2.0, 2.2 .. 4.0 ] 
+    (means, vars) <- generate_mean_vars space 30 2
+    print $ L.zip space vars
+    putStrLn "Done"
+
