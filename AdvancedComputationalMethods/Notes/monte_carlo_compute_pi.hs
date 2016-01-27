@@ -10,6 +10,7 @@ import qualified Data.List as L
 import Statistics.Sample
 import Data.CSV.Conduit
 import System.IO
+import System.Directory
 import Data.Double.Conversion.ByteString
 import Math.Gamma
 
@@ -93,11 +94,12 @@ exp_variance_vs_ndims ndims = do
     let space = L.map (\x -> floor $ 10.0**x) [1.0,1.05 .. 4.0]
     (means, vars) <- generate_mean_vars space 40 ndims
     let csvdata = csv_data [ Prelude.map fromIntegral space, means, vars ]
-    let outfile = "data_" ++ show ndims ++ ".csv" :: String
+    let outfile = "_data/data_" ++ show ndims ++ ".csv" :: String
     writeCSVFile (CSVSettings ',' Nothing) outfile WriteMode csvdata
     putStrLn $ "Done writing data to " ++ outfile
 
 main = do
-    ns <- Prelude.mapM ( exp_variance_vs_ndims ) [2,3 .. 30]
+    createDirectoryIfMissing True "_data"
+    Prelude.mapM ( exp_variance_vs_ndims ) [2,3 .. 30]
     putStrLn "Done"
 
