@@ -69,39 +69,35 @@ monte_carlo_hypersphere_vol sample_size ndims = do
     let vol = (2.0 ^ ndims) * monte_carlo_integration func points
     return vol
 
-monte_carlo_hypersphere_vols :: (Num a, RealFrac a ) => Int -> a -> Int -> IO (Vector Double)
-monte_carlo_hypersphere_vols n sample_points ndims = do
-    let nn = floor sample_points
-    vols <- replicateM n $ monte_carlo_hypersphere_vol nn  ndims
+monte_carlo_hypersphere_vols :: Int -> a -> Int -> IO (Vector Double)
+monte_carlo_hypersphere_vols nn sample_points ndims = do
+    vols <- replicateM nn $ monte_carlo_hypersphere_vol nn  ndims
     return vols
 
-compute_pi :: Int -> Double -> Int -> IO (Vector Double)
+compute_pi :: Int -> Int -> Int -> IO (Vector Double)
 compute_pi n sample_points ndims = do 
     vols <- monte_carlo_hypersphere_vols n sample_points ndims
     let pis = U.map (\x -> volume2pi x ndims) vols 
-    putStrLn $ "Computed pis: " ++ show pis
+    -- putStrLn $ "Computed pis: " ++ show pis
     return $ pis
 
 csv_data xs = L.transpose $ L.map encodeDoubles xs
 
-generate_mean_vars :: [Double] -> Int -> Int -> IO ([Double], [Double])
+generate_mean_vars :: [Int] -> Int -> Int -> IO ([Double], [Double])
 generate_mean_vars space repeat ndims = do 
     mat <- mapM (\x -> compute_pi repeat x ndims) space
     let (means, vars) = L.unzip $ Prelude.map meanVariance mat
-    let csvdata = csv_data [ space, means, vars ]
-    let outfile = "data.csv" :: String
-    writeCSVFile (CSVSettings ',' Nothing) outfile WriteMode csvdata
-    putStrLn $ "Done writing data to " ++ outfile
     return $ (means, vars)
 
 exp_variance_vs_ndims ndims = do 
-    let space = Prelude.map (10**) [2.0,2.2 .. 4.0 ]
-    (means, vars ) <- generate_mean_vars space ndims 20
-    putStrLn "Done"
+    let space = L.map (\x -> floor $ 10.0**x) [1.0,1.05 .. 4.0]
+    (means, vars) <- generate_mean_vars space 40 ndims
+    let csvdata = csv_data [ Prelude.map fromIntegral space, means, vars ]
+    let outfile = "data_" ++ show ndims ++ ".csv" :: String
+    writeCSVFile (CSVSettings ',' Nothing) outfile WriteMode csvdata
+    putStrLn $ "Done writing data to " ++ outfile
 
 main = do
-    let space = Prelude.map (10**) [2.0, 2.2 .. 4.0 ] 
-    (means, vars) <- generate_mean_vars space 30 2
-    print $ L.zip space vars
+    ns <- Prelude.mapM ( exp_variance_vs_ndims ) [2,3 .. 30]
     putStrLn "Done"
 
