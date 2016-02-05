@@ -29,6 +29,7 @@ encodeDoubles x = L.map toShortest x
 
 -- Very first thing we need is a random number generator (uniform distribution).
 -- WARN: , it does not pick 0.0 
+random_floats :: Int -> IO (U.Vector Double)
 random_floats n = R.createSystemRandom >>= \gen -> R.uniformVector gen n 
 
 -- To scale the random floats in (0, 1.0) to (min, max)
@@ -91,7 +92,7 @@ generate_mean_vars space repeat ndims = do
     return $ (means, vars)
 
 exp_variance_vs_ndims ndims = do 
-    let space = L.map (\x -> floor $ 10.0**x) [1.0,1.2 .. 5.0]
+    let space = L.map (\x -> floor $ 10.0**x) [1.0,1.2 .. 6.0]
     (means, vars) <- generate_mean_vars space 30 ndims
     let csvdata = csv_data [ Prelude.map fromIntegral space, means, vars ]
     let outfile = "_data/data_" ++ show ndims ++ ".csv" :: String
