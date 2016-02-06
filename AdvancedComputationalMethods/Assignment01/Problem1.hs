@@ -36,8 +36,13 @@ diff (x:xs) = (head xs - x) : diff xs
 all_the_same [] = True
 all_the_same xs = and $ map (== head xs) (tail xs)
 
+-- Function to compute correlation between two arrays.
+xcorr xs ys = map (\a -> xcorr' a xs) $ L.tails ys 
+  where 
+    xcorr' as bs = sum . map (\(x, y) -> x * y ) $ zip as bs 
+
 random_number_generator_test = do
-    let a = randoms 10 5 7 3 1000
+    let a = randoms 7 1 13 1 10000
     print $ a
     let b = is_1periodic a
     print $ b
