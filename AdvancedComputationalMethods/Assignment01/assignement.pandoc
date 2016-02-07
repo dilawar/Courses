@@ -8,7 +8,11 @@ header-includes:
 
 ## Problem 1: Pseudo random number generator (PRNG)
 
-Implemented in Haskell. See the listing in appendix.
+### a, The choice of a, b and m 
+
+Since _mod m_ is used, the sequence will have elements from interval `[0, m]`.
+Also since `a` is in multiplication, we should have `a` and `m` as coprime to
+have a larger sequence. Following table demostrate this effect.
 
 
 ## Appendix
