@@ -1,0 +1,42 @@
+digraph summary {
+
+    concentrate = true;
+
+    //insuling_like_peptides [ label = "ILP" ];
+
+    subgraph cluster_tor_raptor {
+        tor [ label = TOR ];
+        raptor [ label = RAPTOR ];
+    }
+
+    subgraph cluster_fatbody {
+        humoral_signal [ label = "HumorX" ];
+    };
+
+    subgraph cluster_brain {
+        dlips_ipc [ label = "Dlips in IPC" ];
+    };
+
+    nutrition [ label = "dietary amino acid" ];
+
+    humorx_ [ label = HumorX ];
+
+    coupling [ shape = star ];
+
+    dlips [ label = Dlips ];
+
+    dlips, nutrition -> coupling;
+
+    dlip_release [ shape = rect ];
+    dlip_release -> dlips_ipc;
+    nutrition -> dlip_release;
+
+
+    circulation [ shape = rect ];
+    dlips_ipc -> circulation -> dlips ;
+    humoral_signal -> circulation -> humorx_;
+
+    // Dlip secretion
+    humorx_ -> dlip_release;
+
+}
