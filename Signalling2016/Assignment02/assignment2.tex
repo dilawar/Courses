@@ -1,0 +1,229 @@
+\documentclass[twocolumn]{article}
+\usepackage[left=35mm,margin=20mm]{geometry}
+\usepackage{ifthen,empheq}
+\date{\today}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\setlength{\headheight}{15pt}
+
+\lhead{NAADP mobilizes calcium from acidic organelles through two-pore channels}
+\rhead{Dilawar Singh}
+
+\lfoot{}\cfoot{\thepage}\rfoot{}
+\pagestyle{fancy}
+
+\ifx\pdfoutput\undefined                         %LaTeX
+  \RequirePackage[ps2pdf,bookmarks=true]{hyperref}
+  \hypersetup{ %
+    pdfauthor   = {\@author},
+    pdftitle    = {\@title},
+    pdfcreator  = {LaTeX with hyperref package},
+    pdfproducer = {dvips + ps2pdf}
+  }
+\else                                            %PDFLaTeX
+  \RequirePackage[pdftex,bookmarks=true]{hyperref}
+  \hypersetup{ %
+    pdfauthor   = {\@author},
+    pdftitle    = {\@title},
+    pdfcreator  = {LaTeX with hyperref package},
+    pdfproducer = {dvips + ps2pdf}
+  }
+\pdfadjustspacing=1
+\fi
+
+% Set up counters for problems and subsections
+
+\newcounter{ProblemNum}
+\newcounter{SubProblemNum}[ProblemNum]
+
+\renewcommand{\theProblemNum}{\arabic{ProblemNum}}
+\renewcommand{\theSubProblemNum}{\alph{SubProblemNum}}
+
+\newcommand*{\anyproblem}[1]{\newpage\subsection*{#1}}
+\newcommand*{\problem}[1]{\stepcounter{ProblemNum} %
+   \anyproblem{Problem \theProblemNum. \; #1}}
+\newcommand*{\soln}[1]{\subsubsection*{#1}}
+\newcommand*{\solution}{\soln{Solution}}
+\renewcommand*{\part}{\stepcounter{SubProblemNum} %
+  \soln{Part (\theSubProblemNum)}}
+
+\renewcommand{\theenumi}{(\alph{enumi})}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+% Glossaries
+\usepackage[xindy]{glossaries}
+\usepackage{tikz}
+\usetikzlibrary{graphs,graphdrawing}
+\usetikzlibrary{quotes,arrows,shapes,arrows.meta}
+\usegdlibrary{layered,force}
+
+\begin{document}
+\makeglossaries
+
+\paragraph{Summary of $Ca^{++}$ release from various stores}  This is shown in figure \ref{fig:ca_release}.
+
+\begin{figure}[h]
+    \centering
+    %% NOTE: This is to compl
+    \begin{tikzpicture}[scale=1
+        , every node/.style={}
+        ]
+
+        \graph [ nodes = {}, edges = {->,thick}
+        , node distance = 1.5cm
+        , sibling distance = 1.5cm
+        , level distance = 1.5cm
+        , layered layout 
+        ]
+        {
+            "? stores" [rectangle,draw];
+            "mobilization" [blue];
+            "? stores" -> mobilization -> "higher $Ca^{++}$";
+
+            "S/ER stores"[draw,rectangle] // { "$InsP_3R$", RyRs, OR[circle,draw] };
+
+            % The process of mobilization is regulated by inositol-1,4,5
+            % triPhosphate InsP_3, cyclic ADP ribose and NAADP.
+            { NAADP, "$InsP_3$", "cADP ribose" } -> regulation[blue] 
+                ->[-Turned Square]  mobilization;
+
+            release [blue] -> "higher $Ca^{++}$";
+
+            { "cADP ribose", "$InsP_3$" } ->[->] activation [blue] -> { "$InsP_3R$",
+                RyRs } -> "OR"[circle,draw] -> release;
+
+
+            NAADP ->[dotted, thin] "?"[blue] ->[dotted,thin] RyRs;
+
+            "cross-talk"[rectangle,fill=blue,fill opacity=0.1] // { "cADP ribose", "$InsP_3$", NAADP };
+
+        };
+    \end{tikzpicture}    
+    \caption{ The three main
+molecules $InsP_3$, cyclic ADP ribose, and NAADP causes release/mobilization of
+$Ca^{++}$ from various stores. The mechanism behind release from
+sarcoplasmic/endoplasmic reticulum by $InsP_3$ and cADP ribose is well
+established. This paper describes the NAADP targets. }
+    \label{fig:ca_release}
+\end{figure}
+
+\paragraph{Does TCP2 forms a binding site for NAADP?}
+
+To check if TCP2 is a potential binding site to NAADP,  TCP2 cell was incubated
+with 0.2 nM $[{}^{32}P]$NAADP (in the presence and absence of unlabelled 100 uM
+NAADP \footnote{In presence, the labelled NAADP is 2 ppm unlabelled NAADP}), the
+specific binding of labelled NAADP to TCP2 cell is 3 times more than wildtype
+cell membrane, which reverts back to wildtype levels after TCP2 was depleted.
+{\bf TCP2 proteins provides binding sites to NAADP}. Ligand competition assays
+shows two affinities to NAADP, stronger one being 1000 times higher. The author
+could not rule out the possibility that interaction with
+\href{http://beginw.ncbi.nlm.nih.gov/pubmed/16402902}{accessory protein} may be
+necessary.
+
+\paragraph{Does TPC2 mediate calcium release?} Caged NAADP was released by
+light-flash and concentration of calcium were measured. A biphasic pulse
+\begin{tikzpicture}
+    \begin{axis}[hide axis, scale only axis, height=3ex]
+    \addplot[mark=none] coordinates { (0, 0) (1, .1) (2, .2) (3, .3) (10, 1)
+        (11, 6) (12, 2) (13,.5) (15, .4) (18, .2) 
+        };
+    \end{axis}
+\end{tikzpicture} with slow ramp like phase, followed by quick surge and quick
+decay is observed. The faster phase (both rise and fall) goes away when a
+competitive inhibitor of $InsP_3R$s is added (i.e. the faster phase is due to
+release from S/ER) meaning that initial slow ramp like release was due to NAADP.
+
+\paragraph{Does NAADP also release calcium from S/ER?} Before adding the
+competitive inhibitor of $InsP_3R$s, if one also complete deplete S/ER stores
+(pretreatment by thapsigargin), one still sees a ramp like release of calcium by
+NAADP. Therefore calcium release/mobilised by NAADP does not come from S/ER.
+
+\paragraph{Where does calcium mobilised from?} By the logic of elimination, from
+acidic organelles. Since NAADP bind to TPC2 strongly, it came from lysosomes.
+
+\paragraph{Quantification of NAADP response} Further experiments were done to
+quantify the calcium release/mobilization by NAADP. Low concentration (in range
+of 0.1 nM, 1.5 molecules in 25 $um^3$ volume) or very high concentration  (1 mM)
+did not cause any mobilization, however concentration in range of 1 nM (15
+molecules in 25 $um^3$ volume) to 1 uM did  elicit the normal mobilization.
+\footnote{The role of TCP1 and TCP3 is not ruled out. They probably release
+    calcium from different organelles or probably a little from the
+    endolysosomes as well.}
+
+\paragraph{Inside a living system}
+A TPC2 knocked-out mice was utilised to confirm the findings.
+$Ca^{++}$-activated plasma membrane current was monitored. In wild-type mouse, a
+cation current was observed. Its integration would confirm the dynamics
+observed. In knocked-out mouse, no such current was observed.
+
+\paragraph{What does is mean for cell (researchers)?}
+For authors, interesting point is that the slow release by NAADP can be coupled
+by many other known release from other calcium sources. This would enable cell
+to construct more versatile "control" over intera-cellular  calcium
+concentrations.  
+
+For me, the interesting fact is that there are more than one pools of calcium
+inside the cell. And NAADP effects type of them. NAADP concentrations correlated
+with extracellular cellular stimulus; and calcium released by NAADP is a good
+indicator of volume of lysosomes. If I were to study "how cell control their
+sizes?", I'd definitely include this pathway to my list.
+
+%\begin{figure}[h]
+    %\centering
+%\begin{tikzpicture}[scale=1
+    %, every node/.style={}
+    %]
+
+    %\graph[ layered layout
+        %, nodes = { }
+        %, edges = {->,thick}
+        %%, sibling distance = 1.5cm
+        %%, node distance = 1.5cm
+        %%, layer distance = 1.5cm
+        %]
+    %{
+        %{"TCP2 membrane", "$[^{32}P]$NAADP"} -> "+"[draw,circle];
+        
+    %};
+    
+%\end{tikzpicture}    
+%\caption{}
+%\end{figure}
+
+
+%% Gloassaries
+\newglossaryentry{tcp} 
+{
+    name=TCP,
+    description={voltage gated ion channel}
+}
+\newglossaryentry{TwoPoreChannel} 
+{
+    name=Two-pore channel,
+    description={TODO}
+}
+
+\newglossaryentry{mobilization} 
+{
+    name=mobilization,
+    description={Calcium release from intracellular stores into cell is called
+        mobilization. This term is probably used to distinguish the process of
+        calcium release into the cell.}
+}
+
+\paragraph{Notes}
+
+\begin{itemize}[noitemsep,nolistsep]
+    \item Three
+        \href{http://biology.stackexchange.com/questions/10632/whats-a-non-allelic-gene}{non-allelic}
+        TCP genes are present in most vertebrate species with TCP3 absent in
+        most vertebrate. TCP3 is co-localised with LAMP2 (a gene). TCP1 and TCP2
+        (mammalian TCP) co-localised poorly with LAMP2, and express strongly in
+        endolysosomes.
+\end{itemize}
+
+
+\end{document}
