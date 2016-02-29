@@ -1,0 +1,103 @@
+\setuplayout[][wide]
+
+\setuppagenumbering[location=bottom]
+
+\setupbibtex[database={../bibliography/zotero}]
+
+\usemodule[pgf,tikz]
+
+\defineparagraphs[comment][n=1,width=\textwidth,style=slanted]
+
+\usetikzlibrary[ fit,calc,graphs,graphdrawing,quotes ]
+\usegdlibrary[ circular,force,layered ]
+\usetikzlibrary[arrows,shapes,backgrounds,decorations.text,decorations.pathmorphing ]
+
+\long\def\CAMKIIRING#1#2#3#4#5{
+    \foreach \i in {1,...,6}
+    {
+    \doifinstringelse {\i} {#4}
+    {
+        \node[ball color=red,draw,circle,minimum size=#5cm] (r\i) at ($(\i*60:#5)+(#2,#3)$) {};
+    }
+    {
+        \node[ball color=blue,circle,minimum size=#5cm] (r\i) at ($(\i*60:#5)+(#2,#3)$) {}; 
+    }
+    };
+    \node[circle,fit={(r1) (r2) (r3) (r4) (r5) (r6)}] (#1) {};
+}
+
+
+\starttext
+\title{Tuberous Sclerois Complex (TSC) Gene Products ... }
+
+%%% Put all glossaries here
+%\definesynonyms[abbrebiation][abbrebiations][\infull]
+%\abbrebiation[EIFE]{eIF4E}{eukaryotic initiation factor 4E}
+%\abbrebiation[EBP]{4E-BP1}{eIF4E binding protein 1}
+
+
+
+%\definecolumnset[TwoColumns][n=2]
+%\startcolumnset[TwoColumns]
+
+\placefigure[ ]{ Mamalian target of rapamycin or mTOR is a kinase.  } 
+{
+    \starttikzpicture[scale=1 , every node/.style={} ]
+
+    \graph [ nodes = { rectangle, align=left}
+    , edges = { ->, thick }
+    , layered layout
+    ]
+    {
+        TSC1 -> Hamartix;
+        TSC2 -> Tuberin;
+        { Hamartix, Tuberin } -> Dimer ->[-|] "nutrient input";
+        { "nutrient input", mTOR } -> "mTOR activity" [ blue ];
+        "mTOR activity" -> "cell growth"[blue];
+
+        rapamycin ->[-|] "mTOR activity";
+    };
+    \stoptikzpicture
+    \starttikzpicture [ scale = 1 ]
+
+    \graph[nodes = {rectangle, align=left}, edges = {->, thick }, layered layout ]
+    {
+        { rapamycin, Rheb } -> "rapamycin\\ sensitive\\ mechanism"[blue];
+
+        { "rapamycin\\ sensitive\\ mechanism", "amino acids\\ deficiency" } 
+            -> "AND"[draw,circle]; 
+
+        { S6K1, "AND" } -> activation [blue] -> "S6K1*" -> "cell proliferation"
+        [ blue ];
+
+        { Rheb, "4E-BP1+eIF4E" } -> phosphorylation[blue] -> "4E-BP1(P)+eIF4E" -> dissociation[blue] -> { "4E-BP1", "eIF4E" };
+
+        %Rheb ->[dotted,thick] activation;
+        Dimer ->[-|] activation;
+
+        "Akt/membrane" -> "Akt activation" [blue] -> { "Akt/cytosol",
+            "Akt/nucleus" };
+        "Akt/nucleus" ->[-|] "cell death genes expr" [blue];
+        "Akt/cytosol" ->[-*] "cell growth"[blue];
+    };
+
+
+    \stoptikzpicture
+}
+
+\section{Experiments}
+
+The first section of paper establishes that Rheb activates S6K1 via mTOR. Since
+mTOR can also be activated via PI3K, MAPK, and PKC siganlling pathways, further
+they established the Rheb only acts upon mTOR and does not change the activity
+of other possible pathways, at least in the absence of amino acids. After
+establishing the specificity of S6K1 to Rheb input, they took S6K1 activity as the proxy for Rheb activity. 
+
+In further experiments, they study the effect of Hamartis/Tuberin dimer on Rheb.
+In GTP bound form, Rheb goes to membrane and activates mTOR. Its GTP/GDP bound
+form is contolled by dimer complex. In short, GTP bound form of Rheb, when
+tranlocated to membrate, activates mTOR pathway.
+
+
+
+\stoptext
