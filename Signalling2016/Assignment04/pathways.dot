@@ -1,0 +1,45 @@
+digraph everything {
+
+    subgraph cluster_nucleous {
+
+    };
+
+    subgraph cluster_cytosol {
+
+        dna_cytosole [ label = "DNA" ];
+        nf_kb_active_nuc [ label = "NF-kB" ]
+        irf3_active_nuc [ label = "IRF3" ]
+    };
+
+    type_1_interferons [ label = "Interferons 1" ];
+    cytokinases [ label = "Cytokinases" ];
+
+    sting [ label = "STING/ER" ];
+
+    production [ shape = rect, label="production" ];
+    dna_cytosole -> production -> { type_1_interferons, cytokinases };
+
+    ikk [ label = "IKK",shape = star ];
+    tbk1 [ label = "TBK1",  shape = star ];
+
+    nf_kb [label = "NF-kB"];
+    nf_kb_active [ label = "NF-kB*" ]
+    nf_kb -> ikk -> nf_kb_active;
+
+    irf3 [ label = "IRF3" ];
+    irf3_active [ label = "IRF3*" ]
+    irf3 -> tbk1 -> irf3_active;
+
+    sting -> { ikk, tbk1 } [ arrowhead = "dot" ];
+
+
+    translocation_nfkb [ label = "Translocation", shape = rect ];
+    translocation_irf3 [ label = "Translocation", shape = rect ];
+
+    nf_kb_active -> translocation_nfkb -> nf_kb_active_nuc;
+    irf3_active -> translocation_irf3 -> irf3_active_nuc;
+
+    nf_kb_active_nuc -> production;
+    irf3_active_nuc -> production;
+
+}
