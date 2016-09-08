@@ -53,18 +53,23 @@
 \renewcommand{\theenumii}{\roman{enumii}}
 \begin{document}
 
-\problem{Rate distortion}
+\problem{Rate distortion function with infinite distortion}
 
-1. [C\&T 13.2] Rate distortion function with infinite distortion. Find the rate distortion
-!
-function R D = min I(X; X) for X  ~  Bernoulli  ( ! ) and distortion
-0, x = x
-d x, x = 1, x = 1, x = 0
-∞, x = 0, x = 1
+Find the rate distortion function $R(D) = \min I(X; \hat{X})$ for 
 
-Hint: Remember, you can never allow the infinite distortion option to occur! This
-reduces the set of allowed joint distributions. There is a relatively short way to answer
-this question without doing any minimization.
+$X \sim \text{Bernoulli} \left( \frac{1}{2} \right)$ and distortion 
+
+\[
+    d(x, \hat x) = \begin{cases}
+        0, x = \hat x \\
+        1, x = 1, \hat x = 0 \\
+        \inf, x = 0, \hat x = 1.
+    \end{cases}
+\]
+
+Hint: Remember, you can never allow the infinite distortion option to occur!
+This reduces the set of allowed joint distributions. There is a relatively short
+way to answer this question without doing any minimization.
 
 \solution
 
