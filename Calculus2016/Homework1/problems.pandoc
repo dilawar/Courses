@@ -1,0 +1,31 @@
+---
+title: Homework 1
+author: Calculus 2016
+date : \today 
+header-includes:
+---
+
+# Problem 1
+
+a. If $0<a<b$, and c is any real number, rewrite the sets $\{x: a<|x-c|<b\}$ in
+terms of intervals.   Do the same for $a=0$, and also give a clear description
+in words.  In this case, it will be something like "all the numbers between
+[something] and [something else] except for [these one(s)]
+
+b. Given $a<b$ real numbers, describe the intervals $(a,b)$ using the
+absolute value function.  That is, write $(a,b)=\{x:  ... \}$ where "$\ldots$"
+is some condition using absolute value.
+
+c. Similarly, express $\{a,b\}$, i.e. the set containing precisely the two
+(different) numbers a and b (e.g. $\{-14.7, e+\pi\}$ or $\{1776,1947\}$ ) using
+absolute values. ^[ Hint: choose any a and b you like, and work it out
+first to see how it goes for the general case.  But remember that doing it for a
+specific example is not enough--it is supposed to be true for {\emph any} a, b,
+c (satisfying the relevant conditions), so you need to do something that works
+for all possible choices.  In math, we don't show a statement true by making
+observations, unless it's possible to directly observe every single case; we
+have to make an argument that shows that the statement is true {\emph
+always}.  When there are infinitely many possible choices of a,b,c as above,
+we can't directly check each case by hand; we need to have a general
+argument. ]
+
