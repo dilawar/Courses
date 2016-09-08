@@ -29,3 +29,10 @@ always}.  When there are infinitely many possible choices of a,b,c as above,
 we can't directly check each case by hand; we need to have a general
 argument. ]
 
+# Problem 2
+
+1. Show that for any $x, y$, $||x|-|y|| \le |x+y|$.  (This is a useful
+   counterpart to the triangle inequality and requires a very similar analysis.)
+
+2. Write the set $\{x: |x^2-2x-3|>x\}$ as a union of intervals (i.e. figure out
+   explicitly for which x this statement is true)
