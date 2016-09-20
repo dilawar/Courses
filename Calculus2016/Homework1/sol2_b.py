@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def main( ):
-    for i in range( 5 ):
-        plt.subplot( 5, 1, i + 1)
+    for i in range( 4 ):
+        plt.subplot( 4, 1, i + 1)
         a = 2 ** (i + 2)
         xs = np.random.random( 10000 )
         xs = 2 * a * (xs - 0.5 )
@@ -15,7 +15,7 @@ def main( ):
             if v > x:
                 res.append( x )
         plt.plot( res, [1]*len(res), '|', label = '-%.1f < x < %.1f' % (a,a) )
-        plt.legend( )
+        plt.legend( framealpha = 0.4 )
         plt.yticks( [], [] )
         plt.xlabel( 'x' )
     plt.savefig( '%s.png' % sys.argv[0] )
