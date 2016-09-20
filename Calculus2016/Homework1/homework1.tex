@@ -1,12 +1,11 @@
 \documentclass[12pt]{article}
-%\usepackage[left=35mm,margin=20mm]{geometry}
 \usepackage{ifthen,empheq}
-\usepackage{graphicx}
-\date{\today}
+\usepackage[]{graphicx}
+\usepackage[]{minted}
 \usepackage{fancyhdr}
-\usepackage[]{dot2texi}
-\setlength{\headheight}{15pt}
-
+\usepackage[multidot]{grffile}
+%\usepackage[]{dot2texi}
+\setlength{\headheight}{20pt}
 \lhead{Assignment 1}
 \chead{Dilawar Singh}
 \rhead{\today}
@@ -33,6 +32,8 @@
 \renewcommand{\theenumi}{(\alph{enumi})}
 \renewcommand{\labelenumi}{\theenumi}
 \renewcommand{\theenumii}{\roman{enumii}}
+
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -66,17 +67,44 @@ For two different cases ($x > c$, and $x < c$), we have the following:
 Now we can use {\bf intervals } to rewrite it i.e. $x = { (a+c, b+c) \cup
 (-a+c,-b+c) }$.
 
+\paragraph{Simulation result} See the figure \ref{fig:1a}. Code is available
+\href{https://github.com/dilawar/Courses/blob/master/Calculus2016/Homework1/sol1_a.py}{here}.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{./sol1_a.py.png}
+    \caption{Numerical solution to problem 1(a)}
+    \label{fig:1a}
+\end{figure}
+
+
 \part 
 Given $a<b$ real numbers, describe the intervals $(a,b)$ using the
 absolute value function.  That is, write $(a,b)=\{x:  ... \}$ where "$\ldots$"
 is some condition using absolute value.
+
+\solution
+
+$(a, b) = \{ x : x > a\; \text{and}\; x < b \}$. How about this,
+$ (a, b) = \{ x  : \left| x - \frac{a+b}{2} \right| < \frac{b-a}{2} \}$.  See
+the simulation result in figure \ref{fig:1b}.
+
+\begin{figure}[ht!]
+\begin{center}
+    \includegraphics[width=1\textwidth]{./sol1_b.py.png}
+\end{center}
+\caption{Solution to solution 1(b)}
+\label{fig:1b}
+\end{figure}
+
+
 
 \part
 Similarly, express $\{a,b\}$, i.e. the set containing precisely the two
 (different) numbers a and b (e.g. $\{-14.7, e+\pi\}$ or $\{1776,1947\}$ ) using
 absolute values. 
 
-\problem{2}
+\problem{ }
 
 \part
 Show that for any $x, y$, $||x|-|y|| \le |x+y|$.  (This is a useful
@@ -86,5 +114,15 @@ Show that for any $x, y$, $||x|-|y|| \le |x+y|$.  (This is a useful
 Write the set $\{x: |x^2-2x-3|>x\}$ as a union of intervals (i.e. figure out
    explicitly for which x this statement is true)
 
+
+
+
+\section{Appendix}
+\scriptsize
+\subsection{Solution to problem 1(a)}
+\inputminted{python}{./sol1_a.py}
+
+\subsection{Solution to problem 1(b)}
+\inputminted{python}{./sol1_b.py}
 
 \end{document}          
