@@ -1,4 +1,5 @@
-\documentclass[12pt]{article}
+\documentclass[12pt,twocolumn]{article}
+\usepackage[margin=20mm]{geometry}
 \usepackage{ifthen,empheq}
 \usepackage[]{graphicx}
 \usepackage[]{minted}
@@ -72,7 +73,7 @@ Now we can use {\bf intervals } to rewrite it i.e. $x = { (a+c, b+c) \cup
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{./sol1_a.py.png}
+    \includegraphics[width=\columnwidth]{./sol1_a.py.png}
     \caption{Numerical solution to problem 1(a)}
     \label{fig:1a}
 \end{figure}
@@ -91,7 +92,7 @@ the simulation result in figure \ref{fig:1b}.
 
 \begin{figure}[ht!]
 \begin{center}
-    \includegraphics[width=1\textwidth]{./sol1_b.py.png}
+    \includegraphics[width=1\columnwidth]{./sol1_b.py.png}
 \end{center}
 \caption{Solution to solution 1(b)}
 \label{fig:1b}
@@ -120,7 +121,7 @@ The simulation shown in figure \ref{fig:2a} shows that it is true.
 
 \begin{figure}[ht!]
 \begin{center}
-    \includegraphics[width=1\textwidth]{./sol2_a.py}
+    \includegraphics[width=1\columnwidth]{./sol2_a.py}
 \end{center}
 \caption{ $||x|-|y||$ is always less or equal to $|x+y|$}
 \label{fig:2a}
@@ -130,7 +131,15 @@ The simulation shown in figure \ref{fig:2a} shows that it is true.
 Write the set $\{x: |x^2-2x-3|>x\}$ as a union of intervals (i.e. figure out
 explicitly for which x this statement is true)
 
+\solution
 
+First, lets see for what values of $x$, we have $x^2 - 2x - 3$ positive or
+negative. We have $(x-3)(x+1)$ as factors. So for $(-\infty, -1] \cup [3,
+\infty)$ it is positive and for rest, its negative.
+
+For the positive case $ x^2 - 2x - 3 > x$ and for negative we have $ - x^2 + 2x
++ 3 > x$. Solve for both cases and check if solution lies in the intervals
+computed before.
 
 
 \section{Appendix}
