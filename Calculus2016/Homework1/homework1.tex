@@ -117,15 +117,25 @@ counterpart to the triangle inequality and requires a very similar analysis.)
 
 \solution 
 
-The simulation shown in figure \ref{fig:2a} shows that it is true.
+The simulation shown in figure \ref{fig:2a} shows that it is true. The same
+picture  picture is plotted in 3d which is more complicated way of saying the
+same thing. Showing it is easy using a computational engine but how you gonna
+prove it?
 
 \begin{figure}[ht!]
 \begin{center}
-    \includegraphics[width=1\columnwidth]{./sol2_a.py}
+    \includegraphics[width=1\columnwidth]{./sol2_a.py.png}
+    \includegraphics[width=1\columnwidth]{./sol2_a.py_3d.png}
 \end{center}
-\caption{ $||x|-|y||$ is always less or equal to $|x+y|$}
+\caption{ $|x+y|$ is always greater than equal to $||x|-|y||$. A blue dot y-axis
+    value represents value of $|x+y|$ while its  x-axis value is value of
+    $||x|-|y||$ for a $(x,y)$. Dot falling
+falling over line with slope 1 means that function represented by y-axis is
+larger than the function on x-axis for that particular value of (x, y).}
+
 \label{fig:2a}
 \end{figure}
+
 
 \part
 Write the set $\{x: |x^2-2x-3|>x\}$ as a union of intervals (i.e. figure out
