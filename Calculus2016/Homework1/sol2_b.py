@@ -1,3 +1,4 @@
+import sys
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -5,7 +6,6 @@ import numpy as np
 def main( ):
     for i in range( 5 ):
         plt.subplot( 5, 1, i + 1)
-        # draw x randomly between -a to a, total N samples.
         a = 2 ** (i + 2)
         xs = np.random.random( 10000 )
         xs = 2 * a * (xs - 0.5 )
