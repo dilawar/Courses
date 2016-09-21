@@ -323,21 +323,22 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
     A mere change of sign!
 \end{solution}
 
-\part[2] $|3x-1| < 1$
+\part[2] $|3x-1| < 0.1$
 \begin{solution}
     \begin{tikzpicture}[scale=1]
         \begin{axis}[
                 xlabel=x,ylabel=$|3x-1|$
-                , ymax = 2
+                , ymax = 0.2
                 , grid style={draw=gray!20}, grid = both, minor tick num = 1
+                , domain=0:0.5
+                , samples = 200
             ]
             \addplot [color=blue] { abs(3*x - 1) };
-            \addplot [color=red] { 1 };
+            \addplot [color=red] { 0.1 };
         \end{axis}
     \end{tikzpicture}
 
-    Answer: $\bf (0, \frac{2}{3})$. {\bf If you have solved for the case
-    $|3x-1| < 0.1$, thats fine too. }
+    Answer: $\bf (\frac{9}{30}, \frac{11}{30})$. 
 
 \end{solution}
 
@@ -385,7 +386,7 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
         \end{axis}
     \end{tikzpicture}	
 
-    Answer: $\bf x = (-\infty, -\sqrt3) \cup (-1,1) \cup (\sqrt3, \infty)$
+    Answer: $\bf x = (-\sqrt3, -1) \cup (1,\sqrt3)$
 
 \end{solution}
 
