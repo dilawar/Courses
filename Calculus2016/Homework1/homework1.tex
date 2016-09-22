@@ -99,6 +99,11 @@
         $(a, b) = \{ x : x > a\; \text{and}\; x < b \}$. How about this,
         $ (a, b) = \{ x  : \left| x - \frac{a+b}{2} \right| < \frac{b-a}{2} \}$.
 
+    Or better, since absolute value  $|x-y|$ denotes the distance between $x$ and
+    $y$, we can say that for any $x$, $a\le x\ge b$, the distance between $x$
+    and $a$ is aways less than distance between $b$ and $a$ i.e. $\{ x: |x-a|
+        \le |a-b| \}$.  
+
     \end{solution}
 
     \part[2] Similarly, express $\{a,b\}$, i.e. the set containing precisely the two
@@ -107,7 +112,9 @@
 
     \begin{solution}
 
-        How about this  $ \{a, b \} = \{ x : [a, a] \cup [b,b] \}$. 
+        Well, I don't have a good solution. But here is a bad solution.
+
+        How about this  $ \{a, b \} = \{ x : |x-a||x-b|=0 \}$.
     \end{solution}
 
 \end{parts}
@@ -174,7 +181,7 @@
     + 3 > 0$. Solve for both cases and check if solution lies in the intervals
     computed before.
 
-    Following figure shows probably corrected answer. 
+    Following figure shows probably correct answer. 
     \begin{figure}[H]
         \tikzsetnextfilename{sol3}
         \begin{tikzpicture}[scale=1]
@@ -214,7 +221,7 @@
 
 
 %% Problem 4
-\question[7] {For each function $f:S \rightarrow T$, determine whether $f$
+\question[14] {For each function $f:S \rightarrow T$, determine whether $f$
 is one-to-one, onto, neither, or both. No explanation is needed. }
 
 \begin{parts}
@@ -264,12 +271,12 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
        \begin{axis}[
            xlabel=x,ylabel=$1/x$
            , grid style={draw=gray!20}, grid = both, minor tick num = 1
-           , domain=-2:2, samples=1020
+           , domain=0:3, samples=1020
        ]
            \addplot [color=blue] gnuplot [  ] { 1/(x^2)};
        \end{axis}
    \end{tikzpicture}	
-    not one-to-one and not onto.
+    one-to-one and onto.
 \end{solution}
 
 \part[2] $k : \mathcal{R}\setminus\{0\} \rightarrow \mathcal{R}\setminus
@@ -354,8 +361,10 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
 
     \part[2]  $\{ x \in \mathcal{R}: \exists a\; \text{such that}\; a^2 - 2a = x \}$ 
     \begin{solution}
-        $a = 1 \pm \sqrt{ 1 + x}$. For $a$ to be real, $x > -1$. $\{ x : x > -1
+    $a = 1 \pm \sqrt{ 1 + x}$. For $a$ to be real, $x \ge -1
         \}$.
+
+        Answer: $\bf [-1, \infty) $
     \end{solution}
 \end{parts}
 
@@ -386,6 +395,8 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
             x < 1 &  1-x-2-x = -1\\
         \end{cases}
     \]
+
+    Answer: $\bf 3/2$.
 \end{solution}
 
 \part[2] $x^2+4|x|+3 = 0$
@@ -459,7 +470,7 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
         \end{axis}
     \end{tikzpicture}
 
-    Answer : $\bf( 2, 7.5) $
+    Answer : $\bf( 4, 7.5) $
 
 
 \end{solution}
@@ -493,21 +504,23 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
 
 \end{solution}
 
-\part[2] $|x -5| > 2 $
+\part[2] $|x-5| < |x+1| $
 \begin{solution}
 
     \begin{tikzpicture}[scale=1]
-        \begin{axis}[xlabel=x,ylabel=$|x-5|$
+        \begin{axis}[xlabel=x,ylabel=$|x-5|-|x+1|$
                 , grid=both 
                 , grid style = {draw=gray!10}
                 , minor tick num = 4
+                , domain=-10:10
+                , samples = 1000
             ]
-            \addplot [color=blue] gnuplot [ raw gnuplot ] { plot abs(x - 5) };
-            \addplot [color=red] gnuplot [ raw gnuplot ] { plot 2 };
+            \addplot [color=blue] gnuplot [  ] { abs(x - 5) - abs(x+1) };
+            \addplot [color=red] gnuplot [ ] { 0 };
         \end{axis}
     \end{tikzpicture}
 
-    Answer: $\bf (-\infty, 3) \cup (7, \infty)$.
+    Answer: $\bf (2, \infty)$.
 
 
 \end{solution}
