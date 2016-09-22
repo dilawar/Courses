@@ -7,15 +7,17 @@
 \usepackage{amssymb}
 \usepackage[multidot]{grffile}
 \usepackage{pgfplots}
+\usepackage{pgfplotstable}
 \setlength{\headheight}{20pt}
 
 \usepackage{tikz}
 \usepgfplotslibrary{external}
-%\tikzexternalize[prefix=_tikz/,shell escape=-shell-escape]
-%\tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+\tikzexternalize[prefix=_tikz/,shell escape=-shell-escape]
+\tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
 \immediate\write18{mkdir -p _tikz}
 
 \title{Solution to HW1}
+\author{Dilawar Singh}
 \usepackage{hyperref}
 
 \begin{document}
@@ -53,14 +55,36 @@
         Now we can use {\bf intervals } to rewrite it i.e. $x = { (a+c, b+c) \cup
         (-a+c,-b+c) }$.
 
-        See the figure \ref{fig:1a}. Code is available
-        \href{https://github.com/dilawar/Courses/blob/master/Calculus2016/Homework1/sol1_a.py}{here}.
-
         \begin{figure}[H]
-            \includegraphics[width=\columnwidth]{./sol1_a.py.png}
-            \caption{Numerical solution to problem 1(a)}
-            \label{fig:1a}
-        \end{figure}
+            \foreach \fileindex in {1,...,4} {
+                \tikzsetnextfilename{1a\fileindex}
+                \begin{tikzpicture}[ ]
+                ]
+                \begin{axis}[
+                        , xlabel=x,ylabel=$a < |x-c| <b$
+                        , grid style={draw=gray!20}, grid = both, minor tick num = 0
+                        , ymin = 0.5, ymax=1.5
+                        , ytick={}, yticklabels={}
+                        , domain=-1000:1000
+                        , samples = 10000
+                        , height = 5cm
+                        , width = 8cm
+                        , legend columns=-1
+                    ]
+                    \pgfmathsetseed{\number\pdfrandomseed} 
+                    \pgfmathparse{100*rnd}\edef\a{\pgfmathresult}
+                    \pgfmathparse{100*rand}\edef\c{\pgfmathresult}
+                    \pgfmathparse{\a+100*rnd}\edef\b{\pgfmathresult}
+                    \addplot[ only marks, domain=-1000:1000] gnuplot [ ] { 
+                            \a< abs(x-\c) && abs(x-\c) < \b ? 1 : -1
+                        };
+                    \legend{a=\a; b=\b; c=\c}
+                \end{axis}
+            \end{tikzpicture}	
+        }
+        \caption{Numerical solution to problem 1(a)}
+        \label{fig:1a}
+    \end{figure}
 
     \end{solution}
 
@@ -73,14 +97,7 @@
     \begin{solution}
 
         $(a, b) = \{ x : x > a\; \text{and}\; x < b \}$. How about this,
-        $ (a, b) = \{ x  : \left| x - \frac{a+b}{2} \right| < \frac{b-a}{2} \}$.  See
-        the simulation result in figure \ref{fig:1b}.
-
-        \begin{figure}[H]
-            \includegraphics[width=1\columnwidth]{./sol1_b.py.png}
-            \caption{Solution to solution 1(b)}
-            \label{fig:1b}
-        \end{figure}
+        $ (a, b) = \{ x  : \left| x - \frac{a+b}{2} \right| < \frac{b-a}{2} \}$.
 
     \end{solution}
 
@@ -107,17 +124,38 @@
     same thing. Showing it is easy using a computational engine but how you gonna
     prove it?
 
+    % create a new table with 10 rows and columns 'x' and 'y':
+    \pgfplotstablenew
+    [
+        % define how the 'new' column shall be filled:
+        create on use/x/.style ={ create col/expr ={100*rand}},
+        create on use/y/.style ={ create col/expr ={100*rand}},
+        columns={x,y}
+    ] {1000} \mydata
+    % show it:
+    %\pgfplotstabletypeset\mydata
+
     \begin{figure}[H]
-        \includegraphics[width=1\columnwidth]{./sol2_a.py.png}
-        \includegraphics[width=1\columnwidth]{./sol2_a.py_3d.png}
-        \caption{ $|x+y|$ is always greater than equal to $||x|-|y||$. A blue dot y-axis
-            value represents value of $|x+y|$ while its  x-axis value is value of
-            $||x|-|y||$ for a $(x,y)$. Dot falling
-            falling over line with slope 1 means that function represented by y-axis is
-        larger than the function on x-axis for that particular value of (x, y).}
+        \centering
+        \begin{tikzpicture}[scale=1 , every node/.style={} ]
+            \begin{axis}[
+                    xlabel=$||x|-|y||$,ylabel=$|x+y|$
+                ]
+                \addplot[ only marks, mark=*, color=blue ] table [
+                        , x expr=abs(abs(\thisrowno{0}) - abs(\thisrowno{1}))
+                        , y expr=abs(\thisrowno{0}+\thisrowno{1})
+                    ] {\mydata};
+            \end{axis}
+        \end{tikzpicture}	
+        \caption{ $|x+y|$ is always greater than equal to $||x|-|y||$. Each blue
+            dot's y-axis value represents value of $|x+y|$ while its x-axis value is value of
+            $||x|-|y||$ for 1000 random samples of $(x,y)$ between intervals of
+            $(-100, 100)\times(-100,100)$. (All) Blue dots are  falling over line of slope 1.
+            That means that function on  y-axis is
+            larger than the function on x-axis  for those (all) value of (x, y).
+        }
         \label{fig:2a}
     \end{figure}
-
 \end{solution}
 
 % Problem 3
@@ -132,25 +170,51 @@
     negative. We have $(x-3)(x+1)$ as factors. So for $(-\infty, -1] \cup [3,
     \infty)$ it is positive and for rest, its negative.
 
-    For the positive case $ x^2 - 2x - 3 > x$ and for negative we have $ - x^2 + 2x
-    + 3 > x$. Solve for both cases and check if solution lies in the intervals
+    For the positive case $ x^2 - 3x - 3 > 0$ and for negative we have $ - x^2 + x
+    + 3 > 0$. Solve for both cases and check if solution lies in the intervals
     computed before.
 
-    Here is a solution by python script to whet your appetite.
-
+    Following figure shows probably corrected answer. 
     \begin{figure}[H]
-        \begin{center}
-            \includegraphics[width=1\columnwidth]{sol2_b.py.png}
-        \end{center}
-        \caption{}
-        \label{fig:}
+        \tikzsetnextfilename{sol3}
+        \begin{tikzpicture}[scale=1]
+            \begin{axis}[
+                    xlabel=x,ylabel=$|x^2-2x-3|>x$
+                    , grid style={draw=gray!20}, grid = both, minor tick num = 1
+                    , ymin = 0, ymax= 2
+                    , yticklabels = {}
+                    , domain=-5:5
+                    , samples=1000
+                ]
+                \addplot [only marks,color=blue] gnuplot  [ ] {
+                        abs(x^2-2*x-3) > x ? 1 : -1
+                    };
+            \end{axis}
+        \end{tikzpicture}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    domain=-5:5, samples = 1000
+                    , ymin=-10, ymax=40
+                ]
+                \addplot [color=blue!50] { x^2 - 2*x - 3 };
+                \addplot [color=blue] { x^2 - 3*x - 3 };
+                \addplot [color=blue] { -x^2 - x + 3 };
+                \addplot[color=red] coordinates { (-5,0) (-0.7928,0) };
+                \addplot[color=red] coordinates { (3.7912,0) (5,0) };
+                \addplot[color=red,thick] coordinates { (-1,-10) (-1,40) };
+                \addplot[color=red,thick] coordinates { (3,-10) (3,40) };
+                \legend{$x^2-2x-3$,$x^2-3x-3$,$x^2+x+3$}
+            \end{axis}
+        \end{tikzpicture}	
+        \caption{On the left, interval for which given equation is true. On the
+        right, geometrical interpretation}
     \end{figure}
 
 \end{solution}
 
 
 %% Problem 4
-\question[14] {For each function $f:S \rightarrow T$, determine whether $f$
+\question[7] {For each function $f:S \rightarrow T$, determine whether $f$
 is one-to-one, onto, neither, or both. No explanation is needed. }
 
 \begin{parts}
@@ -158,25 +222,61 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
 \part[2] $f : (0,\infty) \rightarrow (0,\infty), f(x) = 1/x$
 
 \begin{solution}
+   \tikzsetnextfilename{4a}
+   \begin{tikzpicture}[scale=1
+       , every node/.style={}
+       ]
+       \begin{semilogyaxis}[
+           xlabel=x,ylabel=$1/x$
+           , grid style={draw=gray!20}, grid = both, minor tick num = 1
+           , domain=1e-6:5, samples=1000
+       ]
+           \addplot [color=blue] gnuplot [  ] { 1/x };
+       \end{semilogyaxis}
+   \end{tikzpicture}	
    one-to-one and onto. 
 \end{solution}
 
 \part[2] $g : \mathcal{R}\setminus\{0\} \rightarrow \mathcal{R}\setminus
 \{0\},\; g(x) = 1/x$
 \begin{solution}
-    one-to-one and onto.
+   \tikzsetnextfilename{4b}
+   \begin{tikzpicture}[scale=1
+       , every node/.style={}
+       ]
+       \begin{axis}[
+           xlabel=x,ylabel=$1/x$
+           , grid style={draw=gray!20}, grid = both, minor tick num = 1
+           , domain=-2:2, samples=1020
+       ]
+           \addplot [only marks,color=blue] gnuplot [  ] { 1/x };
+       \end{axis}
+   \end{tikzpicture}	
+   One-to-one and onto.
 \end{solution}
 
 \part[2] $h:(0,\infty) \rightarrow (0, \infty), \; h(x) = 1/x^2$
 \begin{solution}
-    one-to-one and onto.
+   \tikzsetnextfilename{4c}
+   \begin{tikzpicture}[scale=1
+       , every node/.style={}
+       ]
+       \begin{axis}[
+           xlabel=x,ylabel=$1/x$
+           , grid style={draw=gray!20}, grid = both, minor tick num = 1
+           , domain=-2:2, samples=1020
+       ]
+           \addplot [color=blue] gnuplot [  ] { 1/(x^2)};
+       \end{axis}
+   \end{tikzpicture}	
+    not one-to-one and not onto.
 \end{solution}
 
 \part[2] $k : \mathcal{R}\setminus\{0\} \rightarrow \mathcal{R}\setminus
 \{0\},\; k(x) = 1/x^2$
 \begin{solution}
-    one-to-one but not onto. Because there are negative values in co-domain
-    for which there is no $x$ in domain.
+    not one-to-one and not onto. Because there are negative values in co-domain
+    for which there is no $x$ in domain. More than one x have same $1/x^2$ values.
 
     \begin{tikzpicture}[scale=1]
         \begin{axis}[
@@ -295,6 +395,7 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
         \begin{axis}[
                 xlabel=x,ylabel=$x^2+4|x|+3$
                 , grid style={draw=gray!20}, grid = both, minor tick num = 1
+                , samples = 1000
             ]
             \addplot [color=blue] { x^2+4*abs(x)+3 };
             \addplot [color=red] {  0 };
@@ -311,16 +412,18 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
         \begin{axis}[
                 xlabel=x,ylabel=$x^2-4|x|-3$
                 , grid style={draw=gray!20}, grid = both, minor tick num = 1
+                , samples = 1000
             ]
             \addplot [color=blue] { x^2-4*abs(x)-3 };
             \addplot [color=red] {  0 };
         \end{axis}
     \end{tikzpicture}
 
-    Answer: $\bf \{\} $
+    Answer: $\bf \{ \frac{-4-\sqrt{28}}{2}, \frac{4+\sqrt{28}}{2} \} $
 
-    {\bf Note} Previous equation represent a fly butt and this one a human butt.
-    A mere change of sign!
+    {\bf Note} Previous equation looks like a fly butt and this one like a human
+    butt.  A mere change of sign!
+
 \end{solution}
 
 \part[2] $|3x-1| < 0.1$
@@ -386,7 +489,7 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
         \end{axis}
     \end{tikzpicture}	
 
-    Answer: $\bf x = (-\sqrt3, -1) \cup (1,\sqrt3)$
+    Answer: $\bf x = \left[ -\sqrt3, -1\right] \cup \left[1,\sqrt3\right]$
 
 \end{solution}
 
@@ -472,22 +575,5 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
 \end{parts}
 
 \end{questions}
-
-\section{Appendix}
-\subsection{Solution to problem 1(a)}
-\scriptsize
-\inputminted{python}{./sol1_a.py}
-
-\subsection{Solution to problem 1(b)}
-\scriptsize
-\inputminted{python}{./sol1_b.py}
-
-\subsection{Solution to problem 2(a)}
-\scriptsize
-\inputminted{python}{./sol2_a.py}
-
-\subsubsection{Solution to problem 2(b)}
-\scriptsize
-\inputminted{python}{./sol2_b.py}
 
 \end{document}          
