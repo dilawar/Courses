@@ -1,5 +1,6 @@
 \documentclass[answers,addpoints]{exam}
 \usepackage[margin=10mm]{geometry}
+\usepackage{amsthm}
 \usepackage{float} %  figure inside minipage 
 \usepackage{ifthen,empheq}
 \usepackage[]{graphicx}
@@ -104,6 +105,16 @@
     and $a$ is aways less than distance between $b$ and $a$ i.e. $\{ x: |x-a|
         \le |a-b| \}$.  
 
+        \tikzsetnextfilename{between}
+        \begin{tikzpicture}[scale=1
+                , every node/.style={ draw,circle, inner sep=1pt}
+            ]
+            \node[label=a] (a) at (0,0) {};
+            \node[label=x] (x) at (1,0) {};
+            \node[label=b] (b) at (3,0) {};
+            \draw[-] (0,0) -- (1,0) -- (3,0);
+        \end{tikzpicture}	
+
     \end{solution}
 
     \part[2] Similarly, express $\{a,b\}$, i.e. the set containing precisely the two
@@ -112,9 +123,10 @@
 
     \begin{solution}
 
-        Well, I don't have a good solution. But here is a bad solution.
+        How about this  $ \{a, b \} = \{ x : |x-a||x-b|=0 \}$. Or in other
+        words, $\{a, b\} = \{ x : |x-a| = 0,\; \text{and}\; |x-b| = 0 \}$.
+        Similarly, $\{a, b\} = \{ x : |x-\frac{a+b}{2}| = |\frac{a+b}{2}|$.
 
-        How about this  $ \{a, b \} = \{ x : |x-a||x-b|=0 \}$.
     \end{solution}
 
 \end{parts}
@@ -126,10 +138,7 @@
 
 \begin{solution} 
 
-    The simulation shown in figure \ref{fig:2a} shows that it is true. The same
-    picture  picture is plotted in 3d which is more complicated way of saying the
-    same thing. Showing it is easy using a computational engine but how you gonna
-    prove it?
+    The simulation shown in figure \ref{fig:2a} shows that it is true.
 
     % create a new table with 10 rows and columns 'x' and 'y':
     \pgfplotstablenew
@@ -163,6 +172,21 @@
         }
         \label{fig:2a}
     \end{figure}
+
+    \begin{proof}
+        \begin{align*}
+            (x+y)^2 
+            &= x^2 + y^2 + 2xy \\
+            &\ge x^2 + y^2 - 2 |xy| && \text{trick: } xy \le |xy| \implies xy \ge -|xy| \\
+            &= |x|^2 + |y|^2 - 2|x||y| \\
+            &= (|x| - |y|)^2
+        \end{align*}
+
+        Therefore, if $(x+y)^2 \ge (|x|-|y|)^2$, then,  $|x+y| \ge ||x|-|y||$.
+        Recall that if $x^2 \ge y^2 \implies |x| \ge |y|$.
+
+    \end{proof}
+
 \end{solution}
 
 % Problem 3
