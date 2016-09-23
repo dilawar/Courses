@@ -309,9 +309,6 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
 \part[2] $k : \mathcal{R}\setminus\{0\} \rightarrow \mathcal{R}\setminus
 \{0\},\; k(x) = 1/x^2$
 \begin{solution}
-    not one-to-one and not onto. Because there are negative values in co-domain
-    for which there is no $x$ in domain. More than one x have same $1/x^2$ values.
-
     \begin{tikzpicture}[scale=1]
         \begin{axis}[
                 xlabel=x,ylabel=$1/x^2$
@@ -323,6 +320,11 @@ is one-to-one, onto, neither, or both. No explanation is needed. }
         \addplot [color=blue] { 1/(x^2) };
         \end{axis}
     \end{tikzpicture}
+    not one-to-one and not onto. 
+    
+    Because there are negative values in co-domain for which there is no $x$ in
+    domain. More than one x have same $1/x^2$ values.
+
     
 \end{solution}
 
