@@ -94,6 +94,66 @@
 
     \end{solution}
 
+    \question[5]
+    Show that if $g(x) = \frac{1}{f(x)}$, then for any $a \in \mathbb{R}$ such
+    that $f(a) \neq 0, g'(a) = -\frac{f'(a)}{f(a)^2}$.
+
+    \begin{solution}
+
+        \begin{align}
+            g'(a) &= \lim_{h \rightarrow 0} \frac{g(a+h)-g(a)}{h} \\
+                  &= \lim_{h \rightarrow 0} \frac{ \frac{1}{f(a+h)}-\frac{1}{f(a)}}{h} \\
+                  &= \lim_{h \rightarrow 0} \frac{ f(a) - f(a+h) }{h f(a)
+            f(a+h)}  \\
+            &= {\bf \lim_{h \rightarrow 0} - \frac{ f(a+h) - f(h) }{h}} \frac{1}{f(a) f(a+h)}  \\
+            &= - f'(a) \frac{1}{f(a)f(a)}
+        \end{align}
+        
+    \end{solution}
+
+    \question[5]
+    Write the approximation for $\sqrt{99.8}$ and $\sqrt[3]{5.01^2 + 2}$.
+
+    \begin{solution}
+        
+    \end{solution}
+
+    \question[8]
+    Differentiate each of the following $\ldots$.
+
+    \begin{solution}
+        
+    \end{solution}
+
+    \question[8] { Inverse function theorem }
+
+    \begin{parts}
+        \part[4]
+        \begin{solution}
+
+            \begin{align}
+                f(x) &= \sqrt{ 1 + x^3 }                \\
+                \implies f^{-1}(x) &= \frac{1}{\sqrt{1+x^3}}  \\
+                (f^{-1})'(x) &= - \frac{1}{2}( 1 + x^3 )^{-3/2} \\
+            \end{align}
+        \end{solution}
+
+        \part[4]
+        \begin{solution}
+
+            \begin{align}
+                (f^{-1}(x))' &=  - f^{-2}(x) f'(x) \\
+                             &= - (1+x^3)^{-1} \frac{1}{2} (1+x^3) ^ {-1/2} \\
+                             &= - \frac{1}{2} (1+x^3)^{-3/2}
+            \end{align}
+            
+        \end{solution}
+
+
+    \end{parts}
+
+        
+
 \end{questions}
 
 \end{document}          
