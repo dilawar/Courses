@@ -1,0 +1,116 @@
+\documentclass[answers,addpoints]{exam}
+\usepackage[margin=10mm]{geometry}
+\usepackage{amsthm}
+\usepackage{float} %  figure inside minipage 
+\usepackage{ifthen,empheq}
+\usepackage[]{graphicx}
+\usepackage[]{minted}
+\usepackage{amssymb}
+\usepackage[multidot]{grffile}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\setlength{\headheight}{20pt}
+
+\usepackage{tikz}
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=_tikz/,shell escape=-shell-escape]
+\tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+\immediate\write18{mkdir -p _tikz}
+
+\title{Solution to HW3}
+\author{Dilawar Singh}
+\usepackage{hyperref}
+
+\begin{document}
+\Large
+\maketitle
+
+\begin{questions}
+
+    \question[4]
+    Refer to homework statement.
+
+    \begin{parts}
+
+        \part[2]
+
+        \begin{solution}
+            For every $y$, we can find at least one $x$ smaller than $y$ such that
+            $f(x)$ is smaller than $f(y)$.
+
+            \paragraph{negation} For any $y$, there is no $x$ smaller than $y$ such that
+            $f(x)$ is smaller than $f(y)$.
+
+            $\forall x$, $\nexists y$ such that if $x < y$ then $f(x) < f(y)$.
+
+            Now, rewriting the previous statement, 
+
+            For every $x$, there does not exists any $y$ such that $\ldots$.
+
+            Using natural language, there could be multiple ways to write same thing
+            . It is not easy to verify if all of those statements are equivalent.
+            Mathematical symbols give a less error-prone way to operate on logical
+            statements.
+        \end{solution}
+
+        \part[2]
+
+        \begin{solution}
+
+            There is at least one place where $f$ is 0. Or,
+            There is at least one $x$ such that $f(x)=0$.
+
+            \paragraph{Negation} There is no place where $f$ is zero. Or,
+            $\forall x\; f(x) \neq 0$.
+
+        \end{solution}
+
+    \end{parts}
+
+
+    \question[4]
+    See the statement on google group.
+
+    \begin{parts}
+
+        \part[2] 
+        \begin{solution}
+            \paragraph{negation} $f$ is NOT increasing. $x < y \implies f(x) \ge f(y)$
+
+        \end{solution}
+        \part[2]
+        \begin{solution}
+            \paragraph{Negation} $f$ DOES NOT have a local maxima at $a$ i.e. in
+            the $\delta$ neighbourhood of $a$, $f$ does not have this shape
+            \tikz \draw[smooth ] (0,0.3) .. controls  (0.1,0) .. (0.2, 0.3); 
+
+            $\forall \delta > 0$, $ \exists h \in \left(a-\delta, a+\delta
+            \right)$, such that $f(a) \ge f(a+h)$.
+
+
+        \end{solution}
+
+    \end{parts}
+
+    \question[12]
+
+    The quadratic approximation goes like the following.
+
+    $ f(x+h) = f(x) + h f'(x) + \frac{h^2}{2} f''(x) $. 
+
+    \begin{parts}
+
+
+        \part[3]
+        \begin{solution}
+
+
+
+        \end{solution}
+
+    \end{parts}
+
+\end{questions}
+
+
+\end{document}          
