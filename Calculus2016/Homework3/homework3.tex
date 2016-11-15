@@ -98,17 +98,62 @@
 
     $ f(x+h) = f(x) + h f'(x) + \frac{h^2}{2} f''(x) $. 
 
+    And the solutions are plotted below. Note that this is not the replacement
+    for algebraic analysis. 
+
+    \begin{figure}[ht!]
+    \begin{center}
+        \includegraphics[width=1\textwidth]{./sol3.py.png}
+    \end{center}
+    \caption{ $f$ is $e^x$, $sin x$, $x^3$, and $\frac{1}{1-x}$ }
+    \label{fig:}
+    \end{figure}
+
+    \question[12]
+
     \begin{parts}
 
-
-        \part[3]
+        \part[4]
         \begin{solution}
+            For $f$ to be even, we must have $f(x) = f(-x)$. Therefore, for all $x$
+            such that $ax^3 + bx^2 + cx + d = -ax^3 + bx^3 -cx + d$, $f$ is even.
+            That is $ax^3 + cx = 0 \implies x = 0, \pm \sqrt \frac{-c}{a} $.
+            Similarly, for $f$ to be odd, $-ax^3 + bx^2 -cx+d = -ax^3 -bx^2 -cx-d$.
+            That is $bx^2 +d = 0 \implies x = \pm \sqrt \frac{-d}{b}$.
+        \end{solution}
 
-
+        \part[12]
+        \begin{solution}
 
         \end{solution}
 
+        \part[4] 
+        \begin{solution}
+
+            $f'(x) = \lim_{h \rightarrow 0} \frac{ f(x+h) - f(x) }{h} $
+            \begin{align}
+                f'(-x) &= \lim_{h \rightarrow 0} \frac{ f(-x+h)) - f(-x) }{h} \\
+                       &= \lim_{h \rightarrow 0} \frac{ f(-(x-h)) - f(x) }{h} \\
+                       &= \lim_{h \rightarrow 0} \frac{ f(x-h) - f(x) }{h} \\
+                       &= \lim_{h \rightarrow 0} - \frac{ f(x) - f(x-h) }{h} \\
+                       &= \lim_{h \rightarrow 0} \frac{ f(x) - f(x-h) }{-h} \\
+                       &= f'(x)
+            \end{align}
+            Or, $f'(-x) = f'(-x) \frac{d(-x)}{dx} $ (using chain rule). This
+            gives us $f'(-x) = -f'(-x)$ therefore $f'(-x)$ is a even function.
+
+            Similarly (i.e. I am too lazy to do any work), one can show that
+            $g'$ is odd.
+            
+        \end{solution}
+
+
+        \question[20]
+
+            
+        
     \end{parts}
+
 
 \end{questions}
 
