@@ -20,20 +20,16 @@ import numpy as np
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-try:
-    mpl.style.use( 'seaborn-talk' )
-except Exception as e:
-    pass
 mpl.rcParams['axes.linewidth'] = 0.1
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
 
 def plot_approximation(ax, f, at ):
-    xs = np.linspace( at - 0.1, at + 0.1, 10000 )
-    ax.plot( xs, f(xs) )
+    xs = np.linspace( at - 0.5, at + 0.5, 10000 )
+    ax.plot( xs, f(xs), label='f' )
     ys = f( xs )
-    newX, newY = [], []
+    newX, linY, quadY = [], [], []
     for h in xs - at:
         y0 = ys[ len(ys) / 2 ]
         fd = np.diff( [ f(at), f(at+1e-6), f(at+2e-6) ] )
@@ -41,8 +37,11 @@ def plot_approximation(ax, f, at ):
         fd = fd[0] / 1e-6 
         fdd = fdd[0] / 1e-6
         newX.append( at + h )
-        newY.append( f(at) + h * fd + (h * h * 0.5 ) * fdd )
-    ax.plot( newX, newY, label = 'approximated' )
+        quadY.append( f(at) + h * fd + (h * h * 0.5 ) * fdd )
+        linY.append( f(at) + h * fd )
+
+    ax.plot( newX, linY, label = 'Quad' )
+    ax.plot( newX, quadY, label = 'Lin' )
     ax.legend( framealpha = 0.4 )
 
 
