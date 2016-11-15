@@ -20,8 +20,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def plot_func( ax, f ):
-    xs = np.linspace( -11, 10, 10**5 )
-    ax.plot( xs, f(xs) )
+    xs = np.linspace( -3.1, 2.5, 10**5 )
+    ys = f(xs)
+    ax.plot( xs, ys )
+    ax.set_ylim( [min(ys), min(10, max(ys)) ] )
 
 def main( ):
     gridSize = (4, 1)
