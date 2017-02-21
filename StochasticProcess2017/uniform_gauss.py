@@ -1,21 +1,23 @@
 """uniform_gauss.py: 
 
+Solution to problem 2c. You can find this script at github
+
+http://github.com/dilawar/courses/raw/master/StochasticProcess2017/uniform_gauss.py
+
+
 """
     
 __author__           = "Dilawar Singh"
-__copyright__        = "Copyright 2016, Dilawar Singh"
+__copyright__        = "Copyright 2017, Dilawar Singh"
 __credits__          = ["NCBS Bangalore"]
 __license__          = "GNU GPL"
 __version__          = "1.0.0"
 __maintainer__       = "Dilawar Singh"
 __email__            = "dilawars@ncbs.res.in"
-__status__           = "Development"
 
 import sys
 import os
 import matplotlib.pyplot as plt
-import numpy as np
-from collections import Counter
 import random
 
 # Let me define coin flips.
@@ -42,7 +44,7 @@ def stepsToLocation( bits ):
 
 def main( n = 1000 ):
     results = [ ]
-    # Toss the coin 10 times and do it n times.
+    # Toss the 10 coints and do it n times. Save the results.
     for i in range( n ):
         thisToss = ''
         for j in range( 10 ):
@@ -50,16 +52,14 @@ def main( n = 1000 ):
         results.append( thisToss )
 
     # Now the claim is that this distribution will be uniform for large enough n
-    # but first we must convert these string of 0 and 1 to numbers.
-
+    # but first we must convert these string of 0 and 1 to number.
     # Applying bits2Num function to each element
     numbers =  map( bits2Num, results)
 
-    # How to get Gaussian? The analogy of random walk. Lets count the number of
-    # 1 in string. Thats akin to steps taken to right side (or left). So mean
-    # position from 0 will be steps to right - steps to left. Or count of 1 -
-    # count of 0. We write a function stepsToLocation and apply it to the
-    # bits collected in results
+    # How to get Gaussian? The analogy of random walk. 
+    # We say that string of length 10 represents 10 steps. 0 mean left step and
+    # 1 means right step. We compute the location after 10 steps for each
+    # samples.
     location = map( stepsToLocation, results )
 
     # Now we plot histogram
