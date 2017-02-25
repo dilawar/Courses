@@ -64,9 +64,9 @@ just before. The number on arrow $p$ is the probability of this transition. I
 leave it upto you to write the transition matrix for this system using these two
 states and convince yourself that this is not Markovian.
 
-\paragraph{Converting {\bf this} system to Markovian} The attempt is made by
-introducing more states: a {\tt NULL\_BLUE} \tikz \node[circle,fill=blue!50] {};
-and {\tt NULL\_RED} \tikz \node[circle,fill=red!50] {}; states. 
+A couple of attempts were made to turn it into a Markovian by introducing more
+states: a {\tt NULL\_BLUE} \tikz \node[circle,fill=blue!50] {}; and {\tt
+NULL\_RED} \tikz \node[circle,fill=red!50] {}; states. 
 
 The state transition graph is following.
 
@@ -91,10 +91,21 @@ The state transition graph is following.
     
 \end{tikzpicture}    
 
-\emph{The state transition graph still does not have constant probabilities. In
+The state transition graph still does not have constant probabilities. In
 short, I could not turn this non-Markovian process to Markovian. However, if
-someone has come so far, I've given them credit.
-}
+someone has come so far, I've given them full credit.
+
+\section{By \emph{lumping} states of Markovian process}
+
+In this approach, you already start with a process which is Markovian and "lump"
+states together, till it becomes a non-Markovian. Then you present it in
+reverse. 
+
+A solution is given in submissions as following. Consider you are playing the
+game of "snake and ladders".  You consider the position of player on the board
+coarsely. You note down the row (e.g. row 1, 2, etc.) rather than cell (2x1,
+3x2). The claim is that this stochastic process sampled coarsely is not a
+Markovian process. 
 
 
 \end{document}          
