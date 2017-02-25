@@ -1,0 +1,76 @@
+%%=====================================================================================
+%%
+%%       Filename:  Assignment2_Solution.tex
+%%
+%%    Description:  Solution to problem 2.
+%%
+%%        Version:  1.0
+%%        Created:  02/25/2017
+%%       Revision:  none
+%%
+%%         Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%%   Organization:  NCBS Bangalore
+%%      Copyright:  Copyright (c) 2017, Dilawar Singh
+%%
+%%          Notes:  
+%%                
+%%=====================================================================================
+
+\documentclass[a4paper,10pt]{article}
+\usepackage{pgf,tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
+\usetikzlibrary{calc,positioning}
+
+% Title Page
+\title{Solution to Assignment 2} 
+\author{Dilawar Singh}
+\usepackage{ebgaramond}
+\usepackage[T1]{fontenc}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+Let me start with solutions from assignment submission. 
+
+\section{Drawing without replacement} 
+
+We have a jar with $N$ balls, out of which $b$ are blue and rest are red. I draw
+a ball at random but do not put it back.  Clearly it is not a Markovian process
+since at each step the probability of drawing red (or blue) ball is changing. At
+time zero probability of drawing a blue ball is $\frac{b}{N}$. The probability
+of drawing blue ball at next step is either $\frac{b-1}{N-1}$ if drew blue ball
+or $\frac{b}{N-1}$ if I drew red ball now. I can define states in the process.
+Let say they are {\tt BLUE\_DRAWN} and {\tt RED\_DRAWN}. The transition graph of
+this process will look like the following.
+
+\begin{tikzpicture}[scale=1, every node/.style={circle}, inner sep=5pt ]
+    \node[fill=blue] (blue) {};
+    \node[fill=red, right=of blue] (red)  {};
+    \draw[very thick,->] (blue) to[bend right] (red);
+    \draw[very thick,->] (red) to[bend right] (blue);
+    \draw[very thick,->] (red) edge[loop right] (red);
+    \draw[very thick,->] (blue) edge[loop left] (blue);
+    
+\end{tikzpicture}    
+
+Where arrow in graph shows the transition to head state given system is in tail
+state now. For example, \tikz{ \node[fill=red,circle] (red) {};
+\node[fill=blue,circle,right=of red ] (blue) {}; \draw[->] (red) -- node[above]
+{$p$} (blue) } depicts the process of drawing blue ball given that red was drawn
+just before. The number on arrow $p$ is the probability of this transition. I
+leave it upto you to write the transition matrix for this system using these two
+states and convince yourself that this is not Markovian.
+
+\paragraph{Converting {\bf this} system to Markovian}  To do so, we introduce
+another state: a {\tt NULL} state. Whenever we take away drawn ball from jar,
+the value in {\tt NULL} increases by 1. The challenge is to write down the
+transition graph (or matrix) and show that now the system has become Markovian.
+Mind you, we should be able to the solution of previous system from this system
+as well (otherwise we have changed the system).
+
+
+\end{document}          
+
