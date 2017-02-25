@@ -64,12 +64,37 @@ just before. The number on arrow $p$ is the probability of this transition. I
 leave it upto you to write the transition matrix for this system using these two
 states and convince yourself that this is not Markovian.
 
-\paragraph{Converting {\bf this} system to Markovian}  To do so, we introduce
-another state: a {\tt NULL} state. Whenever we take away drawn ball from jar,
-the value in {\tt NULL} increases by 1. The challenge is to write down the
-transition graph (or matrix) and show that now the system has become Markovian.
-Mind you, we should be able to the solution of previous system from this system
-as well (otherwise we have changed the system).
+\paragraph{Converting {\bf this} system to Markovian} The attempt is made by
+introducing more states: a {\tt NULL\_BLUE} \tikz \node[circle,fill=blue!50] {};
+and {\tt NULL\_RED} \tikz \node[circle,fill=red!50] {}; states. 
+
+The state transition graph is following.
+
+\begin{tikzpicture}[scale=1, every node/.style={circle}, inner sep=5pt ]
+    \node[fill=blue] (blue) {};
+    \node[fill=blue!50,right=of blue] (nullblue) {};
+    \node[fill=red!50, right=of nullblue] (nullred)  {};
+    \node[fill=red, right=of nullred] (red)  {};
+    \node[fill=black!10,below=of $(nullblue)!0.5!(nullred)$] (null) {};
+
+    \draw[->] (blue) to[bend left] (nullred);
+    \draw[->] (blue) to[bend left] (nullblue);
+
+    \draw[->] (red) to[bend right] (nullred);
+    \draw[->] (red) to[bend right] (nullblue);
+
+    \draw[->] (nullred) to node[midway,right] {1} (null);
+    \draw[->] (nullblue) to node[midway,left] {1} (null);
+
+    \draw[->] (null) to[bend left] node[midway,left] {p} (blue);
+    \draw[->] (null) to[bend right] node[midway,right] {1-p} (red);
+    
+\end{tikzpicture}    
+
+\emph{The state transition graph still does not have constant probabilities. In
+short, I could not turn this non-Markovian process to Markovian. However, if
+someone has come so far, I've given them credit.
+}
 
 
 \end{document}          
