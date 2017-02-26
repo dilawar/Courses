@@ -39,9 +39,23 @@ def check_for_snakes_and_ladders(n):
 def roll_dice( ):
     return random.randint(1, 6)
 
+def renormalize( img ):
+    with np.errstate(divide='ignore', invalid='ignore'):
+        img = np.true_divide(img, img.sum( axis = 0 ) )
+        img = np.nan_to_num( img )
+    return img
+
+def drawNow( img, title = 'Image' ):
+    import cv2 as cv
+    cv.imshow( title, img )
+    cv.waitKey( 100 )
+
 def main( ):
     global loc_
-    nGames = 10000
+    nGames = 20
+    prevRows, prevCells = np.zeros( shape=(10,10) ), np.zeros( shape=(100,100))
+    cellTransitionProbMean = [ ]
+    rowTransitionProbMean = [ ]
     for i in range( nGames ):
         loc_ = 0
         while True:
@@ -53,9 +67,18 @@ def main( ):
                 cells_[c1,c2] += 1.0
                 rows_[r1,r2] += 1.0
             if loc_ > 100:
-                print( "Won" )
+                print( "Game %d is over" % i )
                 loc_ = 0
+                thisRows = renormalize( rows_ )
+                thisCells = renormalize( cells_ )
+                diffRow = thisRows - prevRows
+                diffCell = thisCells - prevCells
+                rowTransitionProbMean.append( diffRow.mean( ) )
+                cellTransitionProbMean.append( diffCell.mean( ) )
+                prevRows, prevCells = thisRows, thisCells
+                # drawNow( img )
                 break
+                
 
     pCells = cells_ / cells_.sum( axis = 0 )
     pRows = rows_ / rows_.sum( axis = 0 )
@@ -65,16 +88,26 @@ def main( ):
         pCells = np.nan_to_num( pCells )
         pRows = np.nan_to_num( pRows )
     pylab.figure( figsize=(10,6) )
-    pylab.subplot( 121 )
-    pylab.title( 'Cell to cell transitions' )
-    pylab.imshow( pCells, interpolation = 'none' )
-    pylab.colorbar( orientation = 'horizontal' )
-    pylab.subplot( 122 )
-    pylab.imshow( pRows, interpolation = 'none' )
-    pylab.colorbar( orientation = 'horizontal' )
-    pylab.title( 'Row to row transitions' )
+
+    gridSize = (2, 2)
+    ax1 = pylab.subplot2grid( gridSize, (0,0), colspan = 1 )
+    ax2 = pylab.subplot2grid( gridSize, (0,1), colspan = 1 )
+    ax3 = pylab.subplot2grid( gridSize, (1,0), colspan = 2 )
+    ax1.set_title( 'Cell to cell transitions' )
+    img1 = ax1.imshow( pCells, interpolation = 'none' )
+    pylab.colorbar( img1, ax = ax1 ) #orientation = 'horizontal' )
+    img2 = ax2.imshow( pRows, interpolation = 'none' )
+    pylab.colorbar( img2, ax = ax2 ) # orientation = 'horizontal' )
+    ax2.set_title( 'Row to row transitions' )
+
+    ax3.plot( rowTransitionProbMean, '-o', label = 'Row probs' )
+    ax3.plot( cellTransitionProbMean, '-*', label = 'Cell probs' )
+    ax3.set_ylabel( 'diff of transition probs'  )
+    ax3.set_xlabel( 'Number of games completed' )
+    ax3.legend( )
+
     pylab.suptitle( 'Total games %d' % nGames )
-    pylab.tight_layout( )
+    # pylab.tight_layout( )
     pylab.savefig( '%s.png' % sys.argv[0] )
     
 
