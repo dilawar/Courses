@@ -27,7 +27,7 @@ def check_for_snakes_and_ladders(n):
     """This method checks for the presence of snakes or ladders in the board"""
     ladders = {1:38,4:14,9:31,21:42,28:84,36:44,51:67,71:91,80:100}
     snakes = {98:78,95:75,93:73,87:24,64:60,62:19,56:53,49:11,48:26,16:6}
-    ladders, snakes = {}, {}
+    # ladders, snakes = {}, {}
     if ladders.has_key(n):
         # print( "Ladder. Up!" )
         n = ladders[n]
@@ -41,7 +41,7 @@ def roll_dice( ):
 
 def main( ):
     global loc_
-    nGames = 100000
+    nGames = 10000
     for i in range( nGames ):
         loc_ = 0
         while True:
@@ -57,19 +57,22 @@ def main( ):
                 loc_ = 0
                 break
 
-    pCells = cells_ / cells_.sum( )
-    pRows = rows_ / rows_.sum( )
-    # print( np.sum( pCells, axis = 1 ) )
+    pCells = cells_ / cells_.sum( axis = 0 )
+    pRows = rows_ / rows_.sum( axis = 0 )
+    with np.errstate(divide='ignore', invalid='ignore'):
+        pCells = np.true_divide(cells_, cells_.sum( axis = 0 ) )
+        pRows = np.true_divide( rows_, rows_.sum( axis = 0 ) )
+        pCells = np.nan_to_num( pCells )
+        pRows = np.nan_to_num( pRows )
     pylab.figure( figsize=(10,6) )
     pylab.subplot( 121 )
+    pylab.title( 'Cell to cell transitions' )
     pylab.imshow( pCells, interpolation = 'none' )
-    print( pCells )
-    print( '=================' )
-    print( np.sum( pCells, axis = 0 ) )
     pylab.colorbar( orientation = 'horizontal' )
     pylab.subplot( 122 )
     pylab.imshow( pRows, interpolation = 'none' )
     pylab.colorbar( orientation = 'horizontal' )
+    pylab.title( 'Row to row transitions' )
     pylab.suptitle( 'Total games %d' % nGames )
     pylab.tight_layout( )
     pylab.savefig( '%s.png' % sys.argv[0] )

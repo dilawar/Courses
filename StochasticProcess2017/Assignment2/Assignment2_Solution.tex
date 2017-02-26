@@ -20,6 +20,7 @@
 \usepackage{pgf,tikz}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{grffile}
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
 \usetikzlibrary{calc,positioning}
 
@@ -105,7 +106,29 @@ A solution is given in submissions as following. Consider you are playing the
 game of "snake and ladders".  You consider the position of player on the board
 coarsely. You note down the row (e.g. row 1, 2, etc.) rather than cell (2x1,
 3x2). The claim is that this stochastic process sampled coarsely is not a
-Markovian process. 
+Markovian process because \emph{transition from row $i$ to row $j$ is dependant
+on previous transition $x \rightarrow i$ }. It is not true! But since idea was
+all right, credit has been given. It is easy to see why it is not correct if you
+implement the game and simulate it. Here is the clue, in this game, snake of
+ladder don't change your next move, they change your position
+\emph{immediately}. 
+
+
+
+\appendix
+\section{Simulation of game}
+
+I simulated a game of snake and ladder 10000 times and
+computed the transition probabilities; first by taking cell level view and
+second by taking coarse cell level view.
+
+\begin{figure}[ht!]
+\begin{center}
+    \includegraphics[width=1\textwidth]{./snake_and_ladder.py.png}
+\end{center}
+\caption{}
+\label{fig:}
+\end{figure}
 
 
 \end{document}          
