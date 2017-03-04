@@ -138,7 +138,7 @@ def simulate():
     pylab.xlabel( "Location index e.g. 29 is JAIL" )
     pylab.ylabel( 'Frequency of visit' )
     pylab.tight_layout( )
-    pylab.savefig('monopoly.png')
+    pylab.savefig('monopoly_%s.png' % sys.argv[1] )
     # pylab.show()
     
 if __name__ == '__main__':
