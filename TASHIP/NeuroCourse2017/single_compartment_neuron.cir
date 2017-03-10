@@ -9,7 +9,7 @@ i3 b 0 pulse(0p 10p 0 0.1n 0.1n 0.0005 0.001)
 
 .CONTROL
 set filetype=ascii
-tran 0.001m 1m
+tran 0.001m 10m
 print v(b) > ./output_1000hz.txt
 quit
 .ENDC

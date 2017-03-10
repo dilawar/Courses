@@ -18,6 +18,7 @@
 
 \documentclass[a4paper,10pt]{article}
 \usepackage{pgf,tikz}
+\usepackage{pgfplots}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
@@ -70,6 +71,59 @@ $R_a$ is not playing any role in this circuit).
 For some typical values of $R_m$, $C_m$, I solve this circuit and plot the
 waveforms for given frequencies. When I plot them together, I see the following:
 
+\def\height{6cm}
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+    xlabel=Time,ylabel=Volt
+    , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+    , height = \height
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+        plot "./output_1hz.txt" using 2:3 with lines;
+    };
+    \end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+    xlabel=Time,ylabel=Volt
+    , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+    , height = \height
+    , xmax = 0.2
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+        plot "./output_10hz.txt" using 2:3 with lines;
+    };
+    \end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+    xlabel=Time,ylabel=Volt
+    , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+    , height = \height
+    , xmax = 0.06
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+        set xrange [0:0.1];
+        plot "./output_100hz.txt" using 2:3 with lines;
+    };
+    \end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+    xlabel=Time,ylabel=Volt
+    , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+    , height = \height
+    , xmax = 0.006
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+        plot "./output_1000hz.txt" using 2:3 with lines;
+    };
+    \end{axis}
+\end{tikzpicture}
+
+
+
 \paragraph{Problem 5 - 3 Points}
 Draw the equivalent circuit of a myelinated axon segment.
 
@@ -79,6 +133,7 @@ dendrite is 8 microns in diameter, what is the diameter of the final branches?
 I take 1 micron of dendrite each from the above Purkinje neuron primary
 dendrite, and final dendrite. What is the ratio of axial resistances of these
 bits of dendrite?
+
 
 \end{document}          
 
