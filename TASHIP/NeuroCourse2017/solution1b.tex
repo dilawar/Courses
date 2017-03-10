@@ -1,0 +1,117 @@
+%%=====================================================================================
+%%
+%%       Filename:  solution1b.tex
+%%
+%%    Description:  Solution to problem 1 c
+%%
+%%        Version:  1.0
+%%        Created:  03/10/2017
+%%       Revision:  none
+%%
+%%         Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%%   Organization:  NCBS Bangalore
+%%      Copyright:  Copyright (c) 2017, Dilawar Singh
+%%
+%%          Notes:  
+%%                
+%%=====================================================================================
+
+\documentclass[a4paper,10pt]{article}
+\usepackage{pgf,tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,shapes,arrows,positioning,arrows.meta}
+\usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
+
+% Title Page
+\title{Solution to problem 1b}
+\author{Dilawar Singh}
+\date{\today}
+\begin{document}
+\maketitle
+
+\paragraph{Problem statement}
+The NCBS lightning conductors used to run horizontally along the tops of the
+stone railings near the Simons Centre. There was one lightning  rod above the
+Simons Centre, and another near the place where the greenhouse now stands, and
+yet another further along. This was a good arrangement to ensure that wherever
+you were, you would die if lightning hit any part of the building. Draw the
+equivalent circuit of the lightning circuit, assuming that each rod has a
+straight wire going to ground, and a horizontal wire of the same length and
+diameter going to the nearest lightning rod. The middle rod will therefore be
+connected to ground by one wire, and by horizontal wires to the other two rods.
+Assume that the potential is 1 million volts at one rod, where the lightning has
+just struck. What is the potential at the middle rod?
+
+\paragraph{Solution} 
+\label{par:Solution}
+Below is the equivalent circuit. You can solve for the voltage at middle node
+(Greenhouse).
+
+\begin{figure}[h!]
+\centering
+\begin{circuitikz}[ ]
+    \draw (0,0) to [R=$R_1$] (0,-2) node [ground] {};
+    \draw (0,0) node[above,rotate=90,xshift=1cm] {Simon} to [R=$R_2$, *-*] (2,0);
+    \draw (2,0) to [R=$R_1$] (2,-2) node [ground] {};
+    \draw (2,0) node[above,rotate=90,xshift=1cm] {Greenhouse} to [R=$R_2$, *-*] (4,0);
+    \draw (4,0) node[above,rotate=90,xshift=1cm] {} to [R=$R_1$] (4,-2) node [ground] {};
+    \draw (5.5,1.5) node[ground,rotate=135] {} to[pvsource=$10^6$V] (4,0);
+    \draw (1,-1) node[scale=2] {$\circlearrowright$};
+    \draw (1,-1) node[] {$i_1$};
+
+    \draw (3,-1) node[scale=2] {$\circlearrowright$};
+    \draw (3,-1) node[] {$i_2$};
+
+    \draw (5,-1) node[scale=2] {$\circlearrowright$};
+    \draw (5,-1) node[] {$i_3$};
+    
+\end{circuitikz}
+
+\caption{\small Lightening rods in NCBS}
+\label{circuit:label}
+\end{figure}
+
+We can reduce the circuit to simplify the calculations or write down the
+Kirchhoff loop current equations. Let's take the hard way out.
+
+\begin{align}
+    i_1 R_1 + i_2 R_2 + (i_1 - i_2) R_1 &= 0  \\
+    (i_2 - i_1) R_1 + i_2 R_2 + (i_2 - i_3) R_1 &= 0  \\
+    ( i_3 - i_2) R_1 &= 10^6
+\end{align}
+
+When you solve these equations, you get:
+
+\begin{align}
+    i_1 &= \frac{10^6 R_1}{R_1^2 + 3R_1R_2 + R_2^2} \\
+    i_2 &= \frac{10^6 (2R_1 + R_2)}{R_1^2 + 3R_1R_2+R_2^2} 
+\end{align}
+
+We are looking for voltage at middle rod, which is $(i_2 - i_1)R_1$. It is 
+$10^6 \frac{R_1^2 + R_1R_2}{R_1^2 + R_2^2 + 3R_1R_2}$. When $R_1 = R_2$, voltage is $\frac{2}{5}$
+times of 1 million. Let's see how this V behaves as a function of
+$\frac{R_2}{R_1}$.
+
+\begin{tikzpicture}[scale=1]
+    \begin{semilogxaxis}[
+            xlabel=$\frac{R_2}{R_1}$,ylabel=Voltage at middle node
+            , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+            f(x)=10^6*(1+x)/(1+x^2+3*x);
+            set logscale x;
+            set xrange [1:1000];
+            plot f(x);
+    };
+    \end{semilogxaxis}
+\end{tikzpicture}
+
+Even when value of $R_2$ is 1000 times $R_1$, the voltage at middle node can be
+dangerously high (998.0 Volts) - enough to kill!
+
+
+
+\end{document}          
