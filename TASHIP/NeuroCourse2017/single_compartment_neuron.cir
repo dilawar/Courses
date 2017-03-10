@@ -1,0 +1,16 @@
+* Its a single compartment neuron.
+rm b c 3.16G
+vm c 0 dc 0.060
+cm b 0 3.1416p
+*i0 b 0 pulse(0p 10p 0 0.1n 0.1n 0.5 1) 
+*i1 b 0 pulse(0p 10p 0 0.1n 0.1n 0.05 0.1) 
+*i2 b 0 pulse(0p 10p 0 0.1n 0.1n 0.005 0.01) 
+i3 b 0 pulse(0p 10p 0 0.1n 0.1n 0.0005 0.001) 
+
+.CONTROL
+set filetype=ascii
+tran 0.001m 1m
+print v(b) > ./output_1000hz.txt
+quit
+.ENDC
+

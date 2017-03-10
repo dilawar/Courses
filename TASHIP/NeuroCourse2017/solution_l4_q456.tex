@@ -1,0 +1,84 @@
+%%=====================================================================================
+%%
+%%       Filename:  solution_l4_q456.tex
+%%
+%%    Description:  Solution to problems 4, 5 and 6 (lecture 4).
+%%
+%%        Version:  1.0
+%%        Created:  03/10/2017
+%%       Revision:  none
+%%
+%%         Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%%   Organization:  NCBS Bangalore
+%%      Copyright:  Copyright (c) 2017, Dilawar Singh
+%%
+%%          Notes:  
+%%                
+%%=====================================================================================
+
+\documentclass[a4paper,10pt]{article}
+\usepackage{pgf,tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
+% Title Page
+\title{Lecture 4, Question 4,5, and 6} 
+\author{Dilawar Singh}
+\date{\today}
+\begin{document}
+\maketitle
+
+\paragraph{Problem 4 - 5 Points}
+\label{par:Problem 4}
+What would happen if you increased the frequency of square wave current input to 
+an equivalent circuit of a neuron? Draw the waveform at 1, 10, 100 and 1000 Hz, 
+explaining.
+
+\paragraph{Solution} Let's start with our single compartment neuron (notice that
+$R_a$ is not playing any role in this circuit).
+
+\begin{figure}[h]
+    \usetikzlibrary{shapes,shadows,circuits.ee.IEC}
+    \centering
+    \begin{tikzpicture}[circuit ee IEC
+        ]
+        % Connect R_a
+        \draw (-3,0) to[resistor={info={$R_a$}}] ++(3,0)
+        ;
+        \draw (0,0) -- ++(0,-0.5) -- ++(-1,0)
+        to[resistor={info={$R_m$}}] ++(0,-2) 
+        to[voltage source={direction info={<-,volt=0.06}}] ++(0,-1.5)
+        ;
+        \draw (0,0) -- ++(0,-0.5) -- ++(1,0)
+        to[capacitor={info={$C_m$}}] ++(0,-3.5) -- ++(-2,0)
+        ;
+        \draw (0,-4.0) -- ++(0,-0.5) to[ground] ++(0,-0.5)
+        ;
+        %% Connect a probe to inject current 
+        \draw  (2,1) to[current source={direction info={->,ampere=10p}}] ++(-1,0)
+            -- ++(-1,-1) node [above] {$b$}
+        ;
+        \draw (2,1) -- ++(1,0) to[ground] ++(0.5,0)
+        ;
+
+    \end{tikzpicture}
+    \caption{Injecting current into cell. Axial resistance $R_a$ is useless now.
+    We measure voltage at node $b$ when current is being injected into cell.}
+    \label{fig:sphere}
+\end{figure}
+
+For some typical values of $R_m$, $C_m$, I solve this circuit and plot the
+waveforms for given frequencies. When I plot them together, I see the following:
+
+\paragraph{Problem 5 - 3 Points}
+Draw the equivalent circuit of a myelinated axon segment.
+
+\paragraph{Problem 6 - 7 Points}
+A Purkinje neuron with 8 levels of branching obeys Rall’s Law. If the primary
+dendrite is 8 microns in diameter, what is the diameter of the final branches?
+I take 1 micron of dendrite each from the above Purkinje neuron primary
+dendrite, and final dendrite. What is the ratio of axial resistances of these
+bits of dendrite?
+
+\end{document}          
+
