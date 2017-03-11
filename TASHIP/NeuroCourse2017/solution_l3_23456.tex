@@ -40,18 +40,19 @@ I want to record from a neuron. The voltage output of the neuron is in the range
 -80 to +20 mV. Why can’t I just measure it by directly connecting the electrode
 to the oscilloscope?
 
-\paragraph{Solution} An ideal instrument - especially the one which is used to
-measure very small signals - must not load the input source; for example, if I
-use a measure temperature fluctuation in a cell using a sensitive thermometer
-which makes contact with the cell, I may not be able to. Because most of heat is
-likely to be lost in the cell-thermometer junction or in thermometer metal head.
-Similarly when we use oscilloscope to measure very 'weak' signal, we make sure
-that oscilloscope does not consume a significant part of signal itself. The
-measure of how effective an instrument is for measuring weak electrical signal
-is 'input resistance'. Higher the input resistance, lesser the current flows
-into the oscilloscope. 
+\paragraph{Solution} An ideal instrument - especially for measuring very weak 
+signals - must not load the input source; for example, if I
+use a sensitive but metal thermometer to measure temperature fluctuation in a cell 
+by making a contact with the cell, I may not be able to. Because cell generate
+very less amount of heat and it will be lost is either the cell-thermometer
+junction or in thermometer metal head.
+Similarly when we use oscilloscope to measure very 'weak' signal, most of the
+charge will flow into oscilloscope and we'll lose the fidelity. We make sure
+that oscilloscope does not consume a significant part of signal itself. "Inpute
+resistance (impedance)" is the measure of how effective an instrument is for
+measuring weak electrical signal.
 
-Enough talk. Let do some number crunching. Lets use a compartment model of
+Enough talk! Let do some number crunching. Lets use a compartment model of
 neuron and measure the voltage using 3 different oscilloscope. First, with an
 oscilloscope of \SI{1}{\mega \ohm} resistance, then with an oscilloscope with
 \SI{10}{\mega \ohm} resistance, and finally with an ideal oscilloscope (with infinite input
@@ -79,7 +80,7 @@ resistance).
         plot "./without_input_resistence.csv" using 1:2 with lines
     };
     \legend{Oscilloscope with 1M $\Omega$ 
-    , Oscilloscope with 100 M $\Omega$, Ideal oscilloscope};
+    , Oscilloscope with \SI{10}{\mega \ohm}, Ideal oscilloscope};
     \end{axis}
 \end{tikzpicture}
 \end{figure}
