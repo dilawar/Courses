@@ -21,18 +21,69 @@
 \usepackage{pgfplots}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{siunitx}
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
 \usetikzlibrary{external}
 \usetikzlibrary{shapes,shadows,circuits.ee.IEC}
 \tikzexternalize 
 
 % Title Page
-\title{Lecture 4, Question 3,4,5,and 6} 
+\title{Lecture 3, Problems 2,3,4,5,and 6} 
 \author{Dilawar Singh}
 \date{\today}
 \begin{document}
 
 \maketitle
+
+\paragraph{Problem 2 - 5 Points}
+I want to record from a neuron. The voltage output of the neuron is in the range
+-80 to +20 mV. Why can’t I just measure it by directly connecting the electrode
+to the oscilloscope?
+
+\paragraph{Solution} An ideal instrument - especially the one which is used to
+measure very small signals - must not load the input source; for example, if I
+use a measure temperature fluctuation in a cell using a sensitive thermometer
+which makes contact with the cell, I may not be able to. Because most of heat is
+likely to be lost in the cell-thermometer junction or in thermometer metal head.
+Similarly when we use oscilloscope to measure very 'weak' signal, we make sure
+that oscilloscope does not consume a significant part of signal itself. The
+measure of how effective an instrument is for measuring weak electrical signal
+is 'input resistance'. Higher the input resistance, lesser the current flows
+into the oscilloscope. 
+
+Enough talk. Let do some number crunching. Lets use a compartment model of
+neuron and measure the voltage using 3 different oscilloscope. First, with an
+oscilloscope of \SI{1}{\mega \ohm} resistance, then with an oscilloscope with
+\SI{10}{\mega \ohm} resistance, and finally with an ideal oscilloscope (with infinite input
+resistance). 
+
+\par
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+    xlabel=Time,ylabel=Volt
+    , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+    , xmax = 2e-3
+    , legend style={at={(1.2,1)}, anchor=north}
+    ]
+    \addplot [color=blue,thick] gnuplot [ raw gnuplot ] {
+        set datafile separator ';';
+        plot "./with_input_resistece.csv" using 1:2 with lines
+    };
+    \addplot [color=black,thick] gnuplot [ raw gnuplot ] {
+        set datafile separator ';';
+        plot "./with_input_resistece_100M.csv" using 1:2 with lines
+    };
+    \addplot [color=red,thick] gnuplot [ raw gnuplot ] {
+        set datafile separator ';';
+        plot "./without_input_resistence.csv" using 1:2 with lines
+    };
+    \legend{Oscilloscope with 1M $\Omega$ 
+    , Oscilloscope with 100 M $\Omega$, Ideal oscilloscope};
+    \end{axis}
+\end{tikzpicture}
+
+You'll get full credit if your drive this point home; or get closer to this.
 
 \paragraph{Problem 3 - 5 Points}
 \label{par:Problem 4}
