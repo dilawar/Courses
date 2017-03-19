@@ -1,0 +1,125 @@
+%%=====================================================================================
+%%
+%%       Filename:  solution_5q2q3_6q2.tex
+%%
+%%    Description:  Solution to problem 5-Q2/Q3 and 6-Q3
+%%
+%%        Version:  1.0
+%%        Created:  03/19/2017
+%%       Revision:  none
+%%
+%%         Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%%   Organization:  NCBS Bangalore
+%%      Copyright:  Copyright (c) 2017, Dilawar Singh
+%%
+%%          Notes:  
+%%                
+%%=====================================================================================
+
+\documentclass[a4paper,10pt]{article}
+\usepackage{pgf,tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
+% Title Page
+\title{Problem 5.2, 5.3 and 6.3} 
+\author{Dilawar Singh}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{Problem 5.2, 8 points}
+\label{par:Problem 5.2}
+
+A cell with electrotonic length L = 2 is voltage-clamped at the soma, to resting
+potential = \SI{-65}{\milli \volt}. A synaptic input comes to a distal (far away)
+dendrite, onto a synapse with AMPA channels with a tau of \SI{1}{\milli \sec} and a reversal
+potential of \SI{0}{\milli\volt}
+
+\begin{enumerate}
+    \item Draw the voltage trace at the site of the synapse
+    \item Draw the voltage trace halfway to the soma
+    \item Draw the voltage trace at the soma
+    \item Draw the current recorded by the voltage-clamp.
+\end{enumerate}
+
+\emph{I am not very confident about the solution below. Do send me a correct one
+if you feel this is wrong.}
+
+\paragraph{Solution} The excitatory post synaptic pulse caused by few channels
+is shown below. Its amplitude will increase with number of channels opened by
+synaptic input. As long as your amplitude don't go above the \SI{0}{\milli
+\volt}, I am OK. Next, to draw waveform halfway to soma, use general passive
+propagation principal. For next part, soma is clamped, so you WILL NOT see any
+pulse there, soma is fixed at resting potential. Since soma is at resting
+potential, voltage clamp has to inject current to keep the soma at resting
+potential. Draw that current profile; its time course can be obtained by
+voltage seen at soma when there was no voltage-clamped.
+
+\par
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+            xlabel=Time (ms),ylabel=mV
+        , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+        , height = 5cm, width = 10cm
+    ]
+    \addplot [color=blue] [ raw gnuplot ] gnuplot {
+            f(x) =  5 * exp(-x/1) - 65;
+            set xrange[-1:4];
+            plot x > 0 ? f(x) : -65 ;
+    };
+    \end{axis}
+\end{tikzpicture}
+
+\section*{Problem 5.3, 5 points, Bonus}
+A non-myelinated axon (vel = 1 m/s) and a myelinated axon (vel = 100 m/s) both
+have the same refractory period of 4 ms. What is the maximum data rate possible
+for information transmission along these axons to your toe, 1 metre away? Assume
+each action potential carries 2 bits.
+    
+\paragraph{Solution}
+
+First we need to know how many times we can send an action potential. Let do it
+for non-myelinated axon in detail. Time taken for a action potential (signal) to
+travel from one end to another is 
+$\frac{length}{speed} = \frac{1}{1} = \SI{1}{\sec}$. Since refractory period is
+\SI{4}{\milli \sec}, we can send second signal only after than time or in 1
+second, we can send maximum of $\frac{1000 ms}{4 ms} = 250$ action potentials
+i.e. 500 bits per second. Similarly the rate is \SI{500}{bits \per \sec} for
+myelinated neuron as well. The delay in receiving this data depends on speed of
+transmission which is \SI{1}{\second} for non-myelinated and \SI{10}{\milli
+\second} for the myelinated case.
+
+\section*{Problem 6.2, 5 Points}
+
+The idea of ‘Dendritic Democracy’ states that a neuron will experience the same
+depolarization at the cell body, regardless of where the input comes in on a big
+dendritic arbor. Knowing what you do now of dendritic signal propagation,
+receptors, and HH channels, suggest 3 ways in which the cell could achieve
+dendritic democracy. In each case put in some numbers indicating specific
+biophysical changes that the cell should undergo to achieve this. Assume the
+cell is 2 lambda in electrotonic length.
+
+\paragraph{Solution} Since membrane passive property does not change within a
+neuron, the only way to achieve this if a synaptic input causes larger response
+at far away site from soma compared to proximal site. This way even though the
+signal travels more distance, its influence on soma will be the same.
+
+\begin{itemize}
+    \item More receptors at the distal site compared to proximal site.
+    \item Properties of HH Channels are different, higher $g_Na$ or lower $g_K$ (due
+        to?) at distal site.
+    \item The number of vesicle releases at distal site are more or the number
+        of transmitters in per vesicle are more. Although its hard to say why
+        this should be case at pre-synaptic site.
+\end{itemize}
+
+Lets see what you have written!
+
+
+
+
+\end{document}          
