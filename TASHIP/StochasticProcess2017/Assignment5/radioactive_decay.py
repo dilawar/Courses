@@ -42,7 +42,7 @@ class Lump( ):
 def main( ):
 
     lumps = [ ]
-    nLumps, nNuc = 1000, 5000
+    nLumps, nNuc = 1000, 1000
     for i in range( nLumps ):
         l = Lump( nNuc )
         lumps.append( l )
