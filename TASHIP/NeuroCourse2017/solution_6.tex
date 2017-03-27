@@ -22,6 +22,7 @@
 \usepackage{pgfplots}
 \usepackage[american]{circuitikz}
 \usepackage{amssymb}
+\usepackage{hyperref}
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
 \usepackage{siunitx}
 % Title Page
@@ -144,9 +145,80 @@ it undergoes back-propagating action potentials into its dendrites. When will a
 synaptic input have more effect on the cell output: before, during or after the
 action potential at the soma? Explain with one line each.
 
+\paragraph{Solution}  It is known from literature that back-propagating action
+potential and dendritic EPSP together acts as coincidence detector (see figure
+\ref{fig:5} ) by recruiting voltage gated $Na$ channels. If you can explain your
+answer based on mechanism, partial to full credit will be given even when answer
+is way off the mark.
+
+\begin{figure}[ht!]
+\begin{center}
+    \includegraphics[width=1\textwidth]{./backPropagatingAPplusEPSP.png}
+\end{center}
+\caption{ 
+\href{http://www.cogsci.ucsd.edu/~sereno/201/readings/02.08-DendriteComp.pdf}{From here}
+}
+\label{fig:5}
+\end{figure}
+
+So, if the EPSP is synchronized in time with back-propagating action potential,
+their combination will have very large effect on soma; else the effect of EPSP
+is the same whether it appears before or later after back-propagating action
+potential on dendrite.
 
 \paragraph{Problem D, 5 Points} What ion channels should a cell have to be of
 type I (continuous frequency-current curve ) vs type II (having an abrupt
 threshold at which it suddenly starts firing) ?
+
+\paragraph{Solution} Type I and Type II neurons are described by their firing
+rate V/s injected current relationship as shown in figure below. To read more
+about this classification, its usefulness and limitation, 
+\href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3752709/}{click here}.
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+         xlabel=Injected Current (a.u.), ylabel=Firing rate (a.u.)
+        , grid style={draw=gray!20}, grid = both
+        , legend style={draw=none}
+        , ymax = 8
+    ]
+    \addplot [] gnuplot [ raw gnuplot ] {
+            f(x)= (x<8) ? 0 : ( (x-8) ** 0.6 );
+            plot [1:20] f(x);
+        };
+    \addlegendentry{Type I};
+    \addplot+ [mark=*] gnuplot [ raw gnuplot ] {
+            f(x)= (x<7) ? 0 :3 +  ( (x-7) ** 0.4 );
+            plot [1:20] f(x);
+        };
+    \addlegendentry{Type II};
+    \end{axis}
+\end{tikzpicture}
+
+One way to achieve such a effect is by introducing a mechanism which prevents
+firing when depolarization does cause small effect on membrane potential. The
+effect of mechanism is plotted below. In this hypothesis, the effect at resting
+potential is large which decays with injected current. If we envisage a channel
+doing this, for example some funky potassium channel, the hypothesis is that at
+resting membrane potential most of these channels are open (effect: EPSP effect
+are minimal or zero since potassium current will flow out and depolarization
+would not happen); at high injected currents the potential increases and these
+channels starts closing making further increase in depolarization easier.
+
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[ xlabel=Deplolarization by injected current (au)
+            ,ylabel=Effect e.g. outward current
+        , grid style={draw=gray!20}, grid = both
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+            f(x) = 10 * exp(-x );
+            plot [0:10] f(x);
+    };
+    \end{axis}
+\end{tikzpicture}
+
+Any other mechanism you put forward which can explain it from first principle
+deserves full credit.
 
 \end{document}          
