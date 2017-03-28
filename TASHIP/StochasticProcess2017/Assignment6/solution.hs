@@ -38,4 +38,4 @@ main = do
     let trajectory = simulateUsingLangevian nSteps 0.0 0.1
     -- Save trajectory to a CSV file
     writeCsv filename trajectory
-    putStrLn $ "All done"
+    putStrLn $ "Wrote data to " ++ filename
