@@ -1,8 +1,8 @@
-all : docs exp1
+all : exp1 docs
 	@echo "Done all"
 
 docs : ./Assignment6.tex 
-	lualatex $<
+	lualatex --shell-escape $<
 	@echo "Done plotting"
 
 exp1 : ./Assignment6 
@@ -13,9 +13,11 @@ exp1 : ./Assignment6
 		    echo Iteration $$i; \
 		    ./Assignment6 100 $$dt $$v _data/$${v}_$${dt}_$${i}.txt; \
 		    ((i=i+1)); \
-		done \
-	    done \
-	done
+		done; \
+		tail -n 1 -q _data/$${v}_* > $${v}_$${dt}_lastVel.txt;  \
+	    done; \
+	done;
+	# Generate file with velocity
 
 ./Assignment6 : ./solution.hs
 	ghc -O3 $< -hidir /tmp -o Assignment6
