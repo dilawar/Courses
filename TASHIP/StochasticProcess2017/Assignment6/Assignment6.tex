@@ -24,8 +24,12 @@
 \usepackage{verbatim}
 \usepackage{hyperref}
 \usepackage{pgfplots}
-
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
+
+% externalize tikz graphs
+\usetikzlibrary{external}
+\tikzexternalize
+    
 % Title Page
 \title{Solution : Homework 6} 
 \author{Dilawar Singh}
@@ -70,37 +74,54 @@ For each case we plot 5 sample trajectories.
     \par
 }
 
-Next, we plot the histogram if velocity.
+\subsection*{Part B}
 
+Next, we plot the histogram if velocity. Is it possible to tell if all of them
+are same? By the look from it, they look the same. Usually one do statistical
+test (e.g. KS test) to verify.
+
+
+\par \noindent
+
+\begin{figure}[ht!]
+\begin{center}
 \foreach \vel in {0,10}
 {
-     Collect all data in one file. Last entry from each file.
     \foreach \dt in {0.1, 0.01, 0.001}
     {
         \pgfmathsetmacro\everyN{round(1.0/\dt)}
+        \edef\datafile{\vel _\dt _lastVel.txt}
         \begin{tikzpicture}[scale=1]
-            \begin{axis}[
-                    xlabel=Time (au) ,ylabel= Position (au)
-                    , grid style={draw=gray!20}
-                    , grid = both
-                    , title =  $v_0$ \vel\; and dt \dt
-                    , width = 3cm, scale only axis
-                    , no marks
-                    ]
-                \foreach \i in {1,2,...,100}
-                {
-                    %\addplot  gnuplot [ raw gnuplot ] {
-                        %set datafile separator ",";
-                        %plot "./_data/\vel _\dt _\i .txt" using 1:3 every \everyN with lines;
-                    %};
-                }
+            \begin{axis}[ title =  $v_0$ \vel\; and dt \dt
+                    , width = 4cm, scale only axis 
+                    %, xmin = -4, xmax = 4
+                ]
+                \addplot[ybar, bar width=5,fill=red,draw=none] gnuplot [raw gnuplot ] {
+                    set datafile separator ",";
+                    bin(x,width)=width*floor(x/width);
+                    plot "\datafile" using (bin($2,0.5)):(1.0) smooth freq with boxes;
+                };
+
+                \addplot[mark=x ] gnuplot [ raw gnuplot ] {
+                    set datafile separator ",";
+                    stat "\datafile" using 2 name "A"; 
+                    plot "+" using ((A_sumsq / A_records) ** 0.5):(0) w p;
+                };
+
             \end{axis}
-        \end{tikzpicture}
+        \end{tikzpicture} %
     }
     \par
 }
 
-
+\end{center}
+\caption{
+Histogram of velocity. The black cross is the root-mean-squared value
+of velocity as 100 units of simulation. The histogram look similar for given
+number of entries. 
+}
+\label{fig:}
+\end{figure}
 \newpage
 \appendix
 \section{Haskell based simulator}
