@@ -17,7 +17,8 @@ exp1 : Assignment6
 		tail -n 1 -q _data/$${v}_* > $${v}_$${dt}_lastVel.txt;  \
 	    done; \
 	done;
-	# Generate file with velocity
+	# Compute diffusion coefficient
+	python ./compute_diffusion.py
 
 Assignment6 : solution.hs
 	ghc -O3 $< -hidir /tmp -o Assignment6

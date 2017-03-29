@@ -123,27 +123,20 @@ number of entries.
 \label{fig:}
 \end{figure}
 
+\subsection*{Bonus}
+
 We use the same data to compute the diffusion coefficient using 
-$(x_t - x_0)^2 = 2Dt$
+$(x_t - x_0)^2 = 2Dt$. After some time, the slope is getting less variable and
+seems to be getting constant.
 
 \begin{tikzpicture}[scale=1]
-    \begin{axis}[ xlabel=Time,ylabel=Diffusion Coefficient
-        , grid style={draw=gray!20}, grid = both, minor tick num = 4 
-        , xmin = 100, no marks
+    \begin{axis}[ xlabel=Time, ylabel = 2Dt
+        , grid style={draw=gray!20}, grid = both
     ]
-    \foreach \i in {1,2,...,3} 
-    {
-        \edef\filename{_data/0_0.001_\i.txt}
-        % plot "\filename" using 1:(f($3,$1)) every 100 with lines;
-        \addplot+ gnuplot [ raw gnuplot ] {
-            set datafile separator ",";
-            old=0;
-            sum=0;
-            diff(x) = (vd=x-old, old=x, vd ** 2 / 2.0 * 0.001); 
-            stat "\filename" using 3 name "A" nooutput;
-            plot "\filename" using 1:(diff($3)) every 1000 with lines
-        };
-    }
+    \addplot+ gnuplot [ raw gnuplot ] {
+        set datafile separator ",";
+        plot "./diff_results.csv" using 1:2 every 100 with lines
+    };
     \end{axis}
 \end{tikzpicture}
 
