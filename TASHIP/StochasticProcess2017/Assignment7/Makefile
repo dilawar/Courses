@@ -22,5 +22,5 @@ data : Assignment7
 	./$<
 	
 Assignment7 : solution.hs
-	ghc -O3 $< -hidir /tmp -o Assignment7
+	stack ghc -- -O3 $< -hidir /tmp -o Assignment7
 
