@@ -147,12 +147,18 @@ activate kinase X. Following is one solution:
 
 \schemestart A + B \arrow{->[$k_1$]} AB \schemestop
 
-\schemestart R + X \arrow{->[$k_2$]} $X^*$ \schemestop
+\schemestart R + X \arrow{->[$k_2$]} $X^*$ + R \schemestop
 
 \schemestart $X^*$ + AB \arrow{<->>[$k_f$][$k_b$]} XAB \schemestop
 
-You need to find a signaling pathway which can do the above computation.
+You need to find a signaling pathway which can do the above computation. Here is
+the simulation of this scheme. When both A and B are zero, the system is high
+(yellow). 
 
+\includegraphics[width=0.7\textwidth]{./nand.png}
+
+In this reaction scheme, we can not convert this gate to NOR gate by merely
+changing the reaction rate.
 
 \end{document}          
 
