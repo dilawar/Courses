@@ -87,15 +87,15 @@ class Markov():
     def run(self):
         self.initMatrix()
         e1, v1 = self.getEigens(self.markov)
-        #print e1
-        #print v1
+        print e1
+        print v1
         pow = 50
         print("Raising the power to %s" % pow)
         b = numpy.linalg.matrix_power(self.markov, pow)
         numpy.savetxt('markov_%s.out' % pow, b, delimiter=',', fmt='%1.3f')
         e2, v2 = self.getEigens(b)
-        #print e2
-        #print v2
+        print e2
+        print v2
         print("Diff between max eigenvalues: {}".format(abs(e2) - abs(e1)))
         print("Diff between eigenvectors: {}".format(e2 - e1))
         self.valueCheck(b)

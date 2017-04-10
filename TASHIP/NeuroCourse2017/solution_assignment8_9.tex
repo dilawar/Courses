@@ -22,6 +22,7 @@
 \usepackage{amssymb}
 \usepackage{chemfig}
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
+\usetikzlibrary{calc,positioning}
 % Title Page
 \title{Title here} 
 \author{Dilawar Singh}
@@ -111,7 +112,61 @@ Design receptors and thresholds, for a set of 5 single neurons that can  do the
 logical operations AND, OR, NOR, NAND and XOR, respectively. Assume only two
 inputs in each case, A, and B. Explain how the last two work.
 
-\paragraph{Solution} Not given. There are various ways to design these neurons.
+\paragraph{Solution} 
+
+
+\tikz {  
+    \node[] (a) {A};
+    \node[below=of a] (b) {B};
+    \node[right=of $(a)!0.5!(b)$,fill=blue!20] (x) {$\theta = w_1 + w_2 - \epsilon $ };
+    \node[right=of x] (o) {A \texttt{AND} B};
+    \draw[->] (a) to[ ] node[above, midway] {$w_1$} (x);
+    \draw[->] (b) to[ ] node[above, midway] {$w_2$} (x);
+    \draw[-] (x) -- (o);
+}
+
+\tikz {  
+    \node[] (a) {A};
+    \node[below=of a] (b) {B};
+    \node[right=of $(a)!0.5!(b)$,fill=blue!20] (x) {$\theta = min(w_1, w_2) - \epsilon $ };
+    \node[right=of x] (o) {A \texttt{OR} B};
+    \draw[->] (a) to[ ] node[above, midway] {$w_1$} (x);
+    \draw[->] (b) to[ ] node[above, midway] {$w_2$} (x);
+    \draw[-] (x) -- (o);
+}
+
+\tikz {  
+    \node[] (a) {A};
+    \node[below=of a] (b) {B};
+    \node[right=of $(a)!0.5!(b)$,fill=blue!20] (x) {$\theta = - \epsilon $ };
+    \node[right=of x] (o) {A \texttt{NOR} B};
+    \draw[->] (a) to[ ] node[above, midway] {$-w_1$} (x);
+    \draw[->] (b) to[ ] node[above, midway] {$-w_2$} (x);
+    \draw[-] (x) -- (o);
+}
+
+\tikz {  
+    \node[] (a) {A};
+    \node[below=of a] (b) {B};
+    \node[right=of $(a)!0.5!(b)$,fill=blue!20] (x) {$\theta = max(-w_1,-w_2) - \epsilon $ };
+    \node[right=of x] (o) {A \texttt{NAND} B};
+    \draw[->] (a) to[ ] node[above, midway] {$-w_1$} (x);
+    \draw[->] (b) to[ ] node[above, midway] {$-w_2$} (x);
+    \draw[-] (x) -- (o);
+}
+
+This is bit odd!
+
+\tikz {  
+    \node[] (a) {A};
+    \node[below=of a] (b) {B};
+    \node[right=of $(a)!0.5!(b)$,fill=blue!20] (x) {$w_1 < \theta < -w_2 + \epsilon $ };
+    \node[right=of x] (o) {A \texttt{XOR} B};
+    \draw[->] (a) to[ ] node[above, midway] {$w_1$} (x);
+    \draw[->] (b) to[ ] node[above, midway] {$-w_2$} (x);
+    \draw[-] (x) -- (o);
+}
+
 
 \paragraph{Problem 9.1, 3 Points}
 

@@ -25,35 +25,34 @@ words_ = [ ]
 
 def fix( w ):
     w = w.translate( { ord(i) : None for i in ';.[])(!,' } )
-    return w.lower( )
+    if len( w ) > 1:
+        return w.lower( )
+    return False
 
 def main( ):
     with open( './war_and_peace.txt', 'r' ) as f:
         txt = f.read( )
 
     words = list( filter( fix, txt.split( ) ) )
+    words_ = list( set( words ) )
+
     print( 'Total words %d' % len( words ) )
     nWords = len( set(words) )
+    img = np.zeros( shape=(nWords,nWords) )
     print( 'Total unique words %d' % nWords )
 
-    img = np.zeros( shape=(nWords,nWords) )
     for i, w in enumerate( words[1:] ):
         prevW = words[ i ]
-        transitions_[ '%s:%s' % (prevW.lower(), w.lower()) ] += 1
+        transitions_[ '%s<|>%s' % (prevW, w) ] += 1.0
 
     print( 'Counted all transitions' )
-    for pair in sorted( transitions_ ):
-        try:
-            indices = map( lambda x : words.index( x ), pair.split( ':' ) )
-            if len( indices ) == 2:
-                x, y = indices 
-                img[x,y] = transitions_[ pair ]
-        except Exception as e:
-            print( '.', end = '' )
-            pass
+    for pair in transitions_: 
+        x, y = map( lambda x : words_.index( x ), pair.split( '<|>' ) )
+        img[x,y] = transitions_[ pair ]
 
-    pyplot.imshow( img, interpolation = 'none' )
-    pyplot.show( )
+    print( '|- Mean %f, max %f, std %f' % ( img.mean(), img.max(), img.std() ) )
+    plt.imshow( img[::20,::20], interpolation = 'none' )
+    plt.show( )
 
 if __name__ == '__main__':
     main()
