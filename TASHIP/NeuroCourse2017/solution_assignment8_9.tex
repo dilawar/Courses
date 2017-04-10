@@ -20,6 +20,7 @@
 \usepackage{pgf,tikz,pgfplots}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{chemfig}
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
 % Title Page
 \title{Title here} 
@@ -83,22 +84,75 @@ y axis draw the somatic excitation. Consider first summation if the inputs are
 far below dendritic action-potential threshold (relatively few inputs), and then
 draw what happens to somatic excitation as the number of inputs increases.
 
-\paragraph{Solution} 
+\paragraph{Solution} I made a approximate model for this problem and computed
+the response at soma with varying N. Soma is far away from dendrite receiving
+inputs (50 a.u. away). All inputs are 60 +/- 10 a.u. away from soma. The
+time-difference between inputs are uniform random number 0 to 10 a.u. of time.
+For totally synchronous input, this time-difference should be 0. Some results
+are shown below. 
 
-\begin{tikzpicture}[scale=1]
-    \begin{axis}[
-    xlabel=Converging active input,ylabel=Somatic Excitation
-    , grid style={draw=gray!20}, grid = both
-    ]
-    \addplot [color=blue] gnuplot [ raw gnuplot ] {
-    };
-    \end{axis}
-\end{tikzpicture}
+\includegraphics[width=0.4\textwidth]{./prob83_N10.png} 
+\includegraphics[width=0.4\textwidth]{./prob83_N25.png}
+\includegraphics[width=0.4\textwidth]{./prob83_N100.png}
+\par
+
+\includegraphics[width=0.4\textwidth]{./prob83_N125.png}
+\includegraphics[width=0.4\textwidth]{./prob83_N398.png}
+\includegraphics[width=0.4\textwidth]{./prob83_N1000.png}
+
+If my model is correct, you were suppose to capture the following effect,
+qualitatively or quantitatively.
+
+\includegraphics[width=.8\textwidth]{./prob83_N_final.png}
+
 
 \paragraph{Problem 8.4, 5 Points}
 Design receptors and thresholds, for a set of 5 single neurons that can  do the
 logical operations AND, OR, NOR, NAND and XOR, respectively. Assume only two
 inputs in each case, A, and B. Explain how the last two work.
+
+\paragraph{Solution} Not given. There are various ways to design these neurons.
+
+\paragraph{Problem 9.1, 3 Points}
+
+Read up how dopamine encodes reward expectation. In which of the situations will
+you get the highest peak of dopamine? Explain why.
+
+\begin{enumerate}
+    \item Passing your course.
+    \item Passing your course if you didn’t even study.
+    \item Passing your course on the second attempt.
+    \item Discovering that you had forgotten to register for the course so you don’t
+even have to sit for the exam.
+
+\end{enumerate}
+
+\paragraph{Solution} Dopamine is released when there is an unexpected reward or
+when one is thinking of reward in future. Essentially if you get a reward
+without doing anything (or much), dopamine is released. I think 2 and 4 falls
+into this category.
+
+\paragraph{Problem 9.1, 5 Points}
+Put together a few (named) signaling pathways to perform the operation of a NAND
+gate, triggered by receptor activation, and using the activity of a kinase as
+output. Which rate constants would you change to make it a NOR gate?
+
+\paragraph{Solution} Recall that a NAND gate with inputs A and B, is ON when at
+most 1 of the inputs is ON. Or in other words, if both A and B are ON, the
+output is OFF, otherwise it is ON. The kinase has to be OFF when both signal are
+high, and ON otherwise.
+
+Let's say we have chemical species A and B (as input to gate), receptor R to
+activate kinase X. Following is one solution:
+
+\schemestart A + B \arrow{->[$k_1$]} AB \schemestop
+
+\schemestart R + X \arrow{->[$k_2$]} $X^*$ \schemestop
+
+\schemestart $X^*$ + AB \arrow{<->>[$k_f$][$k_b$]} XAB \schemestop
+
+You need to find a signaling pathway which can do the above computation.
+
 
 \end{document}          
 

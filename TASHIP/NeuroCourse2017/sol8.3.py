@@ -28,14 +28,14 @@ def signal( tvec, startT, viewT ):
     assert viewT >= startT, "Cant view signal before its applied"
     diffT = viewT - startT
     x =  diffT  / velocity
-    tau = 1 / 10.0
+    tau = 1 / 8.0
     spread = (1+x) ** 0.5
     return np.exp( - ( tvec - startT ) ** 2 / spread ) * math.exp( - diffT * tau )
 
 
 def main( N ):
     dist = np.random.choice( grid, N )
-    time = np.random.choice( np.arange(0,10,0.2), N )
+    time = np.random.choice( np.arange(0,10,1), N )
     tvec = np.arange( -20, 20, 0.1 )
     outputs = [ ]
     for i in range( N ):
@@ -46,8 +46,9 @@ def main( N ):
         output = signal( tvec, t0, viewT )
         outputs.append( output )
 
+    soma = np.sum( outputs, axis = 0 )
     plt.figure( )
-    plt.plot( tvec, np.sum( outputs, axis = 0 ), label = 'Sum' )
+    plt.plot( tvec, soma, label = 'Sum' )
     plt.plot( tvec, [ 0.5 ] * len( tvec ), label = 'Threshold' )
     plt.legend( )
     plt.ylabel( 'Sum at soma' )
@@ -57,6 +58,7 @@ def main( N ):
     plt.savefig( outfile )
     print( '[INFO] Saved to %s' % outfile )
     plt.close( )
+    return soma.max( )
 
 def test( ):
     tvec = np.arange( 0, 20, 0.1 )
@@ -68,6 +70,14 @@ def test( ):
 
 if __name__ == '__main__':
     # test( )
-    for i in range( 10, 40 ):
+    nvec, resvec = [ ], [ ]
+    for i in range( 10, 21 ):
         N = int( 10 ** (i/10.0 ) )
-        main( N )
+        res = main( N )
+        nvec.append( N ); resvec.append( res )
+
+    plt.figure( )
+    plt.plot( nvec, resvec )
+    plt.xlabel( 'Number of convergent connections' )
+    plt.ylabel( 'Response at soma' )
+    plt.savefig( 'prob83_N_final.png' )
