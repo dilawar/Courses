@@ -17,7 +17,7 @@
 %%=====================================================================================
 
 \documentclass[a4paper,10pt]{article}
-\usepackage{pgf,tikz}
+\usepackage{pgf,tikz,pgfplots}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usetikzlibrary{shapes,backgrounds,decorations,decorations.pathmorphing}
@@ -36,11 +36,45 @@ curve for these is quite broad, and let us say that the curves overlap.  Draw a
 graph with response on the y axis, and stimulus wavelength on the x axis, for
 the two neurons.
 
-\paragraph{Problem 8.2, 5 Points}
+\paragraph{Solution} The response curve of these two neurons to the light is
+shown below. These are well approximated by following functions $blue(x) =
+\exp\left( \frac{-(x-450)^2}{500}\right)$, and $red(x) = \exp\left(
+\frac{-(x-550)^2}{2000}\right)$. Notice that these functions are also used to
+approximate Dirac delta function.
+
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+            xlabel=Wavelength (nm),ylabel=Response
+        , grid style={draw=gray!20}, grid = both
+        , no markers
+        , xmin = 400, xmax = 700
+    ]
+    \addplot gnuplot [ raw gnuplot ] {
+            set xrange [400:800];
+            blue(x)=exp( 20e-4 * -(x-450)^2 );
+            plot blue(x) with lines;
+    };
+    \addplot gnuplot [ raw gnuplot ] {
+            set xrange [400:800];
+            red(x)=exp( 5e-4 * -(x-550)^2 );
+            plot red(x) with lines;
+    };
+    \end{axis}
+\end{tikzpicture}
+
+\paragraph{Problem 8.2, 3 Points}
 Consider the response of the red and blue neurons to a monchromatic yellow
 stimulus, that has its wavelength 75\% closer to red than to blue. Come up with a
 two-colour stimulus that would fool you into thinking it was the same colour as
 yellow.
+
+\paragraph{Solution} With values in previous solution, the wavelength is 525 nm.
+At this wavelength the overall response is $blue(525) = 0.000013$ and $red(525)
+= 0.7316$. The combination of both is roughly 0.7316. The problem is to find
+$x$ and $y$ such that $blue(x)+red(x) + blue(y) + red(y) = 0.7316$. 
+There are many solutions to this equation. One such solution is $x = 425$ and
+$y=590$.
 
 \paragraph{Problem 8.3, 5 Points}
 Consider how inputs to a neuron sum, when they are located on an excitable
@@ -48,6 +82,18 @@ dendrite. On the x axis draw the number of converging active inputs, and on the
 y axis draw the somatic excitation. Consider first summation if the inputs are
 far below dendritic action-potential threshold (relatively few inputs), and then
 draw what happens to somatic excitation as the number of inputs increases.
+
+\paragraph{Solution} 
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+    xlabel=Converging active input,ylabel=Somatic Excitation
+    , grid style={draw=gray!20}, grid = both
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+    };
+    \end{axis}
+\end{tikzpicture}
 
 \paragraph{Problem 8.4, 5 Points}
 Design receptors and thresholds, for a set of 5 single neurons that can  do the
