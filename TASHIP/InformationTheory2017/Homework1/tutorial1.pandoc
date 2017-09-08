@@ -1,0 +1,144 @@
+---
+title: Tutorial 1 - Information Theory 2017
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+geometry: right=5cm, marginparwidth=4cm
+date : \today 
+fontfamily: libertine
+header-includes:
+    - \usepackage{pgfplots}
+    - \usepackage{epsdice}
+    - \usepackage{mathpazo}
+    - \usepackage{tfrupee}
+---
+
+\renewcommand\footnote\marginpar
+
+- Due date: Friday 15, 2017, noon 1200Hrs.
+
+# Probability 
+
+- $\Omega$ : Set of all possible outcome.
+- $Pr(x)$, probability of event $x$. $x$ must be in $\Omega$ ( $x \in \Omega$ ).
+- Sum of $Pr(x)$ for all $x$ in $\Omega$ must add to to 1 or $\sum_{x\in\Omega} Pr(x)= 1$
+
+For example, when I roll a die it can land in six ways. For such a  die,
+$\Omega$ consists of six outcome (elements).  $\Omega={ \epsdice{1},
+\epsdice{2}, \epsdice{3},\epsdice{4},\epsdice{5},\epsdice{6} }$. 
+
+When die is fair, any outcome is equally likely i.e. $Pr(\epsdice{1}) =
+Pr(\epsdice{2}) = \ldots = Pr(\epsdice{6})$. Also $Pr(\epsdice{1}) +
+Pr(\epsdice{2}) + \ldots + Pr(\epsdice{6}) = 1$. These two facts implies that
+any outcome has the probability of $\frac{1}{6}$ or $Pr(x) = \frac{1}{6}$ for
+any $x\in\Omega$.
+
+## Mean and variance 
+
+- Mean is often called _expected value_.
+
+### 5 Points
+- Write the defination of _mean_ and _variance_.
+- What is the _expected value_ of a die. 
+- What is the _expected value_ of a pair of dice.
+
+### 10 points
+
+Two lotteries sells 100 tickets every week. At the end of the week, one of these
+tickets is selected randomly (each ticket is equally likely to win) and winner
+is given 1 lakh rupees. Other 99 tickes gets nothing. You have enough money to
+buy two tickets: you can buy both tickets from the same lottery or 1 from each
+lotteries. Which strategy is __better__ given that you can play lottery enough
+time.
+
+### __bonus__ 10 points 
+
+In late 1990s, the Uttar Pradesh state government used to run lottery. At the
+end of week if the number of ticket ended with the winning digit, it would win 11
+times the value of ticket. Each ticket has the probability $\frac{1}{10}$ of
+winning the lottery.
+
+In my village, local drunkard  came up with following _algorithm_ which is sure
+to make him rich.
+
+Let fix the value of ticket to be \rupee 5 (winning amount \rupee 55).
+
+- At week 1, buy n (assume 1) tickets with number ending with X.
+- Repeat till you win: next week buy $2n$ ticket with number ending with X.
+
+Inspired by his reasoning, if 100 people played the lottery using his algorithm
+using their favourite X.  Assuming that everyone had 1 lakh rupee to start with,
+how long it took (on average) for everyone to got bankrupt?
+
+## Roll the dice, play the cards, flip the coins
+^[Never say die]
+
+### 5 points 
+For a pair of dice, write $\Omega$.
+
+1. Consider $\epsdice{1}\epsdice{4}$ and $\epsdice{4}\epsdice{1}$ etc. as
+distinct events.
+2. Consider $\epsdice{1}\epsdice{5}$ and $\epsdice{5}\epsdice{1}$ etc. as same
+event.
+3. __bonus__ Repeat the problem for 4 dice. You can use computer program to
+check your results.
+
+### 5 points
+
+A loaded dice is given as $Pr(\epsdice{1})=\frac{1}{2}$,
+$Pr(\epsdice{2})=\frac{1}{4}$, $Pr(\epsdice{3}) = Pr(\epsdice{4}) = Pr(
+\epsdice{5}) = Pr(\epsdice{6}) = \frac{1}{16}$. Write down $\Omega$ and
+probability of each event ($Pr(x),\; x \in \Omega$) when we roll
+two dice.
+
+1. Both are loaded.
+2. One is loaded, other is 'fair'.
+
+Assume that $\epsdice{3}\epsdice{4}$ and $\epsdice{4}\epsdice{3}$ etc. are the
+same event.
+
+### 5 points
+
+Your TA flipped a Rs. 1 coin repeatedly. Once he got two head in succession,
+he noted down the number of flips. He got the following sequence:
+
+    6,3,6,8,7,12,16,2,3,2
+
+^[He wanted to do 20 samples, but he flipped out after 10.] 
+
+Fortunately others have also done such excercise. I was able to get following
+data from two universities.
+
+    3,2,3,5,10,2,6,6,9,2     (Stanford, 1979)
+    10,2,10,7,5,2,10,6,10,2  (Princeton, 1987)
+
+1. Compute (umm. estimate) the mean and variance of these sequences.
+2. __bonus__ Based on these sequence, can you estimate the probability that coin used
+was not 'fair'? If yes, estimate. If no, why not.
+
+
+## Typical dressing 
+
+### 5 points
+
+A man has a non-magical wardrobe containing 10 shirts, 10 pants, 20 pairs of
+socks, 10 pairs of shoes, 30 hats, and 50 neck-ties.  He is allowed to pick 6
+items everyday. Whenever he chooses 1 shirt, 1 pant, 1 pair of
+shoes, 1 pair of socks, 1 hat and 1 neck-tie, we call is 'typical garments'.
+
+1. How many ways he can choose 6 items? 
+2. How many ways he can dress himself 'typically'?
+
+In a slightly off-beat world, a typical garmets contains at least 1 shirt, 1
+pant, and 1 pair of shoes. Rest of the 6 garmets chould be anything.
+
+3. How many ways he can dress himself 'typically'?
+
+# Some calculus
+
+- $log_2 x = n \iff 2^n = x$
+
+### 5 points
+- Show/prove/argue that $0 \log 0 = 0$.
+- Show that $\log_x y = \frac{\log_a y}{\log_a x}$.
+- Plot (show your work) $x \log(x) + (1-x) \log (1-x)$ where $0 \le x \le 1$.
