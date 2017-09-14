@@ -25,10 +25,10 @@ capital_ = [ startingCapital * N ]
 fortunes_ = [ ]
 meanF, varF = [ ], [ ]
 
-def step( week ):
+def step( week, price = 5 ):
     global people
-    ticketsBought = 2 ** week
-    cost = 5 * ticketsBought 
+    ticketsBought = 2 * week
+    cost = price * ticketsBought 
     winningDigit = random.choice( outcome_ )
     #  print( ' Winning digit this week %d' % winningDigit )
     fortunes = [ ]
@@ -37,19 +37,17 @@ def step( week ):
     for i, (money, favN) in enumerate( people ):
         if cost > money:
             # He can't play anymore.
-            money = 0
-            f = 0
+            f = money
         else:
-            # Definately remove cost 
             if winningDigit == favN:
                 nWin += 1
-                win = 55 * ticketsBought
+                win = ( price * 10 + 1 ) * ticketsBought
             else:
                 win = 0
-            f = max(0, money - cost + win)
+            f = money - cost + win
             people[i] = (f, favN)
 
-        capital += int(f)
+        capital += f
         fortunes.append(f)
 
     meanF.append( np.mean( fortunes ) )
@@ -62,16 +60,16 @@ def main( ):
     # Lets play for 100 weeks.
 
     week = 0
-    while capital_[-1] > 0:
+    while capital_[-1] > 0 and week < 200:
         print( 'Week %d' % week )
         nWin = step( week )
-        print( 'Total wins %d' % nWin )
+        print( 'Total wins %d, amount: %d' % (nWin, capital_[-1] ) )
         week += 1
+
     print( 'Everyone bankrupt after %d weeks' % week )
     plt.subplot( 211 )
     plt.errorbar( np.arange(0, len(meanF) ), meanF, yerr = varF )
     plt.subplot( 212 )
-    print( fortunes_) 
     plt.imshow( np.matrix(fortunes_), cmap='seismic', interpolation = 'none', aspect = 'auto' )
     plt.colorbar( )
 
