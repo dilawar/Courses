@@ -14,6 +14,10 @@ space n = [
 allProbs [] [] = 0.0
 allProbs (x:xs) (p:ps) = x * p + allProbs xs ps
 
-problem1 = filter (\b -> sum b == 8.0) $ filter (\a -> allProbs a probs == 1.0) $ allSpace 
+computeEntropy [ ] [ ] = 0.0
+computeEntropy (x:xs) (p:ps) = - x * p * (logBase 2.0 p) + computeEntropy xs ps
+
+problem1 = computeEntropy sol probs
   where 
+    sol = filter (\b -> sum b == 8.0) $ filter (\a -> allProbs a probs == 1.0) $ allSpace 
     allSpace = space 8
