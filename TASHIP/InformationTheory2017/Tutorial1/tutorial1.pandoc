@@ -67,8 +67,11 @@ both cases: $0 \times 0.98 + 0.02 \times 1 = 0.02$, and $0\times 0.9801 + 0.0198
 Let play this lottery on computer since we can not play in real life. Figure
 @fig:1 shows the simultion.
 
-![Second strategy is slightly better. On average, we might win more
-money.](./lotteries.py.png){ #fig:1 }
+![Second strategy is slightly better. On average, we _might_ win more
+money with S2 given that we win \rupee 2 lakh. For very large number (almost
+infinite), both strategy will yield same results (since mean is same), however
+for large numbers of times lottery played, S2 seems to be more beneficial (as
+per simulations).](./lotteries.py.png){ #fig:1 }
 
 ### __bonus__ 10 points 
 
@@ -88,6 +91,12 @@ Let fix the value of ticket to be \rupee 5 (winning amount \rupee 55).
 Inspired by his reasoning, if 100 people played the lottery using his algorithm
 using their favourite X.  Assuming that everyone had 1 lakh rupee to start with,
 how long it took (on average) for everyone to got bankrupt?
+
+__Solution__ Let's solve a simpler problem first: what is the probability that
+person gets bankrupt after n weeks. The number of tickets bought in n weeks are
+$2^0 + 2^1 + \ldots + 2^n = \frac{2^{n+1}-1}{1}$. The cost of these tickets is
+\rupee $5 \times (2^{n+1}-1)$. What is the __expected value__ of winning during
+these n weeks?
 
 ## Roll the dice, play the cards, flip the coins
 ^[Never say die]
