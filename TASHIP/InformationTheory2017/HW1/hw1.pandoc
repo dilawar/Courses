@@ -10,10 +10,26 @@ header-includes:
     - \usepackage{pgfplots}
 ---
 
-# Problem 1
+# Coding 
 
-__a.__ 
+Consider a horse race where the probabilities of winning are given by negative
+powers of 2 (1/2, 1/32, etc.). Suppose the lowest possible probability for any
+horse is $2^{-m}$, and that there are $n_i$ horses in each probability class
+$2^{-i}$.
 
-Total probability must adds up to 1.
+a. What equation must the $n_i$ satisfy?
+b. Give 3 possible sets of $\{n_i\}$ for an 8 horse race (other than the uniform case).
+c. Using the entropy concept, calculate the expected codeword length for each set.
+d. For each set, present an efficient binary coding scheme that achieves optimality.
 
-$\sum n_i * 2^{-i} = 1 $
+__Solution__
+
+__a.__ Total probability (probability of all events) must adds up to 1 i.e.
+$\sum n_i * 2^{-i} = 1$
+
+__b.__ One case is trivial that all 8 horses belongs to probability class
+$2^{-3}$. Each horse has the probability of winning $\frac{1}{8}$. We need to
+find one more such solution. One such solution is that 1 horse belong to
+probability class $2^{-1}$, 1 horse belongs to probability class $2^{-2}$ and
+6 horses belong to probability class $2^{-3}$. We can check that $1 2^{-1} + 1
+2^{-2} + 6 2^{-3} = \frac{1}{2} + \frac{1}{4} + \frac{6}{8}
