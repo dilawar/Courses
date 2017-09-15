@@ -96,7 +96,33 @@ __Solution__ Let's solve a simpler problem first: what is the probability that
 person gets bankrupt after n weeks. The number of tickets bought in n weeks are
 $2^0 + 2^1 + \ldots + 2^n = \frac{2^{n+1}-1}{1}$. The cost of these tickets is
 \rupee $5 \times (2^{n+1}-1)$. What is the __expected value__ of winning during
-these n weeks?
+these n weeks? The probability of winning during these $n$ weeks are $p2^0 +
+p2^1 + \ldots p2^n$ where $p$ is the probability of any ticket winning i.e. 0.1.
+So expected value of winning during these n weeks is \rupee$55p(2^{n+1} -
+1)=\text{\rupee} 5.5 (2^{n+1}-1)$ which is higher than the cost of tickets. In
+other words, we always (on average) end up making more money than spending.
+^[What's wrong which this argument?]
+
+What if do not win any lottery for 15 weeks? There is a non-zero chance that
+this might happen. If we don't win for 15 weeks, we spent all of our money and
+go bankrupt. So the probability that we do not win anything for 15 weeks
+definately one case where we go backrupt. 
+
+Let assume that during $n$ weeks, we have won 1 lottery. There are n ways this
+could happend: we won in first week, we won in second week, ..., we won in n'th
+week. What is value of n before we go bankrupt in each of these cases? And what
+are the probabilities of these events happening?
+
+Lets assume that during $n$ weeks, we have $k$ times. How many ways we can win
+these lotteries? Pick any k weeks from n weeks i.e. $^nC_k$. What is the value
+of $n$ before we go bankrupt? What are the probabilities for these events
+happening?
+
+You see now, this is a complicated problem. There are many ways we can go
+bankrupt and each way has non-zero probability? So how do we reach an answer? We
+can simulate the process or we can come up with an smart solution to sum up all
+the probable ways in which a person can go banckrupt. Therefore getting the
+probability of a person going backrupt after n weeks.
 
 ## Roll the dice, play the cards, flip the coins
 ^[Never say die]
@@ -125,6 +151,8 @@ two dice.
 Assume that $\epsdice{3}\epsdice{4}$ and $\epsdice{4}\epsdice{3}$ etc. are the
 same event.
 
+__Solution__ No given.
+
 ### 5 points
 
 Your TA flipped a Rs. 1 coin repeatedly. Once he got two head in succession,
@@ -144,6 +172,23 @@ data from two universities.
 2. __bonus__ Based on these sequence, can you estimate the probability that coin used
 was not 'fair'? If yes, estimate. If no, why not.
 
+__Solution__ 
+
+ Coin         | mean | variance 
+:-------------|------|---------
+NCBS 2017     | 6.5  | 4.34 
+Stanford 1979 | 4.79 | 2.78 
+Princeton 1987| 6.4  | 3.35 
+
+The answer is no and its not easy to explain.
+
+Lets call this process X. Lets take an extreme case: NCBS 2017 series was the
+following: 2,2,2,2,2,2,2,2,2,2 i.e. all 20 flips gave us heads. Can we say this
+was definately a loaded coin? What is the probability that this sequence came
+out of a fair coin? Or what is the probability of getting 20 heads in
+succession? Ans is $(\frac{1}{2})^{20}$. It is non-zero!
+
+What is the mean and variance of X for a fair coin anyway? ^[mean=6,std=4.7]
 
 ## Typical dressing 
 
@@ -161,6 +206,8 @@ In a slightly off-beat world, a typical garmets contains at least 1 shirt, 1
 pant, and 1 pair of shoes. Rest of the 6 garmets chould be anything.
 
 3. How many ways he can dress himself 'typically'?
+
+__Solution__ not given.
 
 # Some calculus
 
