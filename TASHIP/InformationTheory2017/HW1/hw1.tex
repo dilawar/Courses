@@ -1,0 +1,181 @@
+% From here  https://raw.githubusercontent.com/jgm/pandoc-templates/master/default.beamer
+\documentclass[]{article}
+\usepackage{mathtools,amsmath,amssymb,amsthm,mathrsfs}
+\usepackage{commath}
+\usepackage{lmodern}
+\usepackage[sc,osf]{mathpazo}
+%\usepackage{circuitikz}
+\makeatletter
+\@ifpackageloaded{tex4ht}{
+    \def\pgfsysdriver{pgfsys-tex4ht.def}
+}
+\makeatother
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage[multidot]{grffile}
+
+%% Include newcommands.
+\IfFileExists{tex_newcommands.tex}{
+    \input{tex_newcommands.tex}
+}
+
+\IfFileExists{dot2texi.sty}{
+    \usepackage{dot2texi}
+}{ }
+
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,backgrounds,positioning,matrix,decorations}
+
+\providecommand{\tightlist}{%
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{siunitx}
+\usepackage{ifxetex,ifluatex}
+\usepackage{listings}
+\lstset{ 
+    basicstyle=\ttfamily,
+    numbers=left,
+    numberstyle=\footnotesize,
+    stepnumber=2,
+    keywordstyle=\color[rgb]{0.13,0.29,0.53}\bfseries,
+    stringstyle=\color[rgb]{0.31,0.60,0.02},
+    commentstyle=\color[rgb]{0.56,0.35,0.01}\itshape,
+    numbersep=5pt,
+    backgroundcolor=\color{black!10},
+    tabsize=2,
+    breaklines=true,
+    linewidth=\textwidth
+}
+% \usepackage[xindyo,acronym,nomain,toc]{glossaries}
+% \makeglossaries
+%\usepackage[xindy]{imakeidx}
+%\makeindex
+\setlength{\parskip}{3mm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{definition}{Definition}
+%\newtheorem{comment}{Comment}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{property}{Property}
+\newtheorem{problem}{Problem}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{script}{Script}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage[right=5cm, marginparwidth=4cm]{geometry}
+\usepackage{longtable,booktabs}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Dilawar Singh},
+            pdftitle={Solution to Homework 1},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{5}
+
+\title{Solution to Homework 1}
+\author{Dilawar Singh}
+\date{\today}
+\usepackage{pgfplots}
+\usepackage{subfig}
+\AtBeginDocument{%
+\renewcommand*\figurename{Figure}
+\renewcommand*\tablename{Table}
+}
+\AtBeginDocument{%
+\renewcommand*\listfigurename{List of Figures}
+\renewcommand*\listtablename{List of Tables}
+}
+\usepackage{float}
+\floatstyle{ruled}
+\makeatletter
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\makeatother
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+
+\begin{document}
+\maketitle
+
+\section{Coding}\label{coding}
+
+Consider a horse race where the probabilities of winning are given by
+negative powers of 2 (1/2, 1/32, etc.). Suppose the lowest possible
+probability for any horse is \(2^{-m}\), and that there are \(n_i\)
+horses in each probability class \(2^{-i}\).
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  What equation must the \(n_i\) satisfy?
+\item
+  Give 3 possible sets of \(\{n_i\}\) for an 8 horse race (other than
+  the uniform case).
+\item
+  Using the entropy concept, calculate the expected codeword length for
+  each set.
+\item
+  For each set, present an efficient binary coding scheme that achieves
+  optimality.
+\end{enumerate}
+
+\textbf{Solution}
+
+\textbf{a.} Total probability (probability of all events) must adds up
+to 1 i.e. \(\sum n_i * 2^{-i} = 1\)
+
+\textbf{b.} One case is trivial that all 8 horses belongs to probability
+class \(2^{-3}\). Each horse has the probability of winning
+\(\frac{1}{8}\). We need to find one more such solution.
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+\(2^{-1}\) & \(2^{-2}\) & \(2^{-3}\) & \(2^{-4}\) &
+\(2^{-5}\)\tabularnewline
+\midrule
+\endhead
+0 & 0 & 8 & 0 & 0\tabularnewline
+0 & 1 & 5 & 2 & 0\tabularnewline
+0 & 2 & 2 & 4 & 0\tabularnewline
+0 & 2 & 3 & 1 & 2\tabularnewline
+0 & 3 & 0 & 3 & 2\tabularnewline
+0 & 3 & 1 & 0 & 4\tabularnewline
+1 & 0 & 1 & 6 & 0\tabularnewline
+1 & 0 & 2 & 3 & 2\tabularnewline
+1 & 0 & 3 & 0 & 4\tabularnewline
+1 & 1 & 0 & 2 & 4\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{document}
