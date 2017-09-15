@@ -200,14 +200,30 @@ items everyday. Whenever he chooses 1 shirt, 1 pant, 1 pair of
 shoes, 1 pair of socks, 1 hat and 1 neck-tie, we call is 'typical garments'.
 
 1. How many ways he can choose 6 items? 
+
+__Solution__ There are total 130 items.  For first item, we have 130 choices,
+for second item, we have 129 choices etc. Total choices are $130 \times 129
+    \times 128 \ldots 125$.
+
 2. How many ways he can dress himself 'typically'?
+
+__Solution__ He has to pick 1 items of each type. How many ways he can choose 1
+shirt out of 10 shirts? 10. Similarly there are 30 ways to pick 30 hats etc.
+Total typical dressings are $10 \times 10 \times 20 \times 10 \times 30 \times
+50$.
 
 In a slightly off-beat world, a typical garmets contains at least 1 shirt, 1
 pant, and 1 pair of shoes. Rest of the 6 garmets chould be anything.
 
 3. How many ways he can dress himself 'typically'?
 
-__Solution__ not given.
+__Solution__ Let see he pick required 1 shirt first. There are 10 ways. Next he
+picks required 1 pant, there are 10 ways. Similarly there are 10 ways for
+picking required 1 pair of shoes. Left are 3 garmets and they could be anything.
+How many ways he can pick 3 items out of 9 shirts, 9 pants, 10 pairs of shoes,
+20 pairs of socks, 30 hats and 50 neck-ties (total 127). Go back to problem 1. Ans is 
+$127 \times 126 \times 125$ for this part. So total ways to dress oneself
+typically is $10 \times 10 \times 10 \times 127 \times 126 \times 125$.
 
 # Some calculus
 
