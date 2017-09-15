@@ -31,34 +31,45 @@ import numpy as np
 from collections import Counter
 
 nTickets = 100
+meanA, meanB = [0.0], [0.0]
 
-def playA( ):
+def playA( i ):
+    global meanA
     p = 1.0 / nTickets
     win = 0
     # Two tickets in the same lottery.
     for i in range( 2 ):
         if random.random( ) < p:
-            win += 100000
+            win += 100000.0
             break
+
+    meanA.append( ( i * meanA[-1] + win ) / (i+1.0) )
     return win 
 
-def playB( ):
+def playB( i ):
+    global meanB
     p = 1.0 / nTickets
     win = 0
     # Two tickets in the different lottery.
     for i in range( 2 ):
         if random.random( ) < p:
-            win += 100000
+            win += 100000.0
+
+    meanB.append( ( i * meanB[-1] + win ) / (i+1.0) )
     return win 
 
+def smooth( vec, N = 1000 ):
+    win = np.ones( N ) / N
+    return np.convolve( vec, win, 'valid' )
+
 def main( ):
-    N = 1000000
-    resA = [ playA( ) for i in range( N ) ]
-    resB = [ playB( ) for i in range( N ) ]
+    N = 20000
+    resA = [ playA( i ) for i in range( N ) ]
+    resB = [ playB( i ) for i in range( N ) ]
 
     for i, res in enumerate( [ resA, resB  ] ):
         x = Counter( res )
-        plt.subplot( 2, 1, i+1)
+        plt.subplot( 2, 2, i+1)
 
         xvec = range( len( x ) )
         yvec = np.array( x.values( ), dtype = np.float )
@@ -71,7 +82,19 @@ def main( ):
         plt.xticks( xvec, x.keys( ) )
         plt.xlabel( 'Amount won' )
         plt.ylabel( 'Probability of winning' )
-        plt.title( 'Average winning=%d' % np.mean(res) )
+        plt.title( 'S%d, Average Winning=%d' % (i+1, np.mean(res) ))
+
+    ax3 = plt.subplot( 212 )
+    xvec, meanA, meanB = [ ], [ ], [ ]
+    for i in np.arange( 1, len(resA), 10 ):
+        xvec.append( i )
+        meanA.append( np.mean( resA[:i+1] ) )
+        meanB.append( np.mean( resB[:i+1] ) )
+
+    print( 'Plotting means' )
+    ax3.plot( xvec, meanA, label = r'S1' )
+    ax3.plot( xvec, meanB, label = r'S2' )
+    ax3.legend(loc='best', framealpha=0.4)
 
     plt.suptitle( 'Lottery played %d times' % N )
     plt.tight_layout( pad = 2 )

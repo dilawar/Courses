@@ -15,8 +15,6 @@ header-includes:
 
 \renewcommand\footnote\marginpar
 
-- Due date: Friday 15, 2017, noon 1200Hrs.
-
 # Probability 
 
 - $\Omega$ : Set of all possible outcome.
@@ -51,7 +49,26 @@ buy two tickets: you can buy both tickets from the same lottery or 1 from each
 lotteries. Which strategy is __better__ given that you can play lottery enough
 time.
 
-![Second strategy is slightly better. On average, we might win more money.](./lotteries.py.png)
+__Solution__ If we buy two tickets from the same lottery (__S1__), we have 2%
+chance of winning \rupee 1 lakh, and 98% change of winning nothing. If we buy
+both tickets from different lotteries (__S2__), we have some change of winning
+\rupee 2 lakhs. Lets write down the probabilities.
+
+Strategy                    | \rupee 0     | \rupee 1 lakh | \rupee 2 lakh
+:---------------------------|--------------|---------------|-------------------
+S1                          | 0.98         | 0.02          |
+S2                          | 0.9801       | 0.0198        | 0.0001
+
+With S2, we have slightly higher chance of not winning anything. But a non-zero
+chance of winning \rupee 2 lakhs. The expected value of win (mean) is same is
+both cases: $0 \times 0.98 + 0.02 \times 1 = 0.02$, and $0\times 0.9801 + 0.0198
+* 1 + 0.0001 * 2 = 0.02$. Yet the strategy looks different.
+
+Let play this lottery on computer since we can not play in real life. Figure
+@fig:1 shows the simultion.
+
+![Second strategy is slightly better. On average, we might win more
+money.](./lotteries.py.png){ #fig:1 }
 
 ### __bonus__ 10 points 
 
