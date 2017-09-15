@@ -10,4 +10,10 @@ header-includes:
     - \usepackage{pgfplots}
 ---
 
+# Problem 1
 
+__a.__ 
+
+Total probability must adds up to 1.
+
+$\sum n_i * 2^{-i} = 1 $
