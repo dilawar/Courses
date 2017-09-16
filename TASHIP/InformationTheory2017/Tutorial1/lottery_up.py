@@ -68,11 +68,18 @@ def main( ):
 
     if capital_[-1] == 0:
         print( 'Everyone bankrupt after %d weeks' % week )
+
     plt.subplot( 211 )
     plt.errorbar( np.arange(0, len(meanF) ), meanF, yerr = varF )
+    plt.xlabel( 'Week' )
+    plt.ylabel( 'Total capital for all people' )
     plt.subplot( 212 )
-    plt.imshow( np.matrix(fortunes_), cmap='seismic', interpolation = 'none', aspect = 'auto' )
+    plt.imshow( np.matrix(fortunes_), cmap='seismic', interpolation = 'none'
+            , aspect = 'auto' )
+    plt.xlabel( 'Fortune of 100 people' )
+    plt.ylabel( 'Weeks' )
     plt.colorbar( )
+    plt.tight_layout( )
 
     plt.savefig( '%s.png' % sys.argv[0] )
 
