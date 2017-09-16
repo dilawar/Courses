@@ -27,7 +27,7 @@ meanF, varF = [ ], [ ]
 
 def step( week, price = 5 ):
     global people
-    ticketsBought = 2 * week
+    ticketsBought = 2 ** week
     cost = price * ticketsBought 
     winningDigit = random.choice( outcome_ )
     #  print( ' Winning digit this week %d' % winningDigit )
@@ -36,8 +36,8 @@ def step( week, price = 5 ):
     nWin = 0
     for i, (money, favN) in enumerate( people ):
         if cost > money:
-            # He can't play anymore.
-            f = money
+            # He can't play anymore. Roughly bankrupt
+            f = 0 #money
         else:
             if winningDigit == favN:
                 nWin += 1
@@ -66,7 +66,8 @@ def main( ):
         print( 'Total wins %d, amount: %d' % (nWin, capital_[-1] ) )
         week += 1
 
-    print( 'Everyone bankrupt after %d weeks' % week )
+    if capital_[-1] == 0:
+        print( 'Everyone bankrupt after %d weeks' % week )
     plt.subplot( 211 )
     plt.errorbar( np.arange(0, len(meanF) ), meanF, yerr = varF )
     plt.subplot( 212 )
