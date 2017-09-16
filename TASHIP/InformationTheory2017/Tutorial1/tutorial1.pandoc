@@ -124,6 +124,10 @@ can simulate the process or we can come up with an smart solution to sum up all
 the probable ways in which a person can go banckrupt. Therefore getting the
 probability of a person going backrupt after n weeks.
 
+![ In my approximately accurate simulation, it usually takes less than 20 weeks
+for everyone to go backrupt. Columns in second suplot, shows the fortune of each
+individuals. It fluctuates rapidly  after week 10.](./lottery_up.py)
+
 ## Roll the dice, play the cards, flip the coins
 ^[Never say die]
 
@@ -233,3 +237,5 @@ typically is $10 \times 10 \times 10 \times 127 \times 126 \times 125$.
 - Show/prove/argue that $0 \log 0 = 0$.
 - Show that $\log_x y = \frac{\log_a y}{\log_a x}$.
 - Plot (show your work) $x \log(x) + (1-x) \log (1-x)$ where $0 \le x \le 1$.
+
+__Solution__ Not given.
