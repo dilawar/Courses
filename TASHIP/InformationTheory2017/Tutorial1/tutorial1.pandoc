@@ -185,7 +185,7 @@ was not 'fair'? If yes, estimate. If no, why not.
 
 __Solution__ 
 
- Coin         | mean | variance 
+ Coin         | mean | $\sqrt{\text{variance}}$
 :-------------|------|---------
 NCBS 2017     | 6.5  | 4.34 
 Stanford 1979 | 4.79 | 2.78 
