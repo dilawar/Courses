@@ -27,10 +27,11 @@ __Solution__
 __a.__ Total probability (probability of all events) must adds up to 1 i.e.
 $\sum n_i * 2^{-i} = 1$
 
-__b.__ One case is trivial that all 8 horses belongs to probability class
-$2^{-3}$. Each horse has the probability of winning $\frac{1}{8}$. We need to
-find one more such solution.
+__b, c.__ One case is trivial that all 8 horses belongs to probability class
+$2^{-3}$. Each horse has the probability of winning $\frac{1}{8}$.
 
+Script `./problem1.hs` generates some solutions (probably all possible) to this
+problem. They are listed below.
 
 $1/2$ | $1/4$ | $1/8$ | $1/16$| $1/32$ | Entropy
 ------|-------|-------|-------|--------|-------
@@ -45,3 +46,14 @@ $1/2$ | $1/4$ | $1/8$ | $1/16$| $1/32$ | Entropy
 1 | 0 | 3 | 0 | 4 | 2.25
 1 | 1 | 0 | 2 | 4 | 2.125
 
+# [CT 2.13] Coin weighing. 
+
+Suppose one has n coins, among which there may or may not be one counterfeit
+coin. If there is a counterfiet coin, it may be either heavier or lighter than
+the other coins. The coins are to be weighed by a balance.
+
+a. Find an upper bound on the number of coins n so that k weighings will find the
+   counterfiet coin (if any) and correctly declare it to be heavier or lighter.
+b. Suppose you have k = 3 weighings and 12 coins. How many coins must you weigh
+   against each other in the first round?
+c. (Optional, and hard) Find the full strategy for the 12 coin case.

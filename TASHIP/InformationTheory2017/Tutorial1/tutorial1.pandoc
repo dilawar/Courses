@@ -49,10 +49,10 @@ buy two tickets: you can buy both tickets from the same lottery or 1 from each
 lotteries. Which strategy is __better__ given that you can play lottery enough
 time.
 
-__Solution__ If we buy two tickets from the same lottery (__S1__), we have 2%
-chance of winning \rupee 1 lakh, and 98% change of winning nothing. If we buy
-both tickets from different lotteries (__S2__), we have some change of winning
-\rupee 2 lakhs. Lets write down the probabilities.
+__Solution__ If we buy two tickets from the same lottery (strategy __S1__), we
+have 2% chance of winning \rupee 1 lakh, and 98% change of winning nothing. If
+we buy both tickets from different lotteries (strategy __S2__), we have some
+change of winning \rupee 2 lakhs. Lets write down the probabilities.
 
 Strategy                    | \rupee 0     | \rupee 1 lakh | \rupee 2 lakh
 :---------------------------|--------------|---------------|-------------------
@@ -62,10 +62,17 @@ S2                          | 0.9801       | 0.0198        | 0.0001
 With S2, we have slightly higher chance of not winning anything. But a non-zero
 chance of winning \rupee 2 lakhs. The expected value of win (mean) is same is
 both cases: $0 \times 0.98 + 0.02 \times 1 = 0.02$, and $0\times 0.9801 + 0.0198
-* 1 + 0.0001 * 2 = 0.02$. Yet the strategy looks different.
+* 1 + 0.0001 * 2 = 0.02$. Yet the strategy looks different. After all if I buy
+100 tickets from same lottery, I am sure to win \rupee 1 lakh, but not with __S2__.
 
-Let play this lottery on computer since we can not play in real life. Figure
-@fig:1 shows the simultion.
+Strictly speaker, which strategy is better is beyound the scope of this
+tutorial. All we can show how to do the calculations.  The standard deviation of
+__S1__ is ($\sqrt{0.98(0-0.02)^2+0.02(1-0.02)^2}$) 0.1386 and of __S2__ is
+0.1392265. We can say that __S2__ is \rupee 0.0006265 lakh riskier.
+
+Let play this lottery on computer since we can not play in real life.
+Figure @fig:1 shows the simultion. More often than not, __S2__ gives slightly
+higher return.
 
 ![Second strategy is slightly better. On average, we _might_ win more
 money with S2 given that we win \rupee 2 lakh. For very large number (almost
