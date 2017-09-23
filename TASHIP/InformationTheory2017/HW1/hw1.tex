@@ -4,6 +4,9 @@
 \usepackage{commath}
 \usepackage{lmodern}
 \usepackage[sc,osf]{mathpazo}
+\usepackage{tikz}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{force,trees}
 %\usepackage{circuitikz}
 \makeatletter
 \@ifpackageloaded{tex4ht}{
@@ -201,5 +204,19 @@ a balance.
 \item
   (Optional, and hard) Find the full strategy for the 12 coin case.
 \end{enumerate}
+
+\textbf{Solution}
+
+The strategy to divide the coins into 3 parts and weigh any two of them. One
+such strategy shown below.
+
+\begin{tikzpicture}[scale=1 , every node/.style={} ]
+
+    \graph {
+
+    };
+    
+\end{tikzpicture}    
+
 
 \end{document}
