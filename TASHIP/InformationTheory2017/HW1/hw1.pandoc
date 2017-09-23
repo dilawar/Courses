@@ -46,6 +46,9 @@ $1/2$ | $1/4$ | $1/8$ | $1/16$| $1/32$ | Entropy
 1 | 0 | 3 | 0 | 4 | 2.25
 1 | 1 | 0 | 2 | 4 | 2.125
 
+Code are not given. Your code must be decodable and its entropy should be near
+or equal to calculated entropy given in table above.
+
 # [CT 2.13] Coin weighing. 
 
 Suppose one has n coins, among which there may or may not be one counterfeit
@@ -57,3 +60,37 @@ a. Find an upper bound on the number of coins n so that k weighings will find th
 b. Suppose you have k = 3 weighings and 12 coins. How many coins must you weigh
    against each other in the first round?
 c. (Optional, and hard) Find the full strategy for the 12 coin case.
+
+
+__Solution__
+
+Here is smaller problem to give you some insight. Lets say two coins, $a$ and
+$a'$ where $a'$ is counterfiet. Assume that you also have an additional coin $b$
+which is not counterfiet. How many weighings to find out which one is
+counterfiet? One. You compare $b$ with $a$, both weight the same, you declare
+that $a'$ is counterfiet. You can't tell if $a'$ is lighter or heavier. Howver
+if you weight $b$ with $a'$, you can tell that $a'$ is counterfiet and if
+lighter or heavier. The idea is to use the information from previous
+weighings to reduce the state space.
+
+My strategy is following.  Divide the coins into 3 parts a, b, and c and weigh
+any two of them. Lets say that we weigh a and b and they are equal, then
+counterfiet coin in in c. Otherwise, counterfiet coin in in either a or b. So if
+$a$ and $b$ weigh the same then counterfiet coin is in the rest of one-third of
+coins; otherwise they are in $a$ and $b$ (two-third of coins).
+
+Lets draw $k$ coins. The probability that counterfiet coins is in these k coins
+is $p(k)$. It is easy to show that $p(k) = \frac{k}{12}$. With probability
+$p(k)$ (that counterfiet coin is in selected k coins), we reduce the state space
+by one-third; and with probability $1-p(k)$ one-third. One average we reduce the
+state space by $p(k)(N-2k)+(1-p(k))(2k)$. What value of $k$ maximize this
+function?
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[ xlabel=k, ylabel=State Space reduction, domain=0:9
+            , title = {It is maximum at k=4}
+        ]
+        \addplot [color=blue,] plot { x/12 * (12-2*x) + (1 - x/12) * 2*x };
+    \end{axis}
+\end{tikzpicture}
+
