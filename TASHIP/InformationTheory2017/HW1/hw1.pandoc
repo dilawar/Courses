@@ -94,3 +94,5 @@ function?
     \end{axis}
 \end{tikzpicture}
 
+Its a good idea to divide the coins into 3 partitions of 4 coins each and weigh
+one partition with another.
