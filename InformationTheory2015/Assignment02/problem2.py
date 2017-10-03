@@ -79,7 +79,7 @@ def main(ncoins):
     dist = JointDist(ncoins)
     for j in range(0, 6):
         print("Weigh %s coin on both side" % (j+1))
-        print dist.mat
+        print(  dist.mat )
         dist.balance(j+1)
         i = dist.mutual_info()
         print("Mutual info: %s" % i)
