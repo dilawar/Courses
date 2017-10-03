@@ -13,6 +13,7 @@ getE (P (elem, p)) = elem
 prob_mat :: Fractional a => [[a]]
 
 prob_mat =  [ [1/4, 1/4], [0, 1/2] ]
+
 -- This is from book for testing.
 --prob_mat = [ [1/8, 1/16, 1/32, 1/32 ] , [1/16, 1/8, 1/32, 1/32 ]
 --    , [1/16, 1/16, 1/16, 1/16 ] , [1/4, 0, 0, 0 ] ]
@@ -76,6 +77,9 @@ tests = do
     putStrLn "Done checking"
 
 main = do
+    putStrLn "Problem matrix"
+    print prob_mat
+    putStrLn " "
     --tests 
     hxy >>= printf "H(X,Y) = %f \n" 
     hx >>= printf "H(X) = %f\n" 
