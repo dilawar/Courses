@@ -1,0 +1,40 @@
+---
+title: Solution to HW3
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+geometry: right=5cm, marginparwidth=4cm
+date : \today 
+fontfamily: libertine
+header-includes:
+    - \usepackage{pgfplots}
+---
+
+# Problem 1
+
+In class we had defined a typical sequence as one containing exactly as many occurrences
+of each symbol as expected. Let's find out 
+
+a. What the probability of each such sequence is.
+b. How many such sequences there are exactly (i.e. not using Stirling's
+   approximation).  
+   
+Then let's see how much of the total probability space is occupied by these
+typical sequences.
+
+# Problem 2
+Consider a DNA sequence of length 8 generated iid from the distribution
+$P(A,T,G,C)=\left( \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{8} \right)$.
+
+a. What is the single most probable sequence? What is its probability of occurrence?  
+b. What is the probability of a given 'typical' sequence, defined
+   as one in which letters occur precisely as often as expected?  
+c. How many typical sequences are there (exact answer required)?
+d. What is the total probability of getting some typical sequence?
+e. Redo the whole calculation if the length is 16.  What is the total probability of getting a stringently
+   typical sequence? Are we converging to 1?  
+
+You should find that, as the sequences get longer, fewer and fewer of them are
+‘typical’ by this definition. This motivates the new definition of typical
+sequence we will make next week.
+
