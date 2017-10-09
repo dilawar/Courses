@@ -12,7 +12,7 @@ header-includes:
     - \usepackage{mathpazo}
 ---
 
-# Problem 1
+# Introduction
 
 In class we had defined a typical sequence as one containing exactly as many occurrences
 of each symbol as expected. Let's find out 
@@ -24,7 +24,6 @@ b. How many such sequences there are exactly (i.e. not using Stirling's
 Then let's see how much of the total probability space is occupied by these
 typical sequences. 
 
-__Solution__ 
 
 Let the sequence is made up of alphabet $x_1, x_2, \ldots x_n$.  The probability
 of occurance of any symbol $x_i$ is given by $p_{x_i}$. 
@@ -61,7 +60,8 @@ The answer is
 $$\#TS = \binom{N}{n_1} \binom{N-n_1}{n_2} \binom{N-n_1-n_2}{n_3} \ldots
 \binom{N-n_1-n_2\ldots -n_n}{n_n}$$ {#eq:number_of_typ_seq}
 
-# Problem 2
+# Problem  (10 points)
+
 Consider a DNA sequence of length 8 generated iid from the distribution
 $P(A,T,G,C)=\left( \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{8} \right)$.
 
@@ -76,7 +76,10 @@ b. What is the probability of a given 'typical' sequence, defined
 
 __Solution__ The probability of typical sequences are equal. Any typical
 sequence has probability given by @eq:prob_typical_seq. Answer is $\frac{1}{2}^4
-+ \frac{1}{4}^2 + \frac{1}{8}^1 + \frac{1}{8}^1 = \frac{6}{16} = 0.375$
+\times \frac{1}{4}^2 \times \frac{1}{8}^1 \times \frac{1}{8}^1 =
+\frac{1}{2^{14}} = 0.000061035$. 
+
+\marginpar{Remember $2^{-nH}$!}
 
 c. How many typical sequences are there (exact answer required)?
 
@@ -86,19 +89,28 @@ force computation that this is correct.
 
 d. What is the total probability of getting some typical sequence?
 
-__Solution__ The probability of getting some typical sequence is number of
+__Solution__ 
+
+Number of typical sequences multiplied by probability of typical sequence i.e.
+$0.000061035 \times 840=0.05127$.
+
+\marginpar{The probability of getting some typical sequence is number of
 typical sequences divided by all possible sequences. In this case it is
-$\frac{840}{4^8} = 0.01281$.
+$\frac{840}{4^8} = 0.01281$ . What is wrong with this argument?}
 
 e. Redo the whole calculation if the length is 16.  What is the total
 probability of getting a stringently typical sequence? Are we converging to 1?  
 
 __Solution__ Number of typical sequences =
-$\binom{16}{8}\binom{8}{4}\binom{4}{2}\binom{2}{2} = 54054000$. Total number of
-sequences are $4^{16}$, therefore, the probability of getting a typical sequence
-is $\frac{54054000}{4^{16}}=0.001258543$.
+$\binom{16}{8}\binom{8}{4}\binom{4}{2}\binom{2}{2} = 54054000$. Probability of
+typical sequence (by @eq:prob_typical_seq) is
+$\frac{1}{2^8}\frac{1}{4^4}\frac{1}{8^2}\frac{1}{8^2}$. Therefore probability of
+occurance of a typical sequence is 0.02013.
 
-**As N gets larger, the probability of finding typical sequence gets smaller.**
+
+**As N gets larger, the probability of singal typical sequence gets smaller and the
+number of typical sequences increases. The probability of occurance of a typical
+sequence also decreases as shown in plot below.**
 
 
 You should find that, as the sequences get longer, fewer and fewer of them are
@@ -109,7 +121,6 @@ sequence we will make next week.
 \begin{axis}[
         xlabel=Sequence length
         , title = Probability of getting a typical sequence
-        , xmin = 5, xmax = 30
     ]
     \addplot [color=blue] gnuplot [ raw gnuplot ] {
         a(x)=x*1/2;
@@ -117,9 +128,10 @@ sequence we will make next week.
         c(x)=x*1/8;
         d(x)=x*1/8;
         nck(x, k)=gamma(x+1)/(gamma(k+1)*gamma(x-k+1));
+        probTypical(x)=(1/2.0)**a(x)*(1/4.0)**b(x)*(1/8.0)**c(x)*(1/8.0)**d(x);
         f(x)=(nck(x,a(x))*nck(x-a(x),b(x))*nck(x-a(x)-b(x),
-            c(x))*nck(x-a(x)-b(x)-c(x),d(x)))/(4^x);
-        plot [x=5:30] f(x);
+            c(x))*nck(x-a(x)-b(x)-c(x),d(x)))*probTypical(x);
+        plot [x=5:100] f(x);
     };
     \end{axis}
 \end{tikzpicture}
