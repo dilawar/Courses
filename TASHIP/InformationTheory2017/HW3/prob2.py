@@ -38,8 +38,7 @@ def is_typical( seq ):
             isTypical = False
     return isTypical
 
-def typical( size = 8 ):
-    seqs = list( itertools.product( vars_ , repeat = size ) )
+def typical( seqs ):
     seqWithProbs = [ ]
     typicalSeqs = [ ]
     for s in seqs:
@@ -60,10 +59,14 @@ def typical( size = 8 ):
         len( typicalSeqs ) / len( seqs ))
         )
 
+def solve( size ):
+    seqs = list( itertools.product( vars_ , repeat = size ) )
+    print( '[INFO] Total sequences (size=%d): %d' % (size, len( seqs )) )
+    typical( seqs )
+
 def main( ):
-    for size in [ 4, 6, 8, 10, 12, 14 ]:
-        print( 'Seq size %d' % size )
-        typical( size )
+    for size in [ 4, 6, 8, 10]: #, 12, 14 ]:
+        solve( size )
         print( "" )
 
 

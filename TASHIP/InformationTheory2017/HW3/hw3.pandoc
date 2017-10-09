@@ -8,6 +8,8 @@ date : \today
 fontfamily: libertine
 header-includes:
     - \usepackage{pgfplots}
+    - \usepackage{libertine}
+    - \usepackage{mathpazo}
 ---
 
 # Problem 1
@@ -18,23 +20,106 @@ of each symbol as expected. Let's find out
 a. What the probability of each such sequence is.
 b. How many such sequences there are exactly (i.e. not using Stirling's
    approximation).  
-   
+
 Then let's see how much of the total probability space is occupied by these
-typical sequences.
+typical sequences. 
+
+__Solution__ 
+
+Let the sequence is made up of alphabet $x_1, x_2, \ldots x_n$.  The probability
+of occurance of any symbol $x_i$ is given by $p_{x_i}$. 
+
+For a given sequence $s$ of length $N$ with $x_1$ occuring $n_1$ times, $x_2$
+occuring $n_2$ times etc ($n_1 + n_2 + \ldots + n_n=N$), the probability of
+occurance of $s$ is 
+
+$$Pr(s) = p_{x_1}^{n_1} p_{x_2}^{n_2} \ldots p_{x_n}^{n_n}$$ {#eq:seq_prob}
+
+## Typical sequence 
+
+By the definition of typical sequence, the number of occurance of any letter
+$x_i$ is equal to its expected value of occurance $\langle x_i \rangle$. We can
+easily compute $\langle x_i \rangle$ which is $p_{x_i} N$.
+
+Threfore the probability of typical sequence ($TS$) is 
+
+$$Pr(TS) = x_1^{p_{x_1}N} x_2^{p_{x_2}N} \ldots x_n^{p_{x_n}N}$$ {#eq:prob_typical_seq}
+
+One can compute the probability of sequence using @eq:seq_prob.
+
+$$Pr(TS) = \prod_i p_{x_i}^{\langle x_i \rangle} = \prod_i p_{x_i}^{p_{x_i}N}$$
+
+If we enumerate all possible sequences of length $N$, then how many typical
+sequences are there? There are total $n^N$ sequences where n is number of
+letters. The problem is equivalent to following problem:
+ 
+> Given N spots, $n_1$ of $x_1$, $n_2$ of $x_2$ etc; how many ways you can
+> arrange them?
+
+The answer is 
+
+$$\#TS = \binom{N}{n_1} \binom{N-n_1}{n_2} \binom{N-n_1-n_2}{n_3} \ldots
+\binom{N-n_1-n_2\ldots -n_n}{n_n}$$ {#eq:number_of_typ_seq}
 
 # Problem 2
 Consider a DNA sequence of length 8 generated iid from the distribution
 $P(A,T,G,C)=\left( \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{8} \right)$.
 
 a. What is the single most probable sequence? What is its probability of occurrence?  
+
+__Solution__ Refer to @eq:seq_prob. It maximises when largest probability
+letter is the only letter in sequence (proof by calculus?). The sequence is
+`AAAAAAAA` and its probability of occurance is $(\frac{1}{2})^8$.
+
 b. What is the probability of a given 'typical' sequence, defined
    as one in which letters occur precisely as often as expected?  
+
+__Solution__ The probability of typical sequences are equal. Any typical
+sequence has probability given by @eq:prob_typical_seq. Answer is $\frac{1}{2}^4
++ \frac{1}{4}^2 + \frac{1}{8}^1 + \frac{1}{8}^1 = \frac{6}{16} = 0.375$
+
 c. How many typical sequences are there (exact answer required)?
+
+__Solution__ Use @eq:number_of_typ_seq. The answer is
+$\binom{8}{4}\binom{4}{2}\binom{2}{1}\binom{1}{1}=840$. One can verify by brute
+force computation that this is correct.
+
 d. What is the total probability of getting some typical sequence?
-e. Redo the whole calculation if the length is 16.  What is the total probability of getting a stringently
-   typical sequence? Are we converging to 1?  
+
+__Solution__ The probability of getting some typical sequence is number of
+typical sequences divided by all possible sequences. In this case it is
+$\frac{840}{4^8} = 0.01281$.
+
+e. Redo the whole calculation if the length is 16.  What is the total
+probability of getting a stringently typical sequence? Are we converging to 1?  
+
+__Solution__ Number of typical sequences =
+$\binom{16}{8}\binom{8}{4}\binom{4}{2}\binom{2}{2} = 54054000$. Total number of
+sequences are $4^{16}$, therefore, the probability of getting a typical sequence
+is $\frac{54054000}{4^{16}}=0.001258543$.
+
+**As N gets larger, the probability of finding typical sequence gets smaller.**
+
 
 You should find that, as the sequences get longer, fewer and fewer of them are
 ‘typical’ by this definition. This motivates the new definition of typical
 sequence we will make next week.
 
+\begin{tikzpicture}[scale=1] 
+\begin{axis}[
+        xlabel=Sequence length
+        , title = Probability of getting a typical sequence
+        , xmin = 5, xmax = 30
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+        a(x)=x*1/2;
+        b(x)=x*1/4;
+        c(x)=x*1/8;
+        d(x)=x*1/8;
+        nck(x, k)=gamma(x+1)/(gamma(k+1)*gamma(x-k+1));
+        f(x)=(nck(x,a(x))*nck(x-a(x),b(x))*nck(x-a(x)-b(x),
+            c(x))*nck(x-a(x)-b(x)-c(x),d(x)))/(4^x);
+        plot [x=5:30] f(x);
+    };
+    \end{axis}
+\end{tikzpicture}
