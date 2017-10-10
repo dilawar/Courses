@@ -1,65 +1,89 @@
 # Solution to problem2.
 
 import numpy as np
+from collections import defaultdict
+import math
 
-def weighAndReduce( i, observation, coins, states ):
-    leftI = coins[ np.arange(0, i) ]
-    rightI = coins[ np.arange(i, 2*i) ]
-    results = [ ]
-    for s in states:
-        left, right = s[leftI], s[rightI]
-        leftW, rightW = sum( left ), sum( right )
+def getAllStates( n ):
+    states = [ ]
+    for i in range( 0, n ):
+        s = [ '.' ] * n
+        s[i] = 'h'
+        states.append( s )
+    for i in range( 0, n ):
+        s = [ '.' ] * n
+        s[i] = 'l'
+        states.append( s )
+    states.append( [ '.' ] * n )
+    return list(map( lambda x: ''.join(x), states ))
 
-        if observation == 'L': # left heavy
-            if leftW > rightW:
-                continue 
-            results.append( s )
+states_ = getAllStates( 12 )
 
-        elif observation == 'R': # right heavy
-            if leftW < rightW:
-                continue
-            results.append( s )
+#print( 'Possible states' )
+#for s in states_:
+#    print( ''.join(s) )
 
-        elif observation == 'B': # balanced
-            if leftW == rightW:
-                continue
-            results.append( s )
-    return results
-
-def coinsToStr( coins ):
-    res = ''
+def weigh( coins ):
+    w = 0.0
     for c in coins:
-        if c == 1.0:
-            res += '.'
-        elif c > 1.0:
-            res += 'h'
-        elif c < 1.0:
-            res += 'l'
-    return res
+        if c == 'h':
+            w += 1.1
+        elif c == 'l':
+            w += 0.9
+        else:
+            w += 1.0
+    return w
+
+def entropy( freq ):
+    probs = [ x / sum( freq ) for x in freq ]
+    ent = [ - p * math.log( p, 2 ) for p in probs ]
+    return sum( ent )
+
+def pruneStates( k, outcome, df ):
+    global states_
+    for s in states_:
+        leftC, rightC = s[:k], s[k:2*k]
+        diff = weigh( rightC ) - weigh( leftC )
+        if outcome == 'H':
+            if diff > 0.0:
+                df[ s ][ outcome ] = 'x'
+            else:
+                df[ s ][ outcome ] = '.'
+        elif outcome == 'L':
+            if diff < 0.0:
+                df[ s ][ outcome ] = 'x'
+            else:
+                df[ s ][ outcome ] = '.'
+        elif outcome == 'B':
+            if diff == 0.0:
+                df[ s ][ outcome ] = 'x'
+            else:
+                df[ s ][ outcome ] = '.'
+    return df
+
+def printTable( df ):
+    for x in df:
+        vals = list( df[x].values() )
+        print( x, ' '.join(vals) )
+
+
+def makeTable( k, n ):
+    """
+    K weighing. n coins. One counterfiet
+    """
+    global states_
+
+    print( 'Weighing coins %d' % k )
+
+    df = defaultdict( dict )
+    for oc in [ 'H', 'L', 'B' ]:
+        df = pruneStates( k, oc, df ) 
+
+    printTable( df )
 
 def main( n = 12 ):
-    coinIndices = np.arange( n )
-    states = [ ]
-    for i in range( n ):
-        coins = [ 1.0 ] * n
-        coins[i] = 1.1
-        states.append( coins )
-
-    for i in range( n ):
-        coins = [ 1.0 ] * n
-        coins[i] = 0.9
-        states.append( coins )
-
-    # all coins normal
-    states += [ [ 1.0 ] * n ]
-
-    for i in range( 1, 7 ):
-        print( 'Weighing %d coins' % i )
-        for obs in [ 'L', 'R', 'B' ]:
-            res = weighAndReduce( i, obs, coinIndices, np.array(states) )
-            res1 = list( map( lambda x: coinsToStr(x), res ) )
-            print( obs, len(res) )
-
+    for k in range( 1, 3 ):
+        makeTable( k, n )
 
 if __name__ == '__main__':
     main()
