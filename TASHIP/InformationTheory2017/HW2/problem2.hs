@@ -1,6 +1,7 @@
 module HW2 where 
 
 import Data.List
+import qualified Data.Map.Strict as M
 
 data Coin = H | L | N | W Float deriving (Eq,Show,Ord)
 
@@ -41,13 +42,17 @@ reduceRightEqual left right = map (filter (\x -> (weigh left x) /= (weigh right 
 weigh :: [ Int ] -> [ Coin ] -> Coin
 weigh cis coins = sum ( [ coins !! i | i <- cis ] )
 
-
+-- Construct map.
+setupTable n = helper n allStates M.empty
+  where 
+    helper n [ ] table = table
+    helper n (s:sx) table = helper n sx (M.insert s 0.0 table)
 
 -- problem2 :: Int -> a
-problem2 n = n
+problem2 n = setupTable n
 
 main = do 
-    print $ allStates
-    let res = map problem2 [1,2,3,4,5,6]
-    print res
+    --let res = problem2 2
+    --print res
+    print $ concat $ allStates
     putStrLn "All done"
