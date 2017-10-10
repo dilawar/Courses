@@ -5,9 +5,10 @@ institute: NCBS Bangalore
 email: dilawars@ncbs.res.in
 geometry: right=5cm, marginparwidth=4cm
 date : \today 
-fontfamily: libertine
 header-includes:
     - \usepackage{pgfplots}
+    - \usepackage{mathpazo}
+    - \usepackage{libertine}
 ---
 
 # Problem 1
@@ -43,21 +44,21 @@ informative measurement?
 
 __Solution__
 
-Lets do this problem hard way. There are 12 coins and we are going to index
-them. First coins is $C_0$ and the 12th coin is $C_{11}$. We arrange the coin in
-a line $C_0 C_1 \ldots C_{11}$. Each coins is one to the three types: light `L`,
-heavy `H`, or normal `N`. Lets enumerate all possible states. There are 3 ways
-(`N`, `L`, `H`) in which we can choose any coin $C_i$ e.g. first coins is choses
-`H` then we have `HNNNNNNNNNNN`, 5th coins is chosen `L` then we have
-`NNNNLNNNNNNN`, 8th coins is chosen `N` i.e. `NNNNNNNNNNNN`.  There are 36
-states. But when a normal coin `N` is choosen for any $C_i$, the state is always
-`NNNNNNNNNNNN` all coins are normal. There are 12 such states. These states can
-be lumped into one state `NNNNNNNNNNNN`. Therefore we have 36 - 11 = 25
-distinguishable macro states.
+Lets do this problem hard way. We are going to index them. First coins will be
+$C_0$, second $C_1$, and so on. And the last 12th coin is $C_{11}$. Next we
+arrange all coin in a line $C_0 C_1 \ldots C_{11}$. A coin $C_i$ could be one to
+the three types: light `L`, heavy `H`, or normal `N`. 
+
+Lets enumerate all possible states. There are 3 ways (`N`, `L`, `H`) in which we
+can choose any coin $C_i$ e.g. if first coin is chosen `H` (rest normal) then we
+have `HNNNNNNNNNNN`, if the 5th coins is chosen `L` then we have `NNNNLNNNNNNN`,
+and if 8th coins is chosen `N` i.e. `NNNNNNNNNNNN`. So there are total 36
+states. But when a normal coin `N` is choosen for any $C_i$, then the state is
+always `NNNNNNNNNNNN` all coins are normal. There are 12 such states and
+indistinguishable. These states can be lumped into one state `NNNNNNNNNNNN`.
+Therefore we have 36 - 11 = 25 distinguishable macro states.
 
 Lets weight first 2 coins $C_1C_2$ with third and fourth coins $C_3C_4$. There
 are three possibilities that $C_1C_2 > C_3C_4$, $C_1C_2 < C_3C_4$, or $C_1C_2 =
 C_3C_4$. Now trick is to enumerate possible states for each of these outcomes.
-
-1. $C_1C_2$ > $C_3C_4$ 
 
