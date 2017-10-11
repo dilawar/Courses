@@ -7,14 +7,14 @@ import math
 def getAllStates( n ):
     states = [ ]
     for i in range( 0, n ):
-        s = [ '.' ] * n
+        s = [ 'n' ] * n
         s[i] = 'h'
         states.append( s )
     for i in range( 0, n ):
-        s = [ '.' ] * n
+        s = [ 'n' ] * n
         s[i] = 'l'
         states.append( s )
-    states.append( [ '.' ] * n )
+    states.append( [ 'n' ] * n )
     return list(map( lambda x: ''.join(x), states ))
 
 states_ = getAllStates( 12 )
