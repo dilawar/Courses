@@ -16,10 +16,11 @@ import numpy as np
 import math
 import matplotlib.tri as tri
 from collections import Counter, defaultdict
+import scipy.special
 
 fac = math.factorial
 
-N = 24
+N = 16
 
 def plot_ternary( pts, v, ax = None ):
     # translate the data to cartesian corrds
@@ -71,9 +72,12 @@ def sequence( probs ):
     a, b, c = probs
     ea, eb, ec = [ N * x for x in probs ]
     na, nb, nc = [ int(N*x) for x in probs ]
-    nTS = fac( N ) / fac(na) / fac(nb) / fac(nc)
+    nc = N - na - nb
+    ns = [ N, N-na, N-na-nb ]
+    ks = [ na, nb, nc ]
+    nTS = np.prod( scipy.special.comb( ns, ks ) )
     pTS = a**na * b**nb * c**nc
-    #print( '%.5g, %.5g, %.5g' % (nTS, pTS, nTS * pTS) )
+    print( '%.5g, %.5g, %.5g' % (nTS, pTS, nTS * pTS) )
     return nTS * pTS
 
 def main( ):
@@ -82,24 +86,20 @@ def main( ):
         for b in np.arange(1.0-a, -0.1, -0.1):
             c = 1.0 - a - b
             probs = (a, b, c)
-            print( probs )
             p = sequence( probs )
             points.append( probs )
             vals.append( p )
 
-    # for given probs generate many seqs
-    pbs = [ 1/2, 1/3, 1/6 ]
-
-    nseq = 100000
-    seqs = generate_seqs( pbs, n = nseq )
-    tern = compute_ternary( seqs )
-
     plt.figure( figsize=(6,2.5) )
     ax1 = plt.subplot( 121 )
     ax2 = plt.subplot( 122 )
+    plot_ternary( points, vals, ax1 )
 
-    #plot_ternary( points, vals, ax1 )
-
+    # for given probs generate many seqs
+    pbs = [ 1/2, 1/3, 1/6 ]
+    nseq = 1000
+    seqs = generate_seqs( pbs, n = nseq )
+    tern = compute_ternary( seqs )
     pts, vals = list(tern.keys( )), list(tern.values( ))
     plot_ternary( pts, vals, ax2 )
     ax2.set_title( '%d seqs, size=%d'% (nseq,N) )
