@@ -1,0 +1,104 @@
+---
+title: Solution to HW4
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+geometry: right=5cm, marginparwidth=4cm
+date : \today 
+fontfamily: libertine
+header-includes:
+    - \usepackage{tikz,pgfplots}
+    - \usepackage{libertine,mathpazo}
+---
+
+# Strange but typical sequences. 
+
+We will show that a sequence can be typical by our new
+definition, but still have a very skewed proportion of each letter!
+
+Imagine strings on the alphabet ${A,B,C}$, with underlying probabilities p =
+$\{\frac{1}{2},\frac{1}{3},\frac{1}{6}\}$. You see a string S of length N with
+observed letter frequencies (divided by N) given by q = ${a, b, c}$, with $a + b +
+c = 1$. The most probable sequence is $AAAAAAA$.  Typical sequences
+include those around the point ${\frac{1}{2},\frac{1}{3},\frac{1}{6}}$.
+
+__Some analysis from previous homework__
+
+For a sequence where alphabets $A,B,C$ occurs with probabilities $a,b,c$. And
+the length of the sequence is $N$.
+
+$\#S=\binom{N}{Na}\binom{N-Na}{Nb}\binom{N-Na-Nb}{Nc}=\frac{N!}{Na! Nb! Nc!}$
+
+$\Pr(S) = a^{Na} b^{Nb} c^{Nc}$
+
+__Typical sequence__
+
+For typical sequences, these values are 
+
+$\#TS=\frac{N!}{\frac{N}{2}! \frac{N}{3}! \frac{N}{6}!}$
+
+$\Pr(TS)=\frac{1}{2}^{N/2} \frac{1}{3}^{N/3} \frac{1}{6}^{N/6}$
+
+
+For $N=12$, $\#TS=13860$, and $\Pr(TS)=5.3584\times 10^{-6}$.
+$\Pr(\text{all}\;TS)=0.074267$.
+
+## Solution
+
+a. What is H(p)?  
+
+__Solution__  
+
+\marginpar{Here $H(p)$ does not mean $H(p) = \sum_i -p_i \log{p_i}= 1.5309$ bits.
+Why?}
+
+$\forall a, b, c$ st $a + b + c = 1$, we have a sequence $S_i$.
+$H(p) = \sum_{i} - \Pr(S_i) \log( \Pr(S_i) )$
+
+
+
+b. What are the values of a and b such that $a + b = 1$, where the value of
+   $-\frac{1}{n}\log(\Pr(S))$ is very close to H? I.e. what sequences with no `C`s at all have 
+   probabilities similar to that of the typical sequence?  
+
+__Solution__ 
+
+Many people have tried the following which is wrong.
+
+$$ a^{Na} (1-a)^{N(1-a)} = \frac{1}{2}^\frac{N}{2} \frac{1}{3}^\frac{N}{3} \frac{1}{6}^\frac{N}{6}$$
+$$ -a \log(a) - (1-a)\log(1-a) = H(1/2,1/3,1/6) = 1.5309$$
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[ xlabel=a, ylabel={$H(a,b)$} ]
+        \addplot [color=blue] gnuplot [ raw gnuplot ] {
+            f(x)=-x*log(x)/log(2) - (1-x)*log(1-x)/log(2);
+            plot [x=0.01:0.99] f(x);
+        };
+    \end{axis}
+\end{tikzpicture}
+
+As you can see by the curve, there is no value of $a$ for which above relation
+holds good.
+
+
+c. Extra credit.  
+  You can plot any three non-negative numbers that add up to 1 in a "ternary
+  plot" with x- and y-coordinates given by: $(b + \frac{c}{2},
+  \frac{\sqrt{3}c}{x})$. As a, b, c range 
+  over their allowed values, this will make an equilateral triangle, where 
+
+  - x, y = (0,0) is equivalent to {a = 1, b = 0, c = 0} (bottom left corner) 
+  - x, y = (1,0) is equivalent to {a = 0, b = 1, c = 0} (bottom right corner) 
+  - x, y = $\left( \frac{1}{2}, \frac{\sqrt{3}}{2}\right)$ is equivalent to
+    {a=0, b=0, c=1} (top corner).
+    
+On a ternary plot, make a contour plot of probabilities of sequences assuming
+underlying probabilities p = ${\frac{1}{2},\frac{1}{3},\frac{1}{6}}$. Mark the
+curve corresponding to the set of sequences with probabilities similar to that of the typical
+sequence. 
+
+Hint: this can all be done by hand.
+
+__Solution__ But we'll do it by computer. 
+
+![ ](./hw3.png)
