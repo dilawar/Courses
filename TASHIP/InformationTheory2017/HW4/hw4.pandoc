@@ -49,21 +49,13 @@ a. What is H(p)?
 
 __Solution__  
 
-\marginpar{Here $H(p)$ does not mean $H(p) = \sum_i -p_i \log{p_i}= 1.5309$ bits.
-Why?}
-
-$\forall a, b, c$ st $a + b + c = 1$, we have a sequence $S_i$.
-$H(p) = \sum_{i} - \Pr(S_i) \log( \Pr(S_i) )$
-
-
+$H(p) = \sum_i -p_i \log{p_i}= 1.5309$ bits.
 
 b. What are the values of a and b such that $a + b = 1$, where the value of
    $-\frac{1}{n}\log(\Pr(S))$ is very close to H? I.e. what sequences with no `C`s at all have 
    probabilities similar to that of the typical sequence?  
 
 __Solution__ 
-
-Many people have tried the following which is wrong.
 
 $$ a^{Na} (1-a)^{N(1-a)} = \frac{1}{2}^\frac{N}{2} \frac{1}{3}^\frac{N}{3} \frac{1}{6}^\frac{N}{6}$$
 $$ -a \log(a) - (1-a)\log(1-a) = H(1/2,1/3,1/6) = 1.5309$$
@@ -78,7 +70,7 @@ $$ -a \log(a) - (1-a)\log(1-a) = H(1/2,1/3,1/6) = 1.5309$$
 \end{tikzpicture}
 
 As you can see by the curve, there is no value of $a$ for which above relation
-holds good.
+holds good. Not sure if this is the correct solution.
 
 
 c. Extra credit.  

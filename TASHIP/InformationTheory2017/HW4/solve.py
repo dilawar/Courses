@@ -90,14 +90,14 @@ def main( ):
             points.append( probs )
             vals.append( p )
 
-    plt.figure( figsize=(6,2.5) )
+    plt.figure( figsize=(8,3) )
     ax1 = plt.subplot( 121 )
     ax2 = plt.subplot( 122 )
     plot_ternary( points, vals, ax1 )
 
     # for given probs generate many seqs
     pbs = [ 1/2, 1/3, 1/6 ]
-    nseq = 1000
+    nseq = 10000
     seqs = generate_seqs( pbs, n = nseq )
     tern = compute_ternary( seqs )
     pts, vals = list(tern.keys( )), list(tern.values( ))
