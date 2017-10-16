@@ -91,22 +91,30 @@ def main( ):
             vals.append( p )
 
     plt.figure( figsize=(8,3) )
-    ax1 = plt.subplot( 121 )
-    ax2 = plt.subplot( 122 )
-    plot_ternary( points, vals, ax1 )
 
+    ax1 = plt.subplot( 121 )
     # for given probs generate many seqs
     pbs = [ 1/2, 1/3, 1/6 ]
     nseq = 10000
     seqs = generate_seqs( pbs, n = nseq )
-    tern = compute_ternary( seqs )
-    pts, vals = list(tern.keys( )), list(tern.values( ))
-    plot_ternary( pts, vals, ax2 )
-    ax2.set_title( '%d seqs, size=%d'% (nseq,N) )
-    ax2.annotate( '1/2,1/3,1/6', xy=(5/12, 1.732/12), xytext=(0.5,0.5)
+
+    data = compute_ternary( seqs )
+
+
+    pts, vals = list(data.keys( )), list(data.values( ))
+    plot_ternary( pts, vals, ax1 )
+    ax1.set_title( 'Number of seq in class' )
+    ax1.annotate( '1/2,1/3,1/6', xy=(5/12, 1.732/12), xytext=(0.5,0.5)
             , arrowprops = dict( facecolor='black', arrowstyle='->' )
             )
-    plt.savefig( 'hw3.png' )
+
+    ax2 = plt.subplot( 122 )
+    probs = [ math.log( x / sum(vals), 2) for x in vals ]
+    plot_ternary( pts, probs, ax2 )
+
+    plt.suptitle( 'N=%d, Length=%d' % (nseq,N) )
+    plt.tight_layout( pad = 0.3 )
+    plt.savefig( 'hw4.png' )
 
 
 if __name__ == '__main__':
