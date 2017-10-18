@@ -26,7 +26,7 @@ import scipy.special
 
 fac = scipy.special.factorial
 
-N = 16
+N = 12
 
 def abcToxy( a, b, c ):
     x = b + c/2.0
@@ -85,8 +85,9 @@ def plot_ternary( pts, values, ax ):
     xi = np.arange( 0, 1.0, 0.001 )
     yi = np.arange( 0, 1.0, 0.001 )
     zi = mpl.mlab.griddata( xs, ys, values, xi, yi, interp='linear' )
-    f = ax.contourf( xi, yi, zi )
-    plt.colorbar( f, ax = ax )
+    cs = ax.contour( xi, yi, zi, 10 )
+    print( cs.levels )
+    ax.clabel( cs, fontsize=8, color='white' )
     ax.set_xlim(0, 1.0 )
     ax.set_ylim(0, 1.0 )
 
@@ -128,7 +129,7 @@ def main( ):
             probs = (a, b, c)
             ps, ns = typical_sequence( probs, [1/2, 1/3, 1/6] )
             res = ps * ns
-            dd[ (a,b,c) ] = math.log( ps, 2 )
+            dd[ (a,b,c) ] = math.log( ps, 10 )
 
     pts, probs = list( dd.keys() ), list( dd.values( ) )
     plot_ternary( pts, probs, ax2 )

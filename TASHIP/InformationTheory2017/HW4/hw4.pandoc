@@ -98,6 +98,8 @@ sequence.
 
 Hint: this can all be done by hand.
 
-__Solution__ But we'll do it by computer. 
+__Solution__ But we'll do it by computer. The second plot is the answer where we
+are plotting $\log_{10}(\Pr(S))$. The typical sequence has the value of
+$\log_{10}{5.3584\times 10^{-6}}=-5.27$. You can locate that line. 
 
 ![ ](./hw4.png)
