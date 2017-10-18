@@ -12,46 +12,26 @@ __status__           = "Development"
 
 import sys
 import os
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib.tri as tri
+mpl.rcParams['axes.linewidth'] = 0.2
+mpl.rcParams['lines.linewidth'] = 1.0
+mpl.rcParams['text.latex.preamble'] = [ r'\usepackage{siunitx}' ]
+mpl.rcParams['text.usetex'] = True
 import numpy as np
 import math
-import matplotlib.tri as tri
 from collections import Counter, defaultdict
 import scipy.special
 
 fac = scipy.special.factorial
 
-N = 32
+N = 16
 
-def plot_ternary( pts, v, ax = None ):
-    # translate the data to cartesian corrds
-    a, b, c = [ np.array(x) for x in zip( *pts ) ]
-    x = 0.5 * ( 2.*b+c ) / ( a+b+c )
-    y = 0.5*np.sqrt(3) * c / (a+b+c)
-
-    # create a triangulation out of these points
-    T = tri.Triangulation(x,y)
-
-    # plot the contour
-    if ax is None:
-        ax = plt.subplot( 111 )
-
-    f = ax.tricontourf(x,y,T.triangles,v)
-    plt.colorbar( f, ax = ax )
-
-    # create the grid
-    corners = np.array([[0, 0], [1, 0], [0.5,  np.sqrt(3)*0.5]])
-    triangle = tri.Triangulation(corners[:, 0], corners[:, 1])
-
-    # creating the grid
-    refiner = tri.UniformTriRefiner(triangle)
-    trimesh = refiner.refine_triangulation(subdiv=4)
-
-    #plotting the mesh
-    ax.triplot(trimesh, '.', alpha = 0.3 )
-    ax.axis( 'off' )
-
-    return ax
+def abcToxy( a, b, c ):
+    x = b + c/2.0
+    y = ( 3 ** 0.5 ) * c / 2.0
+    return (x,y)
 
 def generate_seqs( probs, n ):
     global N
@@ -95,6 +75,20 @@ def typical_sequence( probs, pRef ):
     ns = fac( N ) / np.prod( [ fac(x) for x in ns ] )
     return ps, ns
 
+def abc2xy( p ):
+    a, b, c = p
+    return b + c/2, (3**0.5 * c)/2
+
+def plot_ternary( pts, values, ax ):
+    xys = [ abc2xy( p ) for p in pts ]
+    xs, ys = zip( *xys )
+    xi = np.arange( 0, 1.0, 0.001 )
+    yi = np.arange( 0, 1.0, 0.001 )
+    zi = mpl.mlab.griddata( xs, ys, values, xi, yi, interp='linear' )
+    f = ax.contourf( xi, yi, zi )
+    plt.colorbar( f, ax = ax )
+    ax.set_xlim(0, 1.0 )
+    ax.set_ylim(0, 1.0 )
 
 def main( ):
     points, vals = [ ], [ ]
@@ -115,8 +109,8 @@ def main( ):
     nseq = 10000
     seqs = generate_seqs( pbs, n = nseq )
     data = compute_ternary( seqs )
-
     pts, vals = list(data.keys( )), list(data.values( ))
+
     plot_ternary( pts, vals, ax1 )
     ax1.set_title( 'Number of seq in class' )
     ax1.annotate( '1/2,1/3,1/6', xy=(5/12, 1.732/12), xytext=(0.5,0.5)
@@ -134,7 +128,7 @@ def main( ):
             probs = (a, b, c)
             ps, ns = typical_sequence( probs, [1/2, 1/3, 1/6] )
             res = ps * ns
-            dd[ (a,b,c) ] = math.log( res )
+            dd[ (a,b,c) ] = math.log( ps, 2 )
 
     pts, probs = list( dd.keys() ), list( dd.values( ) )
     plot_ternary( pts, probs, ax2 )

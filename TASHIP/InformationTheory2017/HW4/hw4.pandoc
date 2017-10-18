@@ -49,7 +49,7 @@ a. What is H(p)?
 
 __Solution__  
 
-$H(p) = \sum_i -p_i \log{p_i}= 1.5309$ bits.
+$H(p) = \sum_i -p_i \log{p_i}= 1.459$ bits.
 
 b. What are the values of a and b such that $a + b = 1$, where the value of
    $-\frac{1}{n}\log(\Pr(S))$ is very close to H? I.e. what sequences with no `C`s at all have 
@@ -62,21 +62,22 @@ $1-p$. $\Pr(c)=0$. The probability of such a sequence will be.
 
 $$ p \frac{1}{2}^{Np} + (1-p)\frac{1}{3}^{N(1-p)} $$
 
-$$ -p \log(1/2) - (1-p)\log(1/3) = H(1/2,1/3,1/6) = 1.5309$$
+$$ -p \log(1/2) - (1-p)\log(1/3) = H(1/2,1/3,1/6) = 1.459$$
 
 \begin{tikzpicture}[scale=1]
-    \begin{axis}[ xlabel=a, ylabel={$H(a,b)$} 
+    \begin{axis}[ xlabel=p, ylabel={$H(a,b)$} 
         xmin=0.0, xmax=1.0
     ]
         \addplot [color=blue] gnuplot [ raw gnuplot ] {
             f(x)=x*log(2)/log(2) + (1-x)*log(3)/log(2);
             plot [x=0.01:0.99] f(x);
         };
-        \addplot [ mark=none, samples=2,domain=0:1.0] {1.5309};
+        \node[label=90:{($\Pr(A)$,1.459)},draw,circle,fill=black,inner sep=1pt] 
+            at (axis cs:0.215334,1.459) { };
     \end{axis}
 \end{tikzpicture}
 
-$p=0.0924$. Rougly 9% of letters must be `A`, rest are `B`.
+$p=0.215334$. Rougly 21% of letters must be `A`, rest are `B`.
 
 
 c. Extra credit.  
