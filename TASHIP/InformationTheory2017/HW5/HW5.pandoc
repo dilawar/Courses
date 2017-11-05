@@ -1,0 +1,53 @@
+---
+title: Homework 5
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+geometry: right=5cm, marginparwidth=4cm
+date : \today 
+fontfamily: libertine
+header-includes:
+    - \usepackage{pgfplots}
+    - \usepackage{libertine,mathpazo}
+---
+
+# Problem 1: Transmitting information across a channel
+
+Consider the discrete memoryless channel $Y=X+Z (\text{mod}\; 11)$, where $Z$
+is uniformly distributed on the alphabet $\{1,2,3\}$.
+
+$$ Z = \begin{bmatrix} 1 & 2 & 3 \\ 1/3 & 1/3 & 1/3  \end{bmatrix}$$
+
+and $X \in \{0,1,\ldots,10\}$. Assume that Z independent of X.
+
+a. Find the capacity.
+b. What is the maximizing $p^*(x)$.
+
+## Solution 
+
+The capacity of the channel is $I(X;Y)$ (by definition). The transitions are
+shown in @fig:p51 .
+
+![Transition diagram.](./network.png){#fig:p51 width=100%}
+
+
+# Problem 2: [C&T 8.9] 
+
+The Z channel has binary input and output alphabets and transition probabilities
+$p(y|x)$ given by the following matrix:
+
+
+$$ Q = \begin{bmatrix} 1 & 0 \\ 1/2  & 1/2 \end{bmatrix}$$ where $ x,y\in {0,
+1}$.
+
+[Why is it called the Z-channel?]
+
+Find the capacity of the Z channel and the maximizing input probability distribution.
+
+# Problem 3. [Optional][C&T 8.10] 
+
+For the Z channel of the previous problem, assume that we
+choose a $2^{nR},n)$ code at random, where each codeword is a sequence of _fair_ coin
+tosses. This will not achieve capacity. Find the maximum rate R such that the
+probability of error $P_e^n$, averaged over randomly generated codes, tends to zero as
+the block length $n$ to infinity.
