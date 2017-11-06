@@ -12,7 +12,7 @@ header-includes:
     - \usepackage{libertine,mathpazo}
 ---
 
-# Problem 1: Transmitting information across a channel
+# Problem 1: Transmitting information across a channel (8 points)
 
 Consider the discrete memoryless channel $Y=X+Z (\text{mod}\; 11)$, where $Z$
 is uniformly distributed on the alphabet $\{1,2,3\}$.
@@ -54,7 +54,7 @@ __Is there any other distribution of $X$ for which $I(X;Y)$ is larger that this
 value?__
 
 
-# Problem 2: [C&T 8.9] 
+# Problem 2: [C&T 8.9] (7 Points)
 
 The Z channel has binary input and output alphabets and transition probabilities
 $p(y|x)$ given by the following matrix:
@@ -105,7 +105,7 @@ My calculation shows the this function is maximum at $p_0 = \frac{2}{3}$.
     \end{axis}
 \end{tikzpicture}
 
-# Problem 3. [Optional][C&T 8.10] 
+# Problem 3. [Optional][C&T 8.10] (8 Points) 
 
 For the Z channel of the previous problem, assume that we choose a $(2^{nR},n)$
 code at random, where each codeword is a sequence of _fair_ coin tosses. This
