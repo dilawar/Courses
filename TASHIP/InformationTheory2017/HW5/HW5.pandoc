@@ -59,7 +59,7 @@ value?__
 The Z channel has binary input and output alphabets and transition probabilities
 $p(y|x)$ given by the following matrix:
 
-$$ Q = \begin{bmatrix} 1 & 0 \\ 1/2  & 1/2 \end{bmatrix}$$ where $ x,y\in {0,
+$$ Q = \begin{bmatrix} 1 & 0 \\ 1/2  & 1/2 \end{bmatrix}$$ where $x,y\in {0,
 1}$.
 
 [Why is it called the Z-channel?]
@@ -84,28 +84,30 @@ problem, we compute $I(X;Y) = H(Y) - H(Y|X)$
 \begin{align}
 H(Y)  &= H\left( 
         p_0 \Pr(Y=0|X=0) 0
-        , (1-p_0) \Pr(Y=0|X=1) \frac{1}{2}
+        + (1-p_0) \Pr(Y=0|X=1) \frac{1}{2}
         , p_0 \Pr(Y=1|X=0) 0 
-        , (1-p_0) \Pr(Y=1|X=1) \frac{1}{2} \right) \\
-      &= H\left( p_0, \frac{1-p_0}{2}, 0, \frac{1-p_0}{2} \right) \\
+        + (1-p_0) \Pr(Y=1|X=1) \frac{1}{2} \right) \\
+      &= H\left( p_0 + \frac{1-p_0}{2}, 0+\frac{1-p_0}{2} \right) \\
 H(Y|X) &= p_0 H(1,0) + (1-p_0) H(1/2, 1/2) = 1-p_0
 \end{align}
 
-Therefore $I(X;Y) = H\left( p_0, \frac{1-p_0}{2}, 0, \frac{1-p_0}{2} \right) -
-(1-p_0) = - p_0 \log(p_0) - (1-p_0)\log(\frac{1-p_0}{2})-1+p_0$.
+Therefore $I(X;Y) = H\left( \frac{1+p_0}{2}, \frac{1-p_0}{2} \right) - (1-p_0)
+    = - \frac{1+p_0}{2} \log(\frac{1+p_0}{2}) 
+    - \frac{1-p_0}{2}\log(\frac{1-p_0}{2})-1+p_0$.
 
-My calculation shows the this function is maximum at $p_0 = \frac{2}{3}$.
+My calculation shows the this function is maximum at $p_0 = 0.6$. That is you
+0 slightly more often than noisy 1.
 
 \begin{tikzpicture}[scale=1]
-    \begin{axis}[ xlabel=p,ylabel={I(X;Y)}, ]
+    \begin{axis}[ xlabel=$p_0$,ylabel={I(X;Y)}, ]
     \addplot [color=blue, domain=0:1] gnuplot [ raw gnuplot ] {
-        f(x) = -x * log(x) / log(2) - (1-x) * log( 1-x) / log(2) + 1 - 1 + x;
+        f(x) = -(1+x)/2 * log((1+x)/2) / log(2) - (1-x)/2 * log((1-x)/2) / log(2) - 1 + x;
         plot [x=0:0.99] f(x);
     };
     \end{axis}
 \end{tikzpicture}
 
-# Problem 3. [Optional][C&T 8.10] (8 Points) 
+# Problem 3. [Optional][C&T 8.10] 
 
 For the Z channel of the previous problem, assume that we choose a $(2^{nR},n)$
 code at random, where each codeword is a sequence of _fair_ coin tosses. This
