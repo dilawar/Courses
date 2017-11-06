@@ -112,3 +112,27 @@ code at random, where each codeword is a sequence of _fair_ coin tosses. This
 will not achieve capacity. Find the maximum rate R such that the probability of
 error $P_e^n$, averaged over randomly generated codes, tends to zero as the
 block length $n$ to infinity.
+
+## Solution
+
+The solution to this problem is Threom 7.7.1 (pp 200, Second edition) of
+text-book. Here I show a simulation.
+
+Let a message $x \in X$ was sent which is recived as $x'$ due to errors. We decode
+$x'$ as following:
+
+For each $y\in X$ we compute the Hamming distance between $x'$ and $y$. We select
+the code with lowest Hamming distance as $x$. If there are more than one code
+with lowest Hamming distance, we declare it to be an error.
+
+Since we are simulating, we compare the deocded $x'$ with actual code which was
+sent. If they don't match, we declare it to be error. Note that this is not
+neccessary.
+
+In following figure we see that as $n$ increases, the error rate goes to 0. For
+each case 200 codes were sent. 
+
+![Solution](./hw53.py.png)
+
+The script can be found
+[here](http://github.com/dilawar/courses/raw/master/TASHIP/InformationTheory2017/HW5/hw53.py).
