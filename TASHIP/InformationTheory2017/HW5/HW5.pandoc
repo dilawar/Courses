@@ -107,8 +107,8 @@ My calculation shows the this function is maximum at $p_0 = \frac{2}{3}$.
 
 # Problem 3. [Optional][C&T 8.10] 
 
-For the Z channel of the previous problem, assume that we
-choose a $2^{nR},n)$ code at random, where each codeword is a sequence of _fair_ coin
-tosses. This will not achieve capacity. Find the maximum rate R such that the
-probability of error $P_e^n$, averaged over randomly generated codes, tends to zero as
-the block length $n$ to infinity.
+For the Z channel of the previous problem, assume that we choose a $(2^{nR},n)$
+code at random, where each codeword is a sequence of _fair_ coin tosses. This
+will not achieve capacity. Find the maximum rate R such that the probability of
+error $P_e^n$, averaged over randomly generated codes, tends to zero as the
+block length $n$ to infinity.
