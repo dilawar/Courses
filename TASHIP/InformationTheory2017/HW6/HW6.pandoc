@@ -8,7 +8,10 @@ date : \today
 fontfamily: libertine
 header-includes:
     - \usepackage{pgfplots}
+    - \usetikzlibrary{calc,positioning,graphs,graphdrawing}
+    - \usegdlibrary{layered,force}
     - \usepackage{libertine,mathpazo}
+    - \usepackage{chessboard}
 ---
 
 # Entropy rate of a Markov process (10 points)
@@ -21,9 +24,132 @@ all allowed outputs from any state are equally likely.
 
 __Solution__
 
+If there were no contraints on the occurance of codeword, we would have
+generated a string with entropy of $H(1/4,1/4,1/4,1/4)=2$ bits. However, since
+we have imposed some contraints on the occurance of spaces; then entropy must me
+less than 2 bits.
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[ xlabel=Sequence Length,ylabel=$H(X)$ ]
+        \addplot[ ] table[x expr=\coordindex,y index=0] {__hvsn__.csv};
+    \end{axis}
+\end{tikzpicture}
+
+This is the entropy of one variable. We are asked for entropy rate? Lets assume
+many sequences of length n are generated where position i of these sequences are
+represented by random variable $X_i$ e.g. shown below is an example for sequence
+of length 9 represented by 9 random variables. The entropy rate is
+$\frac{1}{9}H(X_1,X_2,X_3,\ldots,X_9)$. It is very tedious to compute the joint
+probability distribution is not easy to compute after generating many such
+sequences. Since we know the transition probabilities, we use them to compute
+the entropy rate.
+
+
+```
+123456789
+L-.W.W.W-
+L-.L.W-W.
+-.W.L.-L.
+L.-.W.---
+```
+\vdots
+
+```
+-.-L..-L-
+```
+
+__Markov process__
+
+This process is shown by  graph @fig:graph_morse
+
+![Markov Chain](./markov1.dot.pdf){ #fig:graph_morse width=8cm }
+
+We construct the transition matrix $A$ and solve for stationary distribution $\pi$.
+Recall that $\pi = \pi A$ and $\sum \pi = 1.0$.
+
+$$
+A = \begin{bmatrix} 
+ 0.25 & 0.25 &  0.25 &  0.25\\
+ 0.25 &  0.25&  0.25&  0.25 \\
+ 0.5  & 0.5  & 0.   & 0. \\
+ 0.5  & 0.5  & 0.   & 0.    
+ \end{bmatrix}
+$$
+
+And $\pi = 0.33333333, 0.33333333,  0.16666667, 0.16666667$. Therefore entropy
+rate $H(\chi) = - \sum \pi_i p_{ij} \log p_{ij} = 0.3333 H(0.25,0.25,0.25,0.25)
++ 0.3333 H(0.25,0.25,0.25,0.25) + 0.166667 H(0.5,0.5) + 1.66667
+H(0.5,0.5)$. 
+
+__$H(\chi)=5/3$ bits__.
 
 
 # [Optional][C&T 3.11] Read the C&T section 4.3 (10 Points)
 
 Entropy Rate of a Random Walk.  What is the entropy rate of rooks, kings, and
 bishops on a 3x3 chessboard?  Remember there are 2 types of bishops.
+
+__Solution__
+
+Here is the our chessboard marked with states.
+
+<!--
+\begin{tikzpicture}[x=1cm]
+    \foreach \x in {0,...,3} \foreach \y in {0,...,3}
+    {
+        \pgfmathparse{mod(\x+\y,2) ? "black" : "white"}
+        \edef\color{\pgfmathresult}
+
+        \pgfmathparse{mod(\x+\y,2) ? "white" : "black"}
+        \edef\txtcolor{\pgfmathresult}
+
+        \path[fill=\color] (\x,\y) rectangle ++ (1,1);
+
+        \node[color=\txtcolor] (label) at ([xshift=0.5cm,yshift=0.5cm]\x,\y) {\x\y};
+    }
+    \draw (0,0)--(0,4)--(4,4)--(4,0)--cycle;
+\end{tikzpicture}
+-->
+
+\storechessboardstyle{3x3}{maxfield=c3}
+\chessboard[style=3x3,showmover=false]
+
+![Rook ](./rook.dot.pdf)
+
+![King ](./king.dot.pdf)
+
+![Black Bishop](./bishop.dot.pdf)
+
+
+__Solution__
+
+I use
+[script](http://github.com/dilawar/courses/raw/master/TASHIP/InformationTheory2017/HW6/chess.py)
+to compute the entropy. Following are the results. 
+
+```{.bash}
+$ python chess.py
+Calculating entropy rate of ./rook.dot
+ Stationary dist [ 0.11111111  0.11111111  0.11111111  0.11111111  0.11111111  0.11111111
+  0.11111111  0.11111111  0.11111111]
+ Entropy is 2.000000
+Calculating entropy rate of ./king.dot
+ Stationary dist [ 0.075  0.125  0.125  0.2    0.075  0.125  0.125  0.075  0.075]
+ Entropy is 2.236453
+Calculating entropy rate of ./bishop.dot
+ Stationary dist [ 0.14880078  0.00146843  0.20558003  0.00146843  0.34067548  0.00146843
+  0.20558003  0.00146843  0.09202154]
+ Entropy is 1.162996
+```
+
+Remeber that we have only compute the entropy rate of black Bishop. One can
+calculate the entropy of white bishop; at any four position, it gets two options
+therefore its entropy rate is __1 bit__.
+
+
+Piece        |  Entropy rate 
+-------------+---------------
+Rook         | 2 
+King         | 2.2364
+Black bishop | 1.163
+White Bishop | 1

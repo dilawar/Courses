@@ -28,11 +28,20 @@ mpl.rcParams['text.usetex'] = True
 transitionMat = np.matrix( 
         [ [0.25] * 4, [0.25]*4, [0.5,0.5,0,0], [0.5,0.5,0,0] ]
         )
+print( 'Transition matrix' )
+print( transitionMat )
 
 def entropy( seq ):
     count = np.array( list( Counter( seq ).values( )))
     probs = count / sum( count )
     return sum( [ - x * math.log( x, 2 ) for x in probs ] ) 
+
+def exampleSeq( size = 20 ):
+    with open( "__example_seq.txt", "w" ) as f:
+        for j in range( size ):
+            h, seq = step( 50 )
+            f.write( "%s\n" % ''.join(seq) )
+    print( 'Done writing example sequences to __example_seq.txt file' )
 
 def step( n ):
     allSeq = [ ]
@@ -42,16 +51,15 @@ def step( n ):
             seq.append( random.choice( list(".-") ) )
         else:
             seq.append( random.choice( list( ".-LW" ) ) )
-    return entropy( seq )
+    return entropy( seq ), seq
 
 def conditionalEntropy( n ):
     """Take n teps from init state 
     """
-    # We generate 1000 sequence of size n.
     H, h = [ ], 0.0
     for ii in range( n ):
         H.append( h )
-        h = step( ii )
+        h, s = step( ii )
     return H
 
 def solveStationary( A ):
@@ -66,6 +74,7 @@ def solveStationary( A ):
     return np.linalg.lstsq( a, b )[0]
 
 def main( ):
+    exampleSeq( )
     print( 'Solving ...' )
     piState = solveStationary( transitionMat )
     H = 0.0
@@ -81,6 +90,7 @@ def main( ):
     plt.ylabel( 'H(X)' )
     plt.title( 'Growth of entropy with N' )
     plt.savefig( '%s.png' % sys.argv[0] )
+    np.savetxt( '__hvsn__.csv', sol )
 
 if __name__ == '__main__':
     main()

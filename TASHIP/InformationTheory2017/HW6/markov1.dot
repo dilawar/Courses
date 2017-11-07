@@ -1,0 +1,10 @@
+digraph morse {
+
+    dot[label="."];
+    dash[label="-"];
+
+    dot -> { dot, dash, L, W } [label="0.25"];
+    dash -> { dot, dash, L, W } [label="0.25"];
+    L -> { dot, dash } [label=0.5];
+    W -> { dot, dash } [label=0.5];
+}

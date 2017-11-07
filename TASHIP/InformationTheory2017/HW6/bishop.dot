@@ -1,0 +1,15 @@
+digraph black {
+
+    a1 a2 a3;
+    b1 b2 b3;
+    c1 c2 c3;
+
+    a1 -> { b2, c3 } [label="0.5" ];
+    a3 -> { b2, c1 } [ label="0.5" ];
+
+    b2 -> { a3, c1, a1, a3 } [label="0.25"];
+
+    c1 -> {b2, a3} [label="0.5"];
+    c3 -> {b2, a1} [label="0.5" ];
+    
+}
