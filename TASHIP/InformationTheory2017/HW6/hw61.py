@@ -22,7 +22,6 @@ import matplotlib.pyplot as plt
 mpl.style.use( 'bmh' )
 mpl.rcParams['axes.linewidth'] = 0.2
 mpl.rcParams['lines.linewidth'] = 1.0
-mpl.rcParams['text.latex.preamble'] = [ r'\usepackage{siunitx}' ]
 mpl.rcParams['text.usetex'] = True
 
 
@@ -35,58 +34,52 @@ def entropy( seq ):
     probs = count / sum( count )
     return sum( [ - x * math.log( x, 2 ) for x in probs ] ) 
 
-
-def step( x ):
-    """Take next step
-    """
-    r = random.random( )
-    if x in "LW":
-        return random.choice( list(".-") )
-    return random.choice( list( ".-LW" ) )
-
-def steps( n, init ):
-    """Take n steps from init state 
-    """
-    traj = [ ]
-    entropies = [ ]
+def step( n ):
+    allSeq = [ ]
+    seq = [ random.choice( ".-LW" ) ]
     for i in range( n ):
-        traj.append( init )
-        init = step( init )
-        entropies.append( entropy( traj ) )
-    return traj, entropies
+        if seq[-1] in "LW":
+            seq.append( random.choice( list(".-") ) )
+        else:
+            seq.append( random.choice( list( ".-LW" ) ) )
+    return entropy( seq )
+
+def conditionalEntropy( n ):
+    """Take n teps from init state 
+    """
+    # We generate 1000 sequence of size n.
+    H, h = [ ], 0.0
+    for ii in range( n ):
+        H.append( h )
+        h = step( ii )
+    return H
 
 def solveStationary( A ):
     """ x = xA where x is the answer 
-
     x - xA = 0
-    x( I - A ) = 0
-    (I-A)^T x^T = 0
-    
+    x( I - A ) = 0 and sum(x) = 1
     """
-    a = np.eye( 4 ) - A 
-    a = np.vstack( (a.T, np.ones( 4 )) )
-    b = np.matrix( [ 0, 0, 0, 0, 1 ] ).T
+    n = A.shape[0]
+    a = np.eye( n ) - A 
+    a = np.vstack( (a.T, np.ones( n )) )
+    b = np.matrix( [0] * n + [ 1 ] ).T
     return np.linalg.lstsq( a, b )[0]
 
 def main( ):
     print( 'Solving ...' )
-    print( transitionMat )
-    res = None
-    #print( transitionMat ** 2 )
-    #print( transitionMat ** 10 )
-    #print( transitionMat ** 20 )
-    #print( transitionMat ** 100 )
-    e, ev = np.linalg.eig( transitionMat )
-    for i, v in zip(e,ev):
-        if np.isclose(i, 1.0):
-            res = v
-    print( res )
-    print( solveStationary( transitionMat ) )
-    sol = steps( 500, '.' )
-    plt.plot( sol[1] )
-    plt.xlabel( 'Steps' )
+    piState = solveStationary( transitionMat )
+    H = 0.0
+    print( 'Stationary dist %s' % piState )
+    for i, row in enumerate( transitionMat ):
+        h = sum( [ -x * math.log( x, 2 ) if x != 0 else 0.0 for x in np.ravel(row) ] )
+        H += piState[i] * h
+    print( 'Entropy %f' % H )
+
+    sol = conditionalEntropy( 1000 )
+    plt.plot( sol )
+    plt.xlabel( 'Seq Length' )
     plt.ylabel( 'H(X)' )
-    plt.title( 'Growth of entropy' )
+    plt.title( 'Growth of entropy with N' )
     plt.savefig( '%s.png' % sys.argv[0] )
 
 if __name__ == '__main__':

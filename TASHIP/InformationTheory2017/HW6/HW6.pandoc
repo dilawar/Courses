@@ -19,6 +19,10 @@ the entropy rate achievable under these constraints? Hint: take a look at Shanno
 out as a Markov process whose states are [.], [-], [L-space], [W-space]. Assume that
 all allowed outputs from any state are equally likely.
 
+__Solution__
+
+
+
 # [Optional][C&T 3.11] Read the C&T section 4.3 (10 Points)
 
 Entropy Rate of a Random Walk.  What is the entropy rate of rooks, kings, and
