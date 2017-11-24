@@ -27,18 +27,28 @@ def main( ):
     nRare = 0.0
     # Run till 100 rare events are found.
     t = time.time( )
-    N = 0
-    while nRare < 100.0:
-        r = roll_die( 1000 )
-        N += 1
-        if twoVsOne( r ) >= 2.0:
-            nRare += 1.0
-            print( 'Ah, A rare event' )
-        if N % 100000 == 0:
-            print('+ Total Exp=%d. Time taken=%f.' % ( N, time.time() - t) )
+    with open( 'results.txt', 'w' ) as f:
+        f.write( 'n, N, rare, prob\n' )
 
-    print( "Prob of rare event: %f" % (nRare / N ) )
-    print( 'Time taken %f seconds' % (time.time() - t ) )
+    for n in range(10, 5001, 50):
+        t = time.time( )
+        N, nRare = 0.0, 0.0
+        while nRare < 100.0:
+            r = roll_die( n )
+            N += 1
+            try:
+                if twoVsOne( r ) >= 2.0:
+                    nRare += 1.0
+                    print( '%d Ah, A rare event' % N )
+            except Exception as e:
+                pass
+
+        ttaken = time.time( ) - t
+        with open( 'results.txt', 'a' ) as f:
+            f.write( '%d, %d, %d, %f, %f\n' % (n, N, nRare, nRare/N, ttaken) )
+        print( "Prob of rare event: %f" % (nRare / N ) )
+        print( 'Time taken %f seconds' % (time.time() - t ) )
+    print( 'All done' )
 
 
 if __name__ == '__main__':
