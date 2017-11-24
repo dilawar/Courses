@@ -1,0 +1,37 @@
+---
+title: Homework 7
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+geometry: right=5cm, marginparwidth=4cm
+date : \today 
+fontfamily: libertine
+header-includes:
+    - \usepackage{pgfplots}
+    - \usepackage{libertine,mathpazo}
+---
+
+# Large deviation theory. 
+
+We roll a fair six sided die $n$ times, where $n$ is large. What is the
+probability that the number of 2s is at least double the number of 1s in the
+resulting string?  Of strings which satisfy this condition, what proportion of
+values will be 1s? 
+
+We can split this calculation into the following parts:
+
+a. What is the constraint equation for the set $E$ of types (or empirical
+distributions) $P_x^n$ which satisfy the required condition?
+
+b. Let $Q$ be the uniform distribution. Show that the member $P^*$ of E which
+minimizes the relative entropy $D(P^*||Q)$ is the maximum entropy distribution
+subject to the constraints from (a).
+
+c.  Find the distribution $P^*$. E.g. let the proportion of 1s be an unknown
+$x$. Use some intuition to set the rest of the distribution. Then use calculus
+to minimize.  You can find the answer analytically. 
+
+d . What is the probability that the outcome of $n$ die rolls be longs to $P^*$
+(and therefore, to $E$ first order in the exponent)?  
+
+e. (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
