@@ -21,7 +21,7 @@ def roll_die( n ):
 
 def twoVsOne( vec ):
     nTwo, nOne = len( vec[vec==2] ), len( vec[vec==1] )
-    return (nOne, nTwo, nTwo / nOne)
+    return (nOne, nTwo)
 
 def main( ):
     nRare = 0.0
@@ -34,10 +34,10 @@ def main( ):
         t = time.time( )
         N, nRare = 0.0, 0.0
         while nRare < 100.0:
-            n1, n2, r = roll_die( n )
             N += 1
             try:
-                if twoVsOne( r ) >= 2.0:
+                n1, n2 = twoVsOne( roll_die( n ) )
+                if (n1/n2) >= 2.0:
                     nRare += 1.0
                     print( '%d Ah, A rare event' % N )
             except Exception as e:
