@@ -21,20 +21,20 @@ def roll_die( n ):
 
 def twoVsOne( vec ):
     nTwo, nOne = len( vec[vec==2] ), len( vec[vec==1] )
-    return nTwo / nOne
+    return (nOne, nTwo, nTwo / nOne)
 
 def main( ):
     nRare = 0.0
     # Run till 100 rare events are found.
     t = time.time( )
     with open( 'results.txt', 'w' ) as f:
-        f.write( 'n, N, rare, prob, time\n' )
+        f.write( 'n, N, numevents, num1, prob, time\n' )
 
     for n in range(10, 5001, 50):
         t = time.time( )
         N, nRare = 0.0, 0.0
         while nRare < 100.0:
-            r = roll_die( n )
+            n1, n2, r = roll_die( n )
             N += 1
             try:
                 if twoVsOne( r ) >= 2.0:
@@ -45,7 +45,7 @@ def main( ):
 
         ttaken = time.time( ) - t
         with open( 'results.txt', 'a' ) as f:
-            f.write( '%d, %d, %d, %f, %f\n' % (n, N, nRare, nRare/N, ttaken) )
+            f.write( '%d, %d, %d, %d, %f, %f\n' % (n,N,nRare,n1,nRare/N,ttaken) )
         print( "Prob of rare event: %f" % (nRare / N ) )
         print( 'Time taken %f seconds' % (time.time() - t ) )
     print( 'All done' )
