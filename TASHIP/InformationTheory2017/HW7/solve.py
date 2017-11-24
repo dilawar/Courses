@@ -28,7 +28,7 @@ def main( ):
     # Run till 100 rare events are found.
     t = time.time( )
     with open( 'results.txt', 'w' ) as f:
-        f.write( 'n, N, numevents, num1, prob, time\n' )
+        f.write( 'n N nE n1 p t\n' )
 
     for n in range(10, 5001, 50):
         t = time.time( )
@@ -37,15 +37,14 @@ def main( ):
             N += 1
             try:
                 n1, n2 = twoVsOne( roll_die( n ) )
-                if (n1/n2) >= 2.0:
+                if (n2/n1) >= 2.0:
                     nRare += 1.0
-                    print( '%d Ah, A rare event' % N )
             except Exception as e:
                 pass
 
         ttaken = time.time( ) - t
         with open( 'results.txt', 'a' ) as f:
-            f.write( '%d, %d, %d, %d, %f, %f\n' % (n,N,nRare,n1,nRare/N,ttaken) )
+            f.write( '%d %d %d %d %f %f\n' % (n,N,nRare,n1,nRare/N,ttaken) )
         print( "Prob of rare event: %f" % (nRare / N ) )
         print( 'Time taken %f seconds' % (time.time() - t ) )
     print( 'All done' )
