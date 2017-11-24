@@ -28,7 +28,7 @@ def main( ):
     # Run till 100 rare events are found.
     t = time.time( )
     with open( 'results.txt', 'w' ) as f:
-        f.write( 'n, N, rare, prob\n' )
+        f.write( 'n, N, rare, prob, time\n' )
 
     for n in range(10, 5001, 50):
         t = time.time( )

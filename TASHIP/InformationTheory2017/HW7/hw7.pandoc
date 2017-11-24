@@ -38,15 +38,19 @@ e. (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
 
 # Solve
 
-Let's do the simulation first, just to feel the problem.
+Let's do the simulation first, just to feel the problem. We vary the value of
+$n$ and compute the probability of these 'rare events' after recording 100 such
+events.
 
 \begin{tikzpicture}[scale=1 , every node/.style={} ]
     \begin{tikzpicture}[scale=1]
-        \begin{axis}[ xlabel=n,ylabel=p ]
-        \addplot [color=blue] gnuplot [ raw gnuplot ] {
-            plot "./results.txt" using 2:3 with lines
+        \begin{semilogyaxis}[ xlabel=n,ylabel=p ]
+        \addplot+ [color=blue] gnuplot [ raw gnuplot ] {
+            set datafile separator ",";
+            plot "./results.txt" using 1:4 with p;
         };
-        \end{axis}
+        \end{semilogyaxis}
     \end{tikzpicture}
-    
 \end{tikzpicture}    
+
+__The probability of rare events decreases logarithmically with $n$__.
