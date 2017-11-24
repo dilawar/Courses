@@ -36,7 +36,7 @@ d . What is the probability that the outcome of $n$ die rolls be longs to $P^*$
 
 e. (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
 
-# Solve
+# Solution
 
 Let's do the simulation first, just to feel the problem. We vary the value of
 $n$ and compute the probability of these 'rare events' after recording 100 such
@@ -53,4 +53,4 @@ events.
     \end{tikzpicture}
 \end{tikzpicture}    
 
-__The probability of rare events decreases logarithmically with $n$__.
+The probability of rare events decreases logarithmically with $n$.
