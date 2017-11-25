@@ -46,8 +46,7 @@ events.
     \begin{tikzpicture}[scale=1]
         \begin{semilogyaxis}[ xlabel=n,ylabel=p ]
         \addplot+ [color=blue] gnuplot [ raw gnuplot ] {
-            set datafile separator ",";
-            plot "./results.txt" using 1:4 with p;
+            plot "./results.txt" using (column("n")):(100/column("N")) with p;
         };
         \end{semilogyaxis}
     \end{tikzpicture}
