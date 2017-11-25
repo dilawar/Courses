@@ -67,3 +67,9 @@ The probability of rare events decreases logarithmically with $n$.
 
 The empirical distribution must have $\Pr(2) \ge \Pr(1)$.
 
+## Solution b
+
+The simulation shows (@fig:hvsd)  for a distribution $E$ which satisfies the
+condition above, $D(E||Q)$ decreases with $H(E)$. Now we need a proof of this.
+
+![KL divergence Vs Entropy](./problem2.pdf){ #fig:hvsd }

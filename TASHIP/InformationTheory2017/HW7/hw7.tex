@@ -80,6 +80,25 @@
 % use microtype if available
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 \usepackage[right=5cm, marginparwidth=4cm]{geometry}
+\usepackage{graphicx}
+% Redefine \includegraphics so that, unless explicit options are
+% given, the image width will not exceed the width of the page.
+% Images get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\ScaleIfNeeded{%
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+{%
+ \catcode`\@=11\relax%
+ \gdef\includegraphics{\@ifnextchar[{\Oldincludegraphics}{\Oldincludegraphics[width=\ScaleIfNeeded]}}%
+}%
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -107,10 +126,7 @@
 \date{\today}
 \usepackage{pgfplots}
 \usepackage{libertine,mathpazo}
-\makeatletter
-\@ifpackageloaded{subfig}{}{\usepackage{subfig}}
-\@ifpackageloaded{caption}{}{\usepackage{caption}}
-\captionsetup[subfloat]{margin=0.5em}
+\usepackage{subfig}
 \AtBeginDocument{%
 \renewcommand*\figurename{Figure}
 \renewcommand*\tablename{Table}
@@ -119,12 +135,13 @@
 \renewcommand*\listfigurename{List of Figures}
 \renewcommand*\listtablename{List of Tables}
 }
-\@ifpackageloaded{float}{}{\usepackage{float}}
+\usepackage{float}
 \floatstyle{ruled}
+\makeatletter
 \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\makeatother
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
-\makeatother
 
 \begin{document}
 \maketitle
@@ -194,5 +211,17 @@ The probability of rare events decreases logarithmically with \(n\).
 \subsection{Solution a}\label{solution-a}
 
 The empirical distribution must have \(\Pr(2) \ge \Pr(1)\).
+
+\subsection{Solution b}\label{solution-b}
+
+The simulation shows (fig.~\ref{fig:hvsd}) for a distribution \(E\)
+which satisfies the condition above, \(D(E||Q)\) decreases with
+\(H(E)\). Now we need a proof of this.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{./problem2.pdf}
+\caption{KL divergence Vs Entropy}\label{fig:hvsd}
+\end{figure}
 
 \end{document}
