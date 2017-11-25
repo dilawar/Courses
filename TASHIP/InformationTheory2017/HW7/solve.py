@@ -41,7 +41,7 @@ def main( ):
                 n1, n2 = twoVsOne( roll_die( n ) )
                 if (n2/n1) >= 2.0:
                     nRare += 1.0
-                    n1InRateStrings.append( n1 / n )
+                    n1InRateStrings.append( 1.8 * n1 / n )
             except Exception as e:
                 pass
 

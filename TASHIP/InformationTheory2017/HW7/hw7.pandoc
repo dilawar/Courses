@@ -50,6 +50,18 @@ events.
         };
         \end{semilogyaxis}
     \end{tikzpicture}
+\end{tikzpicture}
+\begin{tikzpicture}[scale=1 , every node/.style={} ]
+    \begin{tikzpicture}[scale=1]
+        \begin{axis}[ xlabel=n,ylabel={Number of 1s} ]
+        \addplot+ [color=blue] gnuplot [ raw gnuplot ] {
+            plot "./results.txt" using (column("n")):(column("n1")) with p;
+        };
+        \end{axis}
+    \end{tikzpicture}
 \end{tikzpicture}    
 
 The probability of rare events decreases logarithmically with $n$.
+
+## Solution a
+
