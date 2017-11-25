@@ -1,0 +1,198 @@
+% From here  https://raw.githubusercontent.com/jgm/pandoc-templates/master/default.beamer
+\documentclass[]{article}
+\usepackage{mathtools,amsmath,amssymb,amsthm,mathrsfs}
+\usepackage{commath}
+\usepackage{lmodern}
+\usepackage[sc,osf]{mathpazo}
+%\usepackage{circuitikz}
+\makeatletter
+\@ifpackageloaded{tex4ht}{
+    \def\pgfsysdriver{pgfsys-tex4ht.def}
+}
+\makeatother
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage[multidot]{grffile}
+
+%% Include newcommands.
+\IfFileExists{tex_newcommands.tex}{
+    \input{tex_newcommands.tex}
+}
+
+\IfFileExists{dot2texi.sty}{
+    \usepackage{dot2texi}
+}{ }
+
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,backgrounds,positioning,matrix,decorations}
+
+\providecommand{\tightlist}{%
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{siunitx}
+\usepackage{ifxetex,ifluatex}
+\usepackage{listings}
+\lstset{ 
+    basicstyle=\ttfamily,
+    numbers=left,
+    numberstyle=\footnotesize,
+    stepnumber=2,
+    keywordstyle=\color[rgb]{0.13,0.29,0.53}\bfseries,
+    stringstyle=\color[rgb]{0.31,0.60,0.02},
+    commentstyle=\color[rgb]{0.56,0.35,0.01}\itshape,
+    numbersep=5pt,
+    backgroundcolor=\color{black!10},
+    tabsize=2,
+    breaklines=true,
+    linewidth=\textwidth
+}
+% \usepackage[xindyo,acronym,nomain,toc]{glossaries}
+% \makeglossaries
+%\usepackage[xindy]{imakeidx}
+%\makeindex
+\setlength{\parskip}{3mm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{definition}{Definition}
+%\newtheorem{comment}{Comment}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{property}{Property}
+\newtheorem{problem}{Problem}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{script}{Script}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage[right=5cm, marginparwidth=4cm]{geometry}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Dilawar Singh},
+            pdftitle={Homework 7},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{5}
+
+\title{Homework 7}
+\author{Dilawar Singh}
+\date{\today}
+\usepackage{pgfplots}
+\usepackage{libertine,mathpazo}
+\makeatletter
+\@ifpackageloaded{subfig}{}{\usepackage{subfig}}
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\captionsetup[subfloat]{margin=0.5em}
+\AtBeginDocument{%
+\renewcommand*\figurename{Figure}
+\renewcommand*\tablename{Table}
+}
+\AtBeginDocument{%
+\renewcommand*\listfigurename{List of Figures}
+\renewcommand*\listtablename{List of Tables}
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+
+\begin{document}
+\maketitle
+
+\section{Large deviation theory.}\label{large-deviation-theory.}
+
+We roll a fair six sided die \(n\) times, where \(n\) is large. What is
+the probability that the number of 2s is at least double the number of
+1s in the resulting string? Of strings which satisfy this condition,
+what proportion of values will be 1s?
+
+We can split this calculation into the following parts:
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  What is the constraint equation for the set \(E\) of types (or
+  empirical distributions) \(P_x^n\) which satisfy the required
+  condition?
+\item
+  Let \(Q\) be the uniform distribution. Show that the member \(P^*\) of
+  E which minimizes the relative entropy \(D(P^*||Q)\) is the maximum
+  entropy distribution subject to the constraints from (a).
+\item
+  Find the distribution \(P^*\). E.g. let the proportion of 1s be an
+  unknown \(x\). Use some intuition to set the rest of the distribution.
+  Then use calculus to minimize. You can find the answer analytically.
+\end{enumerate}
+
+d . What is the probability that the outcome of \(n\) die rolls be longs
+to \(P^*\) (and therefore, to \(E\) first order in the exponent)?
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
+\end{enumerate}
+
+\section{Solution}\label{solution}
+
+Let's do the simulation first, just to feel the problem. We vary the
+value of \(n\) and compute the probability of these `rare events' after
+recording 100 such events.
+
+\begin{tikzpicture}[scale=1 , every node/.style={} ]
+    \begin{tikzpicture}[scale=1]
+        \begin{semilogyaxis}[ xlabel=n,ylabel=p ]
+        \addplot+ [color=blue] gnuplot [ raw gnuplot ] {
+            plot "./results.txt" using (column("n")):(100/column("N")) with p;
+        };
+        \end{semilogyaxis}
+    \end{tikzpicture}
+\end{tikzpicture}\begin{tikzpicture}[scale=1 , every node/.style={} ]
+    \begin{tikzpicture}[scale=1]
+        \begin{axis}[ xlabel=n,ylabel={Number of 1s} ]
+        \addplot+ [color=blue] gnuplot [ raw gnuplot ] {
+            plot "./results.txt" using (column("n")):(column("n1")) with p;
+        };
+        \end{axis}
+    \end{tikzpicture}
+\end{tikzpicture}
+
+The probability of rare events decreases logarithmically with \(n\).
+
+\subsection{Solution a}\label{solution-a}
+
+The empirical distribution must have \(\Pr(2) \ge \Pr(1)\).
+
+\end{document}

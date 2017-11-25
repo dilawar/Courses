@@ -65,3 +65,5 @@ The probability of rare events decreases logarithmically with $n$.
 
 ## Solution a
 
+The empirical distribution must have $\Pr(2) \ge \Pr(1)$.
+

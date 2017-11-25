@@ -16,6 +16,11 @@ import time
 import os
 import numpy as np
 
+def KL_divergence( P, Q ):
+    dist = 0.0
+    for p, q in zip( P, Q ):
+        dist -= p * math.log( q / p )
+    return dist
 
 def roll_die( n ):
     return np.random.randint( low = 0, high = 7, size = n )
@@ -24,7 +29,7 @@ def twoVsOne( vec ):
     nTwo, nOne = len( vec[vec==2] ), len( vec[vec==1] )
     return (nOne, nTwo)
 
-def main( ):
+def simulate( ):
     nRare = 0.0
     # Run till 100 rare events are found.
     t = time.time( )
@@ -53,6 +58,8 @@ def main( ):
         print( 'Time taken %f seconds' % (time.time() - t ) )
     print( 'All done' )
 
+def main( ):
+    simulate( )
 
 if __name__ == '__main__':
     main()
