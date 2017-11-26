@@ -55,8 +55,8 @@ def main( ):
             results.append( (P, d, entropy(P) ) )
             f.write( "%g %g\n" % (d, entropy(P)) )
 
-    pg.c( 'set xlabel "H(E)"' )
-    pg.c( 'set ylabel "D(E||Q), Q is uniform"' )
+    pg.c( 'set ylabel "H(E)"' )
+    pg.c( 'set xlabel "D(E||Q), Q is uniform"' )
     pg.c( 'set terminal pdf; set output "problem2.pdf"; ' )
     pg.c( 'plot "tmp.dat" using 1:2 w p title "KL distance V/S entropy"' )
 

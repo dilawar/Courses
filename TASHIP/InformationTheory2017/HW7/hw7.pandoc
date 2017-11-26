@@ -65,7 +65,41 @@ The probability of rare events decreases logarithmically with $n$.
 
 ## Solution a
 
-The empirical distribution must have $\Pr(2) \ge \Pr(1)$.
+The empirical distribution must have $\Pr(2) \ge \Pr(1)$. Or,
+
+$$ 
+\begin{aligned}
+p_1 + p_2 + p_3 + p_4 + p_5 + p_6 &= 1 \\
+p_2 & \ge 2 p_1 
+\end{aligned}
+$${#eq:eq1}
+
+$$D(P||Q) = \sum_i p_i \log\left( \frac{1}{6p_i} \right)$${#eq:eq2}
+
+Find $P$ which minimizes $D(P||Q)$ subject to @eq:eq1. We use Langrange
+multipliers. See the Wiki article for more details.
+
+$$L(p1,p2,\ldots,p_6,\lambda_1,\lambda_2) = D(P||Q) + \lambda_1(p_2-p_1) + 
+\lambda_2(p_1+p_2+\ldots+p_6)$$ 
+
+We differentiate $L$ with respect to $p_1,p_2,\ldots,p_6,\lambda_1,\lambda_2$
+and set to 0. We get the following equations.
+
+$$
+\begin{aligned}
+1 + \log( 6p_1 ) - 2 \lambda_1 + \lambda_2 &= 0 \\
+1 + \log( 6p_2 ) - \lambda_1 + \lambda_2 &= 0 \\
+1 + \log( 6p_3 ) - 0 + \lambda_2 &= 0 \\
+1 + \log( 6p_4 ) - 0 + \lambda_2 &= 0 \\
+\vdots \\
+1 + \log( 6p_6 ) - 0 + \lambda_2 &= 0
+\end{aligned}
+$$
+
+These leads to following (I am not wrong). $p_2^2 = p_1 p_3$, and
+$p_3=p_4=p_5=p_6, p_2=2p_1$. $p_1=\frac{1}{19}, p_2=\frac{2}{19},
+p_3=p_4=p_5=p_6=\frac{4}{19}$. According to these calculation distribution 
+$E=(1/19,2/19,4/19,4/19,4/19,4/19)$ is the solution. $H(E)=2.458454$ bits.
 
 ## Solution b
 
