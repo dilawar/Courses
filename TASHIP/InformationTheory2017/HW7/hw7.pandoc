@@ -101,9 +101,12 @@ $p_3=p_4=p_5=p_6, p_2=2p_1$. $p_1=\frac{1}{19}, p_2=\frac{2}{19},
 p_3=p_4=p_5=p_6=\frac{4}{19}$. According to these calculation distribution 
 $E=(1/19,2/19,4/19,4/19,4/19,4/19)$ is the solution. $H(E)=2.458454$ bits.
 
-## Solution b
+## Part b
 
 The simulation shows (@fig:hvsd)  for a distribution $E$ which satisfies the
 condition above, $D(E||Q)$ decreases with $H(E)$. Now we need a proof of this.
 
 ![KL divergence Vs Entropy](./problem2.pdf){#fig:hvsd}
+
+## Part d 
+
