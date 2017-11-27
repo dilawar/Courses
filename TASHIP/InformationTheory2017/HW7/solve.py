@@ -46,13 +46,13 @@ def simulate( ):
                 n1, n2 = twoVsOne( roll_die( n ) )
                 if (n2/n1) >= 2.0:
                     nRare += 1.0
-                    n1InRateStrings.append( 1.8 * n1 / n )
+                    n1InRateStrings.append( float(n1) / n )
             except Exception as e:
                 pass
 
         ttaken = time.time( ) - t
         with open( 'results.txt', 'a' ) as f:
-            f.write( '%f %f %f %f %f %f\n' % (n,N,nRare
+            f.write( '%g %g %g %g %g %g\n' % (n,N,nRare
                 ,np.mean(n1InRateStrings),1.0*nRare/N,ttaken) )
         print( "Prob of rare event: %f" % (nRare / N ) )
         print( 'Time taken %f seconds' % (time.time() - t ) )
