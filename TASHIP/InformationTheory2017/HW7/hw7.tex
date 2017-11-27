@@ -170,13 +170,13 @@ We can split this calculation into the following parts:
   unknown \(x\). Use some intuition to set the rest of the distribution.
   Then use calculus to minimize. You can find the answer analytically.
 \item
-  What is the probability that the outcome of \(n\) die rolls be longs
-  to \(P^*\) (and therefore, to \(E\) first order in the exponent)?
+  What is the probability that the outcome of \(n\) die rolls belongs to
+  \(P^*\) (and therefore, to \(E\) first order in the exponent)?
 \item
   (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
 \end{enumerate}
 
-\section{Solution}\label{solution}
+\subsection{Solution}\label{solution}
 
 Let's do the simulation first, just to feel the problem. We vary the
 value of \(n\) and compute the probability of these `rare events' after
@@ -202,7 +202,7 @@ recording 100 such events.
 
 The probability of rare events decreases logarithmically with \(n\).
 
-\subsection{Part a}\label{part-a}
+\subsubsection{Part a}\label{part-a}
 
 The empirical distribution must have \(\Pr(2) \ge \Pr(1)\). Or,
 
@@ -213,7 +213,7 @@ p_2 & \ge 2 p_1
 \end{aligned}
 \label{eq:eq1}\end{equation}
 
-\subsection{Part b}\label{part-b}
+\subsubsection{Part b}\label{part-b}
 
 \begin{equation}D(P||Q) = \sum_i p_i \log\left( \frac{1}{6p_i} \right)\label{eq:eq2}\end{equation}
 
@@ -260,7 +260,7 @@ which satisfies the condition above, \(D(E||Q)\) decreases with
 \caption{KL divergence Vs Entropy}\label{fig:hvsd}
 \end{figure}
 
-\subsection{Part c}\label{part-c}
+\subsubsection{Part c}\label{part-c}
 
 Assuming the \(\Pr(1)=x\) then the \(\Pr(2)=2x\) and
 \(\Pr(3)=\Pr(4)=\Pr(5)=\Pr(6)=\frac{1-3x}{4}\).
@@ -275,6 +275,6 @@ Assuming the \(\Pr(1)=x\) then the \(\Pr(2)=2x\) and
     \end{axis}
 \end{tikzpicture}
 
-\subsection{Part d}\label{part-d}
+\subsubsection{Part d}\label{part-d}
 
 \end{document}

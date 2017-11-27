@@ -36,7 +36,7 @@ d. What is the probability that the outcome of $n$ die rolls belongs to $P^*$
 
 e. (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
 
-# Solution
+## Solution
 
 Let's do the simulation first, just to feel the problem. We vary the value of
 $n$ and compute the probability of these 'rare events' after recording 100 such
@@ -63,7 +63,7 @@ events.
 
 The probability of rare events decreases logarithmically with $n$.
 
-## Part a
+### Part a
 
 The empirical distribution must have $\Pr(2) \ge \Pr(1)$. Or,
 
@@ -74,7 +74,7 @@ p_2 & \ge 2 p_1
 \end{aligned}
 $${#eq:eq1}
 
-## Part b
+### Part b
 
 $$D(P||Q) = \sum_i p_i \log\left( \frac{1}{6p_i} \right)$${#eq:eq2}
 
@@ -114,7 +114,7 @@ condition above, $D(E||Q)$ decreases with $H(E)$. Now we need a proof of this.
 
 ![KL divergence Vs Entropy](./problem2.pdf){ #fig:hvsd }
 
-## Part c
+### Part c
 
 Assuming the $\Pr(1)=x$ then the $\Pr(2)=2x$ and
 $\Pr(3)=\Pr(4)=\Pr(5)=\Pr(6)=\frac{1-3x}{4}$.
@@ -129,9 +129,6 @@ $\Pr(3)=\Pr(4)=\Pr(5)=\Pr(6)=\frac{1-3x}{4}$.
     \end{axis}
 \end{tikzpicture}
 
-## Part d
-
-
-![KL divergence Vs Entropy](./problem2.pdf){#fig:hvsd}
+### Part d
 
 
