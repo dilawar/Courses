@@ -27,11 +27,11 @@ b. Let $Q$ be the uniform distribution. Show that the member $P^*$ of E which
 minimizes the relative entropy $D(P^*||Q)$ is the maximum entropy distribution
 subject to the constraints from (a).
 
-c.  Find the distribution $P^*$. E.g. let the proportion of 1s be an unknown
+c. Find the distribution $P^*$. E.g. let the proportion of 1s be an unknown
 $x$. Use some intuition to set the rest of the distribution. Then use calculus
 to minimize.  You can find the answer analytically. 
 
-d . What is the probability that the outcome of $n$ die rolls be longs to $P^*$
+d. What is the probability that the outcome of $n$ die rolls belongs to $P^*$
 (and therefore, to $E$ first order in the exponent)?  
 
 e. (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
@@ -106,4 +106,4 @@ $E=(1/19,2/19,4/19,4/19,4/19,4/19)$ is the solution. $H(E)=2.458454$ bits.
 The simulation shows (@fig:hvsd)  for a distribution $E$ which satisfies the
 condition above, $D(E||Q)$ decreases with $H(E)$. Now we need a proof of this.
 
-![KL divergence Vs Entropy](./problem2.pdf){ #fig:hvsd }
+![KL divergence Vs Entropy](./problem2.pdf){#fig:hvsd}
