@@ -31,7 +31,7 @@ c.  Find the distribution $P^*$. E.g. let the proportion of 1s be an unknown
 $x$. Use some intuition to set the rest of the distribution. Then use calculus
 to minimize.  You can find the answer analytically. 
 
-d . What is the probability that the outcome of $n$ die rolls be longs to $P^*$
+d. What is the probability that the outcome of $n$ die rolls be longs to $P^*$
 (and therefore, to $E$ first order in the exponent)?  
 
 e. (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
@@ -63,7 +63,7 @@ events.
 
 The probability of rare events decreases logarithmically with $n$.
 
-## Solution a
+## Part a
 
 The empirical distribution must have $\Pr(2) \ge \Pr(1)$. Or,
 
@@ -73,6 +73,8 @@ p_1 + p_2 + p_3 + p_4 + p_5 + p_6 &= 1 \\
 p_2 & \ge 2 p_1 
 \end{aligned}
 $${#eq:eq1}
+
+## Part b
 
 $$D(P||Q) = \sum_i p_i \log\left( \frac{1}{6p_i} \right)$${#eq:eq2}
 
@@ -92,18 +94,42 @@ $$
 1 + \log( 6p_3 ) - 0 + \lambda_2 &= 0 \\
 1 + \log( 6p_4 ) - 0 + \lambda_2 &= 0 \\
 \vdots \\
-1 + \log( 6p_6 ) - 0 + \lambda_2 &= 0
+1 + \log( 6p_6 ) - 0 + \lambda_2 &= 0 \\
+p_2 &= 2 p_1 \\
+p_1 + p_2 + \dots + p+6 &= 1 
 \end{aligned}
 $$
 
-These leads to following (I am not wrong). $p_2^2 = p_1 p_3$, and
-$p_3=p_4=p_5=p_6, p_2=2p_1$. $p_1=\frac{1}{19}, p_2=\frac{2}{19},
-p_3=p_4=p_5=p_6=\frac{4}{19}$. According to these calculation distribution 
-$E=(1/19,2/19,4/19,4/19,4/19,4/19)$ is the solution. $H(E)=2.458454$ bits.
+These leads to following (I am not wrong). $\frac{p_2}{p_3} = 2^{1/3}$,
+$p_2=2p_1$ and $p_3=p_4=p_5=p_6$. 
 
-## Solution b
+$p_1=\frac{1}{3 + 4^{4/3}}, p_2=2p_1,p_3=p_4=p_5=p_6=\frac{2^{2/3}}{3+4^{4/3}}$.
+According to these calculation distribution $H(E)=2.557196$ bits _which is very
+close to numerical results we have in @fig:hvsd_. Note that we have only shown
+that this minimizes $E$. \marginpar{It is not hard to show this also maximizes
+$H$}
 
 The simulation shows (@fig:hvsd)  for a distribution $E$ which satisfies the
 condition above, $D(E||Q)$ decreases with $H(E)$. Now we need a proof of this.
 
 ![KL divergence Vs Entropy](./problem2.pdf){ #fig:hvsd }
+
+## Part c
+
+Assuming the $\Pr(1)=x$ then the $\Pr(2)=2x$ and
+$\Pr(3)=\Pr(4)=\Pr(5)=\Pr(6)=\frac{1-3x}{4}$.
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[ xlabel={$x=\Pr(1)$},ylabel=H(E) bits, grid, ymax=3 ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+        H(x) = - x * log(x) / log(2) - 2*x * log(2*x)/log(2) 
+            - 4* (1-3*x)/4 * log((1-3*x)/4)/log(2);
+        plot [x=0.001:0.3] H(x);
+    };
+    \end{axis}
+\end{tikzpicture}
+
+## Part d
+
+
+
