@@ -131,4 +131,30 @@ $\Pr(3)=\Pr(4)=\Pr(5)=\Pr(6)=\frac{1-3x}{4}$.
 
 ### Part d
 
+See theorem 11.1.2 in book for details (chapter 11, Information theory and
+statistics).
+
+We compute the probability of each type which satisties the given condition and
+then we add them up. This probability is given by $2^{-n(H(P^*)+D(P^*||Q))}$
+where $Q$ is uniform distribution.
+
+Numerically its not possible to enumerate all types which statisfy the
+constraints. So we do a random sampling (not-perfect here) and see if we are
+getting close to the real value.
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+    xlabel=N,ylabel=Prob
+    , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+        plot "./probd.txt" using 1:2 every 10 with lines
+    };
+    \end{axis}
+\end{tikzpicture}
+
+This value should converge to $4.937\times10^{-81}$. There is simply no way I
+can do this numerically. Indeed, on desktop computer, I could not generate a
+rare event in last 4 days for n = 250.
+
 

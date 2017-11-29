@@ -126,7 +126,10 @@
 \date{\today}
 \usepackage{pgfplots}
 \usepackage{libertine,mathpazo}
-\usepackage{subfig}
+\makeatletter
+\@ifpackageloaded{subfig}{}{\usepackage{subfig}}
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\captionsetup[subfloat]{margin=0.5em}
 \AtBeginDocument{%
 \renewcommand*\figurename{Figure}
 \renewcommand*\tablename{Table}
@@ -135,13 +138,12 @@
 \renewcommand*\listfigurename{List of Figures}
 \renewcommand*\listtablename{List of Tables}
 }
-\usepackage{float}
+\@ifpackageloaded{float}{}{\usepackage{float}}
 \floatstyle{ruled}
-\makeatletter
 \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
-\makeatother
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
 
 \begin{document}
 \maketitle
@@ -254,7 +256,7 @@ The simulation shows (fig.~\ref{fig:hvsd}) for a distribution \(E\)
 which satisfies the condition above, \(D(E||Q)\) decreases with
 \(H(E)\). Now we need a proof of this.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{./problem2.pdf}
 \caption{KL divergence Vs Entropy}\label{fig:hvsd}
@@ -276,5 +278,31 @@ Assuming the \(\Pr(1)=x\) then the \(\Pr(2)=2x\) and
 \end{tikzpicture}
 
 \subsubsection{Part d}\label{part-d}
+
+See theorem 11.1.2 in book for details (chapter 11, Information theory
+and statistics).
+
+We compute the probability of each type which satisties the given
+condition and then we add them up. This probability is given by
+\(2^{-n(H(P^*)+D(P^*||Q))}\) where \(Q\) is uniform distribution.
+
+Numerically its not possible to enumerate all types which statisfy the
+constraints. So we do a random sampling (not-perfect here) and see if we
+are getting close to the real value.
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[
+    xlabel=N,ylabel=Prob
+    , grid style={draw=gray!20}, grid = both, minor tick num = 4 
+    ]
+    \addplot [color=blue] gnuplot [ raw gnuplot ] {
+        plot "./probd.txt" using 1:2 every 10 with lines
+    };
+    \end{axis}
+\end{tikzpicture}
+
+This value should converge to \(4.937\times10^{-81}\). There is simply
+no way I can do this numerically. Indeed, on desktop computer, I could
+not generate a rare event in last 4 days for n = 250.
 
 \end{document}
