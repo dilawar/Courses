@@ -1,0 +1,14 @@
+---
+title: Notes
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+date : \today 
+mainfont: Linux Libertine
+header-includes:
+    - \usepackage{pgfplots}
+---
+
+# Dynamical System
+
+1. 

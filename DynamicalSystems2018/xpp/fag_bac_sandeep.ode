@@ -1,0 +1,6 @@
+# Bacteria phase system.
+init x=10,y=2
+dx/dt=x*(1-x)-x*y
+dy/dt=100*x*y-0.1*y
+@ METH=83dp,BOUND=10000
+done

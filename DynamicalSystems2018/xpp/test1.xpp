@@ -1,0 +1,5 @@
+# Passive membrane potential
+init v=0
+par c=20 gl=2 vl=-60 i=2
+dv/dt=(gl*(vl-v)+i)/c
+done
