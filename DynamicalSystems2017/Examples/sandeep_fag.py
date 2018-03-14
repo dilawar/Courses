@@ -37,7 +37,10 @@ def solve( ts, init, solver ):
     t = time.time( )
     r = scipy.integrate.ode( system )
     r.set_initial_value( init, 0 )
-    r.set_integrator( solver )
+    if solver != 'vode':
+        r.set_integrator( solver )
+    else:
+        r.set_integrator( solver, method = 'bdf' )
     dt = ts[1] - ts[0]
     solution = [ ]
     while r.successful( ) and r.t < ts[-1]:
@@ -47,9 +50,9 @@ def solve( ts, init, solver ):
 
 def other_solvers( ts, init ):
     plt.figure( )
-    solvers = [ 'vode', 'zvode', 'lsoda', 'dopri5', 'dop853' ]
+    solvers = [ 'vode', 'lsoda', 'dopri5', 'dop853' ]
     for i, solver in enumerate( solvers ):
-        ax = plt.subplot( int(len(solvers)/2)+1, 2, i+1 )
+        ax = plt.subplot( int(len(solvers)/2), 2, i+1 )
         print( 'Solving using %s' % solver )
         ys, timeTaken = solve( ts, init, solver )
         title = '%s Time=%.4f sec' % (solver, timeTaken)
