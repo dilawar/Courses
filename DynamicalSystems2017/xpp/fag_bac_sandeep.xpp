@@ -1,0 +1,5 @@
+# Bacteria phase system.
+init x=100 y=50
+dx/dt=x*(1-x)-x*y
+dy/dt=100*x*y-0.1*y
+done
