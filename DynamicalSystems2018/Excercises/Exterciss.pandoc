@@ -1,0 +1,13 @@
+---
+title: Notes and Excercises (Dynamical Systems)
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+geometry: right=5cm, marginparwidth=4cm
+date : \today 
+mainfont: Linux Libertine
+mathfont: Asana Math
+header-includes:
+---
+
+# Fixed Points

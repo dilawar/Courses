@@ -1,0 +1,4 @@
+# Excercise 2.2.1
+init x=0
+dx/dt=4*x^2-16
+end
