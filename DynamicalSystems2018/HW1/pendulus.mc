@@ -3,7 +3,8 @@ load( contrib_ode )$
 
 /* This was derived in class */
 /* declare( [m, L, g, theta], real)$ */
-pendulum : m * L^2 * 'diff(theta,t,2) + b * 'diff( theta, t ) + m * g * L * sin(theta) = gamma$
+pendulum : m * L^2 * 'diff(theta,t,2) + b * 'diff( theta, t ) 
+    + m * g * L * sin(theta) = gamma$
 
 /* pendulum : expand( pendulum / m / L / L ); */
 /* Subtiture w = root(g/L) and tau = wt */
