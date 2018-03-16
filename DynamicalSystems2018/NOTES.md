@@ -1,3 +1,20 @@
+---
+title : Notes on Dynamical Systems 
+author : Dilawar Singh
+date : \today
+---
+
+# Definitions
+
+## Conservative Systems
+
+1. If a dynamical system $\dot{x}=f(x),\; x\in\mathbb{R}$ Jacobian $D_xf(x)$ has
+   trace 0 then it is conservative. The sum of eigenvalues is zero. Implies,
+   there would not be any sink or source in conservative system.
+
+- Conservative systems preserve phase space volume. __??__
+
+
 # Solutions of ODEs
 
 $y' = f(x,y), y(x_0)=y_0$
