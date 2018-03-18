@@ -7,12 +7,12 @@ eq2 : 'diff(omega,t)= alpha * omega + I - sin( theta );
 /* generate phase plot and solutions */
 plotdf( [ rhs(eq1), rhs(eq2) ]
         , [ theta, omega ]
-        , [ theta, -2*%pi, 2*%pi ]
-        , [ omega, -2*%pi, 2*%pi ]
-        , [parameters, "I=0,alpha=0"]
-        , [tstep,0.01]
-        , [trajectory_at, 3.14, 0]
+        , [ theta, -4*%pi, 4*%pi ]
+        , [ omega, -4*%pi, 4*%pi ]
+        , [parameters, "I=0.5,alpha=0.1"]
+        , [tstep,0.1]
+        , [trajectory_at, 0, 0]
         , [nsteps,500]
-        , [sliders,"I=0:1,alpha=-1:1"]
+        , [sliders,"I=0:2,alpha=0:1"]
         )$
 
