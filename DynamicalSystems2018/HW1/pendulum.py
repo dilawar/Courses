@@ -21,7 +21,6 @@ import scipy.integrate as sci
 def rnd( ):
     return random.random() - 0.5
 
-
 def pendulum_sympy( ):
     import sympy as sy
     t = sy.Symbol( 't', real = True )
@@ -38,11 +37,33 @@ def pendulum_sympy( ):
             gamma
             )
     sy.pprint( system )
+    return system
 
-def system( y, t, b = 0.25, Gamma=1 ):
+def system( y0, t, b = 0.25, Gamma=1 ):
     m, g, L = 1, 10, 1
-    theta, u = y
+    theta, u = y0
     return [u, (-b*u-m*g*L*np.sin(theta)+Gamma)/m/L/L ]
+
+def pend( t, y0, b = 0.25, Gamma=1 ):
+    m, g, L = 1, 10, 1
+    theta, omega = y0
+    return [omega, (-b*omega-m*g*L*np.sin(theta)+Gamma)/m/L/L ]
+
+def compute_traj( S, init, N, dt = 1 ):
+    X = np.zeros( N )
+    Y = np.zeros( N )
+    _dt = 0.1
+    r = sci.ode( S )
+    r.set_initial_value( init, 0 )
+    r.set_integrator( 'lsoda' )
+    y = init
+    for i in range( N ):
+        T = i * dt
+        while r.successful( ) and r.t < T:
+            y = r.integrate( r.t + _dt )
+        X[i], Y[i] = y[0], y[1]
+    return X, Y
+
 
 def pendulum_scipy( ):
     m, L, g, gamma, b = 1, 1, 10, 1, 1
@@ -53,9 +74,11 @@ def pendulum_scipy( ):
     plt.savefig( '%s.png' % sys.argv[0] )
     print( 'Saved to %s.png' % sys.argv[0] )
 
-
 def main( ):
-    sys = pendulum_scipy( )
+    X, Y = compute_traj( pend, [0.1, 0.1], N = 1000 )
+    plt.scatter( X, Y )
+    plt.savefig( '%s.png' % sys.argv[0] )
+    print( 'Saved to %s.png' % sys.argv[0] )
 
 if __name__ == '__main__':
     #init_session( )
