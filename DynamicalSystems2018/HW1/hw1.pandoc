@@ -1,0 +1,29 @@
+---
+title: Homework 1
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+geometry: right=5cm, marginparwidth=4cm
+date : \today 
+mainfont: Linux Libertine
+mathfont: Asana Math
+header-includes:
+    - \usepackage{pgfplots}
+---
+
+# Stupid pendulum with non-linear equation
+
+$mL^2\ddot{\theta} + b \dot{\theta} + mgL sin(\theta) = \Gamma$
+
+Making t dimensionless. $t=\frac{t'}{\tau}$.
+
+$$\alpha = \frac{b}{Lm\sqrt{g}\sqrt{L}}\; I = \frac{\Gamma}{mgL}$$
+
+Final equation.
+
+\begin{equation}
+\begin{aligned}
+\dot{\theta} &= \omega \\
+\dot{\omega} &= I - sin(\theta) - \alpha \omega 
+\end{aligned}
+\end{equation}
