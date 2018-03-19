@@ -26,7 +26,13 @@ $$ {#eq:system}
 
 # Solution
 
-This system is described in Maxima.
+This system is described in Maxima (see Appendix ).
+
+![](./i0.02alpha0.01.ps.pdf){#fig:sol1 width=5cm}
+
+
+
+# Appendix
 
 ~~~{.maxima}
 
