@@ -1,29 +1,52 @@
 ---
 title: Homework 1
 author: Dilawar Singh
-institute: NCBS Bangalore
-email: dilawars@ncbs.res.in
-geometry: right=5cm, marginparwidth=4cm
 date : \today 
 mainfont: Linux Libertine
 mathfont: Asana Math
-header-includes:
-    - \usepackage{pgfplots}
 ---
 
-# Stupid pendulum with non-linear equation
+# Pendulum with non-linear equation
 
-$mL^2\ddot{\theta} + b \dot{\theta} + mgL sin(\theta) = \Gamma$
+$$mL^2\ddot{\theta} + b \dot{\theta} + mgL sin(\theta) = \Gamma $${#eq:eq1}
 
-Making t dimensionless. $t=\frac{t'}{\tau}$.
+Where b is drag, Γ is external force applied to pendulum.
 
-$$\alpha = \frac{b}{Lm\sqrt{g}\sqrt{L}}\; I = \frac{\Gamma}{mgL}$$
+We make some substitutions given by @eq:eq2 to make @eq:eq1 dimentionless.
 
-Final equation.
+$$\alpha = \frac{b}{Lm\sqrt{gL}},\quad I = \frac{\Gamma}{mgL}$$ {#eq:eq2}
 
-\begin{equation}
-\begin{aligned}
-\dot{\theta} &= \omega \\
-\dot{\omega} &= I - sin(\theta) - \alpha \omega 
-\end{aligned}
-\end{equation}
+## Final system
+
+$$ \begin{gathered}
+\dot{\theta} = \omega \\
+\dot{\omega} = I - sin(\theta) - \alpha \omega
+\end{gathered}
+$$ {#eq:system}
+
+# Solution
+
+This system is described in Maxima.
+
+~~~{.maxima}
+
+load( plotdf )$
+
+eq1 : 'diff(theta,t) = omega;
+eq2 : 'diff(omega,t)= alpha * omega + I - sin( theta );
+
+/* generate phase plot and solutions */
+plotdf( [ rhs(eq1), rhs(eq2) ]
+        , [ theta, omega ]
+        , [ theta, -4*%pi, 4*%pi ]
+        , [ omega, -4*%pi, 4*%pi ]
+        , [parameters, "I=0.5,alpha=0.1"]
+        , [tstep,0.1]
+        , [trajectory_at, 0, 0]
+        , [nsteps,500]
+        , [sliders,"I=0:2,alpha=0:1"]
+        )$
+~~~
+
+
+
