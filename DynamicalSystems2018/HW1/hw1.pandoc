@@ -14,9 +14,14 @@ Where b is drag, Γ is external force applied to pendulum.
 
 We make some substitutions given by @eq:eq2 to make @eq:eq1 dimentionless.
 
-$$\alpha = \frac{b}{Lm\sqrt{gL}},\quad I = \frac{\Gamma}{mgL}$$ {#eq:eq2}
+$$\alpha = \frac{b}{Lm\sqrt{gL}},\quad I = \frac{\Gamma}{mgL}, \quad
+t=t'/\sqrt{g/L}$$ {#eq:eq2}
+
+
 
 ## Final system
+
+$$\ddot{\theta} + sin(\theta) + \alpha\dot{\theta} = I$$ {#eq:eq3}
 
 $$ \begin{gathered}
 \dot{\theta} = \omega \\
