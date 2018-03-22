@@ -14,7 +14,6 @@ __status__           = "Development"
 import sys
 import os
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 import math
 import random
@@ -49,7 +48,7 @@ def compute_traj( ode, theta, w, T = 40 ):
     t = ode.compute( '%f_%f' % (theta,w) ).sample( )
     return t
 
-def compute_trajs_near( ode, theta, w, N = 10, err = 0.1, T = 100 ):
+def compute_trajs_near( ode, theta, w, N = 10, err = 0.1, T = 10 ):
     trajs = [ ]
     for dt, dw in itertools.product( [ -0.5, -0.1, 0, 0.1, 0.5 ], repeat = 2 ):
         theta1, w1 = theta + dt, w + dw
@@ -60,9 +59,9 @@ def compute_trajs_near( ode, theta, w, N = 10, err = 0.1, T = 100 ):
 def plot( trajs, ax ):
     for t in trajs:
         x, y = t['theta'], t['w']
+        dr = (np.diff(x) ** 2 + np.diff( y ) ** 2) ** 0.5
         dx, dy = x[1] - x[0], y[1] - y[0]
-        ax.scatter( x[0:2], y[0:2], s=0.1, color = 'blue' )
-        ax.plot( x, y, color = 'blue', lw = 0.4, alpha = 0.4 )
+        cax = ax.scatter( x[1:], y[1:], s=0.05, c = dr, vmin=0, vmax=0.02, cmap = 'jet')
         ax.set_xlabel( r'$\theta$' )
         ax.set_ylabel( r'$\omega$' )
         ax.set_xlim( [ -2 *math.pi, 2 *math.pi ] )
@@ -85,32 +84,28 @@ def compute_phase_plane( ode, I, alpha, ax = None ):
 
     ax.plot( *nullx.T, '-.', color = 'blue' )
     ax.plot( *nully.T, '-.', color = 'red' )
-
-
     ax.set_title( r'I=%.2f, $\alpha=%.2f$' % (I, alpha), fontsize = 8 )
 
 
 def main( args = None ):
     print( 'Constructing system' )
     ode = construct_system( 0.0, 0.0 )
-    outfile = '%s.pdf' % sys.argv[0]
 
-    ps = [ 0.01, 0.02 ]
+    ps = [ 0.01, 0.02, 0.5, 0.9 ]
     nn = math.ceil( len(ps) ** 0.5 )
-    with PdfPages( outfile ) as pdf:
-        for i, I in enumerate(ps):
-            plt.figure( )
-            for j, alpha in enumerate(ps):
-                ax = plt.subplot( nn, nn, j + 1 )
-                compute_phase_plane( ode, I=I, alpha=alpha, ax = ax )
-            plt.xlabel( r'$\theta$' )
-            plt.ylabel( r'$\omega$' )
-            plt.suptitle( r'Pendulum: $\dot{\theta}=\omega$,\quad $\dot{\omega}=I-sin(\theta)-\alpha\omega$' )
-            plt.tight_layout( rect = [0,0,1,0.95] )
-            pdf.savefig( )
-            plt.close( )
-
-    print( 'Saved to find %s' % outfile )
+    for i, I in enumerate(ps):
+        outfile = '%s_%03d.png' % (sys.argv[0], i)
+        plt.figure( )
+        for j, alpha in enumerate(ps):
+            ax = plt.subplot( nn, nn, j + 1 )
+            compute_phase_plane( ode, I=I, alpha=alpha, ax = ax )
+        plt.xlabel( r'$\theta$' )
+        plt.ylabel( r'$\omega$' )
+        plt.suptitle( r'Pendulum: $\dot{\theta}=\omega$,\quad $\dot{\omega}=I-sin(\theta)-\alpha\omega$' )
+        plt.tight_layout( rect = [0,0,1,0.95] )
+        plt.savefig( outfile )
+        print( 'Saved to find %s' % outfile )
+        plt.close( )
     
 if __name__ == '__main__':
     main( )
