@@ -73,9 +73,11 @@ def main( ):
             x, y = ys[:,0], ys[:,1]
             if ii < 1:
                 plot_on_cylinder( x, y, ax1 )
-            c = cm.hot( ii / 30.0 )
-            ax2.plot( x, y, lw = 0.5, color = c )
+            c = cm.jet( ii / 30.0 )
+            #ax2.plot( x, y, lw = 0.5, color = c )
             ax2.scatter( x[0], y[0], s=0.8, color = c )
+            dr = (np.diff(x) ** 2 + np.diff(y) ** 2) ** 0.5
+            ax2.scatter( x[1:], y[1:], s=0.5, c = dr )
 
         ax2.set_xlabel( r'$\theta$' )
         ax2.set_ylabel( r'$\omega$' )
