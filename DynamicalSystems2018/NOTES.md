@@ -40,3 +40,13 @@ $\exists g$ s.t. iff $\int_c g.x$ has same sign then $x$ is not periodic.
 
 It follows from 'Green Theorem'.
 
+# Birfuracation
+
+## Hopf's bifurcation
+
+When complex conjugate eigen values cross the imaginary axis from the negative real axis ,
+we see a Hopf bifurcation.
+
+- Supercritical Hopf (Stable)
+- Subcritical Hopf (Unstable)
+- Homoclinic bifurcation
