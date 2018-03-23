@@ -57,10 +57,14 @@ def is_periodic_helper( vec ):
     while sum(tps) > 1:
         x0 = tps[np.nonzero(tps)][0]
         ts = [ i for i, x in enumerate(tps) if isclose(x,x0,max(3,0.1*x0)) ]
-        res.append( (x0, np.diff(ts) ))
+        if not ts:
+            continue
+        res.append( (x0, np.mean(np.diff(ts))) )
         tps[ts] = 0
 
-    print( res, vec )
+    periods, periodicity = zip( *res )
+    if min(periodicity) == max(periodicity):
+        return np.sum( periods )
     return 0
 
 def is_periodic( vec, polar = False, ax = None):
@@ -146,8 +150,9 @@ def main( ):
             #  ys[:,0] = ys[:,0] / (2*math.pi)
             x, y = ys[:,0], ys[:,1]
             if ii < 2:
-                T = is_periodic( ys[-1000:], polar = True, ax = ax4 )
-                print( 'Peridic trajectory is found with periodic %f' % T )
+                T = is_periodic( ys[-500:], polar = True )
+                if T:
+                    print( 'Peridic trajectory is found with periodic %f' % T )
             if ii < 1:
                 plot_on_cylinder( x, y, ax1 )
             #  c = cm.jet( ii / 10.0 )
