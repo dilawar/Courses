@@ -19,6 +19,7 @@ int dataPin  = 7;  // Connected to DS (pin 14) of 74HC595
 
 void setup()
 {
+    Serial.begin( 38400 );
 
     pinMode(latchPin, OUTPUT);
     pinMode(clockPin, OUTPUT);
@@ -28,28 +29,49 @@ void setup()
     digitalWrite(clockPin, HIGH); 
 }
 
-void turnON( size_t groupnum, size_t lednum, size_t step = 5 )
+void writeData( byte val )
 {
-    for (size_t i = 0; i < step; i++) 
+    digitalWrite( latchPin, LOW );
+    shiftOut( dataPin, clockPin, MSBFIRST, val );
+    digitalWrite( latchPin, HIGH );
+}
+
+void turnON( size_t groupnum, size_t lednum, size_t wait = 100 )
+{
+
+    String msg( "LED " );
+    msg += String( groupnum );
+    msg += String( lednum );
+
+    for (size_t i = 0; i < 5; i++) 
     {
-        digitalWrite( latchPin, LOW );
-        shiftOut( dataPin, clockPin, MSBFIRST, LED[groupnum][lednum][i] );
-        digitalWrite( latchPin, HIGH );
+        byte val = LED[groupnum][lednum][i];
+        writeData( val );
+        msg += String( " " );
+        msg += String( val ); 
     }
+    Serial.println( msg );
+    delay( wait );
+}
+
+void showLEDS( size_t wait = 100 )
+{
+    for (size_t i = 0; i < 6; i++) 
+        for (size_t ii = 0; ii < 6; ii++) 
+            turnON( i, ii, wait );
 }
 
 
 void testLEDSetup()
 {
 
-    for(int k=0; k<6; k++)
-    { 
-        for(int j=0 ; j<6 ;j++)
-        {
-            turnON( k, j );
-            delay(100);
-        }
-    }
+#if 1
+    // writeData( random(0,129) );
+    writeData( 0x20 );
+    delay( 500 );
+#else
+    showLEDS( 500 );
+#endif
 }
 
 void loop()
