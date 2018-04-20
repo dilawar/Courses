@@ -109,6 +109,15 @@ void ledOFF( size_t index )
     last_active_[index] = millis();
 }
 
+size_t get_coupling( )
+{
+    size_t res = 0;
+    for (size_t i = 0; i < NUM_LED_IN_RING * NUM_RING; i++) 
+        if( status_[i] )
+            res += 1;
+    return res;
+}
+
 /* --------------------------------------------------------------------------*/
 /**
  * @Synopsis  Led with given index.
@@ -123,13 +132,16 @@ void update( size_t index )
     {
         // Serial.print( "Index is on ");
         // Serial.println( index );
-
         if( (last_active_[ index ] - millis()) > 1000 )
             ledOFF(index);
     }
     else
-        ledON( index );
-
+    {
+        // The probability of each LED to go up is small.
+        size_t coupling = get_coupling( );
+        if( random(0, NUM_RING*NUM_LED_IN_RING) < 10 + coupling )
+            ledON( index );
+    }
 }
 
 
