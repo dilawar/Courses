@@ -12,6 +12,7 @@
  */
 
 #include "LEDADD.h"
+#include <Arduino.h>
 
 #define NUM_RING        6
 #define NUM_LED_IN_RING 6
@@ -28,8 +29,8 @@ int col;
 
 byte Byte[5] ={};
 
-size_t ring_ = 0;
-size_t led_  = 0;
+unsigned ring_ = 0;
+unsigned led_  = 0;
 
 bool status_[36] = {0};
 long last_active_[36] = {0};
@@ -91,7 +92,7 @@ void LedOFF(int row, int col)
     status_[row*NUM_RING+col] = false;
 }
 
-void ledON( size_t index )
+void ledON( unsigned index )
 {
     ring_ = index / NUM_RING  + 1;
     led_ = ( index % NUM_LED_IN_RING ) + 1;
@@ -100,7 +101,7 @@ void ledON( size_t index )
     status_[index] = true;
 }
 
-void ledOFF( size_t index )
+void ledOFF( unsigned index )
 {
     ring_ = index / NUM_RING  + 1;
     led_ = ( index % NUM_LED_IN_RING ) + 1;
@@ -109,10 +110,10 @@ void ledOFF( size_t index )
     last_active_[index] = millis();
 }
 
-size_t get_coupling( )
+unsigned get_coupling( )
 {
-    size_t res = 0;
-    for (size_t i = 0; i < NUM_LED_IN_RING * NUM_RING; i++) 
+    unsigned res = 0;
+    for (unsigned i = 0; i < NUM_LED_IN_RING * NUM_RING; i++) 
         if( status_[i] )
             res += 1;
     return res;
@@ -125,7 +126,7 @@ size_t get_coupling( )
  * @Param index
  */
 /* ----------------------------------------------------------------------------*/
-void update( size_t index )
+void update( unsigned index )
 {
     // Check if led is ON. If it is ON, switch it OFF.
     if( status_[index] )
@@ -138,8 +139,8 @@ void update( size_t index )
     else
     {
         // The probability of each LED to go up is small.
-        size_t coupling = get_coupling( );
-        if( random(0, NUM_RING*NUM_LED_IN_RING) < 10 + coupling )
+        unsigned coupling = get_coupling( );
+        if( random(0, NUM_RING*NUM_LED_IN_RING) < (5 + coupling) )
             ledON( index );
     }
 }
@@ -147,8 +148,13 @@ void update( size_t index )
 
 void loop()
 { 
-    for (size_t i = 0; i < NUM_LED_IN_RING * NUM_RING; i++) 
+    for (unsigned i = 0; i < NUM_LED_IN_RING * NUM_RING; i++) 
+    {
         update( i );
+        Serial.print( status_[i] );
+        Serial.print( ' ' );
+    }
+    Serial.println(' ');
 
-    delay( 200 );
+    delay( 100 );
 }
