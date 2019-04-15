@@ -106,7 +106,7 @@ We can split this calculation into the following parts:
     I.e., maximizing $D(P^*||Q)$ requires maximizing $H(P^*)$.
     \end{solution}
 
-    \part[5] Find the distribution $P^*$. E.g. let the proportion of 1s be an
+    \part[7] Find the distribution $P^*$. E.g. let the proportion of 1s be an
     unknown $x$. Use some intuition to set the rest of the distribution. 
     Then use calculus to minimize. You can find the answer analytically.
 
@@ -124,17 +124,49 @@ We can split this calculation into the following parts:
         $\frac{dH(P^*)}{da}=0$. 
 
         We have,
-
         \begin{align}
-            \ln(a) + 2\ln(2a) - 3\ln(\frac{1-3a}{4}) =0
+            \ln(a) + 2\ln(2a) - 3\ln(\frac{1-3a}{4}) &= 0 \\
+            \frac{a(2a)^2}{\left( \frac{1-3a}{4}\right)^3} &= 1 \\
+            a &= 0.1069
         \end{align}
+
+        That is we have, 
+
+        $P^*=\left(0.1069, 0.2138, 0.16978, 0.16978, 0.16978,0.16978\right)$,
+        and $H(P^*)=2.558238$ bits. Therefore
+        $D(P^*||Q)=\ln(6)-2.558238=0.026724501$ bits.
 
     \end{solution}
 
-    \part What is the probability that the outcome of $n$ die rolls belongs to
+    \part[5] What is the probability that the outcome of $n$ die rolls belongs to
     $P^*$ (and therefore, to $E$ to first order in the exponent)?
 
-    \part (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
+    \begin{solution}
+        $\Pr(E) \approx 2^{-nD(P^*||Q)} = 2^{-0.0267n}$. For $n=100$,
+        $\Pr(E)=0.1571$ etc.
+    \end{solution}
+
+    \bonuspart[15] Verify your answer for n = 250 by Monte Carlo simulation.
+    \begin{solution}
+        From before, the expected answer is $2^{-250\times 0.0267}=0.0097864$
+        bits. The $\Pr(E)$ must be larger than this.
+
+        \begin{verbatim}
+ANS: 0.001480 after 100000 trials.
+ANS: 0.001380 after 200000 trials.
+ANS: 0.001383 after 300000 trials.
+ANS: 0.001395 after 400000 trials.
+ANS: 0.001348 after 500000 trials.
+ANS: 0.001397 after 600000 trials.
+ANS: 0.001401 after 700000 trials.
+ANS: 0.001385 after 800000 trials.
+ANS: 0.001389 after 900000 trials.
+        \end{verbatim}
+
+        Which is not close!
+
+    \end{solution}
+
 
 \end{parts}
 
