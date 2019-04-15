@@ -1,0 +1,9 @@
+digraph ss {
+    DOT[label="."];
+    DASH[label="--"];
+
+    DOT -> {DASH; DOT; LS; WS}[label="1/4"];
+    DASH -> {DASH; DOT; LS; WS}[label="1/4"];
+    LS -> {DOT; DASH}[label="1/2"];
+    WS -> {DOT; DASH}[label="1/2"];
+}
