@@ -3,18 +3,16 @@
 \usepackage[margin=15mm]{geometry}
 \usepackage{listings}
 \usepackage{pgfplots}
+\usepackage{amsmath}
 \usepgfplotslibrary{ternary}
 \usepackage{concrete}
 \usepackage{libertine}
 \usepackage{hyperref}
-% \usepackage{luacode}
 \usepackage{fontspec}
-% \usepackage{dot2texi}
 \usepackage[pdf]{graphviz}
-% \usetikzlibrary{graphs,graphdrawing}
-% \usegdlibrary{force,trees,layered}
 \setmonofont{inconsolata}
 \lstset{basicstyle=\ttfamily}
+\usepackage{breqn}
 
 \title{Homework 3}
 \author{Dilawar Singh}
@@ -82,16 +80,56 @@ We can split this calculation into the following parts:
 
 \begin{parts}
     
-    \part What is the constraint equation for the set $E$ of types (or empirical distributions)
+    \part[3] What is the constraint equation for the set $E$ of types (or empirical distributions)
     $P_{x^n}$ which satisfy the required condition?
+    
+    \begin{solution}
+        That the number of 2s are at least twice as many as number of 1s i.e.
+        $\Pr(2) \ge 2\Pr(1)$
+    \end{solution}
 
-    \part Let $Q$ be the uniform distribution. Show that the member $P^*$ of $E$
+    \part[5] Let $Q$ be the uniform distribution. Show that the member $P^*$ of $E$
     which minimizes the relative entropy $D(P^*||Q)$ is the maximum entropy
     distribution subject to the constraints from (a).
 
-    \part Find the distribution $P^*$. E.g. let the proportion of 1s be an
+    \begin{solution}
+
+    $Q=\left(1/6,1/6,\ldots 1/6\right)$ and 
+    $P^*=\left(a, 2a, c, d, e, f\right)$ where $3a+c+d+e+f=1$.
+
+    \begin{dmath}
+        D(P^*||Q) = p(x)\log \frac{p(x)}{q(x)} \\
+          = a\ln(6a)+2a\ln(12a)+c\ln(6c)+\ldots+f\ln(6f) \\
+          = a\ln(a)+2a\ln(2a)+\ldots+f\ln(f)+\ln(6)\left(a+2a+c+d+e+f\right) \\
+          = H(a,2a,c,d,e,f)+\ln(6)
+    \end{dmath}
+    I.e., maximizing $D(P^*||Q)$ requires maximizing $H(P^*)$.
+    \end{solution}
+
+    \part[5] Find the distribution $P^*$. E.g. let the proportion of 1s be an
     unknown $x$. Use some intuition to set the rest of the distribution. 
     Then use calculus to minimize. You can find the answer analytically.
+
+    \begin{solution}
+        Recall that uniform distribution maximized entropy. We set
+        $c,d,e,f=b$. Now $3a+4b=1\implies b= (1-3a)/4$. This gives us,
+
+        \begin{align}
+            H(P^*) &= H(a,2a,b,b,b,b) \\
+                   &= -a\ln(a)-2a\ln(2a)-4b\ln(b) \\
+                   &= -a\ln(a)-2a\ln(2a)-(1-3a)\ln(\frac{1-3a}{4})
+        \end{align}
+
+        To find the value of $a$ for which $H(P^*)$ is maximum, we set
+        $\frac{dH(P^*)}{da}=0$. 
+
+        We have,
+
+        \begin{align}
+            \ln(a) + 2\ln(2a) - 3\ln(\frac{1-3a}{4}) =0
+        \end{align}
+
+    \end{solution}
 
     \part What is the probability that the outcome of $n$ die rolls belongs to
     $P^*$ (and therefore, to $E$ to first order in the exponent)?
