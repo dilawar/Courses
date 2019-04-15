@@ -1,0 +1,74 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[twocolumn, answers]{exam}
+\usepackage[margin=15mm]{geometry}
+\usepackage{listings}
+\usepackage{pgfplots}
+\usepgfplotslibrary{ternary}
+\usepackage{concrete}
+\usepackage{libertine}
+\usepackage{hyperref}
+\usepackage{luacode}
+\usepackage{fontspec}
+\setmonofont{inconsolata}
+\lstset{basicstyle=\ttfamily}
+
+\title{Homework 3}
+\author{Dilawar Singh}
+\date{\today}
+
+% Set up counters for problems and subsections
+\begin{document}
+\maketitle
+
+\begin{questions}
+
+\question
+
+\textbf{Entropy Rate of Markov Process}
+
+The Morse code uses dots, dashes, and two types of spaces: letter and word
+spaces. Spaces only occur as delimiters; that is, no space can follow another
+space. What is the entropy rate achievable under these constraints?  Hint: take
+a look at Shannon’s 1948 paper for a start, and Example 5.1.3 of C\&T, but use
+different notation. Write it out as a Markov process whose states are [.], [-],
+[L- space], [W-space]. Assume that all allowed outputs from any state are
+equally likely.
+
+\begin{solution}
+    
+\end{solution}
+
+
+
+\question 
+
+\textbf{Large Deviation Theory} We roll a fair six-sided die $n$ times, where
+$n$ is large. What is the probability that the number of 2s is at least double 
+the number of 1s in the resulting string? Of strings which satisfy this condition, 
+what proportion of values will be 1s?
+
+We can split this calculation into the following parts:
+
+\begin{parts}
+    
+    \part What is the constraint equation for the set $E$ of types (or empirical distributions)
+    $P_{x^n}$ which satisfy the required condition?
+
+    \part Let $Q$ be the uniform distribution. Show that the member $P^*$ of $E$
+    which minimizes the relative entropy $D(P^*||Q)$ is the maximum entropy
+    distribution subject to the constraints from (a).
+
+    \part Find the distribution $P^*$. E.g. let the proportion of 1s be an
+    unknown $x$. Use some intuition to set the rest of the distribution. 
+    Then use calculus to minimize. You can find the answer analytically.
+
+    \part What is the probability that the outcome of $n$ die rolls belongs to
+    $P^*$ (and therefore, to $E$ to first order in the exponent)?
+
+    \part (Optional) Verify your answer for n = 250 by Monte Carlo simulation.
+
+\end{parts}
+
+\end{questions}
+
+\end{document}
