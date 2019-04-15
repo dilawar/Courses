@@ -22,8 +22,7 @@ def using_numpy(n = 250):
         if bins[2] >= 2*bins[1]:
             found += 1
         if i % 100000 == 0:
-            #  print( f"ANS: {found/i:.8f} after {i} trials.")
-            print(found/i)
+            print( f"ANS: {found/i:.8f} after {i} trials.")
 
 def main(n=250):
     using_numpy(n)

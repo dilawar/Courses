@@ -143,13 +143,13 @@ We can split this calculation into the following parts:
 
     \begin{solution}
         $\Pr(E) \approx 2^{-nD(P^*||Q)} = 2^{-0.0267n}$. For $n=100$,
-        $\Pr(E)=0.1571$ etc.
+        $\Pr(E) \approx 0.1571$ etc.
     \end{solution}
 
-    \bonuspart[15] Verify your answer for n = 250 by Monte Carlo simulation.
+    \bonuspart[10] Verify your answer for n = 250 by Monte Carlo simulation.
     \begin{solution}
-        From before, the expected answer is $2^{-250\times 0.0267}=0.0097864$
-        bits. The $\Pr(E)$ must be larger than this.
+        From before, the expected answer is $2^{-250\times 0.0267}=0.0097864$. 
+        The $\Pr(E)$ must be larger than this.
 
         \begin{verbatim}
 ANS: 0.001480 after 100000 trials.
@@ -163,7 +163,9 @@ ANS: 0.001385 after 800000 trials.
 ANS: 0.001389 after 900000 trials.
         \end{verbatim}
 
-        Which is not close!
+        Which is not close! Script is here
+        \url{http://github.com/dilawar/courses/raw/master/TASHIP/InformationTheory2019/HW4/prob2e.py}.
+        Let's see what you guys have done.
 
     \end{solution}
 
