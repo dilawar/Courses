@@ -1,0 +1,14 @@
+/* Solution to HW6 */
+load(contrib_ode)$
+
+/* parameters */
+
+/*
+v0 : 12.5$
+v1 : 200$
+gamma : 1$
+K1K2 : 10e-4$
+*/
+
+eq1 : 'diff(x(t), t) = (v0 + v1 * K1K2 * x(t)^2) / (1+K1K2*x(t)^2) - gamma * x(t);
+contrib_ode(eq1, x, t);
