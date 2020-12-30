@@ -1,1 +1,0 @@
--- Solves monopoly

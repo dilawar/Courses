@@ -1,7 +1,0 @@
-digraph simpleChannel {
-    xA -> yA;
-    xB -> yB;
-    xC -> yC;
-    xD -> yD [ label = "8/9" ];
-    xD -> yA [ label = "1/9" ];
-}

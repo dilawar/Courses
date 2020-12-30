@@ -1,5 +1,0 @@
-cmake_minimum_required(VERSION 2.6)
-set(cmake_cxx_compiler clang++)
-project(Axon)
-add_executable(Axon axon.cpp)
-target_link_libraries(Axon cln ginac)
