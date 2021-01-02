@@ -62,22 +62,56 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+function [htheta Del2 Del3] = forward(x, theta1, theta2, y) 
+    a1 = [1; x'];
 
+    % second layer
+    z2 = theta1 * a1;
+    a2 = [1; sigmoid(z2)];
 
+    % third layer
+    z3 = theta2 * a2;
+    a3 = sigmoid(z3);
 
+    htheta = a3;
 
+    % error term.
+    assert(size(a3) == size(y'));
+    del3 = (a3 - y');
+    Del3 = del3 * a2';
+    del2 = ((Theta2'(2:end,:) * del3) .* sigmoidGradient(z2));
+    Del2 = del2 * a1';
+end
 
+for i = 1:m
+    xi = X(i, :);
+    yki = zeros(1, num_labels);
+    k = y(i);
+    yki(k) = 1;
+    [htheta, Del2, Del3] = forward(xi, Theta1, Theta2, yki);
+    J += -yki * log(htheta) - (1-yki) * log(1-htheta);
 
+    Theta1_grad += Del2;
+    Theta2_grad += Del3;
 
+end
 
+J /= m;
 
+% J += lambda / 2 / m * (sum(sum(Theta1 .^ 2)) + sum(sum(Theta2 .^ 2)));
+J += lambda / 2 / m * (sum(sum(Theta1(:,2:end) .^ 2)) + sum(sum(Theta2(:,2:end) .^ 2)));
 
+Theta1_grad /= m;
+Theta2_grad /= m;
 
+assert( size(Theta2_grad) == size(Theta2))
+assert( size(Theta1_grad) == size(Theta1))
 
+Theta1_grad(:, 2:end) += (lambda / m) .* Theta1(:, 2:end);
+Theta2_grad(:, 2:end) += (lambda / m) .* Theta2(:, 2:end);
 
-
-
-
+%Theta1_grad += (lambda/m) .* Theta1;
+%Theta2_grad += (lambda/m) .* Theta2;
 
 
 % -------------------------------------------------------------
