@@ -58,14 +58,14 @@ for i = 1:m
     yi = y(1:i);
     theta = trainLinearReg(xi, yi, 0);
     yy = xi * theta;
-    error_train(i) = sum((yy - yi) .^ 2) / 2/ i;
+    error_train(i) = sum((yy - yi) .^ 2);
 
-    xii = Xval(1:i, :);
-    yii = yval(1:i);
-    thetai = trainLinearReg(xii, yii, 0);
-    yyi = xii * thetai;
-    error_val(i) = sum((yyi - yii) .^ 2) / 2 / i;
+    yvali = Xval * theta;
+    error_val(i) = sum((yvali - yval) .^ 2);
 end
+
+error_val /= (2*m);
+error_train /= (2*m);
 
 
 end
