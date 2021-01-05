@@ -26,7 +26,7 @@ for i = 1:m
     xi = X(i, :);
     htheta = xi * theta;
     J += (htheta - y(i)) ^ 2;
-    grad += (htheta - y(i)) .* xi' + lambda * theta1;
+    grad += (htheta - y(i)) .* xi'; 
 end
 
 
@@ -35,6 +35,7 @@ J /= (2*m);
 
 % =========================================================================
 
+grad += (lambda * theta1);
 grad /= m;
 grad = grad(:);
 
