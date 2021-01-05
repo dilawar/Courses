@@ -25,12 +25,12 @@ theta1(1) = 0;
 for i = 1:m
     xi = X(i, :);
     htheta = xi * theta;
-    J += (htheta - y(i)) ^ 2;
+    J += (htheta - y(i)) .^ 2;
     grad += (htheta - y(i)) .* xi'; 
 end
 
 
-J += sum(theta(2,:).^2) * lambda;
+J += sum(theta1.^2) * lambda;
 J /= (2*m);
 
 % =========================================================================
