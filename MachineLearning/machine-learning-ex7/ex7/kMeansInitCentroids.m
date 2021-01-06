@@ -13,6 +13,8 @@ centroids = zeros(K, size(X, 2));
 %               the dataset X
 %
 
+randindex = randperm(size(X, 1));
+centroids = X(randindex(1:K), :);  % pick first K number after shuffling.
 
 
 
