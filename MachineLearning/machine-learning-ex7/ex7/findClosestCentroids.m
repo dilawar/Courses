@@ -21,6 +21,18 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+for i = 1:size(X, 1)
+    xi = X(i, :);
+    D = [];
+    for j = 1:K
+        centroid = centroids(j, :);
+        D = [D; [sum((centroid - xi) .^ 2), j]];
+    end
+    % closest centroid index.
+    idx(i) = sortrows(D, 1)(1, 2);
+end
+
+
 
 
 
